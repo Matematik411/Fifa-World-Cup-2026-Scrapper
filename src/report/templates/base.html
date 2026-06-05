@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}World Cup 2026 Guide{% endblock %}</title>
+<style>{{ css }}</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <span class="brand">WC&nbsp;2026 <span class="dot">●</span> Guide</span>
+    <nav class="tabs">
+      {% for fn, label in pages %}
+      <a href="{{ fn }}" class="{{ 'active' if fn == active else '' }}">{{ label }}</a>
+      {% endfor %}
+    </nav>
+  </div>
+</header>
+<div class="wrap">
+  <div class="meta-bar">
+    <span class="stage-pill">{{ stage_label }}</span>
+    <span>Generated {{ generated_at_cet }}</span>
+    <span>Run {{ run_date }}</span>
+    {% if n_sims %}<span>{{ "{:,}".format(n_sims) }} simulations</span>{% endif %}
+  </div>
+
+  {% if warnings %}
+  <div class="warn"><strong>Notes:</strong>
+    {% for w in warnings %}{{ w }}{% if not loop.last %} · {% endif %}{% endfor %}
+  </div>
+  {% endif %}
+
+  {% block content %}{% endblock %}
+
+  <footer class="foot">
+    <div class="grid cols-2">
+      <div>
+        <h4>Method &amp; confidence</h4>
+        <p>One shared forecast model (de-vigged market odds + Elo + public models → Dixon–Coles scorelines →
+        Monte-Carlo of the full 48-team / Round-of-32 bracket) feeds both games. Each recommendation is a single
+        decisive call with a <span class="conf High">High</span>/<span class="conf Med">Med</span>/<span class="conf Low">Low</span>
+        confidence tag. Predictions are EV-maximizing (not just the most likely score). Fantasy picks are
+        horizon-weighted by advancement. Re-run daily for fresh data — see the changelog for what moved.</p>
+      </div>
+      <div>
+        <h4>Sources</h4>
+        <ul>
+          {% for cat, urls in sources.items() %}
+            {% if urls %}<li><strong>{{ cat|replace('_',' ') }}:</strong>
+              {% for u in urls[:4] %}<a href="{{ u }}">{{ u|replace('https://','')|replace('http://','') }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
+            </li>{% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <p class="small">Self-contained report — opens offline, prints cleanly. Not affiliated with FIFA or RTV SLO.
+    Odds/lineups move; the recommendations reflect data as of the run timestamp above.</p>
+  </footer>
+</div>
+<script>{{ sort_js }}</script>
+</body>
+</html>

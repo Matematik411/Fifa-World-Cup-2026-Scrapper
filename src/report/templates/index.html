@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% block title %}Dashboard — WC 2026 Guide{% endblock %}
+{% block content %}
+<h1>What to do right now</h1>
+<p class="lede">Two games, two single recommendations to follow. Everything below is the optimal call — no menus.</p>
+
+<div class="grid cols-3">
+  <div class="card kpi countdown">
+    <div class="num">{{ next_deadline.countdown }}</div>
+    <div class="lbl">to next lock</div>
+    <div class="small muted" style="margin-top:6px">{{ next_deadline.cet }}</div>
+  </div>
+  {% if fantasy %}
+  <div class="card kpi">
+    <div class="num">{{ fantasy.squad.captain.name.split(' ')[-1] }}</div>
+    <div class="lbl">captain ({{ fantasy.squad.captain.exp_next|r(1) }} ×2)</div>
+    <div class="small muted" style="margin-top:6px">{{ fantasy.squad.formation }} · {{ fantasy.squad.cost|price }} spent · {{ fantasy.squad.bank|price }} bank</div>
+  </div>
+  {% endif %}
+  <div class="card kpi">
+    <div class="num">{{ predictions|length }}</div>
+    <div class="lbl">score predictions ready</div>
+    <div class="small muted" style="margin-top:6px">{{ first_day_matches|length }} due on {{ first_day }}</div>
+  </div>
+</div>
+
+<h2>Action list</h2>
+<ul class="actions">
+  {% if fantasy %}
+  <li>
+    <div class="a-do">① Set your 15-man Fantasy squad, XI &amp; captain ({{ fantasy.squad.captain.name }}) before {{ next_deadline.cet }}.</div>
+    <div class="a-sub">Formation {{ fantasy.squad.formation }}, {{ fantasy.squad.cost|price }} spent ({{ fantasy.squad.bank|price }} in the bank). Transfers are unlimited until the first kickoff, so finalise it then. → <a href="fantasy.html">Full squad &amp; reasoning</a></div>
+  </li>
+  {% endif %}
+  <li>
+    <div class="a-do">② Enter {{ first_day_matches|length }} Nostradamus score predictions for {{ first_day }} (group-stage values, single).</div>
+    <div class="a-sub">
+      {% for r in first_day_matches %}{{ r.home }} <b>{{ r.pred_home }}-{{ r.pred_away }}</b> {{ r.away }}{% if not loop.last %} · {% endif %}{% endfor %}
+      → <a href="predictions.html">All predictions, deadlines &amp; rationale</a>
+    </div>
+  </li>
+  {% if fantasy and fantasy.chips %}
+  <li>
+    <div class="a-do">③ Chips: hold them all for now.</div>
+    <div class="a-sub">{% for c in fantasy.chips %}<b>{{ c.chip }}</b> — {{ c.action }}. {% endfor %}</div>
+  </li>
+  {% endif %}
+</ul>
+
+<h2>Highest-value predictions today</h2>
+<div class="card">
+  <div class="table-scroll"><table>
+    <thead><tr><th>Match</th><th>Pick</th><th>P (1/X/2)</th><th class="num sortable">EV</th><th>Conf</th></tr></thead>
+    <tbody>
+    {% for r in first_day_matches|sort(attribute='ev', reverse=True) %}
+      <tr>
+        <td>{{ r.home }} v {{ r.away }}</td>
+        <td><span class="scoreline">{{ r.pred_home }}-{{ r.pred_away }}</span></td>
+        <td style="min-width:150px">{{ m.tribar(r.p_home, r.p_draw, r.p_away) }}</td>
+        <td class="num" data-sort="{{ r.ev }}">{{ r.ev|r(2) }}</td>
+        <td>{{ m.conf(r.confidence) }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table></div>
+</div>
+
+{% if fantasy %}
+<h2>Your captain &amp; key men</h2>
+<div class="grid cols-4">
+  {% for p in fantasy.squad.starters|sort(attribute='exp_next', reverse=True)|list %}
+    {% if loop.index <= 4 %}
+    <div class="card">
+      <div style="font-weight:700">{{ p.name }} {% if p.is_captain %}<span class="conf High">CAPTAIN</span>{% endif %}</div>
+      <div class="small muted">{{ m.pos(p.position) }} · {{ p.nation }} · {{ p.price|price }} · {{ p.ownership|r(0) }}% owned</div>
+      <div class="small" style="margin-top:6px">{{ p.exp_next|r(1) }} pts next match · {{ p.why }}</div>
+      <div style="margin-top:6px">{{ m.tags(p.tags) }}</div>
+    </div>
+    {% endif %}
+  {% endfor %}
+</div>
+{% endif %}
+
+<p class="small muted" style="margin-top:20px">Pages: <a href="fantasy.html">Fantasy</a> · <a href="predictions.html">Predictions</a> · <a href="model.html">Model &amp; odds</a> · <a href="changelog.html">Changelog</a></p>
+{% endblock %}

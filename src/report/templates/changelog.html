@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% block title %}Changelog — WC 2026 Guide{% endblock %}
+{% block content %}
+<h1>What changed &amp; how we're doing</h1>
+
+<h2>Running performance</h2>
+<div class="grid cols-3">
+  <div class="card kpi"><div class="num">{{ performance.nostradamus_points }}</div><div class="lbl">Nostradamus points</div></div>
+  <div class="card kpi"><div class="num">{{ performance.fantasy_points }}</div><div class="lbl">Fantasy points</div></div>
+  <div class="card kpi"><div class="num">{{ performance.predictions_scored }}</div><div class="lbl">matches scored</div></div>
+</div>
+
+{% if scored_results %}
+<h3>Results since last run ({{ scoring_total }} Nostradamus pts)</h3>
+<div class="card"><div class="table-scroll"><table>
+  <thead><tr><th>Match</th><th>Our pick</th><th>Actual</th><th class="num">Points</th></tr></thead>
+  <tbody>
+  {% for s in scored_results %}
+    <tr><td>{{ s.home }} v {{ s.away }}</td><td>{{ s.pred }}</td><td><b>{{ s.actual }}</b></td>
+    <td class="num {{ 'up' if s.points >= 2 else ('muted' if s.points == 1 else 'down') }}">{{ s.points }}</td></tr>
+  {% endfor %}
+  </tbody>
+</table></div></div>
+{% endif %}
+<p class="small muted">These come from <code>state.json</code> (your real results). Update them as matches finish — the
+runbook explains how — so each run can score how the strategy is doing. {% if not performance.owned_set %}<b>No real squad recorded yet</b> — confirm your team in <code>state.json</code> after you set it.{% endif %}</p>
+
+<h2>Changes since last run</h2>
+{% if not changelog.prev_run %}
+<div class="note">{{ changelog.note }} Future runs will diff against the previous day here: which score predictions
+flipped and why, squad/transfer changes, and bookmaker/advancement moves.</div>
+{% else %}
+<p class="small muted">{{ changelog.note }}</p>
+
+<div class="grid cols-2">
+  <div class="card">
+    <h3>Prediction flips ({{ changelog.pred_flips|length }})</h3>
+    {% if changelog.pred_flips %}
+      <table><thead><tr><th>Match</th><th>Was</th><th></th><th>Now</th></tr></thead><tbody>
+        {% for f in changelog.pred_flips %}<tr><td>#{{ f.num }}</td><td class="muted">{{ f.from }}</td><td>→</td><td class="flip">{{ f.to }}</td></tr>{% endfor %}
+      </tbody></table>
+    {% else %}<div class="muted small">No score predictions changed.</div>{% endif %}
+  </div>
+  <div class="card">
+    <h3>Squad changes ({{ changelog.squad_changes|length }})</h3>
+    {% if changelog.squad_changes %}
+      <ul class="small">{% for c in changelog.squad_changes %}<li><b>{{ c.change|upper }}</b>: player #{{ c.pid }}</li>{% endfor %}</ul>
+    {% else %}<div class="muted small">Recommended squad unchanged.</div>{% endif %}
+  </div>
+</div>
+
+<div class="card">
+  <h3>Title-odds moves</h3>
+  {% if changelog.odds_moves %}
+    <table><thead><tr><th>Team</th><th class="num">Was</th><th class="num">Now</th><th class="num">Δ</th></tr></thead><tbody>
+      {% for o in changelog.odds_moves %}
+      <tr><td>{{ o.team }}</td><td class="num muted">{{ o.from|pct(1) }}</td><td class="num">{{ o.to|pct(1) }}</td>
+      <td class="num {{ 'up' if o.to>o.from else 'down' }}">{{ ((o.to-o.from)*100)|signed(1) }}pp</td></tr>
+      {% endfor %}
+    </tbody></table>
+  {% else %}<div class="muted small">No material title-odds moves.</div>{% endif %}
+</div>
+{% endif %}
+{% endblock %}

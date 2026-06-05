@@ -1,0 +1,391 @@
+{
+  "game": "FIFA World Cup Fantasy 2026 (official, FANTASY_CLASSIC app)",
+  "as_of": "2026-06-05",
+  "discovery_method": "Fetched the SPA at https://play.fifa.com/fantasy, parsed main bundle index-0TQp455r.js for axios base URLs (uR='//play.fifa.com/api/', Rf='//play.fifa.com/json/', path prefix 'fantasy/'), then fetched the lazy FANTASY_CLASSIC chunk index-D5RkYG30.js whose data layer calls Bt.get('players.json'/'squads.json'/'rounds.json'/'contests.json') on the static-JSON axios instance (base //play.fifa.com/json/fantasy/). Verified each URL live with urllib (HTTP 200 + JSON parse).",
+  "base_urls": {
+    "static_json_feeds_UNAUTH": "https://play.fifa.com/json/fantasy/  (read-only game data; the deliverable feeds live here)",
+    "game_api_AUTH": "https://play.fifa.com/api/{lang}/fantasy/  (user team/transfers/boosters/leagues; requires FIFA login cookie, withCredentials)"
+  },
+  "endpoints": [
+    {
+      "url": "https://play.fifa.com/json/fantasy/players.json",
+      "returns": "Full FANTASY_CLASSIC player pool. JSON array of player objects (id, names, squadId, position, price, status, percentSelected ownership, roundsSelected, stats{totalPoints,avgPoints,form,lastRoundPoints,roundPoints,nextFixture...}, oneToWatch, qualificationRoundIds, fifaId).",
+      "count": 1481,
+      "content_type": "application/json",
+      "verified": true,
+      "auth_required": false
+    },
+    {
+      "url": "https://play.fifa.com/json/fantasy/squads.json",
+      "returns": "All 48 teams/nations: {id,name,group,abbr,isEliminated}. squadId in players.json joins to squads[].id.",
+      "count": 48,
+      "content_type": "application/json",
+      "verified": true,
+      "auth_required": false
+    },
+    {
+      "url": "https://play.fifa.com/json/fantasy/rounds.json",
+      "returns": "8 rounds (1-3=group MD1-3, 4=R32,5=R16,6=QF,7=SF,8=Final). Each round: {id,status,startDate,endDate,stage,tournaments:[...]} where 'tournaments' is the fixture list (id,date,venueName,venueCity,status,homeSquadId,awaySquadId,homeSquadName,awaySquadName,homeScore,awayScore,homePenaltyScore,homeGoalScorersAssists,...).",
+      "count": 8,
+      "content_type": "application/json",
+      "verified": true,
+      "auth_required": false
+    },
+    {
+      "url": "https://play.fifa.com/json/fantasy/checksums.json",
+      "returns": "Cache-busting checksums for the static feeds: {rounds, players}. Poll to detect when players/rounds change.",
+      "count": 2,
+      "content_type": "application/json",
+      "verified": true,
+      "auth_required": false
+    },
+    {
+      "url": "https://play.fifa.com/json/fantasy/help_pages.json",
+      "returns": "Official rules text (how_to_play) in EN/DE/ES/FR as HTML. AUTHORITATIVE source for scoring/squad/transfer/booster rules.",
+      "count": 1,
+      "content_type": "application/json",
+      "verified": true,
+      "auth_required": false
+    },
+    {
+      "url": "https://play.fifa.com/json/fantasy/faq.json",
+      "returns": "18 FAQ entries {id,title,text,game}.",
+      "count": 18,
+      "content_type": "application/json",
+      "verified": true,
+      "auth_required": false
+    },
+    {
+      "url": "https://play.fifa.com/json/fantasy/player_stats/{playerId}.json",
+      "returns": "Per-player detailed stats/history (template from bundle: Bt.get('player_stats/${id}.json')). Not bulk-fetched; per-id.",
+      "count": null,
+      "content_type": "application/json",
+      "verified": false,
+      "auth_required": false,
+      "note": "Discovered in bundle; not individually tested but same base as the verified feeds."
+    },
+    {
+      "url": "https://play.fifa.com/json/fantasy/contests.json",
+      "returns": "Intended contests list, but returns HTTP 403 unauthenticated (only feed in this dir that is blocked).",
+      "count": null,
+      "content_type": null,
+      "verified": false,
+      "auth_required": true
+    },
+    {
+      "url": "https://play.fifa.com/api/{lang}/fantasy/team",
+      "returns": "Authenticated user's saved team (GET) / save (POST). lang e.g. 'en'. Requires FIFA SSO cookie.",
+      "count": null,
+      "verified": false,
+      "auth_required": true
+    },
+    {
+      "url": "https://play.fifa.com/api/{lang}/fantasy/transfers/show/{round}",
+      "returns": "User transfer state for a round (auth).",
+      "count": null,
+      "verified": false,
+      "auth_required": true
+    },
+    {
+      "url": "https://play.fifa.com/api/{lang}/fantasy/ranking/overall",
+      "returns": "Overall leaderboard (auth).",
+      "count": null,
+      "verified": false,
+      "auth_required": true
+    }
+  ],
+  "player_schema": {
+    "id": "int (unique player id; join key)",
+    "firstName": "str",
+    "lastName": "str",
+    "knownName": "str|null (display name when set, e.g. 'Bruno Fernandes', 'Lamine Yamal'; null -> use lastName)",
+    "squadId": "int (FK -> squads.json id / nation)",
+    "position": "str enum: GK|DEF|MID|FWD",
+    "price": "number ($m, fixed all tournament; observed 3.5-10.5)",
+    "status": "str enum observed: 'playing' (1248) | 'transferred' (233, left squad / unavailable)",
+    "matchStatus": "str|null (live match flag; null pre-tournament)",
+    "percentSelected": "number (OWNERSHIP %, current round)",
+    "roundsSelected": "object {roundId(str): ownership% }",
+    "stats": {
+      "totalPoints": "int",
+      "avgPoints": "number",
+      "form": "number",
+      "lastRoundPoints": "int",
+      "roundPoints": "array (per-round points; empty pre-tournament)",
+      "nextFixtureFromActiveRound": "int|null (fixture/tournament id)",
+      "nextFixtureFromScheduledRound": "int|null (fixture/tournament id)"
+    },
+    "oneToWatch": "bool (FIFA 'one to watch' flag)",
+    "oneToWatchText": "str|null",
+    "qualificationRoundIds": "array (KO rounds the player's team has qualified for)",
+    "fifaId": "str|null (external FIFA id; null pre-tournament)"
+  },
+  "squad_schema": {
+    "id": "int",
+    "name": "str (nation)",
+    "group": "str (a-l, World Cup group)",
+    "abbr": "str (3-letter)",
+    "isEliminated": "bool"
+  },
+  "rounds_schema": {
+    "id": "int (1-8)",
+    "status": "str (scheduled|...)",
+    "startDate": "ISO8601",
+    "endDate": "ISO8601",
+    "stage": "str (GROUP|...)",
+    "tournaments": "array of fixture objects (see endpoints note)"
+  },
+  "player_count": 1481,
+  "position_breakdown": {
+    "GK": 181,
+    "DEF": 482,
+    "MID": 512,
+    "FWD": 306
+  },
+  "price_range": [
+    3.5,
+    10.5
+  ],
+  "sample_players": [
+    {
+      "id": 500,
+      "firstName": "Kylian",
+      "lastName": "Mbappé",
+      "knownName": null,
+      "squadId": 19,
+      "position": "FWD",
+      "price": 10.5,
+      "status": "playing",
+      "matchStatus": null,
+      "percentSelected": 50.9,
+      "roundsSelected": {
+        "1": 50.9
+      },
+      "stats": {
+        "totalPoints": 0,
+        "avgPoints": 0,
+        "form": 0,
+        "lastRoundPoints": 0,
+        "roundPoints": [],
+        "nextFixtureFromActiveRound": null,
+        "nextFixtureFromScheduledRound": 17
+      },
+      "oneToWatch": false,
+      "oneToWatchText": null,
+      "qualificationRoundIds": [],
+      "fifaId": null,
+      "_squadName": "France"
+    },
+    {
+      "id": 939,
+      "firstName": "Bruno Miguel",
+      "lastName": "Borges Fernandes",
+      "knownName": "Bruno Fernandes",
+      "squadId": 35,
+      "position": "MID",
+      "price": 8.5,
+      "status": "playing",
+      "matchStatus": null,
+      "percentSelected": 48.9,
+      "roundsSelected": {
+        "1": 48.9
+      },
+      "stats": {
+        "totalPoints": 0,
+        "avgPoints": 0,
+        "form": 0,
+        "lastRoundPoints": 0,
+        "roundPoints": [],
+        "nextFixtureFromActiveRound": null,
+        "nextFixtureFromScheduledRound": 21
+      },
+      "oneToWatch": false,
+      "oneToWatchText": null,
+      "qualificationRoundIds": [],
+      "fifaId": null,
+      "_squadName": "Portugal"
+    },
+    {
+      "id": 1092,
+      "firstName": "Lamine Yamal",
+      "lastName": "Nasraoui Ebana",
+      "knownName": "Lamine Yamal",
+      "squadId": 41,
+      "position": "MID",
+      "price": 10,
+      "status": "playing",
+      "matchStatus": null,
+      "percentSelected": 44.8,
+      "roundsSelected": {
+        "1": 44.8
+      },
+      "stats": {
+        "totalPoints": 0,
+        "avgPoints": 0,
+        "form": 0,
+        "lastRoundPoints": 0,
+        "roundPoints": [],
+        "nextFixtureFromActiveRound": null,
+        "nextFixtureFromScheduledRound": 13
+      },
+      "oneToWatch": false,
+      "oneToWatchText": null,
+      "qualificationRoundIds": [],
+      "fifaId": null,
+      "_squadName": "Spain"
+    },
+    {
+      "id": 916,
+      "firstName": "Nuno Alexandre",
+      "lastName": "Tavares Mendes",
+      "knownName": "Nuno Mendes",
+      "squadId": 35,
+      "position": "DEF",
+      "price": 5.8,
+      "status": "playing",
+      "matchStatus": null,
+      "percentSelected": 43.5,
+      "roundsSelected": {
+        "1": 43.5
+      },
+      "stats": {
+        "totalPoints": 0,
+        "avgPoints": 0,
+        "form": 0,
+        "lastRoundPoints": 0,
+        "roundPoints": [],
+        "nextFixtureFromActiveRound": null,
+        "nextFixtureFromScheduledRound": 21
+      },
+      "oneToWatch": false,
+      "oneToWatchText": null,
+      "qualificationRoundIds": [],
+      "fifaId": null,
+      "_squadName": "Portugal"
+    },
+    {
+      "id": 45,
+      "firstName": "Emiliano",
+      "lastName": "Martínez",
+      "knownName": null,
+      "squadId": 2,
+      "position": "GK",
+      "price": 5,
+      "status": "playing",
+      "matchStatus": null,
+      "percentSelected": 22.3,
+      "roundsSelected": {
+        "1": 22.3
+      },
+      "stats": {
+        "totalPoints": 0,
+        "avgPoints": 0,
+        "form": 0,
+        "lastRoundPoints": 0,
+        "roundPoints": [],
+        "nextFixtureFromActiveRound": null,
+        "nextFixtureFromScheduledRound": 19
+      },
+      "oneToWatch": false,
+      "oneToWatchText": null,
+      "qualificationRoundIds": [],
+      "fifaId": null,
+      "_squadName": "Argentina"
+    },
+    {
+      "id": 542,
+      "firstName": "Joshua",
+      "lastName": "Kimmich",
+      "knownName": null,
+      "squadId": 20,
+      "position": "DEF",
+      "price": 5.5,
+      "status": "playing",
+      "matchStatus": null,
+      "percentSelected": 28.6,
+      "roundsSelected": {
+        "1": 28.6
+      },
+      "stats": {
+        "totalPoints": 0,
+        "avgPoints": 0,
+        "form": 0,
+        "lastRoundPoints": 0,
+        "roundPoints": [],
+        "nextFixtureFromActiveRound": null,
+        "nextFixtureFromScheduledRound": 9
+      },
+      "oneToWatch": false,
+      "oneToWatchText": null,
+      "qualificationRoundIds": [],
+      "fifaId": null,
+      "_squadName": "Germany"
+    },
+    {
+      "id": 468,
+      "firstName": "Harry",
+      "lastName": "Kane",
+      "knownName": null,
+      "squadId": 18,
+      "position": "FWD",
+      "price": 10.5,
+      "status": "playing",
+      "matchStatus": null,
+      "percentSelected": 37.8,
+      "roundsSelected": {
+        "1": 37.8
+      },
+      "stats": {
+        "totalPoints": 0,
+        "avgPoints": 0,
+        "form": 0,
+        "lastRoundPoints": 0,
+        "roundPoints": [],
+        "nextFixtureFromActiveRound": null,
+        "nextFixtureFromScheduledRound": 22
+      },
+      "oneToWatch": false,
+      "oneToWatchText": null,
+      "qualificationRoundIds": [],
+      "fifaId": null,
+      "_squadName": "England"
+    },
+    {
+      "id": 517,
+      "firstName": "Michael",
+      "lastName": "Olise",
+      "knownName": null,
+      "squadId": 19,
+      "position": "MID",
+      "price": 9.5,
+      "status": "playing",
+      "matchStatus": null,
+      "percentSelected": 23.4,
+      "roundsSelected": {
+        "1": 23.4
+      },
+      "stats": {
+        "totalPoints": 0,
+        "avgPoints": 0,
+        "form": 0,
+        "lastRoundPoints": 0,
+        "roundPoints": [],
+        "nextFixtureFromActiveRound": null,
+        "nextFixtureFromScheduledRound": 17
+      },
+      "oneToWatch": false,
+      "oneToWatchText": null,
+      "qualificationRoundIds": [],
+      "fifaId": null,
+      "_squadName": "France"
+    }
+  ],
+  "notes": [
+    "FOUND A WORKING UNAUTH FEED. The full FANTASY_CLASSIC player pool is https://play.fifa.com/json/fantasy/players.json -> 1481 players, HTTP 200 application/json, parsed OK. Saved raw to data/raw/2026-06-05/fantasy_players_raw.json.",
+    "CAUTION: there is a SEPARATE feed at https://play.fifa.com/json/players.json (NO /fantasy/) returning a DIFFERENT 736-player set with a different schema (uses 'cost', 'optaId', 'matchDayPoints', 'feedId') - that belongs to another play.fifa.com game (Dream Eleven / Fantasy Daily), NOT the classic Fantasy game. Use the /fantasy/ path.",
+    "Join model: players.json.squadId -> squads.json.id (nation); players.stats.nextFixture* and rounds.json[].tournaments[].id -> fixtures.",
+    "checksums.json is the polite way to detect updates (prices are fixed, but status/ownership/points and rounds/fixtures change during the tournament).",
+    "All write/user endpoints are under https://play.fifa.com/api/{lang}/fantasy/ and require a FIFA SSO login cookie (axios withCredentials); they were identified from the bundle but not exercised (no auth).",
+    "Ownership confirms live June-2026 data: Mbappe 50.9%, Bruno Fernandes 48.9%, Lamine Yamal 44.8%, Kane 37.8% selected."
+  ]
+}

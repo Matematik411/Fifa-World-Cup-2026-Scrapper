@@ -1,0 +1,1473 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Model &amp; odds — WC 2026 Guide</title>
+<style>:root {
+  --bg: #0f1419; --panel: #1a2129; --panel2: #222b35; --ink: #e8edf2; --muted: #9aa7b4;
+  --line: #2d3742; --accent: #00c2a8; --accent2: #4f9dff; --gold: #ffcf4d;
+  --win: #2ecc71; --draw: #95a5a6; --loss: #e74c3c;
+  --hi: #2ecc71; --med: #f5a623; --lo: #e74c3c;
+  --radius: 12px; --maxw: 1080px;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 15px/1.55 -apple-system, BlinkMacSystemFont, &#34;Segoe UI&#34;, Roboto, Helvetica, Arial, sans-serif;
+}
+a { color: var(--accent2); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 16px 64px; }
+
+header.top {
+  position: sticky; top: 0; z-index: 50; background: rgba(15,20,25,.92);
+  backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);
+}
+.top .wrap { padding-top: 12px; padding-bottom: 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
+.brand { font-weight: 700; font-size: 16px; letter-spacing: .2px; margin-right: auto; }
+.brand .dot { color: var(--accent); }
+nav.tabs { display: flex; flex-wrap: wrap; gap: 4px; }
+nav.tabs a {
+  padding: 6px 12px; border-radius: 999px; color: var(--muted); font-weight: 600; font-size: 13px;
+}
+nav.tabs a.active, nav.tabs a:hover { background: var(--panel2); color: var(--ink); text-decoration: none; }
+
+.meta-bar { color: var(--muted); font-size: 12.5px; margin: 14px 0 6px; display: flex; flex-wrap: wrap; gap: 6px 16px; }
+.stage-pill { background: var(--panel2); color: var(--accent); padding: 2px 10px; border-radius: 999px; font-weight: 600; }
+
+h1 { font-size: 26px; margin: 14px 0 4px; }
+h2 { font-size: 19px; margin: 30px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+h3 { font-size: 15px; margin: 18px 0 8px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+p.lede { color: var(--muted); margin-top: 0; }
+
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; margin: 14px 0; }
+.grid { display: grid; gap: 14px; }
+.grid.cols-2 { grid-template-columns: 1fr 1fr; }
+.grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 760px){ .grid.cols-2,.grid.cols-3,.grid.cols-4 { grid-template-columns: 1fr; } .top .wrap{gap:6px;} }
+
+.kpi { text-align: center; }
+.kpi .num { font-size: 30px; font-weight: 800; color: var(--accent); line-height: 1.1; }
+.kpi .lbl { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+
+.countdown { background: linear-gradient(135deg, #142a2e, #1a2129); border-color: #1f4d49; }
+.countdown .num { color: var(--gold); }
+
+.conf { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; text-transform: uppercase; letter-spacing:.04em; }
+.conf.High { background: rgba(46,204,113,.16); color: var(--hi); }
+.conf.Med { background: rgba(245,166,35,.16); color: var(--med); }
+.conf.Low { background: rgba(231,76,60,.16); color: var(--lo); }
+
+.tag { display:inline-block; font-size: 10.5px; font-weight:600; padding: 1px 7px; border-radius: 999px; background: var(--panel2); color: var(--muted); margin: 0 3px 3px 0; }
+.tag.pen, .tag.penalties { background: rgba(255,207,77,.16); color: var(--gold); }
+.tag.differential { background: rgba(79,157,255,.16); color: var(--accent2); }
+.tag.nailed { background: rgba(46,204,113,.14); color: var(--hi); }
+
+ul.actions { list-style: none; padding: 0; margin: 0; }
+ul.actions li { padding: 12px 14px; border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 8px; margin-bottom: 10px; background: var(--panel); }
+ul.actions li .a-do { font-weight: 700; }
+ul.actions li .a-sub { color: var(--muted); font-size: 13px; }
+
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+th, td { text-align: left; padding: 7px 9px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; cursor: pointer; user-select: none; position: sticky; top: 56px; background: var(--bg); }
+th.sortable::after { content: &#34; ⇅&#34;; opacity: .35; font-size: 10px; }
+tbody tr:hover { background: var(--panel2); }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: var(--radius); border: 1px solid var(--line); }
+.table-scroll table th { top: 0; }
+
+.scoreline { font-weight: 800; font-size: 16px; font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+.small { font-size: 12.5px; }
+.right { text-align: right; }
+.center { text-align: center; }
+.pos { font-weight: 700; font-size: 11px; padding: 1px 6px; border-radius: 4px; }
+.pos.GK { background:#6b4ea3; } .pos.DEF { background:#2f6fb0; } .pos.MID { background:#1f8f6f; } .pos.FWD { background:#b0532f; }
+
+/* probability tri-bar */
+.tribar { display:flex; height: 10px; border-radius: 5px; overflow:hidden; min-width: 120px; background:var(--panel2); }
+.tribar i { display:block; height:100%; }
+.tribar .h { background: var(--win); } .tribar .d { background: var(--draw); } .tribar .a { background: var(--loss); }
+.trilabel { font-size: 11px; color: var(--muted); margin-top: 2px; display:flex; justify-content: space-between; }
+
+/* match cards */
+.match { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 8px; }
+.match .team { font-weight: 600; }
+.match .team.away { text-align: right; }
+.match .sc { background: var(--panel2); border-radius: 8px; padding: 6px 12px; text-align:center; }
+.mrow { border-bottom: 1px solid var(--line); padding: 12px 0; }
+.mrow:last-child { border-bottom: none; }
+.mhead { display:flex; justify-content: space-between; align-items:center; gap: 10px; color: var(--muted); font-size: 12px; margin-bottom: 6px; }
+
+/* pitch */
+.pitch { background: linear-gradient(180deg,#15803d22,#14532d10); border: 1px solid #2e7d4f55; border-radius: var(--radius);
+  padding: 18px 8px; display: grid; gap: 14px; background-color: #0e2a18; }
+.pitch .line { display:flex; justify-content: space-around; gap: 6px; flex-wrap: wrap; }
+.chip { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 6px 8px; min-width: 84px; max-width: 130px; text-align:center; position: relative; }
+.chip .nm { font-weight: 700; font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.chip .sub { font-size: 10.5px; color: var(--muted); }
+.chip .pts { font-size: 11px; color: var(--accent); font-weight: 700; }
+.chip.cap { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold) inset; }
+.chip .badge { position:absolute; top:-8px; right:-8px; background: var(--gold); color:#1a1a1a; font-weight:800; font-size:10px; border-radius:999px; width:18px; height:18px; line-height:18px; }
+.chip .badge.v { background: var(--accent2); color:#fff; }
+.bench { display:flex; gap:8px; flex-wrap: wrap; }
+.bench .chip { min-width: 96px; }
+
+.note { background: rgba(79,157,255,.08); border: 1px solid rgba(79,157,255,.3); border-radius: 8px; padding: 10px 12px; font-size: 13px; }
+.warn { background: rgba(245,166,35,.08); border: 1px solid rgba(245,166,35,.35); border-radius: 8px; padding: 10px 12px; font-size: 13px; }
+
+footer.foot { border-top: 1px solid var(--line); margin-top: 40px; padding-top: 16px; color: var(--muted); font-size: 12px; }
+footer.foot h4 { color: var(--ink); margin: 0 0 6px; font-size: 13px; }
+footer.foot ul { margin: 0 0 10px; padding-left: 18px; }
+footer.foot a { word-break: break-all; }
+
+.flip { color: var(--gold); }
+.up { color: var(--win); } .down { color: var(--loss); }
+
+@media print {
+  :root { --bg:#fff; --panel:#fff; --panel2:#f1f3f5; --ink:#111; --muted:#555; --line:#ccc; }
+  body { background:#fff; color:#111; }
+  header.top { position: static; }
+  nav.tabs, .countdown { display: none; }
+  .card, .table-scroll { break-inside: avoid; }
+  a { color:#111; }
+  .pitch { background:#eef6f0; }
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <span class="brand">WC&nbsp;2026 <span class="dot">●</span> Guide</span>
+    <nav class="tabs">
+      
+      <a href="index.html" class="">Dashboard</a>
+      
+      <a href="fantasy.html" class="">Fantasy</a>
+      
+      <a href="predictions.html" class="">Predictions</a>
+      
+      <a href="model.html" class="active">Model</a>
+      
+      <a href="changelog.html" class="">Changelog</a>
+      
+    </nav>
+  </div>
+</header>
+<div class="wrap">
+  <div class="meta-bar">
+    <span class="stage-pill">Pre-tournament — squad &amp; Matchday-1 predictions lock at first kickoff (2026-06-11)</span>
+    <span>Generated Fri 05 Jun 2026, 18:45 CET</span>
+    <span>Run 2026-06-05</span>
+    <span>200,000 simulations</span>
+  </div>
+
+  
+  <div class="warn"><strong>Notes:</strong>
+    Optional input lineups.json missing. · Merged odds_extra: match_odds 24 -&gt; 72.
+  </div>
+  
+
+  
+<h1>The forecast model</h1>
+<p class="lede">One ensemble strength rating per team drives every per-match scoreline and the bracket simulation.
+Click any column header to sort.</p>
+
+<h2>Team strength &amp; tournament odds</h2>
+<div class="card"><div class="table-scroll"><table>
+  <thead><tr>
+    <th>#</th><th>Team</th><th>Grp</th><th class="num sortable">Strength</th>
+    <th class="num sortable">Win group</th><th class="num sortable">Qualify</th>
+    <th class="num sortable">Reach QF</th><th class="num sortable">Final</th>
+    <th class="num sortable">Title</th><th class="num sortable">Mkt title</th><th class="num sortable">E[matches]</th>
+  </tr></thead>
+  <tbody>
+  
+    <tr>
+      <td class="muted">1</td>
+      <td><b>Spain</b></td>
+      <td class="muted">H</td>
+      <td class="num" data-sort="1.995">2.00</td>
+      <td class="num" data-sort="0.7818">78%</td>
+      <td class="num" data-sort="0.9942">99%</td>
+      <td class="num" data-sort="0.5817">58%</td>
+      <td class="num" data-sort="0.3209">32.1%</td>
+      <td class="num" data-sort="0.2093"><b>20.9%</b></td>
+      <td class="num muted" data-sort="0.1403">14.0%</td>
+      <td class="num" data-sort="6.27">6.3</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">2</td>
+      <td><b>France</b></td>
+      <td class="muted">I</td>
+      <td class="num" data-sort="1.795">1.79</td>
+      <td class="num" data-sort="0.6239">62%</td>
+      <td class="num" data-sort="0.9754">98%</td>
+      <td class="num" data-sort="0.5896">59%</td>
+      <td class="num" data-sort="0.2625">26.2%</td>
+      <td class="num" data-sort="0.1617"><b>16.2%</b></td>
+      <td class="num muted" data-sort="0.1403">14.0%</td>
+      <td class="num" data-sort="6.24">6.2</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">3</td>
+      <td><b>Argentina</b></td>
+      <td class="muted">J</td>
+      <td class="num" data-sort="1.756">1.76</td>
+      <td class="num" data-sort="0.6856">69%</td>
+      <td class="num" data-sort="0.9759">98%</td>
+      <td class="num" data-sort="0.5344">53%</td>
+      <td class="num" data-sort="0.2375">23.8%</td>
+      <td class="num" data-sort="0.1383"><b>13.8%</b></td>
+      <td class="num muted" data-sort="0.0858">8.6%</td>
+      <td class="num" data-sort="5.93">5.9</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">4</td>
+      <td><b>England</b></td>
+      <td class="muted">L</td>
+      <td class="num" data-sort="1.588">1.59</td>
+      <td class="num" data-sort="0.6636">66%</td>
+      <td class="num" data-sort="0.9668">97%</td>
+      <td class="num" data-sort="0.5397">54%</td>
+      <td class="num" data-sort="0.2029">20.3%</td>
+      <td class="num" data-sort="0.1106"><b>11.1%</b></td>
+      <td class="num muted" data-sort="0.1029">10.3%</td>
+      <td class="num" data-sort="5.95">6.0</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">5</td>
+      <td><b>Portugal</b></td>
+      <td class="muted">K</td>
+      <td class="num" data-sort="1.365">1.36</td>
+      <td class="num" data-sort="0.5914">59%</td>
+      <td class="num" data-sort="0.9672">97%</td>
+      <td class="num" data-sort="0.448">45%</td>
+      <td class="num" data-sort="0.1434">14.3%</td>
+      <td class="num" data-sort="0.0708"><b>7.1%</b></td>
+      <td class="num muted" data-sort="0.0772">7.7%</td>
+      <td class="num" data-sort="5.64">5.6</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">6</td>
+      <td><b>Brazil</b></td>
+      <td class="muted">C</td>
+      <td class="num" data-sort="1.392">1.39</td>
+      <td class="num" data-sort="0.7024">70%</td>
+      <td class="num" data-sort="0.9844">98%</td>
+      <td class="num" data-sort="0.4499">45%</td>
+      <td class="num" data-sort="0.1407">14.1%</td>
+      <td class="num" data-sort="0.0703"><b>7.0%</b></td>
+      <td class="num muted" data-sort="0.0858">8.6%</td>
+      <td class="num" data-sort="5.65">5.7</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">7</td>
+      <td><b>Germany</b></td>
+      <td class="muted">E</td>
+      <td class="num" data-sort="1.101">1.10</td>
+      <td class="num" data-sort="0.6868">69%</td>
+      <td class="num" data-sort="0.9906">99%</td>
+      <td class="num" data-sort="0.3442">34%</td>
+      <td class="num" data-sort="0.0926">9.3%</td>
+      <td class="num" data-sort="0.0405"><b>4.0%</b></td>
+      <td class="num muted" data-sort="0.0515">5.1%</td>
+      <td class="num" data-sort="5.42">5.4</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">8</td>
+      <td><b>Netherlands</b></td>
+      <td class="muted">F</td>
+      <td class="num" data-sort="1.048">1.05</td>
+      <td class="num" data-sort="0.5324">53%</td>
+      <td class="num" data-sort="0.9138">91%</td>
+      <td class="num" data-sort="0.3587">36%</td>
+      <td class="num" data-sort="0.0776">7.8%</td>
+      <td class="num" data-sort="0.0331"><b>3.3%</b></td>
+      <td class="num muted" data-sort="0.0368">3.7%</td>
+      <td class="num" data-sort="5.16">5.2</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">9</td>
+      <td><b>Colombia</b></td>
+      <td class="muted">K</td>
+      <td class="num" data-sort="0.892">0.89</td>
+      <td class="num" data-sort="0.3479">35%</td>
+      <td class="num" data-sort="0.9165">92%</td>
+      <td class="num" data-sort="0.2782">28%</td>
+      <td class="num" data-sort="0.0631">6.3%</td>
+      <td class="num" data-sort="0.0239"><b>2.4%</b></td>
+      <td class="num muted" data-sort="0.0214">2.1%</td>
+      <td class="num" data-sort="5.04">5.0</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">10</td>
+      <td><b>Belgium</b></td>
+      <td class="muted">G</td>
+      <td class="num" data-sort="0.771">0.77</td>
+      <td class="num" data-sort="0.6828">68%</td>
+      <td class="num" data-sort="0.9625">96%</td>
+      <td class="num" data-sort="0.3686">37%</td>
+      <td class="num" data-sort="0.0581">5.8%</td>
+      <td class="num" data-sort="0.0209"><b>2.1%</b></td>
+      <td class="num muted" data-sort="0.0227">2.3%</td>
+      <td class="num" data-sort="5.25">5.2</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">11</td>
+      <td><b>Norway</b></td>
+      <td class="muted">I</td>
+      <td class="num" data-sort="0.799">0.80</td>
+      <td class="num" data-sort="0.2628">26%</td>
+      <td class="num" data-sort="0.8953">90%</td>
+      <td class="num" data-sort="0.2797">28%</td>
+      <td class="num" data-sort="0.0559">5.6%</td>
+      <td class="num" data-sort="0.0201"><b>2.0%</b></td>
+      <td class="num muted" data-sort="0.0297">3.0%</td>
+      <td class="num" data-sort="5.01">5.0</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">12</td>
+      <td><b>Croatia</b></td>
+      <td class="muted">L</td>
+      <td class="num" data-sort="0.6">0.60</td>
+      <td class="num" data-sort="0.2485">25%</td>
+      <td class="num" data-sort="0.8584">86%</td>
+      <td class="num" data-sort="0.1973">20%</td>
+      <td class="num" data-sort="0.0328">3.3%</td>
+      <td class="num" data-sort="0.0106"><b>1.1%</b></td>
+      <td class="num muted" data-sort="0.0115">1.1%</td>
+      <td class="num" data-sort="4.68">4.7</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">13</td>
+      <td><b>Morocco</b></td>
+      <td class="muted">C</td>
+      <td class="num" data-sort="0.594">0.59</td>
+      <td class="num" data-sort="0.1893">19%</td>
+      <td class="num" data-sort="0.8537">85%</td>
+      <td class="num" data-sort="0.2325">23%</td>
+      <td class="num" data-sort="0.0322">3.2%</td>
+      <td class="num" data-sort="0.0103"><b>1.0%</b></td>
+      <td class="num muted" data-sort="0.0188">1.9%</td>
+      <td class="num" data-sort="4.71">4.7</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">14</td>
+      <td><b>Uruguay</b></td>
+      <td class="muted">H</td>
+      <td class="num" data-sort="0.58">0.58</td>
+      <td class="num" data-sort="0.1954">20%</td>
+      <td class="num" data-sort="0.8953">90%</td>
+      <td class="num" data-sort="0.2022">20%</td>
+      <td class="num" data-sort="0.0334">3.3%</td>
+      <td class="num" data-sort="0.0103"><b>1.0%</b></td>
+      <td class="num muted" data-sort="0.0151">1.5%</td>
+      <td class="num" data-sort="4.65">4.7</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">15</td>
+      <td><b>Turkey</b></td>
+      <td class="muted">D</td>
+      <td class="num" data-sort="0.568">0.57</td>
+      <td class="num" data-sort="0.3449">34%</td>
+      <td class="num" data-sort="0.8072">81%</td>
+      <td class="num" data-sort="0.2227">22%</td>
+      <td class="num" data-sort="0.0305">3.0%</td>
+      <td class="num" data-sort="0.0097"><b>1.0%</b></td>
+      <td class="num muted" data-sort="0.0115">1.1%</td>
+      <td class="num" data-sort="4.69">4.7</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">16</td>
+      <td><b>Ecuador</b></td>
+      <td class="muted">E</td>
+      <td class="num" data-sort="0.558">0.56</td>
+      <td class="num" data-sort="0.1878">19%</td>
+      <td class="num" data-sort="0.8844">88%</td>
+      <td class="num" data-sort="0.1899">19%</td>
+      <td class="num" data-sort="0.0278">2.8%</td>
+      <td class="num" data-sort="0.0089"><b>0.9%</b></td>
+      <td class="num muted" data-sort="0.0115">1.1%</td>
+      <td class="num" data-sort="4.67">4.7</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">17</td>
+      <td><b>Japan</b></td>
+      <td class="muted">F</td>
+      <td class="num" data-sort="0.583">0.58</td>
+      <td class="num" data-sort="0.2648">26%</td>
+      <td class="num" data-sort="0.7863">79%</td>
+      <td class="num" data-sort="0.1948">19%</td>
+      <td class="num" data-sort="0.0269">2.7%</td>
+      <td class="num" data-sort="0.0087"><b>0.9%</b></td>
+      <td class="num muted" data-sort="0.0151">1.5%</td>
+      <td class="num" data-sort="4.51">4.5</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">18</td>
+      <td><b>Mexico</b></td>
+      <td class="muted">A</td>
+      <td class="num" data-sort="0.471">0.47</td>
+      <td class="num" data-sort="0.563">56%</td>
+      <td class="num" data-sort="0.9246">92%</td>
+      <td class="num" data-sort="0.2276">23%</td>
+      <td class="num" data-sort="0.0275">2.8%</td>
+      <td class="num" data-sort="0.0086"><b>0.9%</b></td>
+      <td class="num muted" data-sort="0.0115">1.1%</td>
+      <td class="num" data-sort="4.87">4.9</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">19</td>
+      <td><b>Switzerland</b></td>
+      <td class="muted">B</td>
+      <td class="num" data-sort="0.501">0.50</td>
+      <td class="num" data-sort="0.5354">54%</td>
+      <td class="num" data-sort="0.9481">95%</td>
+      <td class="num" data-sort="0.2358">24%</td>
+      <td class="num" data-sort="0.0289">2.9%</td>
+      <td class="num" data-sort="0.0086"><b>0.9%</b></td>
+      <td class="num muted" data-sort="0.0115">1.1%</td>
+      <td class="num" data-sort="4.91">4.9</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">20</td>
+      <td><b>Senegal</b></td>
+      <td class="muted">I</td>
+      <td class="num" data-sort="0.46">0.46</td>
+      <td class="num" data-sort="0.1081">11%</td>
+      <td class="num" data-sort="0.7228">72%</td>
+      <td class="num" data-sort="0.1624">16%</td>
+      <td class="num" data-sort="0.021">2.1%</td>
+      <td class="num" data-sort="0.0059"><b>0.6%</b></td>
+      <td class="num muted" data-sort="0.0115">1.1%</td>
+      <td class="num" data-sort="4.39">4.4</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">21</td>
+      <td><b>USA</b></td>
+      <td class="muted">D</td>
+      <td class="num" data-sort="0.319">0.32</td>
+      <td class="num" data-sort="0.3824">38%</td>
+      <td class="num" data-sort="0.8309">83%</td>
+      <td class="num" data-sort="0.1922">19%</td>
+      <td class="num" data-sort="0.0191">1.9%</td>
+      <td class="num" data-sort="0.0053"><b>0.5%</b></td>
+      <td class="num muted" data-sort="0.0188">1.9%</td>
+      <td class="num" data-sort="4.61">4.6</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">22</td>
+      <td><b>Austria</b></td>
+      <td class="muted">J</td>
+      <td class="num" data-sort="0.256">0.26</td>
+      <td class="num" data-sort="0.2047">20%</td>
+      <td class="num" data-sort="0.8423">84%</td>
+      <td class="num" data-sort="0.1259">13%</td>
+      <td class="num" data-sort="0.0137">1.4%</td>
+      <td class="num" data-sort="0.0036"><b>0.4%</b></td>
+      <td class="num muted" data-sort="0.0076">0.8%</td>
+      <td class="num" data-sort="4.34">4.3</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">23</td>
+      <td><b>Canada</b></td>
+      <td class="muted">B</td>
+      <td class="num" data-sort="0.013">0.01</td>
+      <td class="num" data-sort="0.3347">33%</td>
+      <td class="num" data-sort="0.8948">89%</td>
+      <td class="num" data-sort="0.1478">15%</td>
+      <td class="num" data-sort="0.0099">1.0%</td>
+      <td class="num" data-sort="0.0022"><b>0.2%</b></td>
+      <td class="num muted" data-sort="0.0051">0.5%</td>
+      <td class="num" data-sort="4.56">4.6</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">24</td>
+      <td><b>Paraguay</b></td>
+      <td class="muted">D</td>
+      <td class="num" data-sort="0.059">0.06</td>
+      <td class="num" data-sort="0.1763">18%</td>
+      <td class="num" data-sort="0.6363">64%</td>
+      <td class="num" data-sort="0.0994">10%</td>
+      <td class="num" data-sort="0.0077">0.8%</td>
+      <td class="num" data-sort="0.0017"><b>0.2%</b></td>
+      <td class="num muted" data-sort="0.0051">0.5%</td>
+      <td class="num" data-sort="4.1">4.1</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">25</td>
+      <td><b>Sweden</b></td>
+      <td class="muted">F</td>
+      <td class="num" data-sort="0.014">0.01</td>
+      <td class="num" data-sort="0.1433">14%</td>
+      <td class="num" data-sort="0.6293">63%</td>
+      <td class="num" data-sort="0.0879">9%</td>
+      <td class="num" data-sort="0.0058">0.6%</td>
+      <td class="num" data-sort="0.0013"><b>0.1%</b></td>
+      <td class="num muted" data-sort="0.0115">1.1%</td>
+      <td class="num" data-sort="4.0">4.0</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">26</td>
+      <td><b>South Korea</b></td>
+      <td class="muted">A</td>
+      <td class="num" data-sort="-0.197">-0.20</td>
+      <td class="num" data-sort="0.1942">19%</td>
+      <td class="num" data-sort="0.7016">70%</td>
+      <td class="num" data-sort="0.0924">9%</td>
+      <td class="num" data-sort="0.0045">0.4%</td>
+      <td class="num" data-sort="0.0008"><b>0.1%</b></td>
+      <td class="num muted" data-sort="0.0031">0.3%</td>
+      <td class="num" data-sort="4.14">4.1</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">27</td>
+      <td><b>Algeria</b></td>
+      <td class="muted">J</td>
+      <td class="num" data-sort="-0.21">-0.21</td>
+      <td class="num" data-sort="0.0974">10%</td>
+      <td class="num" data-sort="0.682">68%</td>
+      <td class="num" data-sort="0.0634">6%</td>
+      <td class="num" data-sort="0.0037">0.4%</td>
+      <td class="num" data-sort="0.0007"><b>0.1%</b></td>
+      <td class="num muted" data-sort="0.0031">0.3%</td>
+      <td class="num" data-sort="3.96">4.0</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">28</td>
+      <td><b>Czechia</b></td>
+      <td class="muted">A</td>
+      <td class="num" data-sort="-0.249">-0.25</td>
+      <td class="num" data-sort="0.1829">18%</td>
+      <td class="num" data-sort="0.687">69%</td>
+      <td class="num" data-sort="0.0832">8%</td>
+      <td class="num" data-sort="0.0039">0.4%</td>
+      <td class="num" data-sort="0.0007"><b>0.1%</b></td>
+      <td class="num muted" data-sort="0.0038">0.4%</td>
+      <td class="num" data-sort="4.1">4.1</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">29</td>
+      <td><b>Ivory Coast</b></td>
+      <td class="muted">E</td>
+      <td class="num" data-sort="-0.329">-0.33</td>
+      <td class="num" data-sort="0.124">12%</td>
+      <td class="num" data-sort="0.8129">81%</td>
+      <td class="num" data-sort="0.0703">7%</td>
+      <td class="num" data-sort="0.003">0.3%</td>
+      <td class="num" data-sort="0.0006"><b>0.1%</b></td>
+      <td class="num muted" data-sort="0.0038">0.4%</td>
+      <td class="num" data-sort="4.17">4.2</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">30</td>
+      <td><b>Egypt</b></td>
+      <td class="muted">G</td>
+      <td class="num" data-sort="-0.353">-0.35</td>
+      <td class="num" data-sort="0.1814">18%</td>
+      <td class="num" data-sort="0.7535">75%</td>
+      <td class="num" data-sort="0.0699">7%</td>
+      <td class="num" data-sort="0.0028">0.3%</td>
+      <td class="num" data-sort="0.0005"><b>0.1%</b></td>
+      <td class="num muted" data-sort="0.0031">0.3%</td>
+      <td class="num" data-sort="4.12">4.1</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">31</td>
+      <td><b>Scotland</b></td>
+      <td class="muted">C</td>
+      <td class="num" data-sort="-0.316">-0.32</td>
+      <td class="num" data-sort="0.1018">10%</td>
+      <td class="num" data-sort="0.7074">71%</td>
+      <td class="num" data-sort="0.0728">7%</td>
+      <td class="num" data-sort="0.0029">0.3%</td>
+      <td class="num" data-sort="0.0005"><b>0.1%</b></td>
+      <td class="num muted" data-sort="0.0031">0.3%</td>
+      <td class="num" data-sort="4.05">4.0</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">32</td>
+      <td><b>Iran</b></td>
+      <td class="muted">G</td>
+      <td class="num" data-sort="-0.345">-0.34</td>
+      <td class="num" data-sort="0.0977">10%</td>
+      <td class="num" data-sort="0.611">61%</td>
+      <td class="num" data-sort="0.0499">5%</td>
+      <td class="num" data-sort="0.0023">0.2%</td>
+      <td class="num" data-sort="0.0004"><b>0.0%</b></td>
+      <td class="num muted" data-sort="0.0015">0.1%</td>
+      <td class="num" data-sort="3.88">3.9</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">33</td>
+      <td><b>Australia</b></td>
+      <td class="muted">D</td>
+      <td class="num" data-sort="-0.386">-0.39</td>
+      <td class="num" data-sort="0.0964">10%</td>
+      <td class="num" data-sort="0.4527">45%</td>
+      <td class="num" data-sort="0.0401">4%</td>
+      <td class="num" data-sort="0.0018">0.2%</td>
+      <td class="num" data-sort="0.0003"><b>0.0%</b></td>
+      <td class="num muted" data-sort="0.0015">0.1%</td>
+      <td class="num" data-sort="3.68">3.7</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">34</td>
+      <td><b>Bosnia and Herzegovina</b></td>
+      <td class="muted">B</td>
+      <td class="num" data-sort="-0.784">-0.78</td>
+      <td class="num" data-sort="0.1152">12%</td>
+      <td class="num" data-sort="0.6663">67%</td>
+      <td class="num" data-sort="0.0435">4%</td>
+      <td class="num" data-sort="0.0008">0.1%</td>
+      <td class="num" data-sort="0.0001"><b>0.0%</b></td>
+      <td class="num muted" data-sort="0.0031">0.3%</td>
+      <td class="num" data-sort="3.92">3.9</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">35</td>
+      <td><b>Panama</b></td>
+      <td class="muted">L</td>
+      <td class="num" data-sort="-0.713">-0.71</td>
+      <td class="num" data-sort="0.0324">3%</td>
+      <td class="num" data-sort="0.3199">32%</td>
+      <td class="num" data-sort="0.0145">1%</td>
+      <td class="num" data-sort="0.0004">0.0%</td>
+      <td class="num" data-sort="0.0001"><b>0.0%</b></td>
+      <td class="num muted" data-sort="0.0008">0.1%</td>
+      <td class="num" data-sort="3.41">3.4</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">36</td>
+      <td><b>Cape Verde</b></td>
+      <td class="muted">H</td>
+      <td class="num" data-sort="-1.251">-1.25</td>
+      <td class="num" data-sort="0.0107">1%</td>
+      <td class="num" data-sort="0.3045">30%</td>
+      <td class="num" data-sort="0.0074">1%</td>
+      <td class="num" data-sort="0.0001">0.0%</td>
+      <td class="num" data-sort="0.0"><b>0.0%</b></td>
+      <td class="num muted" data-sort="0.0008">0.1%</td>
+      <td class="num" data-sort="3.35">3.4</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">37</td>
+      <td><b>Curacao</b></td>
+      <td class="muted">E</td>
+      <td class="num" data-sort="-2.314">-2.31</td>
+      <td class="num" data-sort="0.0014">0%</td>
+      <td class="num" data-sort="0.0552">6%</td>
+      <td class="num" data-sort="0.0002">0%</td>
+      <td class="num" data-sort="0.0">0.0%</td>
+      <td class="num" data-sort="0.0"><b>0.0%</b></td>
+      <td class="num muted" data-sort="0.0003">0.0%</td>
+      <td class="num" data-sort="3.06">3.1</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">38</td>
+      <td><b>DR Congo</b></td>
+      <td class="muted">K</td>
+      <td class="num" data-sort="-0.859">-0.86</td>
+      <td class="num" data-sort="0.0353">4%</td>
+      <td class="num" data-sort="0.4086">41%</td>
+      <td class="num" data-sort="0.0161">2%</td>
+      <td class="num" data-sort="0.0004">0.0%</td>
+      <td class="num" data-sort="0.0"><b>0.0%</b></td>
+      <td class="num muted" data-sort="0.001">0.1%</td>
+      <td class="num" data-sort="3.51">3.5</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">39</td>
+      <td><b>Ghana</b></td>
+      <td class="muted">L</td>
+      <td class="num" data-sort="-1.016">-1.02</td>
+      <td class="num" data-sort="0.0555">6%</td>
+      <td class="num" data-sort="0.4865">49%</td>
+      <td class="num" data-sort="0.0143">1%</td>
+      <td class="num" data-sort="0.0002">0.0%</td>
+      <td class="num" data-sort="0.0"><b>0.0%</b></td>
+      <td class="num muted" data-sort="0.0031">0.3%</td>
+      <td class="num" data-sort="3.59">3.6</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">40</td>
+      <td><b>Haiti</b></td>
+      <td class="muted">C</td>
+      <td class="num" data-sort="-1.694">-1.69</td>
+      <td class="num" data-sort="0.0065">1%</td>
+      <td class="num" data-sort="0.1302">13%</td>
+      <td class="num" data-sort="0.0016">0%</td>
+      <td class="num" data-sort="0.0">0.0%</td>
+      <td class="num" data-sort="0.0"><b>0.0%</b></td>
+      <td class="num muted" data-sort="0.0003">0.0%</td>
+      <td class="num" data-sort="3.15">3.1</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">41</td>
+      <td><b>Iraq</b></td>
+      <td class="muted">I</td>
+      <td class="num" data-sort="-1.078">-1.08</td>
+      <td class="num" data-sort="0.0051">1%</td>
+      <td class="num" data-sort="0.1098">11%</td>
+      <td class="num" data-sort="0.0036">0%</td>
+      <td class="num" data-sort="0.0">0.0%</td>
+      <td class="num" data-sort="0.0"><b>0.0%</b></td>
+      <td class="num muted" data-sort="0.0008">0.1%</td>
+      <td class="num" data-sort="3.14">3.1</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">42</td>
+      <td><b>Jordan</b></td>
+      <td class="muted">J</td>
+      <td class="num" data-sort="-0.952">-0.95</td>
+      <td class="num" data-sort="0.0123">1%</td>
+      <td class="num" data-sort="0.1757">18%</td>
+      <td class="num" data-sort="0.0062">1%</td>
+      <td class="num" data-sort="0.0001">0.0%</td>
+      <td class="num" data-sort="0.0"><b>0.0%</b></td>
+      <td class="num muted" data-sort="0.0008">0.1%</td>
+      <td class="num" data-sort="3.21">3.2</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">43</td>
+      <td><b>New Zealand</b></td>
+      <td class="muted">G</td>
+      <td class="num" data-sort="-1.356">-1.36</td>
+      <td class="num" data-sort="0.0381">4%</td>
+      <td class="num" data-sort="0.3284">33%</td>
+      <td class="num" data-sort="0.0054">1%</td>
+      <td class="num" data-sort="0.0">0.0%</td>
+      <td class="num" data-sort="0.0"><b>0.0%</b></td>
+      <td class="num muted" data-sort="0.0008">0.1%</td>
+      <td class="num" data-sort="3.38">3.4</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">44</td>
+      <td><b>Qatar</b></td>
+      <td class="muted">B</td>
+      <td class="num" data-sort="-1.549">-1.55</td>
+      <td class="num" data-sort="0.0146">1%</td>
+      <td class="num" data-sort="0.1836">18%</td>
+      <td class="num" data-sort="0.0036">0%</td>
+      <td class="num" data-sort="0.0">0.0%</td>
+      <td class="num" data-sort="0.0"><b>0.0%</b></td>
+      <td class="num muted" data-sort="0.0008">0.1%</td>
+      <td class="num" data-sort="3.22">3.2</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">45</td>
+      <td><b>Saudi Arabia</b></td>
+      <td class="muted">H</td>
+      <td class="num" data-sort="-1.228">-1.23</td>
+      <td class="num" data-sort="0.0121">1%</td>
+      <td class="num" data-sort="0.3076">31%</td>
+      <td class="num" data-sort="0.0079">1%</td>
+      <td class="num" data-sort="0.0001">0.0%</td>
+      <td class="num" data-sort="0.0"><b>0.0%</b></td>
+      <td class="num muted" data-sort="0.0008">0.1%</td>
+      <td class="num" data-sort="3.36">3.4</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">46</td>
+      <td><b>South Africa</b></td>
+      <td class="muted">A</td>
+      <td class="num" data-sort="-1.255">-1.25</td>
+      <td class="num" data-sort="0.0599">6%</td>
+      <td class="num" data-sort="0.3814">38%</td>
+      <td class="num" data-sort="0.0122">1%</td>
+      <td class="num" data-sort="0.0001">0.0%</td>
+      <td class="num" data-sort="0.0"><b>0.0%</b></td>
+      <td class="num muted" data-sort="0.0008">0.1%</td>
+      <td class="num" data-sort="3.48">3.5</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">47</td>
+      <td><b>Tunisia</b></td>
+      <td class="muted">F</td>
+      <td class="num" data-sort="-0.807">-0.81</td>
+      <td class="num" data-sort="0.0595">6%</td>
+      <td class="num" data-sort="0.3695">37%</td>
+      <td class="num" data-sort="0.0183">2%</td>
+      <td class="num" data-sort="0.0003">0.0%</td>
+      <td class="num" data-sort="0.0"><b>0.0%</b></td>
+      <td class="num muted" data-sort="0.0015">0.1%</td>
+      <td class="num" data-sort="3.47">3.5</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">48</td>
+      <td><b>Uzbekistan</b></td>
+      <td class="muted">K</td>
+      <td class="num" data-sort="-0.838">-0.84</td>
+      <td class="num" data-sort="0.0254">3%</td>
+      <td class="num" data-sort="0.3077">31%</td>
+      <td class="num" data-sort="0.012">1%</td>
+      <td class="num" data-sort="0.0002">0.0%</td>
+      <td class="num" data-sort="0.0"><b>0.0%</b></td>
+      <td class="num muted" data-sort="0.0008">0.1%</td>
+      <td class="num" data-sort="3.38">3.4</td>
+    </tr>
+  
+  </tbody>
+</table></div>
+<p class="small muted">“Title” is our model; “Mkt title” is the de-vigged bookmaker outright for comparison. Differences are the
+value the ensemble sees vs the market. E[matches] = expected remaining matches a team plays (the fantasy longevity weight).</p>
+</div>
+
+<h2>Group-by-group qualification</h2>
+<div class="grid cols-3">
+  
+  <div class="card">
+    <h3>Group A</h3>
+    <table>
+      <thead><tr><th>Team</th><th class="num">Win</th><th class="num">Top 2</th><th class="num">Qual</th></tr></thead>
+      <tbody>
+      
+      
+        
+        <tr>
+          <td>Mexico</td>
+          <td class="num">56%</td>
+          <td class="num">82%</td>
+          <td class="num">92%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>South Africa</td>
+          <td class="num">6%</td>
+          <td class="num">21%</td>
+          <td class="num">38%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>South Korea</td>
+          <td class="num">19%</td>
+          <td class="num">49%</td>
+          <td class="num">70%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>Czechia</td>
+          <td class="num">18%</td>
+          <td class="num">48%</td>
+          <td class="num">69%</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="card">
+    <h3>Group B</h3>
+    <table>
+      <thead><tr><th>Team</th><th class="num">Win</th><th class="num">Top 2</th><th class="num">Qual</th></tr></thead>
+      <tbody>
+      
+      
+        
+        <tr>
+          <td>Canada</td>
+          <td class="num">33%</td>
+          <td class="num">73%</td>
+          <td class="num">89%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>Bosnia and Herzegovina</td>
+          <td class="num">12%</td>
+          <td class="num">36%</td>
+          <td class="num">67%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>Qatar</td>
+          <td class="num">1%</td>
+          <td class="num">7%</td>
+          <td class="num">18%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>Switzerland</td>
+          <td class="num">54%</td>
+          <td class="num">84%</td>
+          <td class="num">95%</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="card">
+    <h3>Group C</h3>
+    <table>
+      <thead><tr><th>Team</th><th class="num">Win</th><th class="num">Top 2</th><th class="num">Qual</th></tr></thead>
+      <tbody>
+      
+      
+        
+        <tr>
+          <td>Brazil</td>
+          <td class="num">70%</td>
+          <td class="num">92%</td>
+          <td class="num">98%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>Morocco</td>
+          <td class="num">19%</td>
+          <td class="num">64%</td>
+          <td class="num">85%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>Haiti</td>
+          <td class="num">1%</td>
+          <td class="num">5%</td>
+          <td class="num">13%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>Scotland</td>
+          <td class="num">10%</td>
+          <td class="num">39%</td>
+          <td class="num">71%</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="card">
+    <h3>Group D</h3>
+    <table>
+      <thead><tr><th>Team</th><th class="num">Win</th><th class="num">Top 2</th><th class="num">Qual</th></tr></thead>
+      <tbody>
+      
+      
+        
+        <tr>
+          <td>USA</td>
+          <td class="num">38%</td>
+          <td class="num">67%</td>
+          <td class="num">83%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>Paraguay</td>
+          <td class="num">18%</td>
+          <td class="num">42%</td>
+          <td class="num">64%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>Australia</td>
+          <td class="num">10%</td>
+          <td class="num">27%</td>
+          <td class="num">45%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>Turkey</td>
+          <td class="num">34%</td>
+          <td class="num">64%</td>
+          <td class="num">81%</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="card">
+    <h3>Group E</h3>
+    <table>
+      <thead><tr><th>Team</th><th class="num">Win</th><th class="num">Top 2</th><th class="num">Qual</th></tr></thead>
+      <tbody>
+      
+      
+        
+        <tr>
+          <td>Germany</td>
+          <td class="num">69%</td>
+          <td class="num">91%</td>
+          <td class="num">99%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>Curacao</td>
+          <td class="num">0%</td>
+          <td class="num">2%</td>
+          <td class="num">6%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>Ivory Coast</td>
+          <td class="num">12%</td>
+          <td class="num">46%</td>
+          <td class="num">81%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>Ecuador</td>
+          <td class="num">19%</td>
+          <td class="num">62%</td>
+          <td class="num">88%</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="card">
+    <h3>Group F</h3>
+    <table>
+      <thead><tr><th>Team</th><th class="num">Win</th><th class="num">Top 2</th><th class="num">Qual</th></tr></thead>
+      <tbody>
+      
+      
+        
+        <tr>
+          <td>Netherlands</td>
+          <td class="num">53%</td>
+          <td class="num">80%</td>
+          <td class="num">91%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>Japan</td>
+          <td class="num">26%</td>
+          <td class="num">60%</td>
+          <td class="num">79%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>Sweden</td>
+          <td class="num">14%</td>
+          <td class="num">40%</td>
+          <td class="num">63%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>Tunisia</td>
+          <td class="num">6%</td>
+          <td class="num">20%</td>
+          <td class="num">37%</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="card">
+    <h3>Group G</h3>
+    <table>
+      <thead><tr><th>Team</th><th class="num">Win</th><th class="num">Top 2</th><th class="num">Qual</th></tr></thead>
+      <tbody>
+      
+      
+        
+        <tr>
+          <td>Belgium</td>
+          <td class="num">68%</td>
+          <td class="num">90%</td>
+          <td class="num">96%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>Egypt</td>
+          <td class="num">18%</td>
+          <td class="num">56%</td>
+          <td class="num">75%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>Iran</td>
+          <td class="num">10%</td>
+          <td class="num">37%</td>
+          <td class="num">61%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>New Zealand</td>
+          <td class="num">4%</td>
+          <td class="num">17%</td>
+          <td class="num">33%</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="card">
+    <h3>Group H</h3>
+    <table>
+      <thead><tr><th>Team</th><th class="num">Win</th><th class="num">Top 2</th><th class="num">Qual</th></tr></thead>
+      <tbody>
+      
+      
+        
+        <tr>
+          <td>Spain</td>
+          <td class="num">78%</td>
+          <td class="num">97%</td>
+          <td class="num">99%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>Cape Verde</td>
+          <td class="num">1%</td>
+          <td class="num">12%</td>
+          <td class="num">30%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>Saudi Arabia</td>
+          <td class="num">1%</td>
+          <td class="num">12%</td>
+          <td class="num">31%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>Uruguay</td>
+          <td class="num">20%</td>
+          <td class="num">78%</td>
+          <td class="num">90%</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="card">
+    <h3>Group I</h3>
+    <table>
+      <thead><tr><th>Team</th><th class="num">Win</th><th class="num">Top 2</th><th class="num">Qual</th></tr></thead>
+      <tbody>
+      
+      
+        
+        <tr>
+          <td>France</td>
+          <td class="num">62%</td>
+          <td class="num">89%</td>
+          <td class="num">98%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>Senegal</td>
+          <td class="num">11%</td>
+          <td class="num">39%</td>
+          <td class="num">72%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>Iraq</td>
+          <td class="num">1%</td>
+          <td class="num">4%</td>
+          <td class="num">11%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>Norway</td>
+          <td class="num">26%</td>
+          <td class="num">68%</td>
+          <td class="num">90%</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="card">
+    <h3>Group J</h3>
+    <table>
+      <thead><tr><th>Team</th><th class="num">Win</th><th class="num">Top 2</th><th class="num">Qual</th></tr></thead>
+      <tbody>
+      
+      
+        
+        <tr>
+          <td>Argentina</td>
+          <td class="num">69%</td>
+          <td class="num">91%</td>
+          <td class="num">98%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>Algeria</td>
+          <td class="num">10%</td>
+          <td class="num">39%</td>
+          <td class="num">68%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>Austria</td>
+          <td class="num">20%</td>
+          <td class="num">63%</td>
+          <td class="num">84%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>Jordan</td>
+          <td class="num">1%</td>
+          <td class="num">7%</td>
+          <td class="num">18%</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="card">
+    <h3>Group K</h3>
+    <table>
+      <thead><tr><th>Team</th><th class="num">Win</th><th class="num">Top 2</th><th class="num">Qual</th></tr></thead>
+      <tbody>
+      
+      
+        
+        <tr>
+          <td>Portugal</td>
+          <td class="num">59%</td>
+          <td class="num">90%</td>
+          <td class="num">97%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>DR Congo</td>
+          <td class="num">4%</td>
+          <td class="num">17%</td>
+          <td class="num">41%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>Uzbekistan</td>
+          <td class="num">3%</td>
+          <td class="num">13%</td>
+          <td class="num">31%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>Colombia</td>
+          <td class="num">35%</td>
+          <td class="num">80%</td>
+          <td class="num">92%</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="card">
+    <h3>Group L</h3>
+    <table>
+      <thead><tr><th>Team</th><th class="num">Win</th><th class="num">Top 2</th><th class="num">Qual</th></tr></thead>
+      <tbody>
+      
+      
+        
+        <tr>
+          <td>England</td>
+          <td class="num">66%</td>
+          <td class="num">90%</td>
+          <td class="num">97%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>Croatia</td>
+          <td class="num">25%</td>
+          <td class="num">71%</td>
+          <td class="num">86%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>Ghana</td>
+          <td class="num">6%</td>
+          <td class="num">24%</td>
+          <td class="num">49%</td>
+        </tr>
+      
+        
+        <tr>
+          <td>Panama</td>
+          <td class="num">3%</td>
+          <td class="num">15%</td>
+          <td class="num">32%</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+  
+</div>
+<p class="small muted">“Qual” includes finishing top 2 plus the best-8-third-placed path. Third-placed slotting into the Round of 32
+follows FIFA's Annex-C eligibility (a valid matching is used per simulated combination).</p>
+
+<h2>Method &amp; uncertainty</h2>
+<div class="card small">
+  <p><b>Strength:</b> a per-team rating blends de-vigged outright title odds, eloratings.net Elo, public model
+  probabilities (Opta) and FIFA ranking, each z-scored and weighted, then re-standardized.</p>
+  <p><b>Per match:</b> where bookmaker 1X2 (+ totals) exist (all first-round group games), we invert the de-vigged
+  market into expected goals directly — the sharpest signal. Elsewhere we map strength to expected goals with a
+  market-calibrated supremacy slope, plus host and altitude adjustments. Expected goals become a
+  <b>Dixon–Coles</b> scoreline matrix (low-score correlation corrected; goals capped at 8).</p>
+  <p><b>Bracket:</b> 200,000 Monte-Carlo simulations of the full 48-team tournament resolve group
+  standings (points → GD → GF), the 8 best third-placed teams, and each knockout tie (90-minute result plus an
+  extra-time/penalty tilt by strength).</p>
+  <p class="muted">Calibration: Calibrated beta=0.308 (supremacy slope), host bump=1.09x from 71 market matches; neutral baseline pinned to 2.65 total goals. </p>
+  <p class="muted">Uncertainty: outright title odds are inherently wide; lineups and form move daily. Treat single-team
+  title percentages as point estimates from one model run, not precise truths. Re-run daily to refresh.</p>
+</div>
+
+
+  <footer class="foot">
+    <div class="grid cols-2">
+      <div>
+        <h4>Method &amp; confidence</h4>
+        <p>One shared forecast model (de-vigged market odds + Elo + public models → Dixon–Coles scorelines →
+        Monte-Carlo of the full 48-team / Round-of-32 bracket) feeds both games. Each recommendation is a single
+        decisive call with a <span class="conf High">High</span>/<span class="conf Med">Med</span>/<span class="conf Low">Low</span>
+        confidence tag. Predictions are EV-maximizing (not just the most likely score). Fantasy picks are
+        horizon-weighted by advancement. Re-run daily for fresh data — see the changelog for what moved.</p>
+      </div>
+      <div>
+        <h4>Sources</h4>
+        <ul>
+          
+            <li><strong>fixtures:</strong>
+              <a href="https://en.wikipedia.org/wiki/2026_FIFA_World_Cup">en.wikipedia.org/wiki/2026_FIFA_World_Cup</a>, <a href="https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_draw">en.wikipedia.org/wiki/2026_FIFA_World_Cup_draw</a>, <a href="https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_knockout_stage">en.wikipedia.org/wiki/2026_FIFA_World_Cup_knockout_stage</a>, <a href="https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_A">en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_A</a>
+            </li>
+          
+            <li><strong>ratings odds:</strong>
+              <a href="https://www.eloratings.net/ (World Football Elo Ratings; data files World.tsv, 2026.tsv, en.teams.tsv)">www.eloratings.net/ (World Football Elo Ratings; data files World.tsv, 2026.tsv, en.teams.tsv)</a>, <a href="https://en.wikipedia.org/wiki/2026_FIFA_World_Cup (groups, qualified teams)">en.wikipedia.org/wiki/2026_FIFA_World_Cup (groups, qualified teams)</a>, <a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/world-cup-2026-who-has-qualified">www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/world-cup-2026-who-has-qualified</a>, <a href="https://sports.yahoo.com/soccer/article/2026-fifa-world-cup-daily-schedule-... (fixtures Jun 11-17)">sports.yahoo.com/soccer/article/2026-fifa-world-cup-daily-schedule-... (fixtures Jun 11-17)</a>
+            </li>
+          
+            <li><strong>squads:</strong>
+              <a href="https://www.espn.com/soccer/story/_/id/48677243/2026-world-cup-rosters-predictions-starting-xis-usa-france-mexico-england-spain-germany-brazil-argentina">www.espn.com/soccer/story/_/id/48677243/2026-world-cup-rosters-predictions-starting-xis-usa-france-mexico-england-spain-germany-brazil-argentina</a>, <a href="https://www.rotowire.com/soccer/article/2026-world-cup-penalty-corner-and-free-kick-takers-by-team-114076">www.rotowire.com/soccer/article/2026-world-cup-penalty-corner-and-free-kick-takers-by-team-114076</a>, <a href="https://www.rotowire.com/soccer/article/2026-fifa-world-cup-fantasy-rankings-best-picks-for-matchday-1-116025">www.rotowire.com/soccer/article/2026-fifa-world-cup-fantasy-rankings-best-picks-for-matchday-1-116025</a>, <a href="https://www.fantasyfootballscout.co.uk/2026/05/31/fantasy-fifa-world-cup-2026-all-48-nations-penalty-set-piece-takers">www.fantasyfootballscout.co.uk/2026/05/31/fantasy-fifa-world-cup-2026-all-48-nations-penalty-set-piece-takers</a>
+            </li>
+          
+            <li><strong>nostradamus:</strong>
+              <a href="https://www.rtvslo.si/nostradamus/sp-v-nogometu-2026">www.rtvslo.si/nostradamus/sp-v-nogometu-2026</a>, <a href="https://www.rtvslo.si/nostradamus/sp-v-nogometu-2026/navodila/">www.rtvslo.si/nostradamus/sp-v-nogometu-2026/navodila/</a>, <a href="https://www.rtvslo.si/rtv/za-medije/sporocila-za-javnost/svetovno-prvenstvo-v-nogometu-2026-na-rtv-slovenija/777698">www.rtvslo.si/rtv/za-medije/sporocila-za-javnost/svetovno-prvenstvo-v-nogometu-2026-na-rtv-slovenija/777698</a>, <a href="https://www.rtvslo.si/sport/nogomet/svetovno-prvenstvo-v-nogometu/svetovno-prvenstvo-v-nogometu-na-televiziji-slovenija/777644">www.rtvslo.si/sport/nogomet/svetovno-prvenstvo-v-nogometu/svetovno-prvenstvo-v-nogometu-na-televiziji-slovenija/777644</a>
+            </li>
+          
+            <li><strong>fantasy:</strong>
+              <a href="https://play.fifa.com/json/fantasy/help_pages.json (official in-app rules feed, how_to_play EN/DE/ES/FR) - PRIMARY, fetched live 2026-06-05">play.fifa.com/json/fantasy/help_pages.json (official in-app rules feed, how_to_play EN/DE/ES/FR) - PRIMARY, fetched live 2026-06-05</a>, <a href="https://play.fifa.com/fantasy (game home, SPA) - confirms game identity FANTASY_CLASSIC">play.fifa.com/fantasy (game home, SPA) - confirms game identity FANTASY_CLASSIC</a>, <a href="https://play.fifa.com/fantasy/static/js/index-D5RkYG30.js (FANTASY_CLASSIC app bundle) - confirms 5 booster endpoints, 8 rounds, round-&gt;stage map, transfer/captain API surface">play.fifa.com/fantasy/static/js/index-D5RkYG30.js (FANTASY_CLASSIC app bundle) - confirms 5 booster endpoints, 8 rounds, round-&gt;stage map, transfer/captain API surface</a>, <a href="https://www.fantasyfootballscout.co.uk/2026/05/26/how-to-play-the-fifa-world-cup-2026-fantasy-game (secondary corroboration)">www.fantasyfootballscout.co.uk/2026/05/26/how-to-play-the-fifa-world-cup-2026-fantasy-game (secondary corroboration)</a>
+            </li>
+          
+            <li><strong>fantasy feed:</strong>
+              <a href="https://play.fifa.com/json/fantasy/players.json">play.fifa.com/json/fantasy/players.json</a>, <a href="https://play.fifa.com/json/fantasy/squads.json">play.fifa.com/json/fantasy/squads.json</a>
+            </li>
+          
+        </ul>
+      </div>
+    </div>
+    <p class="small">Self-contained report — opens offline, prints cleanly. Not affiliated with FIFA or RTV SLO.
+    Odds/lineups move; the recommendations reflect data as of the run timestamp above.</p>
+  </footer>
+</div>
+<script>
+document.addEventListener(&#39;click&#39;, function(e){
+  var th = e.target.closest(&#39;th.sortable&#39;); if(!th) return;
+  var table = th.closest(&#39;table&#39;); var idx = Array.prototype.indexOf.call(th.parentNode.children, th);
+  var dir = th.getAttribute(&#39;data-dir&#39;) === &#39;asc&#39; ? &#39;desc&#39; : &#39;asc&#39;;
+  Array.prototype.forEach.call(th.parentNode.children, function(x){x.removeAttribute(&#39;data-dir&#39;);});
+  th.setAttribute(&#39;data-dir&#39;, dir);
+  var rows = Array.prototype.slice.call(table.tBodies[0].rows);
+  var num = function(v){ var n = parseFloat(String(v).replace(/[^0-9.\-]/g,&#39;&#39;)); return isNaN(n)?null:n; };
+  rows.sort(function(a,b){
+    var x=a.cells[idx].getAttribute(&#39;data-sort&#39;)||a.cells[idx].innerText;
+    var y=b.cells[idx].getAttribute(&#39;data-sort&#39;)||b.cells[idx].innerText;
+    var nx=num(x), ny=num(y), r;
+    if(nx!==null&amp;&amp;ny!==null){ r=nx-ny; } else { r=String(x).localeCompare(String(y)); }
+    return dir===&#39;asc&#39;? r : -r;
+  });
+  rows.forEach(function(r){ table.tBodies[0].appendChild(r); });
+});
+</script>
+</body>
+</html>

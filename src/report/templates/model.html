@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% block title %}Model &amp; odds — WC 2026 Guide{% endblock %}
+{% block content %}
+<h1>The forecast model</h1>
+<p class="lede">One ensemble strength rating per team drives every per-match scoreline and the bracket simulation.
+Click any column header to sort.</p>
+
+<h2>Team strength &amp; tournament odds</h2>
+<div class="card"><div class="table-scroll"><table>
+  <thead><tr>
+    <th>#</th><th>Team</th><th>Grp</th><th class="num sortable">Strength</th>
+    <th class="num sortable">Win group</th><th class="num sortable">Qualify</th>
+    <th class="num sortable">Reach QF</th><th class="num sortable">Final</th>
+    <th class="num sortable">Title</th><th class="num sortable">Mkt title</th><th class="num sortable">E[matches]</th>
+  </tr></thead>
+  <tbody>
+  {% for r in teams %}
+    <tr>
+      <td class="muted">{{ loop.index }}</td>
+      <td><b>{{ r.team }}</b></td>
+      <td class="muted">{{ groups_of[r.team] if groups_of else '' }}</td>
+      <td class="num" data-sort="{{ r.strength }}">{{ r.strength|r(2) }}</td>
+      <td class="num" data-sort="{{ r.win_group }}">{{ r.win_group|pct(0) }}</td>
+      <td class="num" data-sort="{{ r.qualify }}">{{ r.qualify|pct(0) }}</td>
+      <td class="num" data-sort="{{ r.reach_QF }}">{{ r.reach_QF|pct(0) }}</td>
+      <td class="num" data-sort="{{ r.reach_final }}">{{ r.reach_final|pct(1) }}</td>
+      <td class="num" data-sort="{{ r.title_prob }}"><b>{{ r.title_prob|pct(1) }}</b></td>
+      <td class="num muted" data-sort="{{ r.title_odds_devig }}">{{ r.title_odds_devig|pct(1) }}</td>
+      <td class="num" data-sort="{{ r.exp_matches }}">{{ r.exp_matches|r(1) }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table></div>
+<p class="small muted">“Title” is our model; “Mkt title” is the de-vigged bookmaker outright for comparison. Differences are the
+value the ensemble sees vs the market. E[matches] = expected remaining matches a team plays (the fantasy longevity weight).</p>
+</div>
+
+<h2>Group-by-group qualification</h2>
+<div class="grid cols-3">
+  {% for letter, teamnames in groups.items() %}
+  <div class="card">
+    <h3>Group {{ letter }}</h3>
+    <table>
+      <thead><tr><th>Team</th><th class="num">Win</th><th class="num">Top 2</th><th class="num">Qual</th></tr></thead>
+      <tbody>
+      {% set gs = group_standings[letter] %}
+      {% for tn in teamnames %}
+        {% set st = gs[tn] if tn in gs else {'p1':0,'p2':0,'p3':0} %}
+        <tr>
+          <td>{{ tn }}</td>
+          <td class="num">{{ st.p1|pct(0) }}</td>
+          <td class="num">{{ (st.p1+st.p2)|pct(0) }}</td>
+          <td class="num">{{ team_lookup[tn].qualify|pct(0) if tn in team_lookup else '—' }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endfor %}
+</div>
+<p class="small muted">“Qual” includes finishing top 2 plus the best-8-third-placed path. Third-placed slotting into the Round of 32
+follows FIFA's Annex-C eligibility (a valid matching is used per simulated combination{% if third_slot_fallbacks %}; {{ third_slot_fallbacks }} rare combinations used a relaxed fallback{% endif %}).</p>
+
+<h2>Method &amp; uncertainty</h2>
+<div class="card small">
+  <p><b>Strength:</b> a per-team rating blends de-vigged outright title odds, eloratings.net Elo, public model
+  probabilities (Opta) and FIFA ranking, each z-scored and weighted, then re-standardized.</p>
+  <p><b>Per match:</b> where bookmaker 1X2 (+ totals) exist (all first-round group games), we invert the de-vigged
+  market into expected goals directly — the sharpest signal. Elsewhere we map strength to expected goals with a
+  market-calibrated supremacy slope, plus host and altitude adjustments. Expected goals become a
+  <b>Dixon–Coles</b> scoreline matrix (low-score correlation corrected; goals capped at {{ tournament.get('goal_cap', 8) }}).</p>
+  <p><b>Bracket:</b> {{ "{:,}".format(n_sims) }} Monte-Carlo simulations of the full 48-team tournament resolve group
+  standings (points → GD → GF), the 8 best third-placed teams, and each knockout tie (90-minute result plus an
+  extra-time/penalty tilt by strength).</p>
+  {% if model_notes %}<p class="muted">Calibration: {% for n in model_notes %}{{ n }} {% endfor %}</p>{% endif %}
+  <p class="muted">Uncertainty: outright title odds are inherently wide; lineups and form move daily. Treat single-team
+  title percentages as point estimates from one model run, not precise truths. Re-run daily to refresh.</p>
+</div>
+{% endblock %}

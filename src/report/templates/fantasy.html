@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% block title %}Fantasy — WC 2026 Guide{% endblock %}
+{% block content %}
+{% if not fantasy %}
+<h1>Fantasy</h1>
+<div class="warn">No fantasy player feed was available this run, so the squad could not be optimized. Re-run with network access.</div>
+{% else %}
+{% set sq = fantasy.squad %}
+{% set gks = sq.starters|selectattr('position','equalto','GK')|list %}
+{% set defs = sq.starters|selectattr('position','equalto','DEF')|list %}
+{% set mids = sq.starters|selectattr('position','equalto','MID')|list %}
+{% set fwds = sq.starters|selectattr('position','equalto','FWD')|list %}
+
+<h1>The recommended squad</h1>
+<p class="lede">{{ fantasy.transfers.note if fantasy.transfers.mode == 'initial' else 'Your squad plus this round\'s moves.' }}
+This is the single best team — set it exactly.</p>
+
+<div class="grid cols-4">
+  <div class="card kpi"><div class="num">{{ sq.formation }}</div><div class="lbl">formation</div></div>
+  <div class="card kpi"><div class="num">{{ sq.cost|price }}</div><div class="lbl">spent of {{ sq.budget|price }}</div></div>
+  <div class="card kpi"><div class="num">{{ sq.bank|price }}</div><div class="lbl">in the bank</div></div>
+  <div class="card kpi"><div class="num">{{ sq.xi_exp|r(1) }}</div><div class="lbl">XI exp. pts (next round)</div></div>
+</div>
+
+<h2>Starting XI &amp; captain</h2>
+<div class="pitch">
+  <div class="line">{% for p in gks %}{{ m.chip(p) }}{% endfor %}</div>
+  <div class="line">{% for p in defs %}{{ m.chip(p) }}{% endfor %}</div>
+  <div class="line">{% for p in mids %}{{ m.chip(p) }}{% endfor %}</div>
+  <div class="line">{% for p in fwds %}{{ m.chip(p) }}{% endfor %}</div>
+</div>
+<p class="small muted">Captain <b>{{ sq.captain.name }}</b> (×2) · Vice <b>{{ sq.vice.name }}</b> (takes the armband only if the captain plays 0 minutes). Captaincy can be changed live during the round — leave it on {{ sq.captain.name.split(' ')[-1] }} unless they're ruled out.</p>
+
+<h3>Bench (auto-sub order)</h3>
+<div class="bench">{% for p in sq.bench %}{{ m.chip(p, showpts=True) }}{% endfor %}</div>
+
+<h2>Why each pick</h2>
+<div class="card"><div class="table-scroll"><table>
+  <thead><tr>
+    <th>Pos</th><th>Player</th><th>Team</th><th class="num sortable">Price</th>
+    <th class="num sortable">Next</th><th class="num sortable">Horizon</th><th class="num sortable">Own%</th><th class="num sortable">Start%</th><th>Why</th>
+  </tr></thead>
+  <tbody>
+  {% for p in sq.all|sort(attribute='horizon', reverse=True) %}
+    <tr>
+      <td>{{ m.pos(p.position) }}</td>
+      <td><b>{{ p.name }}</b>{% if p.is_captain %} <span class="conf High">C</span>{% elif p.is_vice %} <span class="conf Med">V</span>{% endif %} {{ m.tags(p.tags) }}</td>
+      <td>{{ p.nation }}</td>
+      <td class="num" data-sort="{{ p.price }}">{{ p.price|price }}</td>
+      <td class="num" data-sort="{{ p.exp_next }}">{{ p.exp_next|r(1) }}</td>
+      <td class="num" data-sort="{{ p.horizon }}">{{ p.horizon|r(0) }}</td>
+      <td class="num" data-sort="{{ p.ownership }}">{{ p.ownership|r(0) }}</td>
+      <td class="num" data-sort="{{ p.minutes_prob }}">{{ (p.minutes_prob*100)|r(0) }}</td>
+      <td class="small">{{ p.why }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table></div>
+<p class="small muted">“Next” = expected points in the upcoming round · “Horizon” = longevity-weighted total value (per-match points × expected remaining matches from advancement odds). The squad maximizes total horizon value within budget, the 2/5/5/3 shape and the {{ fantasy.nation_cap }}-per-nation cap; the XI maximizes next-round points.</p>
+</div>
+
+<h2>Transfers &amp; chips</h2>
+<div class="grid cols-2">
+  <div class="card">
+    <h3>Transfer plan</h3>
+    {% if fantasy.transfers.mode == 'initial' %}
+      <div class="note">First run — there is nothing to transfer yet. Build the 15 above as your initial squad; transfers are unlimited until the first kickoff, so you can tweak freely until then. From Matchday 2 you get {{ fantasy_rules.free_transfers_per_round.before_matchday_2 if fantasy_rules.free_transfers_per_round is mapping else fantasy_rules.free_transfers_per_round }} free transfers per round.</div>
+    {% else %}
+      {% set pl = fantasy.transfers.plan %}
+      {% if pl.moves %}
+      <table><thead><tr><th>Out</th><th>In</th><th class="num">Gain</th></tr></thead><tbody>
+        {% for mv in pl.moves %}<tr><td class="down">{{ mv.out }}</td><td class="up">{{ mv.in }}</td><td class="num">{{ mv.gain|signed(1) }}</td></tr>{% endfor %}
+      </tbody></table>
+      <p class="small">Using {{ pl.free_used }} free transfer(s){% if pl.hits %} + {{ pl.hits }} hit(s) ({{ pl.hit_cost }} pts){% endif %}. Net expected gain {{ pl.net_gain|signed(1) }}.</p>
+      {% else %}<div class="note">No beneficial transfers this round — hold your team.</div>{% endif %}
+    {% endif %}
+  </div>
+  <div class="card">
+    <h3>Chips ({{ fantasy.chips_remaining|length }} remaining)</h3>
+    <table><thead><tr><th>Chip</th><th>Now</th><th>Why</th></tr></thead><tbody>
+      {% for c in fantasy.chips %}
+      <tr><td><b>{{ c.chip }}</b></td><td><span class="conf {{ 'High' if c.action=='PLAY' else ('Med' if c.action=='CONSIDER' else 'Low') }}">{{ c.action }}</span></td><td class="small">{{ c.reason }}</td></tr>
+      {% endfor %}
+    </tbody></table>
+  </div>
+</div>
+
+<h2>Best alternatives by position <span class="small muted">(reference — the picks above are the recommendation)</span></h2>
+<div class="grid cols-2">
+  {% for posname in ['GK','DEF','MID','FWD'] %}
+  <div class="card">
+    <h3>{{ posname }}</h3>
+    <div class="table-scroll"><table>
+      <thead><tr><th>Player</th><th>Team</th><th class="num">$</th><th class="num">Next</th><th class="num">Horizon</th><th class="num">Own%</th></tr></thead>
+      <tbody>
+      {% for p in fantasy.pool_by_pos[posname][:8] %}
+        <tr><td>{{ p.name }}</td><td class="small">{{ p.nation }}</td><td class="num">{{ p.price|price }}</td>
+        <td class="num">{{ p.exp_next|r(1) }}</td><td class="num">{{ p.horizon|r(0) }}</td><td class="num">{{ p.ownership|r(0) }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table></div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

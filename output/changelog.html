@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Changelog — WC 2026 Guide</title>
+<style>:root {
+  --bg: #0f1419; --panel: #1a2129; --panel2: #222b35; --ink: #e8edf2; --muted: #9aa7b4;
+  --line: #2d3742; --accent: #00c2a8; --accent2: #4f9dff; --gold: #ffcf4d;
+  --win: #2ecc71; --draw: #95a5a6; --loss: #e74c3c;
+  --hi: #2ecc71; --med: #f5a623; --lo: #e74c3c;
+  --radius: 12px; --maxw: 1080px;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 15px/1.55 -apple-system, BlinkMacSystemFont, &#34;Segoe UI&#34;, Roboto, Helvetica, Arial, sans-serif;
+}
+a { color: var(--accent2); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 16px 64px; }
+
+header.top {
+  position: sticky; top: 0; z-index: 50; background: rgba(15,20,25,.92);
+  backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);
+}
+.top .wrap { padding-top: 12px; padding-bottom: 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
+.brand { font-weight: 700; font-size: 16px; letter-spacing: .2px; margin-right: auto; }
+.brand .dot { color: var(--accent); }
+nav.tabs { display: flex; flex-wrap: wrap; gap: 4px; }
+nav.tabs a {
+  padding: 6px 12px; border-radius: 999px; color: var(--muted); font-weight: 600; font-size: 13px;
+}
+nav.tabs a.active, nav.tabs a:hover { background: var(--panel2); color: var(--ink); text-decoration: none; }
+
+.meta-bar { color: var(--muted); font-size: 12.5px; margin: 14px 0 6px; display: flex; flex-wrap: wrap; gap: 6px 16px; }
+.stage-pill { background: var(--panel2); color: var(--accent); padding: 2px 10px; border-radius: 999px; font-weight: 600; }
+
+h1 { font-size: 26px; margin: 14px 0 4px; }
+h2 { font-size: 19px; margin: 30px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+h3 { font-size: 15px; margin: 18px 0 8px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+p.lede { color: var(--muted); margin-top: 0; }
+
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; margin: 14px 0; }
+.grid { display: grid; gap: 14px; }
+.grid.cols-2 { grid-template-columns: 1fr 1fr; }
+.grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 760px){ .grid.cols-2,.grid.cols-3,.grid.cols-4 { grid-template-columns: 1fr; } .top .wrap{gap:6px;} }
+
+.kpi { text-align: center; }
+.kpi .num { font-size: 30px; font-weight: 800; color: var(--accent); line-height: 1.1; }
+.kpi .lbl { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+
+.countdown { background: linear-gradient(135deg, #142a2e, #1a2129); border-color: #1f4d49; }
+.countdown .num { color: var(--gold); }
+
+.conf { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; text-transform: uppercase; letter-spacing:.04em; }
+.conf.High { background: rgba(46,204,113,.16); color: var(--hi); }
+.conf.Med { background: rgba(245,166,35,.16); color: var(--med); }
+.conf.Low { background: rgba(231,76,60,.16); color: var(--lo); }
+
+.tag { display:inline-block; font-size: 10.5px; font-weight:600; padding: 1px 7px; border-radius: 999px; background: var(--panel2); color: var(--muted); margin: 0 3px 3px 0; }
+.tag.pen, .tag.penalties { background: rgba(255,207,77,.16); color: var(--gold); }
+.tag.differential { background: rgba(79,157,255,.16); color: var(--accent2); }
+.tag.nailed { background: rgba(46,204,113,.14); color: var(--hi); }
+
+ul.actions { list-style: none; padding: 0; margin: 0; }
+ul.actions li { padding: 12px 14px; border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 8px; margin-bottom: 10px; background: var(--panel); }
+ul.actions li .a-do { font-weight: 700; }
+ul.actions li .a-sub { color: var(--muted); font-size: 13px; }
+
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+th, td { text-align: left; padding: 7px 9px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; cursor: pointer; user-select: none; position: sticky; top: 56px; background: var(--bg); }
+th.sortable::after { content: &#34; ⇅&#34;; opacity: .35; font-size: 10px; }
+tbody tr:hover { background: var(--panel2); }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: var(--radius); border: 1px solid var(--line); }
+.table-scroll table th { top: 0; }
+
+.scoreline { font-weight: 800; font-size: 16px; font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+.small { font-size: 12.5px; }
+.right { text-align: right; }
+.center { text-align: center; }
+.pos { font-weight: 700; font-size: 11px; padding: 1px 6px; border-radius: 4px; }
+.pos.GK { background:#6b4ea3; } .pos.DEF { background:#2f6fb0; } .pos.MID { background:#1f8f6f; } .pos.FWD { background:#b0532f; }
+
+/* probability tri-bar */
+.tribar { display:flex; height: 10px; border-radius: 5px; overflow:hidden; min-width: 120px; background:var(--panel2); }
+.tribar i { display:block; height:100%; }
+.tribar .h { background: var(--win); } .tribar .d { background: var(--draw); } .tribar .a { background: var(--loss); }
+.trilabel { font-size: 11px; color: var(--muted); margin-top: 2px; display:flex; justify-content: space-between; }
+
+/* match cards */
+.match { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 8px; }
+.match .team { font-weight: 600; }
+.match .team.away { text-align: right; }
+.match .sc { background: var(--panel2); border-radius: 8px; padding: 6px 12px; text-align:center; }
+.mrow { border-bottom: 1px solid var(--line); padding: 12px 0; }
+.mrow:last-child { border-bottom: none; }
+.mhead { display:flex; justify-content: space-between; align-items:center; gap: 10px; color: var(--muted); font-size: 12px; margin-bottom: 6px; }
+
+/* pitch */
+.pitch { background: linear-gradient(180deg,#15803d22,#14532d10); border: 1px solid #2e7d4f55; border-radius: var(--radius);
+  padding: 18px 8px; display: grid; gap: 14px; background-color: #0e2a18; }
+.pitch .line { display:flex; justify-content: space-around; gap: 6px; flex-wrap: wrap; }
+.chip { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 6px 8px; min-width: 84px; max-width: 130px; text-align:center; position: relative; }
+.chip .nm { font-weight: 700; font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.chip .sub { font-size: 10.5px; color: var(--muted); }
+.chip .pts { font-size: 11px; color: var(--accent); font-weight: 700; }
+.chip.cap { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold) inset; }
+.chip .badge { position:absolute; top:-8px; right:-8px; background: var(--gold); color:#1a1a1a; font-weight:800; font-size:10px; border-radius:999px; width:18px; height:18px; line-height:18px; }
+.chip .badge.v { background: var(--accent2); color:#fff; }
+.bench { display:flex; gap:8px; flex-wrap: wrap; }
+.bench .chip { min-width: 96px; }
+
+.note { background: rgba(79,157,255,.08); border: 1px solid rgba(79,157,255,.3); border-radius: 8px; padding: 10px 12px; font-size: 13px; }
+.warn { background: rgba(245,166,35,.08); border: 1px solid rgba(245,166,35,.35); border-radius: 8px; padding: 10px 12px; font-size: 13px; }
+
+footer.foot { border-top: 1px solid var(--line); margin-top: 40px; padding-top: 16px; color: var(--muted); font-size: 12px; }
+footer.foot h4 { color: var(--ink); margin: 0 0 6px; font-size: 13px; }
+footer.foot ul { margin: 0 0 10px; padding-left: 18px; }
+footer.foot a { word-break: break-all; }
+
+.flip { color: var(--gold); }
+.up { color: var(--win); } .down { color: var(--loss); }
+
+@media print {
+  :root { --bg:#fff; --panel:#fff; --panel2:#f1f3f5; --ink:#111; --muted:#555; --line:#ccc; }
+  body { background:#fff; color:#111; }
+  header.top { position: static; }
+  nav.tabs, .countdown { display: none; }
+  .card, .table-scroll { break-inside: avoid; }
+  a { color:#111; }
+  .pitch { background:#eef6f0; }
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <span class="brand">WC&nbsp;2026 <span class="dot">●</span> Guide</span>
+    <nav class="tabs">
+      
+      <a href="index.html" class="">Dashboard</a>
+      
+      <a href="fantasy.html" class="">Fantasy</a>
+      
+      <a href="predictions.html" class="">Predictions</a>
+      
+      <a href="model.html" class="">Model</a>
+      
+      <a href="changelog.html" class="active">Changelog</a>
+      
+    </nav>
+  </div>
+</header>
+<div class="wrap">
+  <div class="meta-bar">
+    <span class="stage-pill">Pre-tournament — squad &amp; Matchday-1 predictions lock at first kickoff (2026-06-11)</span>
+    <span>Generated Fri 05 Jun 2026, 18:45 CET</span>
+    <span>Run 2026-06-05</span>
+    <span>200,000 simulations</span>
+  </div>
+
+  
+  <div class="warn"><strong>Notes:</strong>
+    Optional input lineups.json missing. · Merged odds_extra: match_odds 24 -&gt; 72.
+  </div>
+  
+
+  
+<h1>What changed &amp; how we're doing</h1>
+
+<h2>Running performance</h2>
+<div class="grid cols-3">
+  <div class="card kpi"><div class="num">0</div><div class="lbl">Nostradamus points</div></div>
+  <div class="card kpi"><div class="num">0</div><div class="lbl">Fantasy points</div></div>
+  <div class="card kpi"><div class="num">0</div><div class="lbl">matches scored</div></div>
+</div>
+
+
+<p class="small muted">These come from <code>state.json</code> (your real results). Update them as matches finish — the
+runbook explains how — so each run can score how the strategy is doing. <b>No real squad recorded yet</b> — confirm your team in <code>state.json</code> after you set it.</p>
+
+<h2>Changes since last run</h2>
+
+<div class="note">First run — no previous run to diff against. Future runs will diff against the previous day here: which score predictions
+flipped and why, squad/transfer changes, and bookmaker/advancement moves.</div>
+
+
+
+  <footer class="foot">
+    <div class="grid cols-2">
+      <div>
+        <h4>Method &amp; confidence</h4>
+        <p>One shared forecast model (de-vigged market odds + Elo + public models → Dixon–Coles scorelines →
+        Monte-Carlo of the full 48-team / Round-of-32 bracket) feeds both games. Each recommendation is a single
+        decisive call with a <span class="conf High">High</span>/<span class="conf Med">Med</span>/<span class="conf Low">Low</span>
+        confidence tag. Predictions are EV-maximizing (not just the most likely score). Fantasy picks are
+        horizon-weighted by advancement. Re-run daily for fresh data — see the changelog for what moved.</p>
+      </div>
+      <div>
+        <h4>Sources</h4>
+        <ul>
+          
+            <li><strong>fixtures:</strong>
+              <a href="https://en.wikipedia.org/wiki/2026_FIFA_World_Cup">en.wikipedia.org/wiki/2026_FIFA_World_Cup</a>, <a href="https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_draw">en.wikipedia.org/wiki/2026_FIFA_World_Cup_draw</a>, <a href="https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_knockout_stage">en.wikipedia.org/wiki/2026_FIFA_World_Cup_knockout_stage</a>, <a href="https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_A">en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_A</a>
+            </li>
+          
+            <li><strong>ratings odds:</strong>
+              <a href="https://www.eloratings.net/ (World Football Elo Ratings; data files World.tsv, 2026.tsv, en.teams.tsv)">www.eloratings.net/ (World Football Elo Ratings; data files World.tsv, 2026.tsv, en.teams.tsv)</a>, <a href="https://en.wikipedia.org/wiki/2026_FIFA_World_Cup (groups, qualified teams)">en.wikipedia.org/wiki/2026_FIFA_World_Cup (groups, qualified teams)</a>, <a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/world-cup-2026-who-has-qualified">www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/world-cup-2026-who-has-qualified</a>, <a href="https://sports.yahoo.com/soccer/article/2026-fifa-world-cup-daily-schedule-... (fixtures Jun 11-17)">sports.yahoo.com/soccer/article/2026-fifa-world-cup-daily-schedule-... (fixtures Jun 11-17)</a>
+            </li>
+          
+            <li><strong>squads:</strong>
+              <a href="https://www.espn.com/soccer/story/_/id/48677243/2026-world-cup-rosters-predictions-starting-xis-usa-france-mexico-england-spain-germany-brazil-argentina">www.espn.com/soccer/story/_/id/48677243/2026-world-cup-rosters-predictions-starting-xis-usa-france-mexico-england-spain-germany-brazil-argentina</a>, <a href="https://www.rotowire.com/soccer/article/2026-world-cup-penalty-corner-and-free-kick-takers-by-team-114076">www.rotowire.com/soccer/article/2026-world-cup-penalty-corner-and-free-kick-takers-by-team-114076</a>, <a href="https://www.rotowire.com/soccer/article/2026-fifa-world-cup-fantasy-rankings-best-picks-for-matchday-1-116025">www.rotowire.com/soccer/article/2026-fifa-world-cup-fantasy-rankings-best-picks-for-matchday-1-116025</a>, <a href="https://www.fantasyfootballscout.co.uk/2026/05/31/fantasy-fifa-world-cup-2026-all-48-nations-penalty-set-piece-takers">www.fantasyfootballscout.co.uk/2026/05/31/fantasy-fifa-world-cup-2026-all-48-nations-penalty-set-piece-takers</a>
+            </li>
+          
+            <li><strong>nostradamus:</strong>
+              <a href="https://www.rtvslo.si/nostradamus/sp-v-nogometu-2026">www.rtvslo.si/nostradamus/sp-v-nogometu-2026</a>, <a href="https://www.rtvslo.si/nostradamus/sp-v-nogometu-2026/navodila/">www.rtvslo.si/nostradamus/sp-v-nogometu-2026/navodila/</a>, <a href="https://www.rtvslo.si/rtv/za-medije/sporocila-za-javnost/svetovno-prvenstvo-v-nogometu-2026-na-rtv-slovenija/777698">www.rtvslo.si/rtv/za-medije/sporocila-za-javnost/svetovno-prvenstvo-v-nogometu-2026-na-rtv-slovenija/777698</a>, <a href="https://www.rtvslo.si/sport/nogomet/svetovno-prvenstvo-v-nogometu/svetovno-prvenstvo-v-nogometu-na-televiziji-slovenija/777644">www.rtvslo.si/sport/nogomet/svetovno-prvenstvo-v-nogometu/svetovno-prvenstvo-v-nogometu-na-televiziji-slovenija/777644</a>
+            </li>
+          
+            <li><strong>fantasy:</strong>
+              <a href="https://play.fifa.com/json/fantasy/help_pages.json (official in-app rules feed, how_to_play EN/DE/ES/FR) - PRIMARY, fetched live 2026-06-05">play.fifa.com/json/fantasy/help_pages.json (official in-app rules feed, how_to_play EN/DE/ES/FR) - PRIMARY, fetched live 2026-06-05</a>, <a href="https://play.fifa.com/fantasy (game home, SPA) - confirms game identity FANTASY_CLASSIC">play.fifa.com/fantasy (game home, SPA) - confirms game identity FANTASY_CLASSIC</a>, <a href="https://play.fifa.com/fantasy/static/js/index-D5RkYG30.js (FANTASY_CLASSIC app bundle) - confirms 5 booster endpoints, 8 rounds, round-&gt;stage map, transfer/captain API surface">play.fifa.com/fantasy/static/js/index-D5RkYG30.js (FANTASY_CLASSIC app bundle) - confirms 5 booster endpoints, 8 rounds, round-&gt;stage map, transfer/captain API surface</a>, <a href="https://www.fantasyfootballscout.co.uk/2026/05/26/how-to-play-the-fifa-world-cup-2026-fantasy-game (secondary corroboration)">www.fantasyfootballscout.co.uk/2026/05/26/how-to-play-the-fifa-world-cup-2026-fantasy-game (secondary corroboration)</a>
+            </li>
+          
+            <li><strong>fantasy feed:</strong>
+              <a href="https://play.fifa.com/json/fantasy/players.json">play.fifa.com/json/fantasy/players.json</a>, <a href="https://play.fifa.com/json/fantasy/squads.json">play.fifa.com/json/fantasy/squads.json</a>
+            </li>
+          
+        </ul>
+      </div>
+    </div>
+    <p class="small">Self-contained report — opens offline, prints cleanly. Not affiliated with FIFA or RTV SLO.
+    Odds/lineups move; the recommendations reflect data as of the run timestamp above.</p>
+  </footer>
+</div>
+<script>
+document.addEventListener(&#39;click&#39;, function(e){
+  var th = e.target.closest(&#39;th.sortable&#39;); if(!th) return;
+  var table = th.closest(&#39;table&#39;); var idx = Array.prototype.indexOf.call(th.parentNode.children, th);
+  var dir = th.getAttribute(&#39;data-dir&#39;) === &#39;asc&#39; ? &#39;desc&#39; : &#39;asc&#39;;
+  Array.prototype.forEach.call(th.parentNode.children, function(x){x.removeAttribute(&#39;data-dir&#39;);});
+  th.setAttribute(&#39;data-dir&#39;, dir);
+  var rows = Array.prototype.slice.call(table.tBodies[0].rows);
+  var num = function(v){ var n = parseFloat(String(v).replace(/[^0-9.\-]/g,&#39;&#39;)); return isNaN(n)?null:n; };
+  rows.sort(function(a,b){
+    var x=a.cells[idx].getAttribute(&#39;data-sort&#39;)||a.cells[idx].innerText;
+    var y=b.cells[idx].getAttribute(&#39;data-sort&#39;)||b.cells[idx].innerText;
+    var nx=num(x), ny=num(y), r;
+    if(nx!==null&amp;&amp;ny!==null){ r=nx-ny; } else { r=String(x).localeCompare(String(y)); }
+    return dir===&#39;asc&#39;? r : -r;
+  });
+  rows.forEach(function(r){ table.tBodies[0].appendChild(r); });
+});
+</script>
+</body>
+</html>

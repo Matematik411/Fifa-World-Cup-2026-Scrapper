@@ -1,0 +1,29 @@
+{% macro conf(c) -%}
+<span class="conf {{ c }}">{{ c }}</span>
+{%- endmacro %}
+
+{% macro tribar(ph, pd, pa) -%}
+<div>
+  <div class="tribar" title="Home {{ ph|pct }} / Draw {{ pd|pct }} / Away {{ pa|pct }}">
+    <i class="h" style="width:{{ (ph*100)|round(1) }}%"></i>
+    <i class="d" style="width:{{ (pd*100)|round(1) }}%"></i>
+    <i class="a" style="width:{{ (pa*100)|round(1) }}%"></i>
+  </div>
+  <div class="trilabel"><span>{{ ph|pct(0) }}</span><span>{{ pd|pct(0) }}</span><span>{{ pa|pct(0) }}</span></div>
+</div>
+{%- endmacro %}
+
+{% macro tags(ts) -%}
+{% for t in ts %}<span class="tag {{ t|replace(' ','-') }}">{{ t }}</span>{% endfor %}
+{%- endmacro %}
+
+{% macro pos(p) -%}<span class="pos {{ p }}">{{ p }}</span>{%- endmacro %}
+
+{% macro chip(p, showpts=True) -%}
+<div class="chip {{ 'cap' if p.is_captain else '' }}">
+  {% if p.is_captain %}<span class="badge">C</span>{% elif p.is_vice %}<span class="badge v">V</span>{% endif %}
+  <div class="nm">{{ p.name }}</div>
+  <div class="sub">{{ pos(p.position) }} · {{ p.nation }} · {{ p.price|price }}</div>
+  {% if showpts %}<div class="pts">{{ p.exp_next|r(1) }} pts{{ ' ×2' if p.is_captain else '' }}</div>{% endif %}
+</div>
+{%- endmacro %}

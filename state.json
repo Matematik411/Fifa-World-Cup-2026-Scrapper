@@ -1,0 +1,39 @@
+{
+  "schema": "wc2026-state-v1",
+  "last_run": "2026-06-05",
+  "recommended_squad": {
+    "player_ids": [
+      45,
+      1318,
+      138,
+      1366,
+      468,
+      471,
+      492,
+      501,
+      506,
+      521,
+      542,
+      751,
+      1088,
+      1094,
+      2000
+    ],
+    "captain": "Raphinha",
+    "formation": "4-5-1",
+    "as_of": "2026-06-05"
+  },
+  "owned": {
+    "player_ids": [],
+    "captain": null,
+    "formation": null,
+    "bank": 0.0,
+    "note": "CONFIRM your real team here each run (see RUNBOOK)."
+  },
+  "chips_used": [],
+  "cumulative": {
+    "nostradamus_points": 0,
+    "fantasy_points": 0
+  },
+  "predictions_entered": {}
+}

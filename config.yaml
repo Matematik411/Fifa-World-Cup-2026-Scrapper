@@ -1,0 +1,77 @@
+# ---------------------------------------------------------------------------
+# Configuration for the FIFA World Cup 2026 forecast + optimizers.
+# Edit values here; the pipeline reads this on every run.
+# ---------------------------------------------------------------------------
+
+tournament:
+  name: "FIFA World Cup 2026"
+  start_date: "2026-06-11"
+  end_date: "2026-07-19"
+  user_timezone: "Europe/Ljubljana"   # Slovenia (CET/CEST) — deadlines shown in this + match-local
+  n_groups: 12
+  teams_per_group: 4
+  group_matches: 72
+  total_matches: 104
+
+# --- Fantasy game rules (defaults; overridden by data/manual/fantasy_rules.json when present) ---
+fantasy:
+  budget: 100.0           # $M, group stage
+  ko_budget_bonus: 5.0    # +$5M for the Knockout Phase
+  squad:
+    GK: 2
+    DEF: 5
+    MID: 5
+    FWD: 3
+  nation_cap: 3           # max players from one national team (verified live; FIFA WC fantasy historically allows more — overridden by research)
+  formations:             # valid (DEF, MID, FWD) starting-XI shapes (1 GK always)
+    - [3, 4, 3]
+    - [3, 5, 2]
+    - [4, 3, 3]
+    - [4, 4, 2]
+    - [4, 5, 1]
+    - [5, 3, 2]
+    - [5, 4, 1]
+    - [5, 2, 3]
+  free_transfers_per_round: 2
+  extra_transfer_penalty: -4
+
+# --- Nostradamus scoring (defaults; overridden by data/manual/nostradamus.json) ---
+nostradamus:
+  exact: 3
+  outcome_plus_one: 2
+  outcome_only: 1
+  wrong: 0
+  ko_multiplier: 2          # doubling from Round of 32 through the final
+  ko_doubling_starts: "R32"
+  resolution: "90min"       # 90-minute regular-time result only
+
+# --- Model parameters ---
+model:
+  goal_cap: 8                  # scoreline matrix goals 0..goal_cap
+  sim_iterations: 200000       # Monte-Carlo bracket iterations
+  rng_seed: 20260605
+  dixon_coles_rho: -0.12       # low-score correlation correction (calibrated/typical)
+  # Ensemble weights for deriving team attack/defence strength (renormalized over available signals)
+  ensemble_weights:
+    market_title: 0.30         # de-vigged outright title odds
+    market_match: 0.30         # de-vigged per-match 1X2 (when available, dominates that match)
+    elo: 0.25
+    model_probs: 0.15          # public supercomputer/model forecasts
+  # Match-context adjustments (multiplicative on lambda or additive on rating)
+  home_advantage_goals: 0.35   # host nations (USA/MEX/CAN) attacking bump in their matches
+  altitude_venues:             # extra goals/variance at altitude (Mexico City, Guadalajara)
+    - "Mexico City"
+    - "Guadalajara"
+  altitude_factor: 1.05
+  base_total_goals: 2.65       # league-neutral expected total when no market total available
+
+sources:
+  # Toggle individual fetchers. Manual (Claude-curated) inputs are always read.
+  fifa_fantasy_feed: true
+  elo_scrape: true
+  football_data: false   # needs API key
+  api_football: false    # needs API key
+
+report:
+  title: "World Cup 2026 — Predictions & Fantasy Guide"
+  author_note: "Built and maintained by Claude (Opus 4.8). One recommended call per decision — follow it."

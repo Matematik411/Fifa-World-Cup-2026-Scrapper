@@ -1,0 +1,41 @@
+{
+  "fetched_at": "2026-06-05",
+  "sources": [
+    "https://www.rtvslo.si/nostradamus/sp-v-nogometu-2026",
+    "https://www.rtvslo.si/nostradamus/sp-v-nogometu-2026/navodila/",
+    "https://www.rtvslo.si/rtv/za-medije/sporocila-za-javnost/svetovno-prvenstvo-v-nogometu-2026-na-rtv-slovenija/777698",
+    "https://www.rtvslo.si/sport/nogomet/svetovno-prvenstvo-v-nogometu/svetovno-prvenstvo-v-nogometu-na-televiziji-slovenija/777644",
+    "https://www.rtvslo.si/sport/nogomet/sp-2026"
+  ],
+  "confidence": "High",
+  "game_urls": [
+    "https://www.rtvslo.si/nostradamus/sp-v-nogometu-2026",
+    "https://www.rtvslo.si/nostradamus/sp-v-nogometu-2026/navodila/"
+  ],
+  "scoring": {
+    "exact": 3,
+    "outcome_plus_one": 2,
+    "outcome_only": 1,
+    "wrong": 0
+  },
+  "doubling": {
+    "starts_round": "R32",
+    "through": "final",
+    "group_stage_doubled": false,
+    "ko_multiplier": 2,
+    "ko_values": {
+      "exact": 6,
+      "outcome_plus_one": 4,
+      "outcome_only": 2,
+      "wrong": 0
+    }
+  },
+  "resolution": "90-minute regular time only",
+  "match_coverage": "all_104",
+  "match_coverage_explanation": "The 2026 Nostradamus page renders the complete tournament bracket: all 12 group-stage tabs (A-L, 72 group matches) plus every knockout round (sestnajstina finala/R32 -> osmina finala/R16 -> cetrtfinale/QF -> polfinale/SF -> finale). The navodila place no broadcast restriction on predictions (general wording 'Za posamezno tekmo lahko izid napoveste'), and the press release states goals/results from all 104 matches are available in the app. TV Slovenija broadcasts only 64 of 104 matches (32 group + all 32 knockout), but that is a TV-rights detail separate from the prediction app, which is a standalone MMC web product. Prior editions (Qatar 2022, EURO 2024) likewise covered every tournament match. As of 2026-06-05 the knockout sections show 'Trenutno se ni mogoce oddati napovedi za izide tekem' because participants are not yet known; those matches open as the bracket fills.",
+  "covered_match_count": 104,
+  "deadlines": "per-match kickoff; predictions can be entered and edited any time until each match begins ('Za posamezno tekmo lahko izid napoveste (in tudi spremenite napoved) kadar koli do samega zacetka tekme.')",
+  "jokers_bonuses": "None. The only multiplier is the knockout-stage doubling (R32 through the final). No jokers, bonus picks, or other multipliers are mentioned in the 2026 navodila.",
+  "registration": "Free; required (username + password). 'registracija je brezplacna.'",
+  "notes": "Confirmed verbatim from the 2026 navodila page. Scoring example (match 2:1): exact score (2:1) = 3 pts; correct outcome + one team's exact goal count (e.g. 2:0, 3:1) = 2 pts; correct outcome only (e.g. 1:0, 3:2) = 1 pt; wrong outcome (0:0, 0:1, 2:4) = 0. Resolution: 'Uposteva se izid dosezen po 90 minutah (redni del brez podaljska in enajstmetrovk).' Doubling: 'V zakljucnih fazah tekmovanja (od sestnajstine finala pa vse do velikega finala) se vrednosti vase napovedi podvojijo.' NOTE on terminology: 'sestnajstina finala' literally = one-sixteenth-final = the Round of 32 (16 matches), which is the FIRST knockout round in a 48-team World Cup; 'osmina finala' = Round of 16. So doubling correctly starts at R32, matching the project's working assumption. (A machine translation initially mislabeled 'sestnajstina finala' as 'Round of 16' - that is wrong.) Group-stage values are single. Tournament structure: 48 teams, 12 groups of 4, 72 group matches + 32 knockout = 104 total. Press release dated ~2026-04-07."
+}

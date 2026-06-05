@@ -1,0 +1,708 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fantasy — WC 2026 Guide</title>
+<style>:root {
+  --bg: #0f1419; --panel: #1a2129; --panel2: #222b35; --ink: #e8edf2; --muted: #9aa7b4;
+  --line: #2d3742; --accent: #00c2a8; --accent2: #4f9dff; --gold: #ffcf4d;
+  --win: #2ecc71; --draw: #95a5a6; --loss: #e74c3c;
+  --hi: #2ecc71; --med: #f5a623; --lo: #e74c3c;
+  --radius: 12px; --maxw: 1080px;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 15px/1.55 -apple-system, BlinkMacSystemFont, &#34;Segoe UI&#34;, Roboto, Helvetica, Arial, sans-serif;
+}
+a { color: var(--accent2); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 16px 64px; }
+
+header.top {
+  position: sticky; top: 0; z-index: 50; background: rgba(15,20,25,.92);
+  backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);
+}
+.top .wrap { padding-top: 12px; padding-bottom: 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
+.brand { font-weight: 700; font-size: 16px; letter-spacing: .2px; margin-right: auto; }
+.brand .dot { color: var(--accent); }
+nav.tabs { display: flex; flex-wrap: wrap; gap: 4px; }
+nav.tabs a {
+  padding: 6px 12px; border-radius: 999px; color: var(--muted); font-weight: 600; font-size: 13px;
+}
+nav.tabs a.active, nav.tabs a:hover { background: var(--panel2); color: var(--ink); text-decoration: none; }
+
+.meta-bar { color: var(--muted); font-size: 12.5px; margin: 14px 0 6px; display: flex; flex-wrap: wrap; gap: 6px 16px; }
+.stage-pill { background: var(--panel2); color: var(--accent); padding: 2px 10px; border-radius: 999px; font-weight: 600; }
+
+h1 { font-size: 26px; margin: 14px 0 4px; }
+h2 { font-size: 19px; margin: 30px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+h3 { font-size: 15px; margin: 18px 0 8px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+p.lede { color: var(--muted); margin-top: 0; }
+
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; margin: 14px 0; }
+.grid { display: grid; gap: 14px; }
+.grid.cols-2 { grid-template-columns: 1fr 1fr; }
+.grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 760px){ .grid.cols-2,.grid.cols-3,.grid.cols-4 { grid-template-columns: 1fr; } .top .wrap{gap:6px;} }
+
+.kpi { text-align: center; }
+.kpi .num { font-size: 30px; font-weight: 800; color: var(--accent); line-height: 1.1; }
+.kpi .lbl { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+
+.countdown { background: linear-gradient(135deg, #142a2e, #1a2129); border-color: #1f4d49; }
+.countdown .num { color: var(--gold); }
+
+.conf { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; text-transform: uppercase; letter-spacing:.04em; }
+.conf.High { background: rgba(46,204,113,.16); color: var(--hi); }
+.conf.Med { background: rgba(245,166,35,.16); color: var(--med); }
+.conf.Low { background: rgba(231,76,60,.16); color: var(--lo); }
+
+.tag { display:inline-block; font-size: 10.5px; font-weight:600; padding: 1px 7px; border-radius: 999px; background: var(--panel2); color: var(--muted); margin: 0 3px 3px 0; }
+.tag.pen, .tag.penalties { background: rgba(255,207,77,.16); color: var(--gold); }
+.tag.differential { background: rgba(79,157,255,.16); color: var(--accent2); }
+.tag.nailed { background: rgba(46,204,113,.14); color: var(--hi); }
+
+ul.actions { list-style: none; padding: 0; margin: 0; }
+ul.actions li { padding: 12px 14px; border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 8px; margin-bottom: 10px; background: var(--panel); }
+ul.actions li .a-do { font-weight: 700; }
+ul.actions li .a-sub { color: var(--muted); font-size: 13px; }
+
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+th, td { text-align: left; padding: 7px 9px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; cursor: pointer; user-select: none; position: sticky; top: 56px; background: var(--bg); }
+th.sortable::after { content: &#34; ⇅&#34;; opacity: .35; font-size: 10px; }
+tbody tr:hover { background: var(--panel2); }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: var(--radius); border: 1px solid var(--line); }
+.table-scroll table th { top: 0; }
+
+.scoreline { font-weight: 800; font-size: 16px; font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+.small { font-size: 12.5px; }
+.right { text-align: right; }
+.center { text-align: center; }
+.pos { font-weight: 700; font-size: 11px; padding: 1px 6px; border-radius: 4px; }
+.pos.GK { background:#6b4ea3; } .pos.DEF { background:#2f6fb0; } .pos.MID { background:#1f8f6f; } .pos.FWD { background:#b0532f; }
+
+/* probability tri-bar */
+.tribar { display:flex; height: 10px; border-radius: 5px; overflow:hidden; min-width: 120px; background:var(--panel2); }
+.tribar i { display:block; height:100%; }
+.tribar .h { background: var(--win); } .tribar .d { background: var(--draw); } .tribar .a { background: var(--loss); }
+.trilabel { font-size: 11px; color: var(--muted); margin-top: 2px; display:flex; justify-content: space-between; }
+
+/* match cards */
+.match { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 8px; }
+.match .team { font-weight: 600; }
+.match .team.away { text-align: right; }
+.match .sc { background: var(--panel2); border-radius: 8px; padding: 6px 12px; text-align:center; }
+.mrow { border-bottom: 1px solid var(--line); padding: 12px 0; }
+.mrow:last-child { border-bottom: none; }
+.mhead { display:flex; justify-content: space-between; align-items:center; gap: 10px; color: var(--muted); font-size: 12px; margin-bottom: 6px; }
+
+/* pitch */
+.pitch { background: linear-gradient(180deg,#15803d22,#14532d10); border: 1px solid #2e7d4f55; border-radius: var(--radius);
+  padding: 18px 8px; display: grid; gap: 14px; background-color: #0e2a18; }
+.pitch .line { display:flex; justify-content: space-around; gap: 6px; flex-wrap: wrap; }
+.chip { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 6px 8px; min-width: 84px; max-width: 130px; text-align:center; position: relative; }
+.chip .nm { font-weight: 700; font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.chip .sub { font-size: 10.5px; color: var(--muted); }
+.chip .pts { font-size: 11px; color: var(--accent); font-weight: 700; }
+.chip.cap { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold) inset; }
+.chip .badge { position:absolute; top:-8px; right:-8px; background: var(--gold); color:#1a1a1a; font-weight:800; font-size:10px; border-radius:999px; width:18px; height:18px; line-height:18px; }
+.chip .badge.v { background: var(--accent2); color:#fff; }
+.bench { display:flex; gap:8px; flex-wrap: wrap; }
+.bench .chip { min-width: 96px; }
+
+.note { background: rgba(79,157,255,.08); border: 1px solid rgba(79,157,255,.3); border-radius: 8px; padding: 10px 12px; font-size: 13px; }
+.warn { background: rgba(245,166,35,.08); border: 1px solid rgba(245,166,35,.35); border-radius: 8px; padding: 10px 12px; font-size: 13px; }
+
+footer.foot { border-top: 1px solid var(--line); margin-top: 40px; padding-top: 16px; color: var(--muted); font-size: 12px; }
+footer.foot h4 { color: var(--ink); margin: 0 0 6px; font-size: 13px; }
+footer.foot ul { margin: 0 0 10px; padding-left: 18px; }
+footer.foot a { word-break: break-all; }
+
+.flip { color: var(--gold); }
+.up { color: var(--win); } .down { color: var(--loss); }
+
+@media print {
+  :root { --bg:#fff; --panel:#fff; --panel2:#f1f3f5; --ink:#111; --muted:#555; --line:#ccc; }
+  body { background:#fff; color:#111; }
+  header.top { position: static; }
+  nav.tabs, .countdown { display: none; }
+  .card, .table-scroll { break-inside: avoid; }
+  a { color:#111; }
+  .pitch { background:#eef6f0; }
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <span class="brand">WC&nbsp;2026 <span class="dot">●</span> Guide</span>
+    <nav class="tabs">
+      
+      <a href="index.html" class="">Dashboard</a>
+      
+      <a href="fantasy.html" class="active">Fantasy</a>
+      
+      <a href="predictions.html" class="">Predictions</a>
+      
+      <a href="model.html" class="">Model</a>
+      
+      <a href="changelog.html" class="">Changelog</a>
+      
+    </nav>
+  </div>
+</header>
+<div class="wrap">
+  <div class="meta-bar">
+    <span class="stage-pill">Pre-tournament — squad &amp; Matchday-1 predictions lock at first kickoff (2026-06-11)</span>
+    <span>Generated Fri 05 Jun 2026, 18:45 CET</span>
+    <span>Run 2026-06-05</span>
+    <span>200,000 simulations</span>
+  </div>
+
+  
+  <div class="warn"><strong>Notes:</strong>
+    Optional input lineups.json missing. · Merged odds_extra: match_odds 24 -&gt; 72.
+  </div>
+  
+
+  
+
+
+
+
+
+
+
+<h1>The recommended squad</h1>
+<p class="lede">First run — set this as your initial 15 before the 11 Jun lock.
+This is the single best team — set it exactly.</p>
+
+<div class="grid cols-4">
+  <div class="card kpi"><div class="num">4-5-1</div><div class="lbl">formation</div></div>
+  <div class="card kpi"><div class="num">$100.0</div><div class="lbl">spent of $100.0</div></div>
+  <div class="card kpi"><div class="num">$0.0</div><div class="lbl">in the bank</div></div>
+  <div class="card kpi"><div class="num">54.3</div><div class="lbl">XI exp. pts (next round)</div></div>
+</div>
+
+<h2>Starting XI &amp; captain</h2>
+<div class="pitch">
+  <div class="line"><div class="chip ">
+  
+  <div class="nm">Emiliano Martínez</div>
+  <div class="sub"><span class="pos GK">GK</span> · Argentina · $5.0</div>
+  <div class="pts">3.9 pts</div>
+</div></div>
+  <div class="line"><div class="chip ">
+  
+  <div class="nm">Lisandro Martínez</div>
+  <div class="sub"><span class="pos DEF">DEF</span> · Argentina · $4.6</div>
+  <div class="pts">4.3 pts</div>
+</div><div class="chip ">
+  
+  <div class="nm">David Raum</div>
+  <div class="sub"><span class="pos DEF">DEF</span> · Germany · $4.9</div>
+  <div class="pts">5.4 pts</div>
+</div><div class="chip ">
+  
+  <div class="nm">Joshua Kimmich</div>
+  <div class="sub"><span class="pos DEF">DEF</span> · Germany · $5.5</div>
+  <div class="pts">6.3 pts</div>
+</div><div class="chip ">
+  
+  <div class="nm">Marc Cucurella</div>
+  <div class="sub"><span class="pos DEF">DEF</span> · Spain · $5.1</div>
+  <div class="pts">4.4 pts</div>
+</div></div>
+  <div class="line"><div class="chip ">
+  
+  <div class="nm">Kevin De Bruyne</div>
+  <div class="sub"><span class="pos MID">MID</span> · Belgium · $7.5</div>
+  <div class="pts">5.0 pts</div>
+</div><div class="chip cap">
+  <span class="badge">C</span>
+  <div class="nm">Raphinha</div>
+  <div class="sub"><span class="pos MID">MID</span> · Brazil · $8.2</div>
+  <div class="pts">5.6 pts ×2</div>
+</div><div class="chip ">
+  
+  <div class="nm">Marcus Rashford</div>
+  <div class="sub"><span class="pos MID">MID</span> · England · $7.5</div>
+  <div class="pts">4.1 pts</div>
+</div><div class="chip ">
+  <span class="badge v">V</span>
+  <div class="nm">Ousmane Dembélé</div>
+  <div class="sub"><span class="pos MID">MID</span> · France · $10.0</div>
+  <div class="pts">5.5 pts</div>
+</div><div class="chip ">
+  
+  <div class="nm">Nico Williams</div>
+  <div class="sub"><span class="pos MID">MID</span> · Spain · $7.8</div>
+  <div class="pts">5.3 pts</div>
+</div></div>
+  <div class="line"><div class="chip ">
+  
+  <div class="nm">Mikel Oyarzabal</div>
+  <div class="sub"><span class="pos FWD">FWD</span> · Spain · $8.1</div>
+  <div class="pts">4.3 pts</div>
+</div></div>
+</div>
+<p class="small muted">Captain <b>Raphinha</b> (×2) · Vice <b>Ousmane Dembélé</b> (takes the armband only if the captain plays 0 minutes). Captaincy can be changed live during the round — leave it on Raphinha unless they're ruled out.</p>
+
+<h3>Bench (auto-sub order)</h3>
+<div class="bench"><div class="chip ">
+  
+  <div class="nm">Harry Kane</div>
+  <div class="sub"><span class="pos FWD">FWD</span> · England · $10.5</div>
+  <div class="pts">3.9 pts</div>
+</div><div class="chip ">
+  
+  <div class="nm">Theo Hernández</div>
+  <div class="sub"><span class="pos DEF">DEF</span> · France · $5.0</div>
+  <div class="pts">3.4 pts</div>
+</div><div class="chip ">
+  
+  <div class="nm">Alexis Vega</div>
+  <div class="sub"><span class="pos FWD">FWD</span> · Mexico · $5.3</div>
+  <div class="pts">2.7 pts</div>
+</div><div class="chip ">
+  
+  <div class="nm">Mike Maignan</div>
+  <div class="sub"><span class="pos GK">GK</span> · France · $5.0</div>
+  <div class="pts">3.5 pts</div>
+</div></div>
+
+<h2>Why each pick</h2>
+<div class="card"><div class="table-scroll"><table>
+  <thead><tr>
+    <th>Pos</th><th>Player</th><th>Team</th><th class="num sortable">Price</th>
+    <th class="num sortable">Next</th><th class="num sortable">Horizon</th><th class="num sortable">Own%</th><th class="num sortable">Start%</th><th>Why</th>
+  </tr></thead>
+  <tbody>
+  
+    <tr>
+      <td><span class="pos MID">MID</span></td>
+      <td><b>Raphinha</b> <span class="conf High">C</span> <span class="tag penalties">penalties</span><span class="tag free-kicks">free-kicks</span><span class="tag nailed">nailed</span><span class="tag xG-backed">xG-backed</span></td>
+      <td>Brazil</td>
+      <td class="num" data-sort="8.2">$8.2</td>
+      <td class="num" data-sort="5.62">5.6</td>
+      <td class="num" data-sort="35.6">36</td>
+      <td class="num" data-sort="21.3">21</td>
+      <td class="num" data-sort="0.93">93</td>
+      <td class="small">penalty taker, nailed starter, 1.04 xG+xA/90, likely deep run</td>
+    </tr>
+  
+    <tr>
+      <td><span class="pos MID">MID</span></td>
+      <td><b>Ousmane Dembélé</b> <span class="conf Med">V</span> <span class="tag free-kicks">free-kicks</span><span class="tag nailed">nailed</span><span class="tag xG-backed">xG-backed</span></td>
+      <td>France</td>
+      <td class="num" data-sort="10.0">$10.0</td>
+      <td class="num" data-sort="5.54">5.5</td>
+      <td class="num" data-sort="33.5">34</td>
+      <td class="num" data-sort="20.0">20</td>
+      <td class="num" data-sort="0.93">93</td>
+      <td class="small">nailed starter, 1.07 xG+xA/90, likely deep run</td>
+    </tr>
+  
+    <tr>
+      <td><span class="pos MID">MID</span></td>
+      <td><b>Nico Williams</b> <span class="tag nailed">nailed</span><span class="tag differential">differential</span><span class="tag xG-backed">xG-backed</span></td>
+      <td>Spain</td>
+      <td class="num" data-sort="7.8">$7.8</td>
+      <td class="num" data-sort="5.35">5.3</td>
+      <td class="num" data-sort="28.4">28</td>
+      <td class="num" data-sort="3.9">4</td>
+      <td class="num" data-sort="0.93">93</td>
+      <td class="small">nailed starter, 0.54 xG+xA/90, likely deep run</td>
+    </tr>
+  
+    <tr>
+      <td><span class="pos MID">MID</span></td>
+      <td><b>Kevin De Bruyne</b> <span class="tag penalties">penalties</span><span class="tag free-kicks">free-kicks</span><span class="tag nailed">nailed</span><span class="tag xG-backed">xG-backed</span></td>
+      <td>Belgium</td>
+      <td class="num" data-sort="7.5">$7.5</td>
+      <td class="num" data-sort="5.01">5.0</td>
+      <td class="num" data-sort="26.5">26</td>
+      <td class="num" data-sort="5.2">5</td>
+      <td class="num" data-sort="0.93">93</td>
+      <td class="small">penalty taker, nailed starter, 0.53 xG+xA/90, likely deep run</td>
+    </tr>
+  
+    <tr>
+      <td><span class="pos MID">MID</span></td>
+      <td><b>Marcus Rashford</b> <span class="tag nailed">nailed</span><span class="tag differential">differential</span><span class="tag xG-backed">xG-backed</span></td>
+      <td>England</td>
+      <td class="num" data-sort="7.5">$7.5</td>
+      <td class="num" data-sort="4.09">4.1</td>
+      <td class="num" data-sort="25.4">25</td>
+      <td class="num" data-sort="2.0">2</td>
+      <td class="num" data-sort="0.88">88</td>
+      <td class="small">nailed starter, 0.93 xG+xA/90, likely deep run</td>
+    </tr>
+  
+    <tr>
+      <td><span class="pos FWD">FWD</span></td>
+      <td><b>Harry Kane</b> <span class="tag penalties">penalties</span><span class="tag nailed">nailed</span><span class="tag xG-backed">xG-backed</span></td>
+      <td>England</td>
+      <td class="num" data-sort="10.5">$10.5</td>
+      <td class="num" data-sort="3.87">3.9</td>
+      <td class="num" data-sort="24.5">24</td>
+      <td class="num" data-sort="37.8">38</td>
+      <td class="num" data-sort="0.93">93</td>
+      <td class="small">penalty taker, nailed starter, 1.12 xG+xA/90, likely deep run</td>
+    </tr>
+  
+    <tr>
+      <td><span class="pos DEF">DEF</span></td>
+      <td><b>Lisandro Martínez</b> <span class="tag nailed">nailed</span><span class="tag differential">differential</span><span class="tag xG-backed">xG-backed</span></td>
+      <td>Argentina</td>
+      <td class="num" data-sort="4.6">$4.6</td>
+      <td class="num" data-sort="4.3">4.3</td>
+      <td class="num" data-sort="23.4">23</td>
+      <td class="num" data-sort="2.3">2</td>
+      <td class="num" data-sort="0.93">93</td>
+      <td class="small">nailed starter, clean-sheet upside, likely deep run</td>
+    </tr>
+  
+    <tr>
+      <td><span class="pos DEF">DEF</span></td>
+      <td><b>Joshua Kimmich</b> <span class="tag penalties">penalties</span><span class="tag free-kicks">free-kicks</span><span class="tag nailed">nailed</span><span class="tag xG-backed">xG-backed</span></td>
+      <td>Germany</td>
+      <td class="num" data-sort="5.5">$5.5</td>
+      <td class="num" data-sort="6.33">6.3</td>
+      <td class="num" data-sort="23.4">23</td>
+      <td class="num" data-sort="28.6">29</td>
+      <td class="num" data-sort="0.93">93</td>
+      <td class="small">penalty taker, nailed starter, clean-sheet upside, likely deep run</td>
+    </tr>
+  
+    <tr>
+      <td><span class="pos DEF">DEF</span></td>
+      <td><b>Marc Cucurella</b> <span class="tag nailed">nailed</span><span class="tag xG-backed">xG-backed</span></td>
+      <td>Spain</td>
+      <td class="num" data-sort="5.1">$5.1</td>
+      <td class="num" data-sort="4.39">4.4</td>
+      <td class="num" data-sort="22.8">23</td>
+      <td class="num" data-sort="22.8">23</td>
+      <td class="num" data-sort="0.93">93</td>
+      <td class="small">nailed starter, clean-sheet upside, likely deep run</td>
+    </tr>
+  
+    <tr>
+      <td><span class="pos FWD">FWD</span></td>
+      <td><b>Mikel Oyarzabal</b> <span class="tag penalties">penalties</span><span class="tag nailed">nailed</span><span class="tag xG-backed">xG-backed</span></td>
+      <td>Spain</td>
+      <td class="num" data-sort="8.1">$8.1</td>
+      <td class="num" data-sort="4.29">4.3</td>
+      <td class="num" data-sort="22.4">22</td>
+      <td class="num" data-sort="16.5">16</td>
+      <td class="num" data-sort="0.93">93</td>
+      <td class="small">penalty taker, nailed starter, 0.53 xG+xA/90, likely deep run</td>
+    </tr>
+  
+    <tr>
+      <td><span class="pos GK">GK</span></td>
+      <td><b>Emiliano Martínez</b> <span class="tag nailed">nailed</span><span class="tag xG-backed">xG-backed</span></td>
+      <td>Argentina</td>
+      <td class="num" data-sort="5.0">$5.0</td>
+      <td class="num" data-sort="3.94">3.9</td>
+      <td class="num" data-sort="21.4">21</td>
+      <td class="num" data-sort="22.3">22</td>
+      <td class="num" data-sort="0.96">96</td>
+      <td class="small">nailed starter, clean-sheet upside, likely deep run</td>
+    </tr>
+  
+    <tr>
+      <td><span class="pos DEF">DEF</span></td>
+      <td><b>Theo Hernández</b> <span class="tag nailed">nailed</span><span class="tag differential">differential</span><span class="tag xG-backed">xG-backed</span></td>
+      <td>France</td>
+      <td class="num" data-sort="5.0">$5.0</td>
+      <td class="num" data-sort="3.42">3.4</td>
+      <td class="num" data-sort="20.8">21</td>
+      <td class="num" data-sort="3.3">3</td>
+      <td class="num" data-sort="0.88">88</td>
+      <td class="small">nailed starter, clean-sheet upside, likely deep run</td>
+    </tr>
+  
+    <tr>
+      <td><span class="pos GK">GK</span></td>
+      <td><b>Mike Maignan</b> <span class="tag nailed">nailed</span></td>
+      <td>France</td>
+      <td class="num" data-sort="5.0">$5.0</td>
+      <td class="num" data-sort="3.52">3.5</td>
+      <td class="num" data-sort="20.8">21</td>
+      <td class="num" data-sort="10.2">10</td>
+      <td class="num" data-sort="0.96">96</td>
+      <td class="small">nailed starter, clean-sheet upside, likely deep run</td>
+    </tr>
+  
+    <tr>
+      <td><span class="pos DEF">DEF</span></td>
+      <td><b>David Raum</b> <span class="tag nailed">nailed</span><span class="tag differential">differential</span><span class="tag xG-backed">xG-backed</span></td>
+      <td>Germany</td>
+      <td class="num" data-sort="4.9">$4.9</td>
+      <td class="num" data-sort="5.44">5.4</td>
+      <td class="num" data-sort="19.8">20</td>
+      <td class="num" data-sort="4.5">4</td>
+      <td class="num" data-sort="0.93">93</td>
+      <td class="small">nailed starter, clean-sheet upside, likely deep run</td>
+    </tr>
+  
+    <tr>
+      <td><span class="pos FWD">FWD</span></td>
+      <td><b>Alexis Vega</b> <span class="tag free-kicks">free-kicks</span><span class="tag nailed">nailed</span><span class="tag differential">differential</span><span class="tag xG-backed">xG-backed</span></td>
+      <td>Mexico</td>
+      <td class="num" data-sort="5.3">$5.3</td>
+      <td class="num" data-sort="2.74">2.7</td>
+      <td class="num" data-sort="12.1">12</td>
+      <td class="num" data-sort="0.1">0</td>
+      <td class="num" data-sort="0.88">88</td>
+      <td class="small">nailed starter, 0.67 xG+xA/90</td>
+    </tr>
+  
+  </tbody>
+</table></div>
+<p class="small muted">“Next” = expected points in the upcoming round · “Horizon” = longevity-weighted total value (per-match points × expected remaining matches from advancement odds). The squad maximizes total horizon value within budget, the 2/5/5/3 shape and the 3-per-nation cap; the XI maximizes next-round points.</p>
+</div>
+
+<h2>Transfers &amp; chips</h2>
+<div class="grid cols-2">
+  <div class="card">
+    <h3>Transfer plan</h3>
+    
+      <div class="note">First run — there is nothing to transfer yet. Build the 15 above as your initial squad; transfers are unlimited until the first kickoff, so you can tweak freely until then. From Matchday 2 you get 2 free transfers per round.</div>
+    
+  </div>
+  <div class="card">
+    <h3>Chips (5 remaining)</h3>
+    <table><thead><tr><th>Chip</th><th>Now</th><th>Why</th></tr></thead><tbody>
+      
+      <tr><td><b>Wildcard</b></td><td><span class="conf Low">HOLD</span></td><td class="small">Cannot be used on Matchday 1 or the Round of 32. Save it for a congested transfer round (e.g. when several starters are eliminated at once after the groups).</td></tr>
+      
+      <tr><td><b>Qualification Booster</b></td><td><span class="conf Low">HOLD</span></td><td class="small">Knockout-only (R32+). Plan to use it in a round where most of your XI are heavy favourites to progress.</td></tr>
+      
+      <tr><td><b>Maximum Captain</b></td><td><span class="conf Low">HOLD</span></td><td class="small">Save for a round where your premiums have great fixtures; it auto-doubles your top scorer so it shines when several of your players could explode.</td></tr>
+      
+      <tr><td><b>12th Man</b></td><td><span class="conf Low">HOLD</span></td><td class="small">Best in a round where you can name a strong 12th attacker with a soft fixture; hold until then.</td></tr>
+      
+      <tr><td><b>Mystery Booster</b></td><td><span class="conf Low">WAIT</span></td><td class="small">Effect is revealed at the Round of 32 — re-evaluate then.</td></tr>
+      
+    </tbody></table>
+  </div>
+</div>
+
+<h2>Best alternatives by position <span class="small muted">(reference — the picks above are the recommendation)</span></h2>
+<div class="grid cols-2">
+  
+  <div class="card">
+    <h3>GK</h3>
+    <div class="table-scroll"><table>
+      <thead><tr><th>Player</th><th>Team</th><th class="num">$</th><th class="num">Next</th><th class="num">Horizon</th><th class="num">Own%</th></tr></thead>
+      <tbody>
+      
+        <tr><td>David Raya</td><td class="small">Spain</td><td class="num">$5.0</td>
+        <td class="num">4.1</td><td class="num">22</td><td class="num">15</td></tr>
+      
+        <tr><td>Emiliano Martínez</td><td class="small">Argentina</td><td class="num">$5.0</td>
+        <td class="num">3.9</td><td class="num">21</td><td class="num">22</td></tr>
+      
+        <tr><td>Mike Maignan</td><td class="small">France</td><td class="num">$5.0</td>
+        <td class="num">3.5</td><td class="num">21</td><td class="num">10</td></tr>
+      
+        <tr><td>Jordan Pickford</td><td class="small">England</td><td class="num">$4.8</td>
+        <td class="num">3.3</td><td class="num">19</td><td class="num">15</td></tr>
+      
+        <tr><td>Ederson</td><td class="small">Brazil</td><td class="num">$5.0</td>
+        <td class="num">3.5</td><td class="num">19</td><td class="num">4</td></tr>
+      
+        <tr><td>Diogo Costa</td><td class="small">Portugal</td><td class="num">$4.9</td>
+        <td class="num">3.7</td><td class="num">18</td><td class="num">10</td></tr>
+      
+        <tr><td>Manuel Neuer</td><td class="small">Germany</td><td class="num">$5.0</td>
+        <td class="num">4.2</td><td class="num">18</td><td class="num">13</td></tr>
+      
+        <tr><td>Thibaut Courtois</td><td class="small">Belgium</td><td class="num">$4.9</td>
+        <td class="num">3.2</td><td class="num">17</td><td class="num">12</td></tr>
+      
+      </tbody>
+    </table></div>
+  </div>
+  
+  <div class="card">
+    <h3>DEF</h3>
+    <div class="table-scroll"><table>
+      <thead><tr><th>Player</th><th>Team</th><th class="num">$</th><th class="num">Next</th><th class="num">Horizon</th><th class="num">Own%</th></tr></thead>
+      <tbody>
+      
+        <tr><td>Lisandro Martínez</td><td class="small">Argentina</td><td class="num">$4.6</td>
+        <td class="num">4.3</td><td class="num">23</td><td class="num">2</td></tr>
+      
+        <tr><td>Joshua Kimmich</td><td class="small">Germany</td><td class="num">$5.5</td>
+        <td class="num">6.3</td><td class="num">23</td><td class="num">29</td></tr>
+      
+        <tr><td>Marc Cucurella</td><td class="small">Spain</td><td class="num">$5.1</td>
+        <td class="num">4.4</td><td class="num">23</td><td class="num">23</td></tr>
+      
+        <tr><td>Aymeric Laporte</td><td class="small">Spain</td><td class="num">$5.5</td>
+        <td class="num">4.1</td><td class="num">21</td><td class="num">5</td></tr>
+      
+        <tr><td>Marcos Llorente</td><td class="small">Spain</td><td class="num">$5.5</td>
+        <td class="num">4.0</td><td class="num">21</td><td class="num">6</td></tr>
+      
+        <tr><td>Theo Hernández</td><td class="small">France</td><td class="num">$5.0</td>
+        <td class="num">3.4</td><td class="num">21</td><td class="num">3</td></tr>
+      
+        <tr><td>Lucas Hernández</td><td class="small">France</td><td class="num">$5.2</td>
+        <td class="num">3.4</td><td class="num">21</td><td class="num">2</td></tr>
+      
+        <tr><td>Pau Cubarsí</td><td class="small">Spain</td><td class="num">$5.0</td>
+        <td class="num">4.0</td><td class="num">21</td><td class="num">6</td></tr>
+      
+      </tbody>
+    </table></div>
+  </div>
+  
+  <div class="card">
+    <h3>MID</h3>
+    <div class="table-scroll"><table>
+      <thead><tr><th>Player</th><th>Team</th><th class="num">$</th><th class="num">Next</th><th class="num">Horizon</th><th class="num">Own%</th></tr></thead>
+      <tbody>
+      
+        <tr><td>Raphinha</td><td class="small">Brazil</td><td class="num">$8.2</td>
+        <td class="num">5.6</td><td class="num">36</td><td class="num">21</td></tr>
+      
+        <tr><td>Ousmane Dembélé</td><td class="small">France</td><td class="num">$10.0</td>
+        <td class="num">5.5</td><td class="num">34</td><td class="num">20</td></tr>
+      
+        <tr><td>Michael Olise</td><td class="small">France</td><td class="num">$9.5</td>
+        <td class="num">4.9</td><td class="num">30</td><td class="num">23</td></tr>
+      
+        <tr><td>Nico Williams</td><td class="small">Spain</td><td class="num">$7.8</td>
+        <td class="num">5.4</td><td class="num">28</td><td class="num">4</td></tr>
+      
+        <tr><td>Pedri</td><td class="small">Spain</td><td class="num">$8.1</td>
+        <td class="num">5.0</td><td class="num">27</td><td class="num">10</td></tr>
+      
+        <tr><td>Vinícius Júnior</td><td class="small">Brazil</td><td class="num">$10.0</td>
+        <td class="num">4.5</td><td class="num">27</td><td class="num">14</td></tr>
+      
+        <tr><td>Bruno Fernandes</td><td class="small">Portugal</td><td class="num">$8.5</td>
+        <td class="num">5.3</td><td class="num">27</td><td class="num">49</td></tr>
+      
+        <tr><td>Kevin De Bruyne</td><td class="small">Belgium</td><td class="num">$7.5</td>
+        <td class="num">5.0</td><td class="num">27</td><td class="num">5</td></tr>
+      
+      </tbody>
+    </table></div>
+  </div>
+  
+  <div class="card">
+    <h3>FWD</h3>
+    <div class="table-scroll"><table>
+      <thead><tr><th>Player</th><th>Team</th><th class="num">$</th><th class="num">Next</th><th class="num">Horizon</th><th class="num">Own%</th></tr></thead>
+      <tbody>
+      
+        <tr><td>Harry Kane</td><td class="small">England</td><td class="num">$10.5</td>
+        <td class="num">3.9</td><td class="num">25</td><td class="num">38</td></tr>
+      
+        <tr><td>Lionel Messi</td><td class="small">Argentina</td><td class="num">$10.0</td>
+        <td class="num">4.2</td><td class="num">24</td><td class="num">18</td></tr>
+      
+        <tr><td>Mikel Oyarzabal</td><td class="small">Spain</td><td class="num">$8.1</td>
+        <td class="num">4.3</td><td class="num">22</td><td class="num">16</td></tr>
+      
+        <tr><td>Cristiano Ronaldo</td><td class="small">Portugal</td><td class="num">$10.0</td>
+        <td class="num">4.0</td><td class="num">20</td><td class="num">13</td></tr>
+      
+        <tr><td>Erling Haaland</td><td class="small">Norway</td><td class="num">$10.5</td>
+        <td class="num">5.4</td><td class="num">20</td><td class="num">33</td></tr>
+      
+        <tr><td>Lautaro Martínez</td><td class="small">Argentina</td><td class="num">$8.8</td>
+        <td class="num">3.3</td><td class="num">19</td><td class="num">4</td></tr>
+      
+        <tr><td>Borja Iglesias</td><td class="small">Spain</td><td class="num">$6.8</td>
+        <td class="num">3.0</td><td class="num">15</td><td class="num">0</td></tr>
+      
+        <tr><td>Nick Woltemade</td><td class="small">Germany</td><td class="num">$7.2</td>
+        <td class="num">3.9</td><td class="num">15</td><td class="num">2</td></tr>
+      
+      </tbody>
+    </table></div>
+  </div>
+  
+</div>
+
+
+
+  <footer class="foot">
+    <div class="grid cols-2">
+      <div>
+        <h4>Method &amp; confidence</h4>
+        <p>One shared forecast model (de-vigged market odds + Elo + public models → Dixon–Coles scorelines →
+        Monte-Carlo of the full 48-team / Round-of-32 bracket) feeds both games. Each recommendation is a single
+        decisive call with a <span class="conf High">High</span>/<span class="conf Med">Med</span>/<span class="conf Low">Low</span>
+        confidence tag. Predictions are EV-maximizing (not just the most likely score). Fantasy picks are
+        horizon-weighted by advancement. Re-run daily for fresh data — see the changelog for what moved.</p>
+      </div>
+      <div>
+        <h4>Sources</h4>
+        <ul>
+          
+            <li><strong>fixtures:</strong>
+              <a href="https://en.wikipedia.org/wiki/2026_FIFA_World_Cup">en.wikipedia.org/wiki/2026_FIFA_World_Cup</a>, <a href="https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_draw">en.wikipedia.org/wiki/2026_FIFA_World_Cup_draw</a>, <a href="https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_knockout_stage">en.wikipedia.org/wiki/2026_FIFA_World_Cup_knockout_stage</a>, <a href="https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_A">en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_A</a>
+            </li>
+          
+            <li><strong>ratings odds:</strong>
+              <a href="https://www.eloratings.net/ (World Football Elo Ratings; data files World.tsv, 2026.tsv, en.teams.tsv)">www.eloratings.net/ (World Football Elo Ratings; data files World.tsv, 2026.tsv, en.teams.tsv)</a>, <a href="https://en.wikipedia.org/wiki/2026_FIFA_World_Cup (groups, qualified teams)">en.wikipedia.org/wiki/2026_FIFA_World_Cup (groups, qualified teams)</a>, <a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/world-cup-2026-who-has-qualified">www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/world-cup-2026-who-has-qualified</a>, <a href="https://sports.yahoo.com/soccer/article/2026-fifa-world-cup-daily-schedule-... (fixtures Jun 11-17)">sports.yahoo.com/soccer/article/2026-fifa-world-cup-daily-schedule-... (fixtures Jun 11-17)</a>
+            </li>
+          
+            <li><strong>squads:</strong>
+              <a href="https://www.espn.com/soccer/story/_/id/48677243/2026-world-cup-rosters-predictions-starting-xis-usa-france-mexico-england-spain-germany-brazil-argentina">www.espn.com/soccer/story/_/id/48677243/2026-world-cup-rosters-predictions-starting-xis-usa-france-mexico-england-spain-germany-brazil-argentina</a>, <a href="https://www.rotowire.com/soccer/article/2026-world-cup-penalty-corner-and-free-kick-takers-by-team-114076">www.rotowire.com/soccer/article/2026-world-cup-penalty-corner-and-free-kick-takers-by-team-114076</a>, <a href="https://www.rotowire.com/soccer/article/2026-fifa-world-cup-fantasy-rankings-best-picks-for-matchday-1-116025">www.rotowire.com/soccer/article/2026-fifa-world-cup-fantasy-rankings-best-picks-for-matchday-1-116025</a>, <a href="https://www.fantasyfootballscout.co.uk/2026/05/31/fantasy-fifa-world-cup-2026-all-48-nations-penalty-set-piece-takers">www.fantasyfootballscout.co.uk/2026/05/31/fantasy-fifa-world-cup-2026-all-48-nations-penalty-set-piece-takers</a>
+            </li>
+          
+            <li><strong>nostradamus:</strong>
+              <a href="https://www.rtvslo.si/nostradamus/sp-v-nogometu-2026">www.rtvslo.si/nostradamus/sp-v-nogometu-2026</a>, <a href="https://www.rtvslo.si/nostradamus/sp-v-nogometu-2026/navodila/">www.rtvslo.si/nostradamus/sp-v-nogometu-2026/navodila/</a>, <a href="https://www.rtvslo.si/rtv/za-medije/sporocila-za-javnost/svetovno-prvenstvo-v-nogometu-2026-na-rtv-slovenija/777698">www.rtvslo.si/rtv/za-medije/sporocila-za-javnost/svetovno-prvenstvo-v-nogometu-2026-na-rtv-slovenija/777698</a>, <a href="https://www.rtvslo.si/sport/nogomet/svetovno-prvenstvo-v-nogometu/svetovno-prvenstvo-v-nogometu-na-televiziji-slovenija/777644">www.rtvslo.si/sport/nogomet/svetovno-prvenstvo-v-nogometu/svetovno-prvenstvo-v-nogometu-na-televiziji-slovenija/777644</a>
+            </li>
+          
+            <li><strong>fantasy:</strong>
+              <a href="https://play.fifa.com/json/fantasy/help_pages.json (official in-app rules feed, how_to_play EN/DE/ES/FR) - PRIMARY, fetched live 2026-06-05">play.fifa.com/json/fantasy/help_pages.json (official in-app rules feed, how_to_play EN/DE/ES/FR) - PRIMARY, fetched live 2026-06-05</a>, <a href="https://play.fifa.com/fantasy (game home, SPA) - confirms game identity FANTASY_CLASSIC">play.fifa.com/fantasy (game home, SPA) - confirms game identity FANTASY_CLASSIC</a>, <a href="https://play.fifa.com/fantasy/static/js/index-D5RkYG30.js (FANTASY_CLASSIC app bundle) - confirms 5 booster endpoints, 8 rounds, round-&gt;stage map, transfer/captain API surface">play.fifa.com/fantasy/static/js/index-D5RkYG30.js (FANTASY_CLASSIC app bundle) - confirms 5 booster endpoints, 8 rounds, round-&gt;stage map, transfer/captain API surface</a>, <a href="https://www.fantasyfootballscout.co.uk/2026/05/26/how-to-play-the-fifa-world-cup-2026-fantasy-game (secondary corroboration)">www.fantasyfootballscout.co.uk/2026/05/26/how-to-play-the-fifa-world-cup-2026-fantasy-game (secondary corroboration)</a>
+            </li>
+          
+            <li><strong>fantasy feed:</strong>
+              <a href="https://play.fifa.com/json/fantasy/players.json">play.fifa.com/json/fantasy/players.json</a>, <a href="https://play.fifa.com/json/fantasy/squads.json">play.fifa.com/json/fantasy/squads.json</a>
+            </li>
+          
+        </ul>
+      </div>
+    </div>
+    <p class="small">Self-contained report — opens offline, prints cleanly. Not affiliated with FIFA or RTV SLO.
+    Odds/lineups move; the recommendations reflect data as of the run timestamp above.</p>
+  </footer>
+</div>
+<script>
+document.addEventListener(&#39;click&#39;, function(e){
+  var th = e.target.closest(&#39;th.sortable&#39;); if(!th) return;
+  var table = th.closest(&#39;table&#39;); var idx = Array.prototype.indexOf.call(th.parentNode.children, th);
+  var dir = th.getAttribute(&#39;data-dir&#39;) === &#39;asc&#39; ? &#39;desc&#39; : &#39;asc&#39;;
+  Array.prototype.forEach.call(th.parentNode.children, function(x){x.removeAttribute(&#39;data-dir&#39;);});
+  th.setAttribute(&#39;data-dir&#39;, dir);
+  var rows = Array.prototype.slice.call(table.tBodies[0].rows);
+  var num = function(v){ var n = parseFloat(String(v).replace(/[^0-9.\-]/g,&#39;&#39;)); return isNaN(n)?null:n; };
+  rows.sort(function(a,b){
+    var x=a.cells[idx].getAttribute(&#39;data-sort&#39;)||a.cells[idx].innerText;
+    var y=b.cells[idx].getAttribute(&#39;data-sort&#39;)||b.cells[idx].innerText;
+    var nx=num(x), ny=num(y), r;
+    if(nx!==null&amp;&amp;ny!==null){ r=nx-ny; } else { r=String(x).localeCompare(String(y)); }
+    return dir===&#39;asc&#39;? r : -r;
+  });
+  rows.forEach(function(r){ table.tBodies[0].appendChild(r); });
+});
+</script>
+</body>
+</html>

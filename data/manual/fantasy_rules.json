@@ -1,0 +1,220 @@
+{
+  "game": "FIFA World Cup Fantasy 2026 (official, FANTASY_CLASSIC)",
+  "url": "https://play.fifa.com/fantasy",
+  "as_of": "2026-06-05",
+  "tournament_start": "2026-06-11",
+  "_primary_source": "Official FIFA in-app rules feed: https://play.fifa.com/json/fantasy/help_pages.json (how_to_play, EN; corroborated by DE/ES/FR sections in the same feed). This is the same text FIFA renders at https://play.fifa.com/fantasy/help/rules.",
+
+  "scoring": {
+    "_unit": "fantasy points",
+    "_note": "Appearance is +1 for ANY minutes played; there is NO additional point for reaching 60 minutes (both the <=60 and 60+ rows are +1). Clean sheet, save and goals-conceded scoring require/relate to 60+ minutes as noted. Captain doubles all of a player's points (incl. negatives). Bonus rows below apply to every position.",
+    "all_players": {
+      "appearance_up_to_60_min": 1,
+      "appearance_60_plus_min": 1,
+      "assist": 3,
+      "winning_a_penalty": 2,
+      "conceding_a_penalty": -1,
+      "yellow_card": -1,
+      "red_card": -2,
+      "own_goal": -2
+    },
+    "GK": {
+      "goal_scored": 9,
+      "assist": 3,
+      "clean_sheet_60_plus_min": 5,
+      "first_goal_conceded": 0,
+      "each_additional_goal_conceded": -1,
+      "penalty_save_excludes_shootouts": 3,
+      "saves_per_save_threshold": {"points": 1, "per_n_saves": 3},
+      "appearance_up_to_60_min": 1,
+      "appearance_60_plus_min": 1,
+      "winning_a_penalty": 2,
+      "conceding_a_penalty": -1,
+      "yellow_card": -1,
+      "red_card": -2,
+      "own_goal": -2
+    },
+    "DEF": {
+      "goal_scored": 7,
+      "assist": 3,
+      "clean_sheet_60_plus_min": 5,
+      "first_goal_conceded": 0,
+      "each_additional_goal_conceded": -1,
+      "appearance_up_to_60_min": 1,
+      "appearance_60_plus_min": 1,
+      "winning_a_penalty": 2,
+      "conceding_a_penalty": -1,
+      "yellow_card": -1,
+      "red_card": -2,
+      "own_goal": -2
+    },
+    "MID": {
+      "goal_scored": 6,
+      "assist": 3,
+      "clean_sheet_60_plus_min": 1,
+      "tackles_per_threshold": {"points": 1, "per_n_tackles": 3},
+      "chances_created_per_threshold": {"points": 1, "per_n_chances": 2},
+      "appearance_up_to_60_min": 1,
+      "appearance_60_plus_min": 1,
+      "winning_a_penalty": 2,
+      "conceding_a_penalty": -1,
+      "yellow_card": -1,
+      "red_card": -2,
+      "own_goal": -2,
+      "_note": "MID has NO goals-conceded penalty. Tackles/chances-created points apply only to MID."
+    },
+    "FWD": {
+      "goal_scored": 5,
+      "assist": 3,
+      "shots_on_target_per_threshold": {"points": 1, "per_n_shots_on_target": 2},
+      "appearance_up_to_60_min": 1,
+      "appearance_60_plus_min": 1,
+      "winning_a_penalty": 2,
+      "conceding_a_penalty": -1,
+      "yellow_card": -1,
+      "red_card": -2,
+      "own_goal": -2,
+      "_note": "FWD has NO clean sheet and NO goals-conceded penalty. Shots-on-target points apply only to FWD."
+    },
+    "bonus_all_positions": {
+      "goal_from_direct_free_kick": {"points": 1, "note": "Additional to the goal points, any position."},
+      "scouting_bonus_differential": {"points": 2, "condition": "Player scores MORE THAN 4 pts in a match AND is selected by fewer than 5% of all teams."}
+    },
+    "not_present_vs_FPL": [
+      "No separate larger appearance bonus for 60+ minutes (both bands are +1).",
+      "No BPS/'bonus points' POTM-style 1-2-3 system; the only bonuses are the direct-free-kick +1 and the scouting differential +2.",
+      "Penalty save is +3 (FPL is +5).",
+      "Red card is -2 (FPL is -3); own goal -2 (same as FPL)."
+    ]
+  },
+
+  "squad": {
+    "budget": 100.0,
+    "budget_currency": "USD (millions)",
+    "ko_budget": 105.0,
+    "ko_budget_note": "Team Budget increases by $5m for the knockout phase. Applied automatically once Round 3 locks and Round of 32 transfers open.",
+    "composition": {"GK": 2, "DEF": 5, "MID": 5, "FWD": 3, "total": 15},
+    "starting_xi": 11,
+    "bench": 4,
+    "nation_cap": {
+      "_label": "Max players per Country, by stage",
+      "group_stage": 3,
+      "round_of_32": 3,
+      "round_of_16": 4,
+      "quarter_final": 5,
+      "semi_final": 6,
+      "final": 8
+    },
+    "formations": ["4-4-2", "4-3-3", "4-5-1", "3-4-3", "3-5-2", "5-4-1", "5-3-2"],
+    "formation_constraints": {"GK_in_xi": 1, "DEF_min": 3, "DEF_max": 5, "MID_min": 3, "MID_max": 5, "FWD_min": 1, "FWD_max": 3, "note": "Exactly 1 GK in the starting XI; outfield split must match one of the 7 listed formations. Default formation is 4-4-2."},
+    "captain_rules": {
+      "captain_multiplier": 2,
+      "vice_captain": "Scores double ONLY if the captain plays zero minutes AND you made no manual changes during the live round.",
+      "auto_assignment_on_first_save": "Most expensive player = Captain, second most expensive = Vice-Captain.",
+      "changes": "Captain/VC can be changed unlimited times before lockout, and during a live round provided the new captain's team has not yet played and the old captain has completed his match. Changing captain mid-round forfeits the old captain's double.",
+      "interaction_with_qualification_booster": "If the captain is eligible for the Qualification Booster +2, that +2 is NOT doubled."
+    },
+    "bench_substitution_rules": {
+      "bench_priority": "Outfield bench players are ordered 1-3; priority 1 is first to replace a DNP starter (must keep a valid formation). GK bench replaces GK only.",
+      "auto_subs": "Happen at the END of a round, replacing DID-NOT-PLAY starters, ONLY if no manual change was made during the live round.",
+      "manual_subs_live": "Allowed if the bench player has not yet played and the outgoing player's match has ended (not in progress); resulting XI must be a valid formation. After a manual sub you only score the incoming player. ANY manual change (sub or captain change) cancels auto-subs for that round.",
+      "bench_scoring": "Bench players accrue points but do not count toward your score unless brought on via sub/auto-sub."
+    }
+  },
+
+  "transfers": {
+    "free_per_round": {
+      "pre_tournament": "unlimited",
+      "before_matchday_2": 2,
+      "before_matchday_3": 2,
+      "before_round_of_32": "unlimited",
+      "before_round_of_16": 4,
+      "before_quarter_finals": 4,
+      "before_semi_finals": 5,
+      "before_final": 6
+    },
+    "extra_transfer_penalty": -3,
+    "extra_transfer_penalty_note": "Each transfer beyond the free allocation deducts 3 points. Deducted once the round locks out and players begin scoring.",
+    "rollover": {
+      "allowed": true,
+      "max_carried": 1,
+      "scope": "Group stage only (one free transfer carries to the next group-stage round). Cannot carry from Round 3 into Round of 32 because that window is unlimited.",
+      "rolls_over": "single transfer, group stage only"
+    },
+    "locks_at": "First match of the FIFA World Cup 2026 kicks off Thursday 11 June 2026 (20:00 +01:00 per rounds feed). Unlimited changes until then; thereafter a fixed per-round transfer lockout plus a rolling per-match lockout for live team changes.",
+    "irreversible": "Once confirmed a transfer cannot be reversed. Transfers made during a live round apply only from the next round.",
+    "rounds": {
+      "_note": "8 scoring rounds (from rounds feed). 1=md1, 2=md2, 3=md3 (group stage), 4=r32, 5=r16, 6=qf, 7=sf, 8=f.",
+      "1": "Matchday 1 (group)", "2": "Matchday 2 (group)", "3": "Matchday 3 (group)",
+      "4": "Round of 32", "5": "Round of 16", "6": "Quarter-final", "7": "Semi-final", "8": "Final"
+    }
+  },
+
+  "chips": [
+    {
+      "name": "Wildcard",
+      "count": 1,
+      "what_it_does": "Make unlimited transfers within a single round at no points cost.",
+      "when_usable": "Any single round EXCEPT Matchday 1 (first match of group stage) and EXCEPT the Round of 32. Cannot be reversed once confirmed.",
+      "reversible": false
+    },
+    {
+      "name": "12th Man",
+      "count": 1,
+      "what_it_does": "Add 1 extra player (not already in your squad) who scores points for that round. The 12th man cannot be substituted, captained or transferred; budget and per-team limits do not apply to this pick.",
+      "when_usable": "Any single round. Can be deactivated before the round locks out.",
+      "reversible": true
+    },
+    {
+      "name": "Maximum Captain",
+      "count": 1,
+      "what_it_does": "Doubles the points of whichever starting-XI player scores the most that round; that player is auto-assigned the captaincy.",
+      "when_usable": "Any single round. Can be deactivated before the round locks out.",
+      "reversible": true
+    },
+    {
+      "name": "Qualification Booster",
+      "count": 1,
+      "what_it_does": "+2 points to each starting-XI player who progresses to the next knockout round (or wins the final), provided they play at least 1 minute. If the captain is eligible, this +2 is not doubled.",
+      "when_usable": "Round of 32 onwards (knockout stage only). Can be deactivated before the round locks out.",
+      "reversible": true
+    },
+    {
+      "name": "Mystery Booster",
+      "count": 1,
+      "what_it_does": "Unrevealed as of 2026-06-05; revealed once Round 3 locks and the Round of 32 window opens. App API internal name is 'booster/clean-sheet' (suggesting a clean-sheet-related mechanic), but FIFA has not published its effect. Usable for one knockout-stage round including the Final.",
+      "when_usable": "One round of the knockout stage (incl. Final), after it is revealed at Round of 32. Can be deactivated before the round locks out.",
+      "reversible": true
+    }
+  ],
+  "chips_general": {
+    "total": 5,
+    "rules": "One booster per round; multiple boosters cannot be combined in the same round. Each booster usable only once across the tournament. All except the Wildcard can be deactivated before the round locks out (API: booster/revert)."
+  },
+
+  "confidence": {
+    "scoring": "High",
+    "squad": "High",
+    "transfers": "High",
+    "chips": "High",
+    "mystery_booster_effect": "Low",
+    "_basis": "All values taken verbatim from FIFA's own in-app rules JSON (help_pages.json, how_to_play). English and German/Spanish sections agree on every number. Only the Mystery Booster's effect is genuinely unknown (FIFA states it is revealed at R32); the 'clean-sheet' API name is a hint, not confirmation."
+  },
+
+  "sources": [
+    "https://play.fifa.com/json/fantasy/help_pages.json (official in-app rules feed, how_to_play EN/DE/ES/FR) - PRIMARY, fetched live 2026-06-05",
+    "https://play.fifa.com/fantasy (game home, SPA) - confirms game identity FANTASY_CLASSIC",
+    "https://play.fifa.com/fantasy/static/js/index-D5RkYG30.js (FANTASY_CLASSIC app bundle) - confirms 5 booster endpoints, 8 rounds, round->stage map, transfer/captain API surface",
+    "https://www.fantasyfootballscout.co.uk/2026/05/26/how-to-play-the-fifa-world-cup-2026-fantasy-game (secondary corroboration)",
+    "https://allaboutfpl.com/2026/05/2026-world-cup-fantasy-beginners-guide-rules-tips-and-more/ (secondary corroboration; goal values 9/7/6/5 matched official feed)"
+  ],
+  "notes": [
+    "AUTHORITATIVE: this file's numbers come from FIFA's own rules feed, not memory or third-party blogs.",
+    "Goal values are GK 9 / DEF 7 / MID 6 / FWD 5. A WebSearch snippet claiming '6 for GK/DEF, 5 MID, 4 FWD' was WRONG; the official feed and two specialist sites confirm 9/7/6/5.",
+    "Appearance gives +1 for any minutes; unlike FPL there is NO extra point at 60 minutes (both bands +1).",
+    "This 2026 scoring (tackles/chances/shots thresholds, scouting differential bonus, direct-FK bonus, 9/7/6/5 goals, $100m+$5m budget) matches the FIFA Club World Cup 2025 Fantasy engine, not the 2022 WC Fantasy or FPL.",
+    "Stages map to 8 rounds: group MD1-3, then Round of 32 (48-team format -> 32 in KO), R16, QF, SF, Final.",
+    "Nation cap rises with the bracket: 3/3/4/5/6/8.",
+    "Mini-leagues, country/confederation leaderboards exist but are out of scope for this brief."
+  ]
+}

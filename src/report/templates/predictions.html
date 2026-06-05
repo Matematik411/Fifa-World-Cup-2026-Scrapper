@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% block title %}Predictions — WC 2026 Guide{% endblock %}
+{% block content %}
+<h1>Nostradamus score predictions</h1>
+<p class="lede">One EV-optimal scoreline per match (maximizes expected points across the full scoreline distribution —
+not just the single most likely score). Enter each before its kickoff; you can edit until then.</p>
+
+<div class="note small">
+  Scoring per match (90-minute result): <b>exact = 3</b>, correct outcome + one team's goals = 2, correct outcome only = 1, wrong = 0.
+  Knockout rounds (R32 → final) <b>double</b> all values. Knockout predictions unlock here as the bracket fills — re-run each day.
+</div>
+
+{% set ko_rounds = ['R32','R16','QF','SF','final','third-place'] %}
+{% for date, rows in predictions|groupby('date') %}
+<h2>{{ date }}</h2>
+<div class="card">
+{% for r in rows %}
+<div class="mrow">
+  <div class="mhead">
+    <span>Match {{ r.num }}{% if r.group %} · Group {{ r.group }}{% else %} · {{ r.round }}{% endif %} · {{ r.city }}</span>
+    <span>⏱ {{ r.kickoff_local }} · <b>{{ r.deadline_cet }}</b></span>
+  </div>
+  <div class="match">
+    <div class="team">{{ r.home }}</div>
+    <div class="sc"><span class="scoreline">{{ r.pred_home }}–{{ r.pred_away }}</span></div>
+    <div class="team away">{{ r.away }}</div>
+  </div>
+  <div style="display:flex; flex-wrap:wrap; gap:8px 22px; align-items:center; margin-top:10px">
+    <div style="min-width:170px; flex:1">{{ m.tribar(r.p_home, r.p_draw, r.p_away) }}</div>
+    <div class="small muted">xG {{ r.exp_home|r(1) }}–{{ r.exp_away|r(1) }}</div>
+    <div class="small">EV <b>{{ r.ev|r(2) }}</b>{% if r.multiplier > 1 %} <span class="muted">(×{{ r.multiplier }} KO → {{ r.ev_applied|r(2) }})</span>{% endif %}</div>
+    <div class="small muted">runner-up {{ r.runner_home }}–{{ r.runner_away }}</div>
+    <div>{{ m.conf(r.confidence) }}</div>
+  </div>
+  <div class="small muted" style="margin-top:6px">{{ r.rationale }}</div>
+</div>
+{% endfor %}
+</div>
+{% endfor %}
+{% endblock %}
