@@ -53,16 +53,25 @@ depend on it). Cache raw pulls under `data/raw/<today>/`. Re-pull, in priority o
 
 ## 3. Reconcile the user's REAL team (`state.json`)
 
-**Never assume prior advice was followed.** Before optimizing, confirm:
-- `owned.player_ids` — the 15 they actually have (ask the user, or read their team if
-  `FIFA_FANTASY_TEAM_ID` is set in `.env`). Update `captain`, `formation`, `bank`.
-- `chips_used`, free transfers available, `cumulative.fantasy_points` (paste their real
-  total — the feed doesn't expose another user's lineup history).
-- `predictions_entered` — `{"<match_num>": "h-a"}` for any scorelines they actually
-  entered (used to score them; otherwise our recommendation is scored).
+**Standing instruction (the user set this explicitly): assume they followed every
+recommendation exactly — squad, captain, transfers, chips AND the per-match
+scorelines — unless they state a deviation this session.** So:
+- `state.json` has `assume_followed: true`, and the pipeline auto-syncs
+  `owned` ← `recommended_squad` at the end of every run. You do **not** need to
+  ask them to list their 15 each time.
+- Nostradamus scoring already defaults to the recommended scoreline when
+  `predictions_entered` has no explicit entry — so picks are scored as followed.
+- Just ask one quick question: **"anything different from what I recommended last
+  time?"** If **no** (the normal case) → proceed straight to the run. If **yes** →
+  set `owned.player_ids` / `chips_used` / `predictions_entered` to what they
+  actually did *before* optimizing, run, and it re-plans from their real team
+  (the end-of-run sync then realigns `owned` to the new recommendation).
+- The only thing the feed can't give you is their personal **fantasy points/rank**
+  — ask for it if they want rank tracked; otherwise `cumulative.fantasy_points`
+  stays user-entered. Nostradamus points are computed from results automatically.
 
-If `owned` is set, the run produces a **transfer plan**; if empty, it produces the
-**optimal initial 15** (first run). Edit `state.json` and save before running.
+Pre-lock (`stage == "pre"`) the run always emits the **optimal initial 15**;
+post-lock it emits a **transfer plan** from `owned`.
 
 ## 4. Run + sanity-check
 

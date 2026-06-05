@@ -203,9 +203,10 @@ def _run_fantasy(cfg, bundle, forecast, advancement, stage, state, log) -> dict:
     squad = fopt.build_squad(projs, cfg, budget, nation_cap)
     by_pid = {p.pid: p for p in projs}
 
-    # transfers + chips
+    # transfers + chips. Pre-lock the squad is freely editable (unlimited transfers),
+    # so always present the fresh optimal 15 then; post-lock plan limited transfers.
     chips_remaining = [c for c in ALL_CHIPS if c not in (state.get("chips_used") or [])]
-    if owned:
+    if owned and stage != "pre":
         ft = _free_transfers(cfg, stage)
         bank = float((state.get("owned") or {}).get("bank", 0.0))
         plan = ftr.plan_transfers(owned, projs, budget, nation_cap, ft, bank)
@@ -449,4 +450,16 @@ def _update_state(state, run_date, result, fantasy_out):
     state.setdefault("chips_used", [])
     state.setdefault("cumulative", {"nostradamus_points": 0, "fantasy_points": 0})
     state.setdefault("predictions_entered", {})
+    # Standing instruction: the user follows every recommendation exactly unless they
+    # say otherwise, so the real team == the recommendation. Keep `owned` in sync so
+    # reconciliation is automatic. (Set assume_followed:false in state.json to opt out.)
+    state.setdefault("assume_followed", True)
+    if state.get("assume_followed") and fantasy_out:
+        rec = state["recommended_squad"]
+        state["owned"] = {
+            "player_ids": rec["player_ids"], "captain": rec["captain"],
+            "formation": rec["formation"], "bank": fantasy_out["squad"]["bank"],
+            "note": "Auto-synced to the recommendation (assume_followed=true). "
+                    "Tell the session if you deviated and it will re-optimize from your real team.",
+        }
     _save_state(state)

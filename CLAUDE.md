@@ -14,7 +14,7 @@ decisive: one squad, one captain, one scoreline per match, each with a confidenc
    cd <repo> && export UV_PROJECT_ENVIRONMENT="$SANDBOX_VM_STATE/fifa-wc-2026/venv" && uv sync
    ```
 2. **Refresh research** → overwrite `data/manual/*.json` with today's data (odds, lineups, injuries, *yesterday's results*). This is the part *you* (Claude) do with WebSearch/WebFetch. **Follow `RUNBOOK.md` — it has the exact per-source checklist.**
-3. **Reconcile `state.json`** → confirm the user's REAL `owned` team + `cumulative` points before optimizing (ask them, or read their fantasy team if an ID is set). Never assume prior advice was followed.
+3. **Reconcile `state.json`** → **Standing instruction: assume the user followed every recommendation exactly** (squad/captain/transfers/chips + scorelines) unless they say otherwise. `assume_followed:true` auto-syncs `owned`←recommendation each run, so just ask "anything different from last time?" — if no, proceed; if yes, set their real `owned`/`chips_used`/`predictions_entered` before optimizing. Only their personal fantasy points/rank need manual entry.
 4. **Run:** `./run.sh run`  (fetch → model → optimize → render; idempotent; `run.sh` sets the venv path + `LD_LIBRARY_PATH` for NixOS).
 5. **Verify & report:** open `output/index.html` (screenshot with chromium if useful), skim the changelog, and tell the user exactly what to do before the next deadline (in CET).
 
