@@ -1,7 +1,15 @@
 {
-  "fetched_at": "2026-06-06",
+  "fetched_at": "2026-06-07",
   "confidence": "Med-High",
   "sources": [
+    "2026-06-07 team-news & injury sweep + final-friendly XI resolution (ESPN/Yahoo WC injury trackers, RotoWire group previews A/B/D, CBS/FotMob predicted XIs, friendly match reports Jun 6-7) - raw notes in data/raw/2026-06-07/team_news_2026-06-07.md",
+    "https://www.rotowire.com/soccer/article/2026-world-cup-group-a-preview-mexico-south-africa-south-korea-czechia-tactics-lineups-set-pieces-odds-111369",
+    "https://www.cbssports.com/soccer/news/usmnt-world-cup-starting-xi-prediction-usa-vs-paraguay/",
+    "https://www.fotmob.com/matches/south-africa-vs-mexico/1einvt",
+    "https://worldsoccertalk.com/news/brazil-vs-egypt-live-updates-minute-by-minute-coverage-of-2026-international-friendly/",
+    "https://www.riotimesonline.com/brazil-striker-endrick-igor-thiago-morocco-2026/",
+    "https://www.espn.com/soccer/story/_/id/48959298/live-updates-united-states-vs-germany-soccer-final-friendly-world-cup",
+    "https://www.rotowire.com/soccer/headlines/matt-freese-news-likely-to-start-for-usmnt-518273",
     "2026-06-06 team-news & injury sweep (ESPN/Yahoo WC injury trackers, FIFA.com, national FAs, FourFourTwo, RotoWire, pre-tournament friendly reports) - raw notes in data/raw/2026-06-06/team_news_2026-06-06.md",
     "https://www.espn.com/soccer/story/_/id/48677243/2026-world-cup-rosters-predictions-starting-xis-usa-france-mexico-england-spain-germany-brazil-argentina",
     "https://www.rotowire.com/soccer/article/2026-world-cup-penalty-corner-and-free-kick-takers-by-team-114076",
@@ -206,7 +214,7 @@
         "MID Bruno Guimaraes",
         "MID Lucas Paqueta",
         "FWD Raphinha",
-        "FWD Matheus Cunha (central, contested)",
+        "FWD Igor Thiago (central, contested w/ Endrick)",
         "FWD Vinicius Junior"
       ],
       "penalty_taker": "Raphinha",
@@ -214,7 +222,7 @@
       "key_attackers": [
         "Vinicius Junior (main man, LW, goals+assists)",
         "Raphinha (RW, goals + penalties + free-kicks, huge Barca season)",
-        "Matheus Cunha / Endrick / Neymar (rotating central role)"
+        "Igor Thiago / Endrick (rotating central role - Igor Thiago the hold-up 9, Endrick the impact finisher)"
       ],
       "key_creators": [
         "Raphinha",
@@ -231,19 +239,19 @@
         "Vinicius Junior"
       ],
       "rotation_risk": [
-        "Central striker UNDECIDED: Cunha vs Endrick vs Neymar (Neymar role/fitness uncertain at 34)",
+        "Central striker UNDECIDED: Igor Thiago vs Endrick (Igor Thiago started the final friendly; Endrick scored off the bench again) - Cunha/Neymar now out of the picture for the opener",
         "RB Wesley vs Vanderson",
         "Paqueta vs others for advanced mid"
       ],
       "injuries_suspensions": [
-        "Neymar - calf trouble; stayed home from the warm-up friendly, Jun 13 opener in serious doubt",
+        "Neymar - grade-2 calf (since May 17); stayed home from the Jun 6 Egypt friendly, mostly gym work; decisive scan Jun 8 before potentially rejoining full training - Jun 13 opener in serious doubt, avoid",
         "Rodrygo - injury, OUT of squad",
         "Estevao - injury, OUT of squad",
         "Eder Militao - injury, absent",
         "Marquinhos & Gabriel Magalhaes played UCL final May 30 (minor knock risk)",
         "Joao Pedro, Richarlison, Gabriel Jesus, Savinho, Thiago Silva - omitted"
       ],
-      "notes": "No settled No.9 - avoid Brazil's central striker for fantasy until a starter emerges. Raphinha (~premium) is the key fantasy asset: nailed RW + penalties + direct free-kicks (+1 FK bonus appeal). Vinicius nailed and high goal involvement. Alisson strong GK with favourable group (Morocco then weak Scotland/Haiti)."
+      "notes": "UPDATE 2026-06-07: final warm-up Brazil 2-1 Egypt (Jun 6) - Ancelotti STARTED Igor Thiago as the No.9 (hold-up 9), Endrick scored again off the bench, so the central-striker race is now Igor Thiago vs Endrick for the Jun 13 Morocco opener (Cunha/Neymar dropped out of contention). Still no settled No.9 - avoid Brazil's central striker for fantasy until a starter is confirmed (lineups.json will catch it ~1h pre-KO). Neymar a serious doubt (calf). Raphinha (~premium) is the key fantasy asset: nailed RW + penalties + direct free-kicks (+1 FK bonus appeal). Vinicius nailed and high goal involvement. Alisson strong GK with favourable group (Morocco then weak Scotland/Haiti)."
     },
     "Argentina": {
       "group": "J (with Austria, Algeria, Jordan)",
@@ -295,7 +303,7 @@
         "Franco Mastantuono - omitted",
         "Marcos Acuna - omitted"
       ],
-      "notes": "UPDATE 2026-06-06: Cristian Romero CLEARED (training normally), Julian Alvarez fully cleared, Molina near full fitness - back four / clean-sheet reliability improved. Defending champions. Messi (~premium) takes pens AND free-kicks (double set-piece premium + FK bonus chance). Lautaro the nailed striker. Easy group (Algeria/Austria/Jordan) - Dibu Martinez and Argentine defenders attractive for clean sheets. Watch for Messi rest-rotation in a dead-rubber group game 3."
+      "notes": "UPDATE 2026-06-07: Messi SAT OUT the Jun 6 Honduras friendly (2-0; managing left-hamstring/muscle fatigue) but warmed up with the team - on track for the Jun 16 Algeria opener, slight cameo-risk for the very first game. Romero/Alvarez cleared (06-06) unchanged. Note Lautaro took + scored a pen vs Honduras (he's a backup pen option; Messi remains primary). Defending champions. Messi (~premium) takes pens AND free-kicks (double set-piece premium + FK bonus chance). Lautaro the nailed striker. Easy group (Algeria/Austria/Jordan) - Dibu Martinez and Argentine defenders attractive for clean sheets. Watch for Messi rest-rotation in a dead-rubber group game 3."
     },
     "Portugal": {
       "group": "K (with Colombia, Uzbekistan, DR Congo)",
@@ -387,18 +395,18 @@
         "Havertz"
       ],
       "rotation_risk": [
-        "Jamal Musiala - returning from injury, may need rhythm = early rotation/minutes risk",
         "Pavlovic vs Goretzka vs Gross in midfield",
-        "Sane vs Adeyemi/Gnabry-replacement on wing"
+        "Sane vs Adeyemi/Gnabry-replacement on wing",
+        "Musiala building rhythm - likely starts but may be subbed early"
       ],
       "injuries_suspensions": [
-        "Jamal Musiala - ankle/fibula recovery; played 90 vs Finland May 31 but unlikely 100% - MD1 start (Jun 14) still a doubt",
+        "Jamal Musiala - ankle/fibula recovery; STARTED (as No.10) vs USA Jun 6, Nagelsmann 'getting better and better' - MD1 start (Jun 14) now likely though still building rhythm",
         "Lennart Karl - OUT (thigh muscle tear, Jun 5), replaced in the squad by Assan Ouedraogo",
         "Serge Gnabry - injury, OUT (biggest omission)",
         "Antonio Rudiger - injury-hit season, omitted",
         "Kimmich/Havertz/Wirtz CL final involvement could affect early sharpness"
       ],
-      "notes": "Kimmich is the value play (DEF ~$5.5m, takes set pieces, attacking RB, possible pens) - top fantasy defender. Raum ($4.9m) outstanding cheap LB. Havertz (~$7.8m) good captain vs Curacao if confirmed fit/starting. Wirtz premium creator. Very easy opener (Curacao) = stack Germany defence MD1. PENALTY duty is the key uncertainty - Kimmich currently, Havertz expected."
+      "notes": "UPDATE 2026-06-07: Musiala STARTED vs USA (Jun 6) as the No.10 - his MD1 start (Jun 14 vs Curacao) now looks likely (was a doubt on 06-06), upgrades his minutes outlook though he's still building rhythm. Havertz scored from a Kimmich free-kick vs USA (reconfirms Kimmich FK duty + Havertz box threat) but PENALTY duty STILL unresolved (no hierarchy; Kimmich nominal, Havertz expected) - the key own-decision uncertainty. Kimmich is the value play (DEF ~$5.5m, takes set pieces, attacking RB, possible pens) - top fantasy defender. Raum ($4.9m) outstanding cheap LB. Havertz (~$7.8m) good captain vs Curacao if confirmed starting. Wirtz premium creator. Very easy opener (Curacao) = stack Germany defence MD1."
     },
     "Netherlands": {
       "group": "(with Japan among others)",
@@ -440,10 +448,9 @@
         "Reijnders"
       ],
       "rotation_risk": [
-        "Memphis Depay - limited minutes at Corinthians, may start on bench (impacts pen-taker value)",
-        "CB alongside Van Dijk (Van Hecke/Geertruida/De Ligt)",
-        "Malen vs Depay at CF",
-        "Lang vs others on left"
+        "Memphis Depay vs Malen at CF - GENUINELY OPEN: Jun 8 friendly probable XI shows Depay starting (with Gakpo + Summerville), so the 06-06 'Depay to bench' read is now less certain - confirm with the actual Jun 8 XI",
+        "CB alongside Van Dijk (Van Hecke/Geertruida; De Ligt OUT after back surgery)",
+        "Summerville vs Lang vs Noa Lang on the wings"
       ],
       "injuries_suspensions": [
         "Xavi Simons - knee (ACL), OUT of tournament (major loss)",
@@ -452,7 +459,7 @@
         "Justin Kluivert - fitness doubt",
         "Memphis Depay - fit but lacking minutes; trending to start on the bench (Malen preferred up top)"
       ],
-      "notes": "UPDATE 2026-06-06: Depay now trending to the BENCH (predicted XIs favour Malen up top with Gakpo) - his penalty-taker value largely evaporates if he doesn't start; lean Gakpo/Malen. Gakpo (~mid-premium) the safest fantasy attacker - nailed and in form. Reijnders strong mid value + corners. Dumfries attacking RB. Van Dijk for CS. Tough opener vs Japan limits MD1 CS appeal."
+      "notes": "UPDATE 2026-06-07: Depay-vs-Malen CF call now GENUINELY OPEN again - the Jun 8 friendly's probable XI (101greatgoals) lists Depay STARTING up top (with Gakpo + Summerville), softening the 06-06 'Depay to bench' read; will confirm with the actual Jun 8 lineup next run. Either way Gakpo (~mid-premium) is the safest fantasy attacker - nailed and in form - and the no-regret Dutch pick regardless of who plays CF. Reijnders strong mid value + corners. Dumfries attacking RB. Van Dijk for CS. Coach Koeman. Tough opener vs Japan (Jun 14) limits MD1 CS appeal. (NL lost their previous friendly to Algeria.)"
     },
     "Belgium": {
       "group": "(with Egypt among others)",
@@ -550,17 +557,17 @@
       "opener": "2026-06-12 vs Paraguay (Inglewood)",
       "formation": "4-3-3",
       "likely_xi": [
-        "GK Matt Turner (or Patrick Schulte/Zack Steffen)",
-        "DEF Sergino Dest",
-        "DEF Chris Richards",
+        "GK Matt Freese",
+        "DEF Alex Freeman",
+        "DEF Mark McKenzie (Chris Richards if fit)",
         "DEF Tim Ream",
         "DEF Antonee Robinson",
         "MID Tyler Adams",
         "MID Weston McKennie",
-        "MID Gio Reyna",
+        "MID Sergino Dest",
+        "MID Malik Tillman (No.10)",
         "FWD Christian Pulisic",
-        "FWD Folarin Balogun",
-        "FWD Tim Weah"
+        "FWD Folarin Balogun"
       ],
       "penalty_taker": "Christian Pulisic",
       "fk_taker": "Christian Pulisic",
@@ -577,69 +584,73 @@
         "Sebastian Berhalter (corners)"
       ],
       "nailed_starters": [
+        "Matt Freese (GK)",
         "Tyler Adams",
         "Weston McKennie",
-        "Christian Pulisic",
+        "Christian Pulisic (c)",
         "Folarin Balogun",
         "Antonee Robinson"
       ],
       "rotation_risk": [
-        "GK competition (Turner/Schulte/Steffen)",
-        "Chris Richards CB fitness doubt (Miles Robinson / Cameron Carter-Vickers cover)",
-        "Gio Reyna minutes/fitness historically inconsistent",
-        "Weah vs Aaronson on right"
+        "Chris Richards CB fitness doubt - missed the Jun 6 Germany friendly (Mark McKenzie / Miles Robinson cover); Jun 12 opener uncertain",
+        "No.10: Tillman now ahead of Gio Reyna (Reyna minutes/fitness historically inconsistent)",
+        "Possible 3-4-2-1 vs 4-2-3-1 shape (Dest as RWB/winger)",
+        "Weah vs Aaronson for a wide spot if 4-3-3"
       ],
       "injuries_suspensions": [
-        "Chris Richards - fitness doubt: missed the Jun 6 Germany friendly (Pochettino: 'not ready to compete'), Jun 12 opener uncertain - monitor",
+        "Chris Richards - fitness doubt: missed the Jun 6 Germany friendly (Pochettino: 'not ready to compete'), Miles Robinson deputised; Jun 12 opener uncertain - monitor",
         "Diego Luna - notable omission (not injury)"
       ],
-      "notes": "Host nation - guaranteed deep group-stage minutes + home crowd. Pulisic (classified MID in official game, $7.0m) nailed with pens + FKs = strong-value fantasy captain candidate (midfielder taking penalties). Balogun the in-form striker. Sebastian Berhalter (MID $4.7m, 0% owned) cheap corner-taker + <5%-ownership bonus punt. Pochettino side; favourable-ish group."
+      "notes": "UPDATE 2026-06-07: GK CONFIRMED - Matt FREESE is the No.1 (over Matt Turner) per Pochettino; started every Gold Cup game + the Jun 6 Germany friendly. No.10 now MALIK TILLMAN (not Gio Reyna) - Tillman started vs Germany and is the predicted starter. Pulisic CONFIRMED captain. Host nation - guaranteed deep group-stage minutes + home crowd. Pulisic (classified MID in official game, $7.0m) nailed with pens + FKs = strong-value fantasy captain candidate (midfielder taking penalties). Balogun the in-form striker. Sebastian Berhalter (MID $4.7m, 0% owned) cheap corner-taker + <5%-ownership bonus punt. Lost the Jun 6 send-off 1-2 to Germany (Pochettino fielded the expected WC XI bar the injured Richards). Pochettino side; favourable group D."
     },
     "Mexico": {
       "group": "A (with South Africa, South Korea, Czechia)",
       "opener": "2026-06-11 vs South Africa (Estadio Azteca) - TOURNAMENT OPENER",
-      "formation": "4-3-3",
+      "formation": "4-1-4-1 (also 4-3-3)",
       "likely_xi": [
-        "GK Guillermo Ochoa",
+        "GK Raul Rangel",
         "DEF Jorge Sanchez",
         "DEF Cesar Montes",
         "DEF Johan Vasquez",
         "DEF Jesus Gallardo",
-        "MID Edson Alvarez",
-        "MID Luis Romo",
-        "MID Orbelin Pineda",
-        "FWD Alexis Vega",
-        "FWD Santiago Gimenez",
-        "FWD Raul Jimenez"
+        "MID Erik Lira",
+        "MID Alvaro Fidalgo",
+        "MID Brian Gutierrez",
+        "MID Roberto Alvarado",
+        "FWD Julian Quinones",
+        "FWD Raul Jimenez (lone CF)"
       ],
       "penalty_taker": "Raul Jimenez",
-      "fk_taker": "Alexis Vega",
+      "fk_taker": "Raul Jimenez (direct; Alexis Vega/Orbelin Pineda also)",
       "key_attackers": [
-        "Santiago Gimenez (most dangerous out-and-out CF since peak Chicharito, AC Milan)",
-        "Raul Jimenez (No.9/penalties, Fulham)",
-        "Alexis Vega (goals+set pieces)"
+        "Raul Jimenez (nailed lone CF + penalties + direct FKs, Fulham)",
+        "Santiago Gimenez (impact CF off the bench - injury-disrupted Milan season, not nailed)",
+        "Roberto Alvarado / Julian Quinones (wide goals)",
+        "Alexis Vega (goals+set pieces - rotation)"
       ],
       "key_creators": [
-        "Alexis Vega",
+        "Alvaro Fidalgo",
+        "Brian Gutierrez (corners)",
         "Orbelin Pineda",
-        "Brian Gutierrez (corners)"
+        "Alexis Vega"
       ],
       "nailed_starters": [
-        "Guillermo Ochoa",
-        "Edson Alvarez (c)",
-        "Santiago Gimenez",
+        "Raul Rangel (GK)",
+        "Cesar Montes",
+        "Johan Vasquez",
         "Raul Jimenez"
       ],
       "rotation_risk": [
-        "Gimenez vs Jimenez - may rotate or play together",
-        "midfield around Edson Alvarez",
+        "Edson Alvarez (c) - fitness/role doubt: back from Feb ankle surgery, came off the bench vs Serbia; not in the latest predicted XI",
+        "Santiago Gimenez bench vs start (Jimenez the predicted lone CF)",
+        "Orbelin Pineda / Alexis Vega vs Lira/Fidalgo/Gutierrez in midfield",
         "fullback choices"
       ],
       "injuries_suspensions": [
-        "Luis Malagon (first-choice GK) - torn ACL, OUT -> Guillermo Ochoa (40) starts his 6th World Cup",
-        "No other major doubts"
+        "Luis Malagon (was first-choice GK) - torn ACL/Achilles, OUT -> Raul Rangel (Chivas) has taken over as the starter; Guillermo Ochoa (40) in squad but a BACKUP",
+        "Edson Alvarez (captain) - returned from Feb 2026 ankle surgery; fit but flagged a doubt/limited, was a sub vs Serbia - monitor his minutes"
       ],
-      "notes": "Host nation, opens the whole tournament. Cheap Mexican defenders are recommended fantasy enablers (home advantage + winnable group A). Santiago Gimenez the value striker. Raul Jimenez takes pens. Ochoa playing 6th WC. Coach Aguirre."
+      "notes": "UPDATE 2026-06-07: GK CORRECTION - Raul RANGEL is the starter (started the Jun 4 Serbia friendly 5-1 + recent warm-ups), Ochoa is now a backup; the cheap-Mexico-GK enabler is RANGEL not Ochoa. Predicted MD1 XI plays Raul Jimenez as the LONE CF with Santiago Gimenez on the BENCH (downgrade S.Gimenez's MD1 value) and Lira/Fidalgo/Gutierrez/Alvarado in midfield. Captain Edson Alvarez a fitness/role doubt (post-surgery, benched vs Serbia). Host nation, opens the whole tournament vs South Africa. Cheap Mexican defenders (Montes/Vasquez) remain recommended enablers (home advantage + winnable group A). Raul Jimenez nailed CF + pens + direct FKs = the Mexico fantasy pick. Coach Aguirre."
     },
     "Uruguay": {
       "group": "H (with Spain, Cape Verde, Saudi Arabia)",
@@ -870,14 +881,15 @@
         "Lee Kang-in"
       ],
       "rotation_risk": [
-        "No.9 Oh Hyeon-gyu vs Cho Gue-sung",
-        "Hwang Hee-chan starting role",
+        "GK contested: several Jun predicted XIs list Kim Seung-Gyu starting over Jo Hyeon-woo (Korea's No.1 has flip-flopped) - unconfirmed, monitor",
+        "CF: predicted XIs vary - Hwang Hee-chan as a lone 9 vs Oh Hyeon-gyu/Cho Gue-sung",
+        "Formation: 4-2-3-1 vs a 3-4-2-1 back-three in some predictions",
         "midfield rotation"
       ],
       "injuries_suspensions": [
         "No major injuries reported in squad"
       ],
-      "notes": "Son (~mid) is everything for Korea: captain, penalties, free-kicks, primary goal+assist source = good value if you want a non-elite-nation differential. Lee Kang-in secondary creator. Winnable group (vs Czechia, South Africa) but Mexico tough. Coach Hong Myung-bo."
+      "notes": "UPDATE 2026-06-07: some Jun predicted XIs (RotoWire et al.) put Kim Seung-Gyu in goal and Hwang Hee-chan as a lone CF in a back-three - KEPT repo values (Jo Hyeon-woo / 4-2-3-1) as these are unconfirmed predictions and Korea's GK pick has historically swung; flagged as contested, confirm via lineups.json ~1h pre-KO (Jun 11 vs Czechia). Son (~mid) is everything for Korea: captain, penalties, free-kicks, primary goal+assist source = good value if you want a non-elite-nation differential. Lee Kang-in secondary creator. Winnable group (vs Czechia, South Africa) but Mexico tough. Coach Hong Myung-bo."
     },
     "Senegal": {
       "group": "I (with France, Norway, Iraq)",
@@ -940,13 +952,13 @@
         "DEF Ricardo Rodriguez",
         "MID Remo Freuler",
         "MID Granit Xhaka",
-        "MID Djibril Sow",
+        "MID Fabian Rieder (attacking mid)",
         "FWD Dan Ndoye",
         "FWD Breel Embolo",
         "FWD Ruben Vargas"
       ],
       "penalty_taker": "Granit Xhaka",
-      "fk_taker": "Ruben Vargas",
+      "fk_taker": "Granit Xhaka (Ruben Vargas also)",
       "key_attackers": [
         "Breel Embolo (No.9, goals)",
         "Dan Ndoye (RW, goals - strong Forest season)",
@@ -966,12 +978,12 @@
       "rotation_risk": [
         "Embolo vs Okafor/Amdouni at CF",
         "Ndoye vs Vargas wing balance",
-        "Sow vs Zakaria in midfield"
+        "Rieder vs Sow/Zakaria for the advanced mid role"
       ],
       "injuries_suspensions": [
-        "No major injuries reported in squad"
+        "No major injuries among the likely XI (Fabian Schar long-term injured - not a probable starter anyway)"
       ],
-      "notes": "Solid but unspectacular. Xhaka (c) takes penalties (deep mid - lower goal output). Cheap Swiss defenders (Akanji, Rodriguez) are recommended fantasy enablers vs a winnable opener (Qatar). Embolo/Ndoye the attacking options. Coach Yakin."
+      "notes": "UPDATE 2026-06-07: latest predicted XI (RotoWire) starts Fabian Rieder as the attacking mid (ahead of Sow) behind Freuler+Xhaka; Xhaka listed for pens AND FKs. Solid but unspectacular. Xhaka (c) takes penalties (deep mid - lower goal output). Cheap Swiss defenders (Akanji, Rodriguez) are recommended fantasy enablers vs a winnable opener (Qatar, Jun 13 - Qatar had March friendlies cancelled, prep disadvantage). Embolo/Ndoye the attacking options. Coach Yakin."
     },
     "Ecuador": {
       "group": "E (with Germany, Ivory Coast, Curacao)",
@@ -1115,5 +1127,5 @@
       "notes": "Rangnick high-press side. In Argentina's group so CS appeal limited vs the big game but winnable vs Jordan/Algeria. Sabitzer (FKs + goals) and Baumgartner the fantasy mid options; Arnautovic pens but ageing. Lower-mid priority."
     }
   },
-  "notes": "UPDATE 2026-06-06 (delta vs 06-05): RESOLVED - Mbappe confirmed fit (nailed); Romero & Alvarez cleared (Argentina CS more reliable); De Arrascaeta OUT for the entire group stage (Uruguay group FK duty unsettled); Morocco CF = Ayoub El Kaabi; Gvardiol trending to start for Croatia (Modric playing through a cheekbone fracture, likely a mask). NEW/MONITOR - USA's Chris Richards a fitness doubt for the Jun 12 opener; Germany's Lennart Karl out (-> Ouedraogo); Netherlands' Depay trending to the bench (pen value at risk); Neymar's Jun 13 opener in serious doubt; unconfirmed ankle note on Uruguay's J.M. Gimenez. STILL OPEN (re-check next run): Germany penalty duty (Kimmich vs Havertz, 'no hierarchy yet'); Belgium's Lukaku fitness/start; Brazil's CF (Cunha vs Endrick); Yamal's actual MD1 minutes; Musiala's MD1 start. Friendlies Jun 4-6: France 1-2 Cote d'Ivoire, Mexico 5-1 Serbia, Belgium 5-0 Tunisia (no Lukaku), Spain 1-1 Iraq (Yamal/Nico rested), Portugal 0-0 Chile (Ronaldo/Bruno/Leao started). NOT-YET-PLAYED at last check (re-check next run for XIs/scores): USA-Germany, England-New Zealand, Brazil-Egypt, Netherlands-Uzbekistan, Argentina-Honduras, Scotland-Bolivia. --- DID NOT QUALIFY (excluded): Italy (lost playoff to Bosnia on penalties, Mar 2026) and Denmark (lost playoff to Czechia on penalties) - both flagged as doubtful by the brief and confirmed out. Czechia and Bosnia qualified instead; Norway qualified for first WC since 1998 (included, strong - Haaland). Coverage depth is highest for the top ~12 contenders (Spain, France, England, Brazil, Argentina, Portugal, Germany, Netherlands, Belgium + hosts USA/Mexico, plus Croatia). Some predicted XIs (especially full back-fours and squad-rotation No.9s) are best-estimate from late-May/early-June predicted-lineup pieces, not officially confirmed XIs - tag as Medium confidence; nailed_starters and set-piece takers are higher confidence. KEY UNCERTAINTIES to re-check before MD1: (1) Yamal's actual minutes in Spain's Jun 15 opener (hamstring); (2) Germany penalty duty (Kimmich took the last competitive pen Oct 2025, but Havertz widely expected) - affects which to own; (3) Lukaku's fitness/start for Belgium (barely played all season); (4) Brazil's central striker (Cunha vs Endrick vs Neymar - unsettled, avoid); (5) Croatia No.9 (Budimir/Kramaric/Musa rotation); (6) Morocco's CF after En-Nesyri omission under new coach Ouahbi; (7) Netherlands - Depay is pen taker but may not start (Malen/Gakpo could be the front line). Several CL-final players (Marquinhos, Gabriel, Kimmich, Havertz, Wirtz - via May 30 final) carry minor early-sharpness/knock risk. STANDOUT FANTASY VALUE picks noted in team 'notes': Oyarzabal (Spain CF+pens, top MD1 captain), Bruno Fernandes (Portugal, pens+FKs+corners, mid price), Luis Diaz (Colombia, 26G/23A form), Hakimi & Ecuador's defenders (Pacho/Hincapie/Caicedo/Estupinan) as cheap clean-sheet sources, Raum & Kimmich (Germany cheap defenders), Cucurella (Spain $5.1m), Coufal (Czechia $3.6m), Heggem (Norway), Berhalter (USA $4.7m corners). Haaland the safe-floor premium captain; Yamal the highest-ceiling asset with MD1 minutes risk. Did not deep-cover weaker qualifiers (South Africa, Cape Verde, Saudi Arabia, Paraguay, Australia, Turkiye, Algeria, Jordan, Curacao, Ivory Coast, Haiti, Scotland, Panama, Ghana, Egypt, Iran, NZ, Qatar, Uzbekistan, DR Congo, Iraq, Sweden, Tunisia, Bosnia, Czechia, Canada) beyond fantasy-relevant set-piece/value mentions - they are not title/deep-run contenders per the brief."
+  "notes": "UPDATE 2026-06-07 (delta vs 06-06): MOST MATERIAL CHANGES (both fantasy-relevant) - (a) MEXICO GK: Raul RANGEL is the starter, Ochoa a backup -> the cheap Mexico-GK enabler is Rangel; Mexico's predicted MD1 XI plays Raul Jimenez as the LONE CF with Santiago Gimenez BENCHED (S.Gimenez no longer a nailed starter) and captain Edson Alvarez a fitness/role doubt (post-surgery, benched vs Serbia). (b) USA GK: Matt FREESE confirmed No.1 over Turner, and Malik TILLMAN is the No.10 (not Gio Reyna); Pulisic confirmed captain. UPGRADES: Germany's Musiala STARTED vs USA -> MD1 start now likely (was a doubt). Brazil's final friendly (2-1 Egypt) had Igor THIAGO start at CF -> the No.9 race is now Igor Thiago vs Endrick (Cunha/Neymar dropped); still avoid the Brazil CF for fantasy. NUANCE: Netherlands' Depay-vs-Malen CF call is OPEN again (Jun 8 friendly probable XI has Depay starting) - reverses the 06-06 'Depay to bench' lean; Gakpo the no-regret Dutch pick either way. STILL OPEN (re-check, several pre-KO via lineups.json): Germany penalty duty (Kimmich vs Havertz, still 'no hierarchy' - Havertz scored off a Kimmich FK vs USA but that doesn't settle pens); Belgium's Lukaku fitness/start; Yamal's actual MD1 minutes (unchanged - 'maybe a few minutes'); Netherlands CF; South Korea GK/CF (some predicted XIs show Kim Seung-Gyu + Hwang Hee-chan 9 - KEPT repo's Jo Hyeon-woo, flagged contested). NO CHANGE: Spain (Yamal & Nico Williams both on track for Jun 15, Oyarzabal the CF), France (Mbappe/Saliba fit), Uruguay (De Arrascaeta out for groups; J.M.Gimenez ankle monitor), Croatia (Gvardiol to start, Modric mask), Morocco (El Kaabi CF), Portugal/England/Argentina cores. Friendlies Jun 6: USA 1-2 Germany, England 1-0 New Zealand (Tuchel rotated, Kane scored, Bellingham benched), Brazil 2-1 Egypt (Igor Thiago started, Endrick scored), Argentina 2-0 Honduras (Messi RESTED but on track; Lautaro pen), Portugal 2-1 Chile (Ronaldo started+subbed at half, Bruno scored). NOT-YET-PLAYED (re-check next run): Netherlands-Uzbekistan (Jun 8), France-N.Ireland (Jun 9), Argentina-Iceland (Jun 9). --- DID NOT QUALIFY (excluded): Italy (lost playoff to Bosnia on penalties, Mar 2026) and Denmark (lost playoff to Czechia on penalties) - both flagged as doubtful by the brief and confirmed out. Czechia and Bosnia qualified instead; Norway qualified for first WC since 1998 (included, strong - Haaland). Coverage depth is highest for the top ~12 contenders (Spain, France, England, Brazil, Argentina, Portugal, Germany, Netherlands, Belgium + hosts USA/Mexico, plus Croatia). Some predicted XIs (especially full back-fours and squad-rotation No.9s) are best-estimate from late-May/early-June predicted-lineup pieces, not officially confirmed XIs - tag as Medium confidence; nailed_starters and set-piece takers are higher confidence. KEY UNCERTAINTIES to re-check before MD1: (1) Yamal's actual minutes in Spain's Jun 15 opener (hamstring); (2) Germany penalty duty (Kimmich took the last competitive pen Oct 2025, but Havertz widely expected) - affects which to own; (3) Lukaku's fitness/start for Belgium (barely played all season); (4) Brazil's central striker (now Igor Thiago vs Endrick - unsettled, avoid); (5) Croatia No.9 (Budimir/Kramaric/Musa rotation); (6) Morocco's CF after En-Nesyri omission under new coach Ouahbi; (7) Netherlands CF/pen-taker (Depay vs Malen open again - Jun 8 XI showed Depay starting; Gakpo the safe pick); (8) Mexico's lone CF Jimenez vs S.Gimenez and Edson Alvarez's fitness; (9) USA shape/No.10 around Tillman; (10) South Korea GK (Jo Hyeon-woo vs Kim Seung-Gyu) + lone CF. Several CL-final players (Marquinhos, Gabriel, Kimmich, Havertz, Wirtz - via May 30 final) carry minor early-sharpness/knock risk. STANDOUT FANTASY VALUE picks noted in team 'notes': Oyarzabal (Spain CF+pens, top MD1 captain), Bruno Fernandes (Portugal, pens+FKs+corners, mid price), Luis Diaz (Colombia, 26G/23A form), Hakimi & Ecuador's defenders (Pacho/Hincapie/Caicedo/Estupinan) as cheap clean-sheet sources, Raum & Kimmich (Germany cheap defenders), Cucurella (Spain $5.1m), Coufal (Czechia $3.6m), Heggem (Norway), Berhalter (USA $4.7m corners). Haaland the safe-floor premium captain; Yamal the highest-ceiling asset with MD1 minutes risk. Did not deep-cover weaker qualifiers (South Africa, Cape Verde, Saudi Arabia, Paraguay, Australia, Turkiye, Algeria, Jordan, Curacao, Ivory Coast, Haiti, Scotland, Panama, Ghana, Egypt, Iran, NZ, Qatar, Uzbekistan, DR Congo, Iraq, Sweden, Tunisia, Bosnia, Czechia, Canada) beyond fantasy-relevant set-piece/value mentions - they are not title/deep-run contenders per the brief."
 }
