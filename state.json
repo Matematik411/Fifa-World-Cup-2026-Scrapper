@@ -1,6 +1,6 @@
 {
   "schema": "wc2026-state-v1",
-  "last_run": "2026-06-07",
+  "last_run": "2026-06-08",
   "recommended_squad": {
     "player_ids": [
       34,
@@ -21,7 +21,7 @@
     ],
     "captain": "Raphinha",
     "formation": "3-5-2",
-    "as_of": "2026-06-07"
+    "as_of": "2026-06-08"
   },
   "owned": {
     "player_ids": [
