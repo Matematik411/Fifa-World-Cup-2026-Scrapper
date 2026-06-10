@@ -1,0 +1,148 @@
+{
+  "fetched_at": "2026-06-10",
+  "notes": "Predicted XIs (confirmed:false) for the 8 teams in the first four matches (Jun 11-12); official XIs release ~1h pre-KO. Research: data/raw/2026-06-10/lineups_research.md. All names validated vs the FIFA fantasy feed rosters. Key calls: Mexico = Rangel GK (not Ochoa) + Edson Alvarez fit at DM (Lira drops; 3rd-mid slot Fidalgo/Gutierrez vs Lira/Mora contested); South Korea = Kim Seung-gyu GK + back-3, Son CF, Lee Kang-in BENCHED (RotoWire dissents - contested); Czechia = Cerv in for Darida, Jurasek LWB; Canada = Crepeau GK (over St. Clair), Laryea LB for Davies (out MD1), de Fougerolles for Bombito (out); Bosnia = WEAKEST read - kept the established Dedic/Katic/Kolasinac core (Squawka/FourFourTwo/Northern Tribune) over Sports Mole's rotated XI; Dzeko (shoulder, individual training only) major doubt -> Bazdar starts, Dzeko NOT listed out; Tabakovic (metatarsal) unlikely but not ruled out; USA = Miles Robinson in for McKenzie (Richards doubt, resumed training Jun 8, not listed out); Paraguay = Gill GK (over Gatito Fernandez, contested) and Enciso expected to MISS (hamstring+quad, no official ruling so not in out) -> Sosa starts.",
+  "teams": {
+    "Mexico": {
+      "confirmed": false,
+      "xi": [
+        "Raul Rangel",
+        "Jorge Sanchez",
+        "Cesar Montes",
+        "Johan Vasquez",
+        "Jesus Gallardo",
+        "Edson Alvarez",
+        "Alvaro Fidalgo",
+        "Brian Gutierrez",
+        "Roberto Alvarado",
+        "Julian Quinones",
+        "Raul Jimenez"
+      ],
+      "out": []
+    },
+    "South Africa": {
+      "confirmed": false,
+      "xi": [
+        "Ronwen Williams",
+        "Khuliso Mudau",
+        "Mbekezeli Mbokazi",
+        "Ime Okon",
+        "Aubrey Modiba",
+        "Thalente Mbatha",
+        "Yaya Sithole",
+        "Teboho Mokoena",
+        "Oswin Appollis",
+        "Tshepang Moremi",
+        "Lyle Foster"
+      ],
+      "out": []
+    },
+    "South Korea": {
+      "confirmed": false,
+      "xi": [
+        "Kim Seung-gyu",
+        "Lee Gi-hyuk",
+        "Kim Min-jae",
+        "Lee Han-beom",
+        "Seol Young-woo",
+        "Hwang In-beom",
+        "Paik Seung-ho",
+        "Lee Tae-seok",
+        "Hwang Hee-chan",
+        "Lee Jae-sung",
+        "Son Heung-min"
+      ],
+      "out": [
+        "Cho Yu-min"
+      ]
+    },
+    "Czechia": {
+      "confirmed": false,
+      "xi": [
+        "Matej Kovar",
+        "Stepan Chaloupek",
+        "Robin Hranac",
+        "Ladislav Krejci",
+        "Vladimir Coufal",
+        "Lukas Cerv",
+        "Tomas Soucek",
+        "David Jurasek",
+        "Lukas Provod",
+        "Pavel Sulc",
+        "Patrik Schick"
+      ],
+      "out": []
+    },
+    "Canada": {
+      "confirmed": false,
+      "xi": [
+        "Maxime Crepeau",
+        "Alistair Johnston",
+        "Luc de Fougerolles",
+        "Derek Cornelius",
+        "Richie Laryea",
+        "Tajon Buchanan",
+        "Stephen Eustaquio",
+        "Ismael Kone",
+        "Liam Millar",
+        "Jonathan David",
+        "Cyle Larin"
+      ],
+      "out": [
+        "Alphonso Davies",
+        "Moise Bombito",
+        "Marcelo Flores"
+      ]
+    },
+    "Bosnia and Herzegovina": {
+      "confirmed": false,
+      "xi": [
+        "Nikola Vasilj",
+        "Amar Dedic",
+        "Nikola Katic",
+        "Tarik Muharemovic",
+        "Sead Kolasinac",
+        "Amar Memic",
+        "Benjamin Tahirovic",
+        "Ivan Sunjic",
+        "Esmir Bajraktarevic",
+        "Ermedin Demirovic",
+        "Samed Bazdar"
+      ],
+      "out": []
+    },
+    "USA": {
+      "confirmed": false,
+      "xi": [
+        "Matt Freese",
+        "Alex Freeman",
+        "Miles Robinson",
+        "Tim Ream",
+        "Antonee Robinson",
+        "Tyler Adams",
+        "Weston McKennie",
+        "Sergino Dest",
+        "Malik Tillman",
+        "Christian Pulisic",
+        "Folarin Balogun"
+      ],
+      "out": []
+    },
+    "Paraguay": {
+      "confirmed": false,
+      "xi": [
+        "Orlando Gill",
+        "Juan Jose Caceres",
+        "Gustavo Gomez",
+        "Omar Alderete",
+        "Junior Alonso",
+        "Damian Bobadilla",
+        "Andres Cubas",
+        "Diego Gomez",
+        "Ramon Sosa",
+        "Miguel Almiron",
+        "Antonio Sanabria"
+      ],
+      "out": []
+    }
+  }
+}
