@@ -1,16 +1,16 @@
 {
-  "fetched_at": "2026-06-10",
-  "notes": "Predicted XIs (confirmed:false) for the 8 teams in the first four matches (Jun 11-12); official XIs release ~1h pre-KO. Research: data/raw/2026-06-10/lineups_research.md. All names validated vs the FIFA fantasy feed rosters. Key calls: Mexico = Rangel GK (not Ochoa) + Edson Alvarez fit at DM (Lira drops; 3rd-mid slot Fidalgo/Gutierrez vs Lira/Mora contested); South Korea = Kim Seung-gyu GK + back-3, Son CF, Lee Kang-in BENCHED (RotoWire dissents - contested); Czechia = Cerv in for Darida, Jurasek LWB; Canada = Crepeau GK (over St. Clair), Laryea LB for Davies (out MD1), de Fougerolles for Bombito (out); Bosnia = WEAKEST read - kept the established Dedic/Katic/Kolasinac core (Squawka/FourFourTwo/Northern Tribune) over Sports Mole's rotated XI; Dzeko (shoulder, individual training only) major doubt -> Bazdar starts, Dzeko NOT listed out; Tabakovic (metatarsal) unlikely but not ruled out; USA = Miles Robinson in for McKenzie (Richards doubt, resumed training Jun 8, not listed out); Paraguay = Gill GK (over Gatito Fernandez, contested) and Enciso expected to MISS (hamstring+quad, no official ruling so not in out) -> Sosa starts.",
+  "fetched_at": "2026-06-11",
+  "notes": "Matchday-1 refresh (Jun 11 ~17:00 UTC); research: data/raw/2026-06-11/lineups_research.md. All names validated vs the FIFA fantasy feed (accent/case-insensitive matcher). MEXICO: XI leaked pre-official by Claro Sports' Alejandro Orvananos and replicated by bolavip/365scores/Soccer Laduma - Edson Alvarez (captain) BENCHED (fitness managed post right-ankle surgery; Lira starts DM) and Israel Reyes RB over Jorge Sanchez; left confirmed:false because the official FIFA team sheet was not yet out (~T-2h), but confidence is near-confirmed. SOUTH AFRICA: unchanged consensus XI, no injuries. SOUTH KOREA: Korean matchday press (Hankook Ilbo, Kyeongin, Jun 11 KST) + Al Jazeera (Jun 11) now all start Lee Kang-in (only Jun-10 Sports Mole/101gg benched him) and 2-of-3 start Oh Hyeon-gyu as CF with Son dropping to the second line -> Hwang Hee-chan and Lee Jae-sung OUT of XI, Lee Kang-in + Oh Hyeon-gyu in; rest (Kim Seung-gyu GK, back-3, Seol/Lee Tae-seok WBs, Hwang In-beom + Paik Seung-ho) unanimous. CZECHIA: Koubek publicly said the XI = the Guatemala generalka winners (iSport/Livesport Jun 11); the Jun-5 generalka XI was Kovar; Chaloupek, Hranac, Krejci; Coufal, Sadilek, Soucek, Jurasek; Provod, Sulc; Schick -> Michal Sadilek replaces Cerv (Cerv was a sub there; Darida also behind Sadilek). Kuchta (ankle) 'on the edge', improving - bench. CANADA: unchanged; Davies (hamstring) re-confirmed OUT for the opener (TSN/CBC; Marsch targets game 2-3), Bombito out, Crepeau GK. BOSNIA: XI held (weakest read); Dzeko was deliberately rested vs Panama 'to be ready for Canada' and rejoined team training in Toronto - real chance he plays or even starts (RotoWire expects start; reprezentacija.ba says hard after the layoff) -> kept Demirovic + Bazdar, Dzeko NOT out; Tabakovic rejoined training Jun 8 (not out); Sunjic contested but 2-of-3 sources say fit/starts; Panama fallback XI used Basic + Lukic and the established Dedic/Katic/Kolasinac core (validates rejection of Sports Mole's rotated XI). USA: unchanged; Richards declared 'I'm ready' (Jun 10) but start unconfirmed - CB is a 3-way call (Richards/M.Robinson/McKenzie; SM Jun 10 starts M.Robinson, NBC projects Richards, SI McKenzie) -> kept Miles Robinson, Richards not out. PARAGUAY: Alfaro switched to a 4-4-2 with Alex Arce partnering Sanabria in Enciso's place (ABC Color Jun 10 'ultimo momento' + 1000noticias) -> Sosa drops; GK Gill holds 'a slight advantage' over Gatito Fernandez - kept Gill; Enciso (hamstring+quad) training separately, near-certain absentee but no official ruling -> not in out.",
   "teams": {
     "Mexico": {
       "confirmed": false,
       "xi": [
         "Raul Rangel",
-        "Jorge Sanchez",
+        "Israel Reyes",
         "Cesar Montes",
         "Johan Vasquez",
         "Jesus Gallardo",
-        "Edson Alvarez",
+        "Erik Lira",
         "Alvaro Fidalgo",
         "Brian Gutierrez",
         "Roberto Alvarado",
@@ -47,8 +47,8 @@
         "Hwang In-beom",
         "Paik Seung-ho",
         "Lee Tae-seok",
-        "Hwang Hee-chan",
-        "Lee Jae-sung",
+        "Lee Kang-in",
+        "Oh Hyeon-gyu",
         "Son Heung-min"
       ],
       "out": [
@@ -63,7 +63,7 @@
         "Robin Hranac",
         "Ladislav Krejci",
         "Vladimir Coufal",
-        "Lukas Cerv",
+        "Michal Sadilek",
         "Tomas Soucek",
         "David Jurasek",
         "Lukas Provod",
@@ -138,8 +138,8 @@
         "Damian Bobadilla",
         "Andres Cubas",
         "Diego Gomez",
-        "Ramon Sosa",
         "Miguel Almiron",
+        "Alex Arce",
         "Antonio Sanabria"
       ],
       "out": []
