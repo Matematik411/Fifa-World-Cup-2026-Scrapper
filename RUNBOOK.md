@@ -41,7 +41,7 @@ depend on it). Cache raw pulls under `data/raw/<today>/`. Re-pull, in priority o
 | `lineups.json` | **every run during tournament** | `{"teams": {"<nation>": {"confirmed": true/false, "xi": ["name",...], "out": ["name",...]}}}`. **Confirmed XIs come ~1h before kickoff** — an evening run catches them and lets you fix captaincy. `confirmed:true` → players in `xi` are nailed (0.98), others benched; `confirmed:false` → treated as predicted (0.90). Overrides everything for minutes. |
 | `ratings_odds.json` + `odds_extra.json` | **every run** | Title odds + Elo move slowly; **per-match odds for the next 1–2 days' fixtures are the priority**. Put extra/sharper (Pinnacle) and later-matchday lines in `odds_extra.json` — the loader **merges** them into `ratings_odds.match_odds` (Pinnacle wins on dupes). Add odds for KO ties as teams are known. |
 | `squads.json` | **every run during groups/KO** | Injuries, suspensions, rotation, penalty/FK-taker changes, `likely_xi`. Backstop for minutes when `lineups.json` isn't confirmed yet. |
-| `results.json` | **after each matchday** | `{"results": {"<match_num>": [home_goals, away_goals], ...}}` — 90-minute results only. Feeds standings/advancement and scores our picks. |
+| `results.json` | **after each matchday** | `{"results": {"<match_num>": [home_goals, away_goals], ...}}` — 90-minute results only. In the knockouts also fill `{"ko_advancers": {"<match_num>": "<Team>"}}` for any tie that was a draw after 90' (ET/pens decided it) — a decisive 90' KO score identifies the advancer automatically. **Keeping this file current matters doubly now: it drives stage detection (matchday/round, transfer windows, KO budget, nation caps) and conditions the bracket sim on real outcomes.** |
 | `player_stats.json` | **occasionally** | Per-90 xG/xA/shots/key-passes driving intra-team goal/assist shares. Club-season numbers — refresh pre-tournament and if a player's role/form shifts; not needed daily. |
 | `fixtures.json` | when KO bracket fills | Group stage is fixed. As knockouts resolve, fill the actual teams into the KO match `home`/`away` (replace `1A`/`W74` placeholders) so predictions unlock for them. |
 | `fantasy_feed.json`/players | automatic | `./run.sh run` pulls `play.fifa.com/json/fantasy/{players,squads,rounds}.json` live (prices fixed; ownership/status/points update). Nothing to do unless the endpoint changes. |
@@ -61,26 +61,33 @@ scorelines — unless they state a deviation this session.** So:
   ask them to list their 15 each time.
 - Nostradamus scoring already defaults to the recommended scoreline when
   `predictions_entered` has no explicit entry — so picks are scored as followed.
-- Just ask one quick question: **"anything different from what I recommended last
-  time?"** If **no** (the normal case) → proceed straight to the run. If **yes** →
-  set `owned.player_ids` / `chips_used` / `predictions_entered` to what they
-  actually did *before* optimizing, run, and it re-plans from their real team
-  (the end-of-run sync then realigns `owned` to the new recommendation).
+- **Do not ask for confirmation — proceed straight to the run** (the user confirmed
+  2026-06-11 he agrees with all decisions and will state any deviation unprompted in
+  his message). If he does state one → set `owned.player_ids` / `chips_used` /
+  `predictions_entered` to what they actually did *before* optimizing, run, and it
+  re-plans from their real team (the end-of-run sync then realigns `owned` to the
+  new recommendation).
 - The only thing the feed can't give you is their personal **fantasy points/rank**
   — ask for it if they want rank tracked; otherwise `cumulative.fantasy_points`
   stays user-entered. Nostradamus points are computed from results automatically.
 
-Pre-lock (`stage == "pre"`) the run always emits the **optimal initial 15**;
-post-lock it emits a **transfer plan** from `owned`.
+The squad/XI/captain shown post-lock is the **reachable team** (`owned` ⊕ this
+round's transfer plan), not a fantasy-land optimum — so following it is always
+possible, and the auto-sync stays truthful. Transfer modes by window (automatic,
+from the stage engine): `initial` (pre-lock optimal 15) → `transfers` (N free per
+round) → `hold` (unlimited window open but R32 ties unknown — wait) → `rebuild`
+(unlimited window, ties known: full reset to the optimum, no hits).
 
 ## 4. Run + sanity-check
 
 `./run.sh run` then read the log. It auto-validates (matrices sum to 1; squad legal;
 a prediction per offered match). Quick checks:
+- The `Stage:` log line is right (MD1/2/3, R32… — derived from `results.json` +
+  dates; a warning about matches missing results means refresh `results.json`).
 - Favourites look right (Spain/France/Argentina/England top of `model.html`).
 - Squad spends ~full budget, captain is a nailed premium with a good fixture.
 - Predictions for the next day have sane scorelines and CET deadlines.
-- `uv run pytest -q` after any code change (optimizers are unit-tested).
+- `uv run pytest -q` after any code change (optimizers + stage engine are unit-tested).
 
 ## 5. Verify HTML + brief the user
 
@@ -90,21 +97,43 @@ chromium --headless --no-sandbox --screenshot=/tmp/i.png --window-size=1180,2400
 ```
 Then tell the user, in CET and decisively:
 1. **Fantasy:** the XI + captain + any transfers/chip to play, and the deadline.
-2. **Nostradamus:** the scorelines to enter for the next matches + per-match deadlines.
-3. **Performance:** points since last run (from the changelog).
-4. One line on what changed and why (changelog highlights).
+2. **Live-round playbook:** the captaincy relay ("if your captain ends on ≤N pts,
+   move the armband to X before his kickoff") and the blank-rescue sub rule —
+   the only actions the user can take between daily runs. Remind them any manual
+   change cancels that round's auto-subs.
+3. **Nostradamus:** the scorelines to enter for the next matches + per-match deadlines.
+4. **Performance:** points since last run (from the changelog).
+5. One line on what changed and why (changelog highlights).
 
 ## 6. Stage-specific notes
 
 - **Pre-tournament:** initial 15 + captain + all of MD1's scorelines. Squad locks at the
   first kickoff (Mexico–South Africa, 2026-06-11). Wildcard can't be used MD1.
-- **Group stage:** ingest yesterday's `results.json`; 2 free transfers before MD2/MD3
-  (1 rollover, group only); unlimited transfers before R32 (good reshuffle window).
-  Watch best-third-placed race on `model.html`.
-- **Knockouts:** budget rises to $105M; nation cap relaxes (3→4→5→6→8); Qualification
-  Booster unlocks (R32+); Mystery Booster revealed at R32 — re-check its effect then.
-  Predictions are the **90-minute** result (a draw is a valid, often optimal pick).
-  Fill resolved KO teams into `fixtures.json` so those predictions generate.
+- **Group stage:** ingest yesterday's `results.json` **first** — the stage engine reads
+  it. Free transfers (2 before MD2/MD3), budget and caps are applied automatically per
+  the verified rules. Watch the best-third-placed race on `model.html`.
+- **MD3 → R32 window:** transfers before the R32 are **unlimited**; the run says HOLD
+  until ties are known, then switches to a full **rebuild** recommendation. Make the
+  rebuild only once — the morning of the first R32 game is the sweet spot.
+- **Knockouts:** budget ($105M), nation caps (3→3→4→5→6→8) and free transfers
+  (4/4/5/6 before R16/QF/SF/F) are applied automatically from the detected stage.
+  Your jobs that remain manual: (1) fill resolved KO teams into `fixtures.json`
+  `home`/`away` so predictions + player projections unlock for those ties, (2) add
+  per-match odds for known ties to `odds_extra.json` (feeds both optimizers), (3) keep
+  `results.json` current incl. `ko_advancers` for ET/pens ties, (4) check the Mystery
+  Booster's revealed effect at R32. Predictions are the **90-minute** result (a draw
+  is a valid, often optimal pick) and are worth double.
+
+## 6.5 One-time TODOs (do during the named run, then delete the line)
+
+- **First run after MD1 games (2026-06-12+):** create `data/manual/results.json` from
+  yesterday's final scores (schema in §2) — first time this file exists. Also inspect
+  `data/raw/<date>/fantasy_players_raw.json` → `stats.roundPoints` / `lastRoundPoints`
+  (empty pre-tournament): if it now carries per-round live points, wire it into the
+  live-round playbook so it can say "your captain banked N pts → switch/hold"
+  automatically (join: captain pid → feed stats; his team's match in `results.json`
+  means his match ended). Sanity-check one player's points against the official site
+  before trusting it. Then delete this TODO.
 
 ## 7. Troubleshooting
 

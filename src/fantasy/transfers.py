@@ -89,42 +89,87 @@ def plan_transfers(current_pids: list[int], projs: list[PlayerProj], budget: flo
     }
 
 
-def chip_advice(stage: str, chips_remaining: list[str], squad=None, transfer_plan=None) -> list[dict]:
-    """Stage-aware chip recommendations. Returns list of {chip, action, reason}."""
+REACH_KEY = {"R32": ("reach_R32", "reach_R16"), "R16": ("reach_R16", "reach_QF"),
+             "QF": ("reach_QF", "reach_SF"), "SF": ("reach_SF", "reach_final")}
+
+
+def qual_booster_ev(squad, advancement: dict, target_round: str) -> float | None:
+    """Expected points of the Qualification Booster (+2 per starter whose team
+    advances) if played in target_round, given the current XI."""
+    if not squad or not advancement or target_round not in REACH_KEY:
+        return None
+    cur_key, nxt_key = REACH_KEY[target_round]
+    by_pid = squad.by_pid()
+    ev = 0.0
+    for pid in squad.starters:
+        adv = advancement.get(by_pid[pid].nation, {})
+        cur, nxt = float(adv.get(cur_key, 0.0)), float(adv.get(nxt_key, 0.0))
+        if cur > 1e-9:
+            ev += 2.0 * min(1.0, nxt / cur)   # P(advance this round | playing it)
+    return round(ev, 1)
+
+
+def chip_advice(stage: str, target_round: str, chips_remaining: list[str], squad=None,
+                transfer_plan=None, advancement: dict | None = None,
+                optimal_gap: float | None = None, twelfth: dict | None = None) -> list[dict]:
+    """Chip recommendations for the round being planned (target_round).
+
+    target_round is the round any action taken now applies to: MD1..MD3 (group),
+    then R32/R16/QF/SF/final. Returns a list of {chip, action, reason}.
+    """
     out = []
     remaining = set(chips_remaining or [])
-    is_group = stage in ("pre", "MD1", "MD2", "MD3", "group")
+    ko = target_round in ("R32", "R16", "QF", "SF", "final")
 
     if "Wildcard" in remaining:
-        if is_group and stage in ("pre", "MD1"):
+        n_moves = len(transfer_plan.get("moves", [])) if transfer_plan else 0
+        hit_cost = abs(transfer_plan.get("hit_cost", 0)) if transfer_plan else 0
+        if target_round == "MD1":
             out.append({"chip": "Wildcard", "action": "HOLD",
-                        "reason": "Cannot be used on Matchday 1 or the Round of 32. Save it for a congested "
-                                  "transfer round (e.g. when several starters are eliminated at once after the groups)."})
-        elif transfer_plan and len(transfer_plan.get("moves", [])) >= 4:
+                        "reason": "Not usable on Matchday 1. Hold — the natural spot is MD3 (lock in "
+                                  "qualified teams) or a knockout round where your squad breaks."})
+        elif target_round == "R32":
+            out.append({"chip": "Wildcard", "action": "HOLD",
+                        "reason": "Not usable in the Round of 32 — and unnecessary: transfers before the "
+                                  "R32 are unlimited anyway. Save it for R16 or later."})
+        elif n_moves >= 4 or (optimal_gap or 0) >= 15:
+            gap_txt = f" The unconstrained optimal squad is {optimal_gap:+.0f} horizon pts away." if optimal_gap else ""
             out.append({"chip": "Wildcard", "action": "CONSIDER",
-                        "reason": f"{len(transfer_plan['moves'])} beneficial moves available this round — a Wildcard "
-                                  f"makes them all free (saves the {abs(transfer_plan.get('hit_cost',0))}-pt hits)."})
+                        "reason": f"{n_moves} beneficial moves this round (saves {hit_cost} pts in hits).{gap_txt}"})
         else:
             out.append({"chip": "Wildcard", "action": "HOLD",
-                        "reason": "Not enough beneficial moves to justify it yet; keep it for a bigger reshuffle."})
+                        "reason": "Your squad is close to optimal — not enough beneficial moves to burn it. "
+                                  "Keep it for a round where several starters are eliminated at once."})
 
     if "Qualification Booster" in remaining:
-        if stage in ("pre", "MD1", "MD2", "MD3", "group"):
+        ev = qual_booster_ev(squad, advancement, target_round)
+        if not ko:
             out.append({"chip": "Qualification Booster", "action": "HOLD",
-                        "reason": "Knockout-only (R32+). Plan to use it in a round where most of your XI are heavy "
-                                  "favourites to progress."})
+                        "reason": "Knockout-only (R32+). Best round: usually the R32, when all 11 starters are "
+                                  "still alive and mostly heavy favourites (+2 per starter who advances)."})
+        elif ev is not None:
+            action = "PLAY" if ev >= 16.0 else "CONSIDER"
+            out.append({"chip": "Qualification Booster", "action": action,
+                        "reason": f"Played this round it is worth ≈{ev:.0f} pts (+2 per starter whose team advances). "
+                                  f"Rule of thumb: play at ≥16 — later rounds have fewer of your players alive."})
         else:
             out.append({"chip": "Qualification Booster", "action": "CONSIDER",
-                        "reason": "Use when your XI is stacked with strong favourites to win their tie (+2 each who progress)."})
+                        "reason": "Use in the KO round where the most of your XI are strong favourites to advance."})
 
     if "Maximum Captain" in remaining:
-        out.append({"chip": "Maximum Captain", "action": "HOLD",
-                    "reason": "Save for a round where your premiums have great fixtures; it auto-doubles your top scorer "
-                              "so it shines when several of your players could explode."})
+        out.append({"chip": "Maximum Captain", "action": "HOLD" if not ko else "CONSIDER",
+                    "reason": "Auto-doubles your top scorer, so it beats a normal armband most in a round with "
+                              "several explosive fixtures. Best saved for R32/R16 when your premiums face "
+                              "soft opposition and captain risk is highest."})
     if "12th Man" in remaining:
+        extra = (f" Best candidate outside your 15 right now: {twelfth['name']} "
+                 f"(E {twelfth['ev']:.1f} this round) — play it when that number spikes well above ~6."
+                 if twelfth else "")
         out.append({"chip": "12th Man", "action": "HOLD",
-                    "reason": "Best in a round where you can name a strong 12th attacker with a soft fixture; hold until then."})
+                    "reason": "Adds one extra scorer for a round (no budget/nation limits). Play it when a clear "
+                              "points machine sits outside your 15 — typically a KO round with a standout "
+                              f"fixture.{extra}"})
     if "Mystery Booster" in remaining:
         out.append({"chip": "Mystery Booster", "action": "WAIT",
-                    "reason": "Effect is revealed at the Round of 32 — re-evaluate then."})
+                    "reason": "Effect is revealed at the Round of 32 — re-evaluate the moment it's known."})
     return out

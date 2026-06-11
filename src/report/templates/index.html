@@ -29,21 +29,43 @@
 <ul class="actions">
   {% if fantasy %}
   <li>
+    {% set tmode = fantasy.transfers.mode %}
+    {% if tmode == 'initial' %}
     <div class="a-do">① Set your 15-man Fantasy squad, XI &amp; captain ({{ fantasy.squad.captain.name }}) before {{ next_deadline.cet }}.</div>
     <div class="a-sub">Formation {{ fantasy.squad.formation }}, {{ fantasy.squad.cost|price }} spent ({{ fantasy.squad.bank|price }} in the bank). Transfers are unlimited until the first kickoff, so finalise it then. → <a href="fantasy.html">Full squad &amp; reasoning</a></div>
+    {% elif tmode == 'rebuild' %}
+    <div class="a-do">① Rebuild your squad ({{ fantasy.transfers.moves|length }} change(s), free — unlimited window) &amp; set captain {{ fantasy.squad.captain.name }}.</div>
+    <div class="a-sub">{% for mv in fantasy.transfers.moves %}{{ mv.out }} → <b>{{ mv.in }}</b>{% if not loop.last %} · {% endif %}{% endfor %} → <a href="fantasy.html">Full squad &amp; reasoning</a></div>
+    {% elif tmode == 'hold' %}
+    <div class="a-do">① Hold all transfers (window to the R32 is unlimited — wait for the ties). Captain: {{ fantasy.squad.captain.name }}.</div>
+    <div class="a-sub">{{ fantasy.transfers.note }} → <a href="fantasy.html">Details</a></div>
+    {% elif fantasy.transfers.plan and fantasy.transfers.plan.moves %}
+    <div class="a-do">① Make {{ fantasy.transfers.plan.moves|length }} transfer(s) for {{ target_round }} &amp; keep captain {{ fantasy.squad.captain.name }}.</div>
+    <div class="a-sub">{% for mv in fantasy.transfers.plan.moves %}{{ mv.out }} → <b>{{ mv.in }}</b>{% if not loop.last %} · {% endif %}{% endfor %} ({{ fantasy.transfers.plan.free_used }} free{% if fantasy.transfers.plan.hits %}, {{ fantasy.transfers.plan.hits }} hit(s){% endif %}) → <a href="fantasy.html">Full plan</a></div>
+    {% else %}
+    <div class="a-do">① No transfers this round — keep your 15 and captain {{ fantasy.squad.captain.name }}.</div>
+    <div class="a-sub">Formation {{ fantasy.squad.formation }} · XI expected {{ fantasy.squad.xi_exp|r(1) }} pts. → <a href="fantasy.html">Squad &amp; reasoning</a></div>
+    {% endif %}
   </li>
   {% endif %}
   <li>
-    <div class="a-do">② Enter {{ first_day_matches|length }} Nostradamus score predictions for {{ first_day }} (group-stage values, single).</div>
+    <div class="a-do">② Enter {{ first_day_matches|length }} Nostradamus score predictions for {{ first_day }}{% if stage == 'pre' %} (group-stage values, single){% endif %}.</div>
     <div class="a-sub">
       {% for r in first_day_matches %}{{ r.home }} <b>{{ r.pred_home }}-{{ r.pred_away }}</b> {{ r.away }}{% if not loop.last %} · {% endif %}{% endfor %}
       → <a href="predictions.html">All predictions, deadlines &amp; rationale</a>
     </div>
   </li>
   {% if fantasy and fantasy.chips %}
+  {% set playable = fantasy.chips|selectattr('action', 'in', ['PLAY', 'CONSIDER'])|list %}
   <li>
-    <div class="a-do">③ Chips: hold them all for now.</div>
+    <div class="a-do">③ Chips: {% if playable %}{% for c in playable %}<b>{{ c.chip }}</b> — {{ c.action }}{% if not loop.last %}, {% endif %}{% endfor %}; hold the rest.{% else %}hold them all for now.{% endif %}</div>
     <div class="a-sub">{% for c in fantasy.chips %}<b>{{ c.chip }}</b> — {{ c.action }}. {% endfor %}</div>
+  </li>
+  {% endif %}
+  {% if fantasy and fantasy.playbook and fantasy.playbook.ladder|length > 1 %}
+  <li>
+    <div class="a-do">④ During the round — captain relay: {% for r in fantasy.playbook.ladder %}<b>{{ r.name.split(' ')[-1] }}</b>{% if not loop.last %} → {% endif %}{% endfor %}.</div>
+    <div class="a-sub">{{ fantasy.playbook.ladder[0].name }} plays {{ fantasy.playbook.ladder[0].date }}; if he ends on ≤ {{ fantasy.playbook.ladder[0].switch_if }} pts, move the armband to {{ fantasy.playbook.ladder[1].name }} before his kickoff. → <a href="fantasy.html#playbook">Full playbook &amp; rules</a></div>
   </li>
   {% endif %}
 </ul>

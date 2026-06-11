@@ -11,7 +11,11 @@ def validate_run(result: dict) -> list[str]:
     # --- predictions ---
     preds = result.get("predictions", [])
     if not preds:
-        problems.append("No predictions generated.")
+        if result.get("stage") in ("R32", "R16", "QF", "SF", "final"):
+            problems.append("No upcoming predictions — fill the resolved KO teams into "
+                            "fixtures.json home/away (RUNBOOK §2) so the next ties unlock.")
+        else:
+            problems.append("No predictions generated.")
     for r in preds:
         s = r["p_home"] + r["p_draw"] + r["p_away"]
         if abs(s - 1.0) > 0.02:

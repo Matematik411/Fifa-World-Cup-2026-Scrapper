@@ -14,7 +14,7 @@ decisive: one squad, one captain, one scoreline per match, each with a confidenc
    cd <repo> && export UV_PROJECT_ENVIRONMENT="$SANDBOX_VM_STATE/fifa-wc-2026/venv" && uv sync
    ```
 2. **Refresh research** → overwrite `data/manual/*.json` with today's data (odds, lineups, injuries, *yesterday's results*). This is the part *you* (Claude) do with WebSearch/WebFetch. **Follow `RUNBOOK.md` — it has the exact per-source checklist.**
-3. **Reconcile `state.json`** → **Standing instruction: assume the user followed every recommendation exactly** (squad/captain/transfers/chips + scorelines) unless they say otherwise. `assume_followed:true` auto-syncs `owned`←recommendation each run, so just ask "anything different from last time?" — if no, proceed; if yes, set their real `owned`/`chips_used`/`predictions_entered` before optimizing. Only their personal fantasy points/rank need manual entry.
+3. **Reconcile `state.json`** → **Standing instruction: assume the user followed every recommendation exactly** (squad/captain/transfers/chips + scorelines) unless they say otherwise. `assume_followed:true` auto-syncs `owned`←recommendation each run. **Don't ask for confirmation — run straight through**; the user volunteers deviations unprompted (confirmed 2026-06-11). If he states one, set his real `owned`/`chips_used`/`predictions_entered` before optimizing. Only his personal fantasy points/rank need manual entry.
 4. **Run:** `./run.sh run`  (fetch → model → optimize → render; idempotent; `run.sh` sets the venv path + `LD_LIBRARY_PATH` for NixOS).
 5. **Verify & report:** open `output/index.html` (screenshot with chromium if useful), skim the changelog, and tell the user exactly what to do before the next deadline (in CET).
 
@@ -22,7 +22,7 @@ decisive: one squad, one captain, one scoreline per match, each with a confidenc
 
 - **`RUNBOOK.md`** — the detailed per-run checklist (sources, verifications, commands, sanity checks). **Start there.**
 - **`state.json`** — the user's real team, chips used, free transfers, bank, cumulative Nostradamus + fantasy points, predictions entered, `last_run`. Read first, rewrite last.
-- **`data/manual/*.json`** — Claude-curated research inputs: `fixtures.json`, `ratings_odds.json` (+ `odds_extra.json`, merged), `squads.json`, `player_stats.json` (per-90 xG/xA → intra-team shares), `lineups.json` (confirmed/predicted XI → minutes), `results.json` (actual scores), `nostradamus.json`, `fantasy_rules.json`, `fantasy_feed.json`.
+- **`data/manual/*.json`** — Claude-curated research inputs: `fixtures.json`, `ratings_odds.json` (+ `odds_extra.json`, merged), `squads.json`, `player_stats.json` (per-90 xG/xA → intra-team shares), `lineups.json` (confirmed/predicted XI → minutes), `results.json` (actual 90' scores + `ko_advancers` for KO ties decided in ET/pens), `nostradamus.json`, `fantasy_rules.json`, `fantasy_feed.json`.
 - **`data/processed/latest/`** — newest model run (for the changelog diff); `data/raw/<date>/` — cached source pulls.
 - **`config.yaml`** — budget/rules/ensemble weights/sim iters. **Verified game rules in `data/manual/{fantasy_rules,nostradamus}.json` override config automatically.**
 
@@ -35,8 +35,10 @@ decisive: one squad, one captain, one scoreline per match, each with a confidenc
 ## Confirmed facts (verified 2026-06-05 — re-verify if a new edition/season)
 
 - **Nostradamus:** exact 3 / outcome+one-team 2 / outcome 1 / wrong 0; **doubled R32→final**; 90-min result only; covers **all 104** matches; per-match deadlines at kickoff.
-- **FIFA Fantasy:** $100M (+$5M KO); 2/5/5/3; **nation cap 3→3→4→5→6→8** by stage; goals **GK9/DEF7/MID6/FWD5**, assist 3, CS 5/5/1/0, MID tackles+chances, FWD shots, GK/DEF goals-conceded −1 each after the first; chips: Wildcard (not MD1/R32), 12th Man, Maximum Captain, Qualification Booster (R32+), Mystery Booster (revealed R32). Feed: `play.fifa.com/json/fantasy/{players,squads,rounds}.json` (unauth).
+- **FIFA Fantasy:** $100M (+$5M KO); 2/5/5/3; **nation cap 3→3→4→5→6→8** by stage; free transfers: unlimited pre-lock & before R32, else 2 (MD2/MD3) and 4/4/5/6 (R16/QF/SF/F), −3 per extra; goals **GK9/DEF7/MID6/FWD5**, assist 3, CS 5/5/1/0, MID tackles+chances, FWD shots, GK/DEF goals-conceded −1 each after the first; chips: Wildcard (not MD1/R32), 12th Man, Maximum Captain, Qualification Booster (R32+), Mystery Booster (revealed R32). Feed: `play.fifa.com/json/fantasy/{players,squads,rounds}.json` (unauth).
 - **Tournament:** 48 teams / 12 groups; Italy & Denmark did NOT qualify, Norway did. Opener Mexico–South Africa, 2026-06-11.
+- **The pipeline auto-detects the stage** (pre, MD1–3, R32…final) from `results.json` + fixture dates and applies the right budget/nation cap/transfer window itself — keeping `results.json` current is what makes every downstream number right. Post-lock the recommended squad/XI/captain = the user's owned team ⊕ this round's transfer plan (always reachable, keeps `assume_followed` truthful); before the R32 it switches to HOLD → full-rebuild once ties are known. The bracket sim conditions on entered group results AND actual KO outcomes.
+- **Mid-round rules (exploited by the "live-round playbook"):** the captain can be moved during a live round to a starter whose match hasn't started, once the old captain's match has ended (old double forfeited → switch iff banked < E[new]); manual subs score only the incoming player; **any manual change cancels that round's auto-subs**. Each run emits a captaincy-relay ladder + blank-rescue rule on the fantasy page; captain selection prefers the earliest kickoff among near-equal premiums to keep the relay open.
 
 ## Gotchas
 

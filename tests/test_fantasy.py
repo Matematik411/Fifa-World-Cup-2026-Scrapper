@@ -5,11 +5,12 @@ from src.fantasy.optimizer import build_squad, pick_xi, select_squad
 from src.fantasy.projections import PlayerProj
 
 
-def mk(pid, pos, nation, price, horizon, exp_next=None, mins=0.9):
+def mk(pid, pos, nation, price, horizon, exp_next=None, mins=0.9, next_date=""):
     return PlayerProj(pid=pid, name=f"P{pid}", nation=nation, group="A", position=pos,
                       price=price, ownership=10.0, minutes_prob=mins,
                       exp_next=exp_next if exp_next is not None else horizon / 5.0,
-                      exp_avg=horizon / 5.0, horizon=horizon, per_match={}, tags=[], why="")
+                      exp_avg=horizon / 5.0, horizon=horizon, per_match={},
+                      next_date=next_date, tags=[], why="")
 
 
 def _balanced_pool():
@@ -71,3 +72,54 @@ def test_forced_in_player_is_selected():
     # force the cheap weak GK (pid 3) in; it should appear despite low value
     chosen = select_squad(pool, budget=100.0, nation_cap=3, forced_in={3})
     assert 3 in {p.pid for p in chosen}
+
+
+def test_captain_prefers_earlier_kickoff_among_near_equals():
+    pool = _balanced_pool()
+    for p in pool:
+        p.next_date = "2026-06-15"
+    # pid 19 (FWD, exp 6.0) is the top scorer but plays late; pid 20 (exp 5.8,
+    # within the 0.4 relay window) plays first -> armband starts on 20
+    by_pid = {p.pid: p for p in pool}
+    by_pid[19].next_date = "2026-06-16"
+    by_pid[20].next_date = "2026-06-12"
+    by_pid[20].exp_next = 5.8
+    squad = build_squad(pool, cfg=None, budget=100.0, nation_cap=3)
+    if 19 in squad.starters and 20 in squad.starters:   # both premiums start
+        assert squad.captain == 20
+        assert squad.vice == 19
+
+
+def test_captain_ladder_orders_by_date_and_thresholds():
+    from src.pipeline import _captain_ladder
+    pool = _balanced_pool()
+    by_pid = {p.pid: p for p in pool}
+    dates = {19: "2026-06-12", 20: "2026-06-14", 21: "2026-06-16",
+             11: "2026-06-13", 12: "2026-06-15"}
+    for p in pool:
+        p.next_date = dates.get(p.pid, "2026-06-17")
+    squad = build_squad(pool, cfg=None, budget=100.0, nation_cap=3)
+    ladder = _captain_ladder(squad)
+    assert ladder[0]["name"] == by_pid[squad.captain].name
+    # rungs strictly later in the round, each with a switch rule except the last
+    ds = [r["date"] for r in ladder]
+    assert ds == sorted(ds) and len(set(ds)) == len(ds)
+    for r in ladder[:-1]:
+        assert "next_name" in r and r["switch_if"] >= 0
+    assert "next_name" not in ladder[-1]
+
+
+def test_squad_from_pids_assembles_exact_15():
+    import pytest
+
+    from src.fantasy.optimizer import squad_from_pids
+    pool = _balanced_pool()
+    # a legal fixed 15: GKs 1-2, DEFs 4-8, MIDs 11-15, FWDs 19-21
+    pids = [1, 2, 4, 5, 6, 7, 8, 11, 12, 13, 14, 15, 19, 20, 21]
+    squad = squad_from_pids(pool, pids, budget=100.0)
+    assert {p.pid for p in squad.players} == set(pids)   # exactly the given 15, no re-optimization
+    assert len(squad.starters) == 11 and squad.captain in squad.starters
+    assert abs(squad.cost + squad.bank - 100.0) < 1e-6
+    # an unknown pid must fail loudly (caller falls back + warns)
+    with pytest.raises(ValueError):
+        squad_from_pids(pool, pids[:-1] + [9999], budget=100.0)

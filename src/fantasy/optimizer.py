@@ -111,6 +111,20 @@ def pick_xi(squad_players: list[PlayerProj]) -> tuple[list[int], str, float]:
 def build_squad(projs: list[PlayerProj], cfg, budget: float, nation_cap: int,
                 forced_in: set[int] | None = None) -> Squad:
     chosen = select_squad(projs, budget, nation_cap, forced_in=forced_in)
+    return assemble_squad(chosen, budget)
+
+
+def squad_from_pids(projs: list[PlayerProj], pids: list[int], budget: float) -> Squad:
+    """Squad object (XI/captain/bench) for a FIXED 15 — the user's reachable team
+    (owned ± this round's transfers), as opposed to the unconstrained optimum."""
+    by_pid = {p.pid: p for p in projs}
+    missing = [pid for pid in pids if pid not in by_pid]
+    if missing or len(pids) != 15:
+        raise ValueError(f"Cannot assemble squad: {len(pids)} pids, missing from pool: {missing}")
+    return assemble_squad([by_pid[pid] for pid in pids], budget)
+
+
+def assemble_squad(chosen: list[PlayerProj], budget: float) -> Squad:
     starters, formation, xi_exp = pick_xi(chosen)
     by_pid = {p.pid: p for p in chosen}
     # Captain/vice from outfield attackers/mids only — the x2 multiplier wants ceiling,
@@ -119,8 +133,15 @@ def build_squad(projs: list[PlayerProj], cfg, budget: float, nation_cap: int,
         [pid for pid in starters if by_pid[pid].position in ("MID", "FWD")],
         key=lambda pid: by_pid[pid].exp_next, reverse=True)
     cap_pool = attack_starters or sorted(starters, key=lambda pid: by_pid[pid].exp_next, reverse=True)
-    captain = cap_pool[0]
-    vice = cap_pool[1] if len(cap_pool) > 1 else cap_pool[0]
+    # Near-equal candidates: prefer the EARLIEST kickoff. The armband can be moved
+    # mid-round to a not-yet-played starter once the captain's match ends, so an
+    # early captain keeps the relay option alive at almost no EV cost.
+    best_ep = by_pid[cap_pool[0]].exp_next
+    near = [pid for pid in cap_pool if by_pid[pid].exp_next >= best_ep - 0.4]
+    captain = min(near, key=lambda pid: (by_pid[pid].next_date or "9999-99-99",
+                                         -by_pid[pid].exp_next))
+    vice_pool = [pid for pid in cap_pool if pid != captain]
+    vice = vice_pool[0] if vice_pool else captain
     bench_ids = [p.pid for p in chosen if p.pid not in starters]
     # bench order: outfield by exp_next desc, backup GK last
     bench_out = sorted([pid for pid in bench_ids if by_pid[pid].position != "GK"],

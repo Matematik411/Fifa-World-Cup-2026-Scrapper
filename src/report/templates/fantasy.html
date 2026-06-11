@@ -13,8 +13,8 @@
 {% set fwds = sq.starters|selectattr('position','equalto','FWD')|list %}
 
 <h1>The recommended squad</h1>
-<p class="lede">{{ fantasy.transfers.note if fantasy.transfers.mode == 'initial' else 'Your squad plus this round\'s moves.' }}
-This is the single best team — set it exactly.</p>
+<p class="lede">{{ fantasy.transfers.note if fantasy.transfers.note else 'Your squad after this round\'s recommended moves — XI, captain and bench below are for THIS team.' }}
+{% if fantasy.transfers.mode in ('initial', 'rebuild') %}This is the single best team — set it exactly.{% endif %}</p>
 
 <div class="grid cols-4">
   <div class="card kpi"><div class="num">{{ sq.formation }}</div><div class="lbl">formation</div></div>
@@ -30,7 +30,7 @@ This is the single best team — set it exactly.</p>
   <div class="line">{% for p in mids %}{{ m.chip(p) }}{% endfor %}</div>
   <div class="line">{% for p in fwds %}{{ m.chip(p) }}{% endfor %}</div>
 </div>
-<p class="small muted">Captain <b>{{ sq.captain.name }}</b> (×2) · Vice <b>{{ sq.vice.name }}</b> (takes the armband only if the captain plays 0 minutes). Captaincy can be changed live during the round — leave it on {{ sq.captain.name.split(' ')[-1] }} unless they're ruled out.</p>
+<p class="small muted">Captain <b>{{ sq.captain.name }}</b> (×2) · Vice <b>{{ sq.vice.name }}</b> (auto-armband only if the captain plays 0 minutes). The armband can be MOVED during a live round — follow the <a href="#playbook">live-round playbook</a> below.</p>
 
 <h3>Bench (auto-sub order)</h3>
 <div class="bench">{% for p in sq.bench %}{{ m.chip(p, showpts=True) }}{% endfor %}</div>
@@ -63,9 +63,19 @@ This is the single best team — set it exactly.</p>
 <h2>Transfers &amp; chips</h2>
 <div class="grid cols-2">
   <div class="card">
-    <h3>Transfer plan</h3>
+    <h3>Transfer plan <span class="small muted">(for the {{ fantasy.target_round }} round · {{ fantasy.transfers.free_transfers }} free)</span></h3>
     {% if fantasy.transfers.mode == 'initial' %}
-      <div class="note">First run — there is nothing to transfer yet. Build the 15 above as your initial squad; transfers are unlimited until the first kickoff, so you can tweak freely until then. From Matchday 2 you get {{ fantasy_rules.free_transfers_per_round.before_matchday_2 if fantasy_rules.free_transfers_per_round is mapping else fantasy_rules.free_transfers_per_round }} free transfers per round.</div>
+      <div class="note">First squad — nothing to transfer yet. Build the 15 above; transfers are unlimited until the first kickoff, so you can tweak freely until then. From Matchday 2 you get {{ fantasy_rules.free_transfers_per_round.before_matchday_2 if fantasy_rules.free_transfers_per_round is mapping else fantasy_rules.free_transfers_per_round }} free transfers per round.</div>
+    {% elif fantasy.transfers.mode == 'rebuild' %}
+      <div class="note">{{ fantasy.transfers.note }}</div>
+      {% if fantasy.transfers.moves %}
+      <table><thead><tr><th>Out</th><th>In</th></tr></thead><tbody>
+        {% for mv in fantasy.transfers.moves %}<tr><td class="down">{{ mv.out }}</td><td class="up">{{ mv.in }}</td></tr>{% endfor %}
+      </tbody></table>
+      <p class="small">All moves are free in this window — no hits.</p>
+      {% else %}<div class="muted small">Your current 15 is already the optimum — no changes needed.</div>{% endif %}
+    {% elif fantasy.transfers.mode == 'hold' %}
+      <div class="note">{{ fantasy.transfers.note }}</div>
     {% else %}
       {% set pl = fantasy.transfers.plan %}
       {% if pl.moves %}
@@ -74,6 +84,9 @@ This is the single best team — set it exactly.</p>
       </tbody></table>
       <p class="small">Using {{ pl.free_used }} free transfer(s){% if pl.hits %} + {{ pl.hits }} hit(s) ({{ pl.hit_cost }} pts){% endif %}. Net expected gain {{ pl.net_gain|signed(1) }}.</p>
       {% else %}<div class="note">No beneficial transfers this round — hold your team.</div>{% endif %}
+      {% if fantasy.optimal_gap and fantasy.optimal_gap > 0.05 %}
+      <p class="small muted">Gap to the unconstrained optimal squad: {{ fantasy.optimal_gap|r(1) }} horizon pts (informs Wildcard timing).</p>
+      {% endif %}
     {% endif %}
   </div>
   <div class="card">
@@ -85,6 +98,29 @@ This is the single best team — set it exactly.</p>
     </tbody></table>
   </div>
 </div>
+
+{% if fantasy.playbook %}
+<h2 id="playbook">Live-round playbook <span class="small muted">(act on these mid-round — no new session needed)</span></h2>
+<div class="card">
+  <h3>Captaincy relay</h3>
+  {% if fantasy.playbook.ladder|length > 1 %}
+  <table><thead><tr><th>#</th><th>Captain</th><th>Plays</th><th class="num">E pts</th><th>Rule</th></tr></thead><tbody>
+    {% for r in fantasy.playbook.ladder %}
+    <tr><td>{{ loop.index }}</td><td><b>{{ r.name }}</b> <span class="small muted">{{ r.nation }}</span></td>
+    <td>{{ r.date }}</td><td class="num">{{ r.exp|r(1) }}</td>
+    <td class="small">{% if r.next_name %}If he finishes on <b>≤ {{ r.switch_if }} pts</b>, move the armband to <b>{{ r.next_name }}</b> before his kickoff.{% else %}Final rung — ride it out.{% endif %}</td></tr>
+    {% endfor %}
+  </tbody></table>
+  {% else %}
+  <div class="muted small">No later-playing premium in the XI this round — keep the armband on {{ sq.captain.name }}.</div>
+  {% endif %}
+  <p class="small muted">How it works: the captain can be changed during a live round only if the old captain's match has <b>ended</b> and the new one's hasn't <b>started</b>. Switching forfeits the old captain's double (his points then count single) — hence the threshold is the next rung's expected points. <b>Any manual change cancels this round's auto-subs</b>, so only act when your remaining starters are confirmed in their line-ups.</p>
+  {% if fantasy.playbook.bench_first %}
+  <h3>Blank rescue (manual sub)</h3>
+  <p class="small">If a starter's match <b>ends</b> with him on ≤1 pt and a bench outfielder hasn't played yet, you can swap him out — first bench: <b>{{ fantasy.playbook.bench_first.name }}</b> (E {{ fantasy.playbook.bench_first.exp|r(1) }}, plays {{ fantasy.playbook.bench_first.date }}). You score only the incoming player. Do <b>not</b> do this for a did-not-play starter — the free end-of-round auto-sub already covers that (and a manual change cancels it).</p>
+  {% endif %}
+</div>
+{% endif %}
 
 <h2>Best alternatives by position <span class="small muted">(reference — the picks above are the recommendation)</span></h2>
 <div class="grid cols-2">

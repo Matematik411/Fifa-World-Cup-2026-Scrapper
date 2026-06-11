@@ -44,6 +44,7 @@ class PlayerProj:
     exp_avg: float
     horizon: float
     per_match: dict
+    next_date: str = ""          # date of the next unplayed match ("" if none known)
     tags: list[str] = field(default_factory=list)
     why: str = ""
 
@@ -66,21 +67,21 @@ BASE_CRE_RATE = {"GK": 0.0, "DEF": 0.08, "MID": 0.22, "FWD": 0.18}
 
 
 def _team_match_env(forecast, fixtures: dict) -> dict:
+    """Per-team list of forecast match environments — group games plus any
+    knockout tie whose teams are already known (those are certain to happen)."""
     env: dict[str, list] = {}
     for num, mf in forecast.match_forecasts.items():
-        if mf.round != "group":
-            continue
         P = mf.P
         home_goal_marg = P.sum(axis=1)
         away_goal_marg = P.sum(axis=0)
         env.setdefault(mf.home, []).append({
-            "num": num, "lam_for": mf.lam_home, "cs_prob": float(P[:, 0].sum()),
+            "num": num, "round": mf.round, "lam_for": mf.lam_home, "cs_prob": float(P[:, 0].sum()),
             "opp_goal_marg": away_goal_marg, "opp": mf.away, "is_home": True, "date": mf.date})
         env.setdefault(mf.away, []).append({
-            "num": num, "lam_for": mf.lam_away, "cs_prob": float(P[0, :].sum()),
+            "num": num, "round": mf.round, "lam_for": mf.lam_away, "cs_prob": float(P[0, :].sum()),
             "opp_goal_marg": home_goal_marg, "opp": mf.home, "is_home": False, "date": mf.date})
     for t in env:
-        env[t].sort(key=lambda x: (x["date"], x["num"]))
+        env[t].sort(key=lambda x: (x["date"] or "9999-99-99", x["num"]))
     return env
 
 
@@ -249,13 +250,16 @@ def _rates(p: dict, rs: dict, stat: dict | None) -> tuple[float, float]:
 
 def build_projections(players: list[dict], squads_map: dict, forecast, advancement: dict,
                       squads_research: dict, fixtures: dict, cfg,
-                      player_stats: dict | None = None, lineups: dict | None = None) -> list[PlayerProj]:
+                      player_stats: dict | None = None, lineups: dict | None = None,
+                      played: set[int] | None = None) -> list[PlayerProj]:
     env = _team_match_env(forecast, fixtures)
+    played = set(played or ())
     ridx = ResearchIndex(squads_research or {})
     sidx = StatsIndex(player_stats or {})
     lidx = LineupIndex(lineups or {})
 
     by_nation: dict[str, list[dict]] = {}
+    nation_out: dict[str, bool] = {}
     for p in players:
         if p.get("status") != "playing":
             continue
@@ -265,6 +269,7 @@ def build_projections(players: list[dict], squads_map: dict, forecast, advanceme
         p = dict(p)
         p["_nation"] = normalize_team(nation)
         p["_group"] = squads_map.get(p["squadId"], {}).get("group", "")
+        nation_out[p["_nation"]] = bool(squads_map.get(p["squadId"], {}).get("eliminated"))
         by_nation.setdefault(p["_nation"], []).append(p)
 
     gk_first: dict[str, int] = {}
@@ -293,22 +298,37 @@ def build_projections(players: list[dict], squads_map: dict, forecast, advanceme
     projs: list[PlayerProj] = []
     for nation, plist in by_nation.items():
         matches = env.get(nation, [])
+        upcoming = [mx for mx in matches if mx["num"] not in played]
         adv = advancement.get(nation, {})
-        exp_ko = float(adv.get("exp_ko_matches", 0.0))
+        # Expected matches still to play (advancement conditions on entered results);
+        # the known fixtures in `upcoming` are certain, the rest is the KO residual.
+        exp_remaining = float(adv.get("exp_remaining_matches",
+                                      adv.get("exp_ko_matches", 0.0)))
+        if nation_out.get(nation):
+            upcoming, exp_remaining = [], 0.0
+        residual = max(0.0, exp_remaining - len(upcoming))
         for p in plist:
             m = meta[p["id"]]
             goal_share = m["att_w"] / team_att_sum[nation]
             assist_share = m["cre_w"] / team_cre_sum[nation]
-            per_match = {mx["num"]: _player_match_ep(p["position"], m, goal_share, assist_share, mx)
-                         for mx in matches}
-            group_eps = list(per_match.values())
-            exp_avg = float(np.mean(group_eps)) if group_eps else 0.0
-            exp_next = group_eps[0] if group_eps else 0.0
-            horizon = float(sum(group_eps) + exp_avg * 0.88 * exp_ko)
+            all_eps = {mx["num"]: _player_match_ep(p["position"], m, goal_share, assist_share, mx)
+                       for mx in matches}
+            per_match = {mx["num"]: all_eps[mx["num"]] for mx in upcoming}
+            upcoming_eps = list(per_match.values())
+            # per-match typical EP — over all known fixtures (played ones included for
+            # stability) — used to price the unknown-opponent KO residual
+            exp_avg = float(np.mean(list(all_eps.values()))) if all_eps else 0.0
+            if upcoming_eps:
+                exp_next = upcoming_eps[0]
+            else:
+                # still alive but next tie not yet in fixtures (e.g. opponent TBD)
+                exp_next = exp_avg if residual > 0.5 else 0.0
+            horizon = float(sum(upcoming_eps) + exp_avg * 0.88 * residual)
             projs.append(PlayerProj(
                 pid=p["id"], name=m["name"], nation=nation, group=str(p.get("_group", "")).upper(),
                 position=p["position"], price=m["price"], ownership=m["own"], minutes_prob=m["mins"],
                 exp_next=exp_next, exp_avg=exp_avg, horizon=horizon, per_match=per_match,
+                next_date=(upcoming[0]["date"] or "") if upcoming else "",
                 tags=_tags(p["position"], m), why=_why(p["position"], m, adv)))
     return projs
 

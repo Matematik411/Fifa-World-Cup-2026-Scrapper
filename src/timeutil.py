@@ -25,7 +25,7 @@ def kickoff_datetimes(date: str, local_time: str, tz: str):
 def fmt_cet(cet_dt) -> str:
     if cet_dt is None:
         return "TBD"
-    return cet_dt.strftime("%a %d %b %H:%M CET")
+    return cet_dt.strftime("%a %d %b %H:%M %Z")  # %Z: CEST in summer — the accurate label
 
 
 def fmt_local(date: str, local_time: str, tz: str) -> str:

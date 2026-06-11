@@ -22,13 +22,56 @@ from .timeutil import countdown_str, fmt_cet, fmt_local, kickoff_datetimes, now_
 
 ALL_CHIPS = ["Wildcard", "12th Man", "Maximum Captain", "Qualification Booster", "Mystery Booster"]
 
+KO_ROUNDS = ("R32", "R16", "QF", "SF", "final")
+STAGE_SEQ = ["pre", "MD1", "MD2", "MD3", "R32", "R16", "QF", "SF", "final"]
+STAGE_LABEL = {
+    "pre": "Pre-tournament", "MD1": "Group stage — Matchday 1", "MD2": "Group stage — Matchday 2",
+    "MD3": "Group stage — Matchday 3", "R32": "Round of 32", "R16": "Round of 16",
+    "QF": "Quarter-finals", "SF": "Semi-finals", "final": "Final round",
+}
 
-def _stage(cfg, run_date: str, state: dict) -> tuple[str, str]:
+
+def _group_matchdays(fixtures: dict) -> dict[int, int]:
+    """Group match num -> matchday 1/2/3 (chronological thirds of the 72 games)."""
+    g = sorted((m for m in fixtures["matches"] if m["round"] == "group"),
+               key=lambda m: (m.get("date") or "", m["num"]))
+    chunk = max(1, (len(g) + 2) // 3)
+    return {m["num"]: min(3, 1 + i // chunk) for i, m in enumerate(g)}
+
+
+def _round_of(m: dict, md_of: dict[int, int]) -> str:
+    if m["round"] == "group":
+        return f"MD{md_of[m['num']]}"
+    return "final" if m["round"] == "third-place" else m["round"]
+
+
+def _stage(cfg, run_date: str, fixtures: dict, results: dict) -> tuple[str, str, str]:
+    """Detect (stage, target_round, label) from fixtures + entered results + date.
+
+    stage         = the round whose matches are up next ("pre" before first kickoff).
+    target_round  = the round any transfers made now apply to: the current round
+                    while it hasn't locked yet, otherwise the next one (transfers
+                    made during a live round take effect from the next round).
+    """
     start = cfg.get("tournament.start_date", "2026-06-11")
-    if run_date < start:
-        return "pre", f"Pre-tournament — squad & Matchday-1 predictions lock at first kickoff ({start})"
-    # crude matchday inference from entered predictions could go here; keep simple/honest
-    return "group", "Group stage in progress"
+    if run_date < start or (not results and run_date <= start):
+        return "pre", "MD1", f"Pre-tournament — squad & Matchday-1 predictions lock at first kickoff ({start})"
+    md_of = _group_matchdays(fixtures)
+    unplayed = [m for m in fixtures["matches"] if m["num"] not in results]
+    if not unplayed:
+        return "final", "final", "Tournament complete"
+    nxt = min(unplayed, key=lambda m: (m.get("date") or "9999-99-99", m["num"]))
+    stage = _round_of(nxt, md_of)
+    in_round = [m for m in fixtures["matches"] if _round_of(m, md_of) == stage]
+    locked = any(m["num"] in results for m in in_round) or \
+        any((m.get("date") or "9999") < run_date for m in in_round)
+    if locked and stage != "final":
+        target = STAGE_SEQ[STAGE_SEQ.index(stage) + 1]
+    else:
+        target = stage
+    n_in = sum(1 for m in fixtures["matches"] if m["round"] == "group" and m["num"] in results)
+    suffix = f" ({n_in}/72 group results in)" if stage.startswith("MD") else ""
+    return stage, target, f"{STAGE_LABEL[stage]}{suffix} — transfers apply to {STAGE_LABEL[target]}"
 
 
 def _load_state() -> dict:
@@ -42,11 +85,12 @@ def _save_state(state: dict) -> None:
     io_utils.save_json(ROOT / "state.json", state)
 
 
-def _load_results() -> dict:
-    """Actual 90-minute results: data/manual/results.json -> {match_num: (home, away)}."""
+def _load_results() -> tuple[dict, dict]:
+    """data/manual/results.json -> ({match_num: (home, away)} 90-minute results,
+    {match_num: team} KO advancers for ties that needed ET/pens)."""
     path = MANUAL / "results.json"
     if not path.exists():
-        return {}
+        return {}, {}
     raw = io_utils.load_json(path)
     rows = raw.get("results", raw) if isinstance(raw, dict) else {}
     out = {}
@@ -55,7 +99,14 @@ def _load_results() -> dict:
             out[int(k)] = (int(v[0]), int(v[1]))
         except (ValueError, TypeError, IndexError):
             continue
-    return out
+    ko_advancers = {}
+    if isinstance(raw, dict):
+        for k, v in (raw.get("ko_advancers") or {}).items():
+            try:
+                ko_advancers[int(k)] = str(v)
+            except (ValueError, TypeError):
+                continue
+    return out, ko_advancers
 
 
 def _score_predictions(results: dict, pred_records: list, state: dict, scoring: dict) -> dict:
@@ -95,18 +146,27 @@ def run_pipeline(run_date: str | None = None, fetch: bool = True, sim: bool = Tr
     cfg = load_config()
     run_date = run_date or io_utils.today_str()
     gen_cet = now_cet()
-    log(f"=== Run {run_date} | {gen_cet.strftime('%Y-%m-%d %H:%M CET')} ===")
+    log(f"=== Run {run_date} | {gen_cet.strftime('%Y-%m-%d %H:%M %Z')} ===")
 
     state = _load_state()
-    stage, stage_label = _stage(cfg, run_date, state)
 
     bundle = load_bundle(cfg, run_date, fetch=fetch, log=log)
     for w in bundle.warnings:
         log(f"  [warn] {w}")
 
-    results = _load_results()
+    results, ko_advancers = _load_results()
     if results:
         log(f"Ingesting {len(results)} actual result(s) — standings/advancement will condition on them.")
+    stale = [m["num"] for m in bundle.fixtures["matches"]
+             if (m.get("date") or "9999") < run_date and m["num"] not in results]
+    if stale:
+        w = (f"{len(stale)} match(es) dated before {run_date} have no entry in data/manual/results.json "
+             f"(nums {stale[:10]}{'...' if len(stale) > 10 else ''}) — refresh it, or stage detection/scoring will lag.")
+        bundle.warnings.append(w)
+        log(f"  [warn] {w}")
+
+    stage, target_round, stage_label = _stage(cfg, run_date, bundle.fixtures, results)
+    log(f"Stage: {stage_label}")
 
     # ---- shared forecast model ----
     log("Building ensemble strengths...")
@@ -122,7 +182,8 @@ def run_pipeline(run_date: str | None = None, fetch: bool = True, sim: bool = Tr
         n_sims = int(os.environ.get("WC2026_SIM_ITERS") or cfg.get("model.sim_iterations", 100000))
         seed = int(cfg.get("model.rng_seed", 20260605))
         log(f"Simulating bracket: {n_sims:,} iterations...")
-        simr = BracketSimulator(forecast, bundle.fixtures, cfg, played=results).run(n_sims, seed)
+        simr = BracketSimulator(forecast, bundle.fixtures, cfg, played=results,
+                                ko_advancers=ko_advancers).run(n_sims, seed)
     else:
         prev = io_utils.latest_run_date()
         simr = io_utils.load_json(io_utils.processed_dir(prev) / "advancement.json") if prev else {"advancement": {}, "group_standings": {}}
@@ -142,13 +203,15 @@ def run_pipeline(run_date: str | None = None, fetch: bool = True, sim: bool = Tr
     fantasy_out = None
     if bundle.players and bundle.squads_map:
         log("Projecting fantasy points + optimizing squad...")
-        fantasy_out = _run_fantasy(cfg, bundle, forecast, advancement, stage, state, log)
+        fantasy_out = _run_fantasy(cfg, bundle, forecast, advancement, stage, target_round,
+                                   state, results, log)
     else:
         log("  [warn] Skipping fantasy (no player feed).")
 
     # ---- assemble result ----
     result = _assemble(cfg, run_date, gen_cet, stage, stage_label, bundle, strengths,
                        forecast, simr, pred_records, fantasy_out, scoring_summary)
+    result["target_round"] = target_round
 
     # cumulative Nostradamus points = idempotent recompute from results; fantasy from state (user-entered)
     state.setdefault("cumulative", {})["nostradamus_points"] = scoring_summary["total"]
@@ -192,54 +255,179 @@ def _decorate_prediction(p, forecast) -> dict:
     return rec
 
 
-def _run_fantasy(cfg, bundle, forecast, advancement, stage, state, log) -> dict:
+def _run_fantasy(cfg, bundle, forecast, advancement, stage, target_round, state, results, log) -> dict:
     projs = build_projections(bundle.players, bundle.squads_map, forecast, advancement,
                               bundle.squads_research, bundle.fixtures, cfg,
-                              player_stats=bundle.player_stats, lineups=bundle.lineups)
-    budget = float(cfg.get("fantasy.budget", 100.0))
-    nation_cap = _nation_cap(cfg, stage)
+                              player_stats=bundle.player_stats, lineups=bundle.lineups,
+                              played=set(results))
+    budget = _budget(cfg, target_round)
+    nation_cap = _nation_cap(cfg, target_round)
     owned = (state.get("owned") or {}).get("player_ids") or []
-
-    squad = fopt.build_squad(projs, cfg, budget, nation_cap)
     by_pid = {p.pid: p for p in projs}
 
-    # transfers + chips. Pre-lock the squad is freely editable (unlimited transfers),
-    # so always present the fresh optimal 15 then; post-lock plan limited transfers.
+    # The unconstrained optimum — directly buildable pre-lock and in unlimited
+    # windows; otherwise a reference for how far the owned squad has drifted.
+    optimal = fopt.build_squad(projs, cfg, budget, nation_cap)
     chips_remaining = [c for c in ALL_CHIPS if c not in (state.get("chips_used") or [])]
-    if owned and stage != "pre":
-        ft = _free_transfers(cfg, stage)
-        bank = float((state.get("owned") or {}).get("bank", 0.0))
-        plan = ftr.plan_transfers(owned, projs, budget, nation_cap, ft, bank)
-        chips = ftr.chip_advice(stage, chips_remaining, squad, plan)
-        transfer_block = {"mode": "transfers", "plan": _serialize_plan(plan, by_pid), "free_transfers": ft}
+    ft = _free_transfers(cfg, target_round)
+    ko_ties_known = any(mf.round != "group" for mf in forecast.match_forecasts.values())
+    plan = None
+
+    if not owned or stage == "pre":
+        squad = optimal
+        transfer_block = {"mode": "initial", "free_transfers": "unlimited",
+                          "note": "Squad is freely editable until the first kickoff — set this exact 15."}
+    elif ft == "unlimited" and (target_round != "R32" or ko_ties_known):
+        # unlimited window (before the R32): full rebuild to the optimum, no hits
+        squad = optimal
+        transfer_block = {"mode": "rebuild", "free_transfers": "unlimited",
+                          "moves": _rebuild_moves(owned, squad, by_pid),
+                          "note": f"Transfers before the {STAGE_LABEL[target_round]} are unlimited — "
+                                  f"rebuild to this exact 15 at no cost."}
+    elif ft == "unlimited":
+        # unlimited window already, but R32 ties unknown — hold the moves until they are
+        squad = _owned_squad(projs, owned, budget, optimal, log)
+        transfer_block = {"mode": "hold", "free_transfers": "unlimited",
+                          "note": "Unlimited transfers before the Round of 32 — but the ties aren't set yet. "
+                                  "HOLD all moves; the rebuild recommendation lands once R32 matchups are known."}
     else:
-        chips = ftr.chip_advice(stage, chips_remaining, squad, None)
-        transfer_block = {"mode": "initial", "note": "First run — set this as your initial 15 before the 11 Jun lock."}
+        bank = float((state.get("owned") or {}).get("bank", 0.0))
+        penalty = float(cfg.get("fantasy.extra_transfer_penalty", -3))
+        plan = ftr.plan_transfers(owned, projs, budget, nation_cap, int(ft), bank,
+                                  extra_penalty=penalty)
+        effective = _apply_moves(owned, plan["moves"])
+        squad = _owned_squad(projs, effective, budget, optimal, log)
+        transfer_block = {"mode": "transfers", "plan": _serialize_plan(plan, by_pid),
+                          "free_transfers": ft}
+
+    gap = round(optimal.squad_horizon - squad.squad_horizon, 1)
+    owned_set = {p.pid for p in squad.players}
+    twelfth = max((p for p in projs if p.pid not in owned_set and p.minutes_prob > 0.5),
+                  key=lambda p: p.exp_next, default=None)
+    chips = ftr.chip_advice(stage, target_round, chips_remaining, squad, plan,
+                            advancement=advancement, optimal_gap=gap if gap > 0.05 else None,
+                            twelfth={"name": twelfth.name, "ev": round(twelfth.exp_next, 1)} if twelfth else None)
 
     return {
         "squad": _serialize_squad(squad),
+        "playbook": _playbook(squad),
         "transfers": transfer_block,
         "chips": chips,
         "chips_remaining": chips_remaining,
         "nation_cap": nation_cap,
         "budget": budget,
+        "target_round": target_round,
+        "optimal_gap": gap,
         "pool_top": [p.to_record() for p in sorted(projs, key=lambda x: x.horizon, reverse=True)[:60]],
         "pool_by_pos": _pool_by_pos(projs),
         "all_projs": {p.pid: p for p in projs},
     }
 
 
-def _nation_cap(cfg, stage) -> int:
+def _captain_ladder(squad) -> list[dict]:
+    """Mid-round captaincy relay: the armband can move to a not-yet-played starter
+    once the current captain's match ends (forfeiting his double). Switching is +EV
+    whenever banked points < the next rung's expected points — that's the threshold."""
+    by_pid = squad.by_pid()
+    rungs = [by_pid[squad.captain]]
+    cands = [by_pid[pid] for pid in squad.starters
+             if by_pid[pid].position in ("MID", "FWD") and pid != squad.captain]
+    last_date = rungs[0].next_date or ""
+    while len(rungs) < 3:
+        later = [p for p in cands if p.next_date and p.next_date > last_date]
+        if not later:
+            break
+        nxt = max(later, key=lambda p: p.exp_next)
+        if nxt.exp_next < 3.0:
+            break
+        rungs.append(nxt)
+        cands.remove(nxt)
+        last_date = nxt.next_date
+    rows = []
+    for i, p in enumerate(rungs):
+        row = {"name": p.name, "nation": p.nation, "date": p.next_date or "TBD",
+               "exp": round(p.exp_next, 1)}
+        if i + 1 < len(rungs):
+            row["switch_if"] = int(rungs[i + 1].exp_next)
+            row["next_name"] = rungs[i + 1].name
+        rows.append(row)
+    return rows
+
+
+def _playbook(squad) -> dict:
+    """In-round actions the user can take between daily runs."""
+    by_pid = squad.by_pid()
+    bench_first = None
+    bench_out = [by_pid[pid] for pid in squad.bench if by_pid[pid].position != "GK"]
+    if bench_out:
+        b = bench_out[0]
+        bench_first = {"name": b.name, "nation": b.nation, "exp": round(b.exp_next, 1),
+                       "date": b.next_date or "TBD"}
+    return {"ladder": _captain_ladder(squad), "bench_first": bench_first}
+
+
+def _apply_moves(owned: list[int], moves) -> list[int]:
+    pids = list(owned)
+    for m in moves:
+        if m.out_pid in pids:
+            pids[pids.index(m.out_pid)] = m.in_pid
+    return pids
+
+
+def _owned_squad(projs, pids, budget, fallback, log):
+    """Squad object for the user's reachable 15; falls back to the optimum if the
+    owned pids can't be resolved against the current player pool."""
+    try:
+        return fopt.squad_from_pids(projs, pids, budget)
+    except (ValueError, RuntimeError) as e:
+        log(f"  [warn] Could not assemble owned squad ({e}); presenting the optimal squad instead.")
+        return fallback
+
+
+def _rebuild_moves(owned: list[int], squad, by_pid) -> list[dict]:
+    """out/in pairs (matched by position) describing the rebuild diff."""
+    new_pids = {p.pid for p in squad.players}
+    outs = [pid for pid in owned if pid not in new_pids and pid in by_pid]
+    ins = [p.pid for p in squad.players if p.pid not in owned]
+    moves = []
+    for pos in ("GK", "DEF", "MID", "FWD"):
+        pos_out = [pid for pid in outs if by_pid[pid].position == pos]
+        pos_in = [pid for pid in ins if by_pid[pid].position == pos]
+        for o, i in zip(pos_out, pos_in):
+            moves.append({"out": by_pid[o].name, "in": by_pid[i].name, "position": pos})
+    return moves
+
+
+def _nation_cap(cfg, target_round) -> int:
     cap = cfg.get("fantasy.nation_cap", 3)
     if isinstance(cap, dict):
-        key = {"pre": "group_stage", "MD1": "group_stage", "group": "group_stage"}.get(stage, "group_stage")
+        key = {"R32": "round_of_32", "R16": "round_of_16", "QF": "quarter_final",
+               "SF": "semi_final", "final": "final"}.get(target_round, "group_stage")
         return int(cap.get(key, 3))
     return int(cap)
 
 
-def _free_transfers(cfg, stage) -> int:
+def _budget(cfg, target_round) -> float:
+    base = float(cfg.get("fantasy.budget", 100.0))
+    if target_round in KO_ROUNDS:
+        return float(cfg.get("fantasy.ko_budget",
+                             base + float(cfg.get("fantasy.ko_budget_bonus", 5.0))))
+    return base
+
+
+def _free_transfers(cfg, target_round):
+    """Free transfers for the round being planned: int or "unlimited"."""
     ft = cfg.get("fantasy.free_transfers_per_round", 2)
     if isinstance(ft, dict):
+        key = {"MD1": "pre_tournament", "MD2": "before_matchday_2", "MD3": "before_matchday_3",
+               "R32": "before_round_of_32", "R16": "before_round_of_16",
+               "QF": "before_quarter_finals", "SF": "before_semi_finals",
+               "final": "before_final"}.get(target_round)
+        v = ft.get(key) if key else None
+        if v == "unlimited":
+            return "unlimited"
+        if v is not None:
+            return int(v)
         return 2
     return int(ft) if isinstance(ft, int) else 2
 
@@ -309,25 +497,28 @@ def _assemble(cfg, run_date, gen_cet, stage, stage_label, bundle, strengths, for
 
     preds_all = sorted(pred_records, key=lambda r: r["_sort"])
     preds_sorted = [r for r in preds_all if not r.get("played")]   # upcoming only (display)
-    # upcoming deadlines (group matches with a CET deadline)
-    upcoming = [r for r in preds_sorted if r["deadline_cet"] != "TBD"][:16]
 
-    # headline next deadline + the first matchday's matches (for the dashboard)
+    # deadlines: only matches that have NOT kicked off yet (a mid-day rerun must not
+    # point the user at a deadline that already passed)
     now = now_cet()
-    next_deadline = {"label": "—", "cet": "TBD", "countdown": "—"}
-    first_day = None
-    first_cet = None
+    future = []
     for r in preds_sorted:
         mf = forecast.match_forecasts[r["num"]]
-        utc, cet = kickoff_datetimes(mf.date, mf.kickoff_local, mf.tz)
-        if cet is not None:
-            first_cet = cet
-            first_day = mf.date
-            next_deadline = {
-                "label": f"{r['home']} v {r['away']} kicks off (squad locks; MD1 predictions due)",
-                "cet": fmt_cet(cet), "countdown": countdown_str(cet, now), "date": mf.date,
-            }
-            break
+        _, cet = kickoff_datetimes(mf.date, mf.kickoff_local, mf.tz)
+        if cet is not None and cet > now:
+            future.append((r, cet, mf))
+    upcoming = [r for r, _, _ in future][:16]
+
+    next_deadline = {"label": "—", "cet": "TBD", "countdown": "—"}
+    first_day = None
+    if future:
+        r, cet, mf = future[0]
+        note = "squad locks; MD1 predictions due" if stage == "pre" else "prediction due at kickoff"
+        next_deadline = {
+            "label": f"{r['home']} v {r['away']} kicks off ({note})",
+            "cet": fmt_cet(cet), "countdown": countdown_str(cet, now), "date": mf.date,
+        }
+        first_day = mf.date
     first_day_matches = [r for r in preds_sorted if r.get("date") == first_day] if first_day else []
 
     sources = {
@@ -342,7 +533,7 @@ def _assemble(cfg, run_date, gen_cet, stage, stage_label, bundle, strengths, for
 
     return {
         "run_date": run_date,
-        "generated_at_cet": gen_cet.strftime("%a %d %b %Y, %H:%M CET"),
+        "generated_at_cet": gen_cet.strftime("%a %d %b %Y, %H:%M %Z"),
         "stage": stage, "stage_label": stage_label,
         "tournament": cfg.get("tournament", {}),
         "warnings": bundle.warnings,
@@ -424,13 +615,14 @@ def _changelog(run_date, result, log) -> dict:
             odds_moves.append({"team": r["team"], "from": round(old, 4), "to": r["title_prob"]})
     squad_changes = []
     if result.get("fantasy"):
+        names = {pid: pr.name for pid, pr in (result["fantasy"].get("all_projs") or {}).items()}
         cur_squad = set(p["pid"] for p in result["fantasy"]["squad"]["all"])
         old_squad = set(prev_sum.get("squad", []))
         if old_squad:
             for pid in old_squad - cur_squad:
-                squad_changes.append({"change": "out", "pid": pid})
+                squad_changes.append({"change": "out", "pid": pid, "name": names.get(pid, f"#{pid}")})
             for pid in cur_squad - old_squad:
-                squad_changes.append({"change": "in", "pid": pid})
+                squad_changes.append({"change": "in", "pid": pid, "name": names.get(pid, f"#{pid}")})
     return {"prev_run": prev, "note": f"Diff vs {prev}.", "pred_flips": flips,
             "squad_changes": squad_changes, "odds_moves": odds_moves}
 

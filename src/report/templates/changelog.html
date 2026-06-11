@@ -45,7 +45,7 @@ flipped and why, squad/transfer changes, and bookmaker/advancement moves.</div>
   <div class="card">
     <h3>Squad changes ({{ changelog.squad_changes|length }})</h3>
     {% if changelog.squad_changes %}
-      <ul class="small">{% for c in changelog.squad_changes %}<li><b>{{ c.change|upper }}</b>: player #{{ c.pid }}</li>{% endfor %}</ul>
+      <ul class="small">{% for c in changelog.squad_changes %}<li><b>{{ c.change|upper }}</b>: {{ c.name if c.name else 'player #' ~ c.pid }}</li>{% endfor %}</ul>
     {% else %}<div class="muted small">Recommended squad unchanged.</div>{% endif %}
   </div>
 </div>

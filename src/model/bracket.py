@@ -69,6 +69,35 @@ def _kuhn_matching(slot_allowed: list[set[int]]) -> list[int] | None:
     return out
 
 
+def forced_ko_winners(played: dict, ko_advancers: dict, fixtures: dict,
+                      team_idx: dict[str, int]) -> dict[int, int]:
+    """KO matches whose advancing team is already known: match_num -> team idx.
+
+    An explicit ko_advancers entry (needed when the 90' result was a draw and
+    ET/pens decided it) wins; otherwise a decisive 90' result combined with the
+    real team names filled into fixtures["matches"] determines the winner.
+    """
+    forced: dict[int, int] = {}
+    ko_names = {m["num"]: (normalize_team(m.get("home", "")), normalize_team(m.get("away", "")))
+                for m in fixtures["matches"] if m["round"] != "group"}
+    for num, name in (ko_advancers or {}).items():
+        t = normalize_team(str(name))
+        if t in team_idx:
+            forced[int(num)] = team_idx[t]
+    for num, res in (played or {}).items():
+        num = int(num)
+        if num in forced or num not in ko_names:
+            continue
+        gh, ga = res
+        if gh == ga:
+            continue  # 90' draw — ET/pens decided; needs an explicit ko_advancers entry
+        h, a = ko_names[num]
+        winner = h if gh > ga else a
+        if winner in team_idx:
+            forced[num] = team_idx[winner]
+    return forced
+
+
 @dataclass
 class BracketSpec:
     r32: dict[int, tuple]            # match_num -> (home_ref, away_ref)
@@ -98,7 +127,8 @@ def parse_bracket(fixtures: dict, group_letters: list[str]) -> BracketSpec:
 
 
 class BracketSimulator:
-    def __init__(self, forecast: Forecast, fixtures: dict, cfg, played: dict | None = None):
+    def __init__(self, forecast: Forecast, fixtures: dict, cfg, played: dict | None = None,
+                 ko_advancers: dict | None = None):
         self.fc = forecast
         self.cfg = cfg
         self.teams = forecast.teams
@@ -110,6 +140,8 @@ class BracketSimulator:
         self.spec = parse_bracket(fixtures, self.group_letters)
         self.W = forecast.max_goals + 1
         self.played = played or {}  # match_num -> (gh, ga) actual results already in
+        # KO matches with a known advancing team -> condition the sim on them
+        self.forced = forced_ko_winners(self.played, ko_advancers or {}, fixtures, self.idx)
         self._prep_group_matches(fixtures)
 
     def _prep_group_matches(self, fixtures: dict):
@@ -252,7 +284,11 @@ class BracketSimulator:
             p = self.fc.advance_prob[a_idx, b_idx]
             a_wins = rng.random(N) < p
             w = np.where(a_wins, a_idx, b_idx)
-            l = np.where(a_wins, b_idx, a_idx)
+            forced = self.forced.get(num)
+            if forced is not None:
+                # condition on the real advancing team in every sim where it's in this tie
+                w = np.where((a_idx == forced) | (b_idx == forced), forced, w)
+            l = np.where(w == a_idx, b_idx, a_idx)
             winners[num] = w
             self._losers[num] = l
             np.add.at(ko_played, a_idx, 1); np.add.at(ko_played, b_idx, 1)
