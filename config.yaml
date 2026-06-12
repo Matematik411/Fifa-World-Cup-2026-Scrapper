@@ -45,6 +45,14 @@ nostradamus:
   ko_doubling_starts: "R32"
   resolution: "90min"       # 90-minute regular-time result only
 
+# --- GoPicks scoring (Sentora partners league on gopicks.app; overridden by data/manual/gopicks.json) ---
+gopicks:
+  result: 3                 # correct result (home win / draw / away win)
+  exact_home: 1             # exact home goals (independent of the result)
+  exact_away: 1             # exact away goals (independent of the result)
+  resolution: "90min"       # regular time only, no ET/pens — same as Nostradamus
+  tiebreaker: "total_exact_goal_picks"
+
 # --- Model parameters ---
 model:
   goal_cap: 8                  # scoreline matrix goals 0..goal_cap

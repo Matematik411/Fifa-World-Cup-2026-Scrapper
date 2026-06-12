@@ -45,7 +45,7 @@ depend on it). Cache raw pulls under `data/raw/<today>/`. Re-pull, in priority o
 | `player_stats.json` | **occasionally** | Per-90 xG/xA/shots/key-passes driving intra-team goal/assist shares. Club-season numbers — refresh pre-tournament and if a player's role/form shifts; not needed daily. |
 | `fixtures.json` | when KO bracket fills | Group stage is fixed. As knockouts resolve, fill the actual teams into the KO match `home`/`away` (replace `1A`/`W74` placeholders) so predictions unlock for them. |
 | `fantasy_feed.json`/players | automatic | `./run.sh run` pulls `play.fifa.com/json/fantasy/{players,squads,rounds}.json` live (prices fixed; ownership/status/points update). Nothing to do unless the endpoint changes. |
-| `fantasy_rules.json`, `nostradamus.json` | rarely | Stable for 2026. Re-verify only if rules change. |
+| `fantasy_rules.json`, `nostradamus.json`, `gopicks.json` | rarely | Stable for 2026. Re-verify only if rules change. |
 | *optional APIs* | if keys set | `.env` keys (football-data.org / API-Football / The Odds API) are optional enrichment for fixtures/lineups/odds. The tested primary path is the curated files above; APIs are a convenience, not required. |
 
 > Fast path: launch parallel research subagents (one per file) exactly as the build did
@@ -61,6 +61,13 @@ scorelines — unless they state a deviation this session.** So:
   ask them to list their 15 each time.
 - Nostradamus scoring already defaults to the recommended scoreline when
   `predictions_entered` has no explicit entry — so picks are scored as followed.
+- **GoPicks** (Sentora partners league on gopicks.app, joined 2026-06-12) works the
+  same way via `state.gopicks.predictions_entered`: absent = followed the GoPicks
+  recommendation (NOT the Nostradamus one — the picks can differ), `"<num>": "H-A"`
+  = stated deviation, `"missed"` = not entered. Matches dated before
+  `state.gopicks.joined` auto-score as missed (matches 1–2). Points are recomputed
+  from results each run; only `points_official`/`rank` (his leaderboard standing)
+  are user-entered, like fantasy points.
 - **Do not ask for confirmation — proceed straight to the run** (the user confirmed
   2026-06-11 he agrees with all decisions and will state any deviation unprompted in
   his message). If he does state one → set `owned.player_ids` / `chips_used` /
@@ -102,8 +109,16 @@ Then tell the user, in CET and decisively:
    the only actions the user can take between daily runs. Remind them any manual
    change cancels that round's auto-subs.
 3. **Nostradamus:** the scorelines to enter for the next matches + per-match deadlines.
-4. **Performance:** points since last run (from the changelog).
-5. One line on what changed and why (changelog highlights).
+4. **GoPicks:** the scorelines to enter at gopicks.app for the same matches — list them
+   separately and call out any match where the GoPicks pick differs from Nostradamus
+   (different scoring → different EV optimum; entering the wrong league's pick costs EV).
+5. **Performance:** points since last run (from the changelog), both leagues.
+6. One line on what changed and why (changelog highlights).
+
+Finally **commit everything** (`git config user.name "Matematik411" && git config
+user.email "nejc.zajc@aflabs.com"` first — the VM has no identity) and ask the user
+to `git push` from the host (the sandbox has no SSH key; the push is what deploys
+`output/` to GitHub Pages).
 
 ## 6. Stage-specific notes
 
@@ -126,8 +141,13 @@ Then tell the user, in CET and decisively:
 
 ## 6.5 One-time TODOs (do during the named run, then delete the line)
 
-- **First run after MD1 games (2026-06-12+):** create `data/manual/results.json` from
-  yesterday's final scores (schema in §2) — first time this file exists. Also inspect
+- **First evening run with gopicks.app access (2026-06-12+):** the GoPicks rules in
+  `data/manual/gopicks.json` were taken verbatim from the user's message; two details
+  are ASSUMED and must be verified on the site (user can check while entering picks):
+  (1) the league covers all 104 matches, (2) per-match deadline = kickoff. Correct
+  `gopicks.json` if wrong, then delete this TODO.
+- **First run after MD1 games (2026-06-12+):** ~~create `data/manual/results.json`~~
+  (done 2026-06-12: matches 1–2 in). Remaining: inspect
   `data/raw/<date>/fantasy_players_raw.json` → `stats.roundPoints` / `lastRoundPoints`
   (empty pre-tournament): if it now carries per-round live points, wire it into the
   live-round playbook so it can say "your captain banked N pts → switch/hold"

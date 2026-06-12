@@ -3,7 +3,7 @@
 {% block title %}Dashboard — WC 2026 Guide{% endblock %}
 {% block content %}
 <h1>What to do right now</h1>
-<p class="lede">Two games, two single recommendations to follow. Everything below is the optimal call — no menus.</p>
+<p class="lede">Three games, one single recommendation each. Everything below is the optimal call — no menus.</p>
 
 <div class="grid cols-3">
   <div class="card kpi countdown">
@@ -55,16 +55,23 @@
       → <a href="predictions.html">All predictions, deadlines &amp; rationale</a>
     </div>
   </li>
+  <li>
+    <div class="a-do">③ Enter the same {{ first_day_matches|length }} matches on GoPicks (gopicks.app) — its own optimal picks.</div>
+    <div class="a-sub">
+      {% for r in first_day_matches %}{{ r.home }} <b>{{ r.gp_home if r.gp_home is defined else r.pred_home }}-{{ r.gp_away if r.gp_away is defined else r.pred_away }}</b> {{ r.away }}{% if not loop.last %} · {% endif %}{% endfor %}
+      — different scoring (3 result + 1 per exact goal count), so a pick can differ from Nostradamus. → <a href="predictions.html">Side-by-side</a>
+    </div>
+  </li>
   {% if fantasy and fantasy.chips %}
   {% set playable = fantasy.chips|selectattr('action', 'in', ['PLAY', 'CONSIDER'])|list %}
   <li>
-    <div class="a-do">③ Chips: {% if playable %}{% for c in playable %}<b>{{ c.chip }}</b> — {{ c.action }}{% if not loop.last %}, {% endif %}{% endfor %}; hold the rest.{% else %}hold them all for now.{% endif %}</div>
+    <div class="a-do">④ Chips: {% if playable %}{% for c in playable %}<b>{{ c.chip }}</b> — {{ c.action }}{% if not loop.last %}, {% endif %}{% endfor %}; hold the rest.{% else %}hold them all for now.{% endif %}</div>
     <div class="a-sub">{% for c in fantasy.chips %}<b>{{ c.chip }}</b> — {{ c.action }}. {% endfor %}</div>
   </li>
   {% endif %}
   {% if fantasy and fantasy.playbook and fantasy.playbook.ladder|length > 1 %}
   <li>
-    <div class="a-do">④ During the round — captain relay: {% for r in fantasy.playbook.ladder %}<b>{{ r.name.split(' ')[-1] }}</b>{% if not loop.last %} → {% endif %}{% endfor %}.</div>
+    <div class="a-do">⑤ During the round — captain relay: {% for r in fantasy.playbook.ladder %}<b>{{ r.name.split(' ')[-1] }}</b>{% if not loop.last %} → {% endif %}{% endfor %}.</div>
     <div class="a-sub">{{ fantasy.playbook.ladder[0].name }} plays {{ fantasy.playbook.ladder[0].date }}; if he ends on ≤ {{ fantasy.playbook.ladder[0].switch_if }} pts, move the armband to {{ fantasy.playbook.ladder[1].name }} before his kickoff. → <a href="fantasy.html#playbook">Full playbook &amp; rules</a></div>
   </li>
   {% endif %}
@@ -73,14 +80,16 @@
 <h2>Highest-value predictions today</h2>
 <div class="card">
   <div class="table-scroll"><table>
-    <thead><tr><th>Match</th><th>Pick</th><th>P (1/X/2)</th><th class="num sortable">EV</th><th>Conf</th></tr></thead>
+    <thead><tr><th>Match</th><th>Nostradamus</th><th>GoPicks</th><th>P (1/X/2)</th><th class="num sortable">N EV</th><th class="num sortable">GP EV</th><th>Conf</th></tr></thead>
     <tbody>
     {% for r in first_day_matches|sort(attribute='ev', reverse=True) %}
       <tr>
         <td>{{ r.home }} v {{ r.away }}</td>
         <td><span class="scoreline">{{ r.pred_home }}-{{ r.pred_away }}</span></td>
+        <td><span class="scoreline">{% if r.gp_home is defined %}{{ r.gp_home }}-{{ r.gp_away }}{% else %}—{% endif %}</span></td>
         <td style="min-width:150px">{{ m.tribar(r.p_home, r.p_draw, r.p_away) }}</td>
         <td class="num" data-sort="{{ r.ev }}">{{ r.ev|r(2) }}</td>
+        <td class="num" data-sort="{{ r.gp_ev|default(0) }}">{{ r.gp_ev|r(2) if r.gp_ev is defined else '—' }}</td>
         <td>{{ m.conf(r.confidence) }}</td>
       </tr>
     {% endfor %}

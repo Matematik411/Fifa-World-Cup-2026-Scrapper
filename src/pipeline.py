@@ -16,6 +16,7 @@ from .fantasy.projections import build_projections
 from .model.bracket import BracketSimulator
 from .model.ensemble import build_strengths
 from .model.forecast import Forecast
+from .gopicks import optimizer as gopt
 from .nostradamus import optimizer as nopt
 from .sources.loader import load_bundle
 from .timeutil import countdown_str, fmt_cet, fmt_local, kickoff_datetimes, now_cet
@@ -140,6 +141,46 @@ def _score_predictions(results: dict, pred_records: list, state: dict, scoring: 
     return {"total": total, "rows": rows, "n": len(rows)}
 
 
+def _score_gopicks(results: dict, pred_records: list, state: dict, scoring: dict) -> dict:
+    """Score our GoPicks predictions-of-record (idempotent recompute).
+
+    Same assume-followed default as Nostradamus, with one extra state: the user
+    joined the league late, so any played match dated before state.gopicks.joined
+    (or explicitly entered as "missed") scores 0 with no pick on record.
+    """
+    gp_state = state.get("gopicks") or {}
+    entered = gp_state.get("predictions_entered") or {}
+    joined = gp_state.get("joined") or ""
+    total, exact_total, missed, rows = 0, 0, 0, []
+    for r in pred_records:
+        num = r["num"]
+        if num not in results or "gp_home" not in r:
+            continue
+        ah, aa = results[num]
+        es = entered.get(str(num))
+        if es == "missed" or (es is None and joined and (r.get("date") or "") < joined):
+            r["gp_missed"] = True
+            r["gp_points"] = 0
+            missed += 1
+            rows.append({"num": num, "home": r["home"], "away": r["away"],
+                         "pred": "—", "actual": f"{ah}-{aa}", "points": 0,
+                         "exact": 0, "missed": True})
+            continue
+        if es and "-" in str(es):
+            ph, pa = (int(x) for x in str(es).split("-"))
+        else:
+            ph, pa = r["gp_home"], r["gp_away"]
+        pts, n_exact = gopt.score_prediction(ph, pa, ah, aa, scoring)
+        r["gp_points"] = pts
+        r["gp_entered_pred"] = f"{ph}-{pa}"
+        total += pts
+        exact_total += n_exact
+        rows.append({"num": num, "home": r["home"], "away": r["away"],
+                     "pred": f"{ph}-{pa}", "actual": f"{ah}-{aa}", "points": pts,
+                     "exact": n_exact, "missed": False})
+    return {"total": total, "exact": exact_total, "rows": rows, "n": len(rows), "missed": missed}
+
+
 def run_pipeline(run_date: str | None = None, fetch: bool = True, sim: bool = True,
                  render: bool = True, log=print) -> dict:
     ensure_dirs()
@@ -199,6 +240,29 @@ def run_pipeline(run_date: str | None = None, fetch: bool = True, sim: bool = Tr
     if scoring_summary["n"]:
         log(f"Scored {scoring_summary['n']} played match(es): {scoring_summary['total']} Nostradamus points.")
 
+    # ---- GoPicks (same matches, different scoring -> its own EV optimum) ----
+    log("Optimizing GoPicks scorelines...")
+    gp_scoring = cfg.get("gopicks", {})
+    gp_by_num = {p.num: p for p in gopt.optimize_all(forecast, gp_scoring)}
+    for r in pred_records:
+        g = gp_by_num.get(r["num"])
+        if g:
+            r.update({"gp_home": g.pred_home, "gp_away": g.pred_away,
+                      "gp_ev": round(g.ev, 4), "gp_exact_ev": round(g.exact_ev, 4),
+                      "gp_runner_home": g.runner_home, "gp_runner_away": g.runner_away,
+                      "gp_runner_ev": round(g.runner_ev, 4),
+                      "gp_confidence": g.confidence, "gp_rationale": g.rationale})
+    gp_summary = _score_gopicks(results, pred_records, state, gp_scoring)
+    if gp_summary["n"]:
+        log(f"Scored {gp_summary['n']} played match(es): {gp_summary['total']} GoPicks points "
+            f"({gp_summary['exact']} exact goal picks, {gp_summary['missed']} missed match(es)).")
+    # one combined scored-results table: attach the GoPicks columns to the Nostradamus rows
+    gp_rows = {row["num"]: row for row in gp_summary["rows"]}
+    for row in scoring_summary["rows"]:
+        g = gp_rows.get(row["num"])
+        if g:
+            row.update({"gp_pred": g["pred"], "gp_points": g["points"], "gp_missed": g["missed"]})
+
     # ---- Fantasy ----
     fantasy_out = None
     if bundle.players and bundle.squads_map:
@@ -210,13 +274,20 @@ def run_pipeline(run_date: str | None = None, fetch: bool = True, sim: bool = Tr
 
     # ---- assemble result ----
     result = _assemble(cfg, run_date, gen_cet, stage, stage_label, bundle, strengths,
-                       forecast, simr, pred_records, fantasy_out, scoring_summary)
+                       forecast, simr, pred_records, fantasy_out, scoring_summary, gp_summary)
     result["target_round"] = target_round
 
-    # cumulative Nostradamus points = idempotent recompute from results; fantasy from state (user-entered)
-    state.setdefault("cumulative", {})["nostradamus_points"] = scoring_summary["total"]
+    # cumulative Nostradamus/GoPicks points = idempotent recompute from results;
+    # fantasy from state (user-entered)
+    cum = state.setdefault("cumulative", {})
+    cum["nostradamus_points"] = scoring_summary["total"]
+    cum["gopicks_points"] = gp_summary["total"]
+    cum["gopicks_exact_goals"] = gp_summary["exact"]
     result["performance"] = {
         "nostradamus_points": scoring_summary["total"],
+        "gopicks_points": gp_summary["total"],
+        "gopicks_exact": gp_summary["exact"],
+        "gopicks_missed": gp_summary["missed"],
         "fantasy_points": (state.get("cumulative") or {}).get("fantasy_points", 0),
         "predictions_scored": scoring_summary["n"],
         "owned_set": bool((state.get("owned") or {}).get("player_ids")),
@@ -471,9 +542,10 @@ def _pool_by_pos(projs) -> dict:
 
 
 def _assemble(cfg, run_date, gen_cet, stage, stage_label, bundle, strengths, forecast,
-              simr, pred_records, fantasy_out, scoring_summary=None) -> dict:
+              simr, pred_records, fantasy_out, scoring_summary=None, gp_summary=None) -> dict:
     from .model.teams import normalize_team
     scoring_summary = scoring_summary or {"total": 0, "rows": [], "n": 0}
+    gp_summary = gp_summary or {"total": 0, "exact": 0, "rows": [], "n": 0, "missed": 0}
     groups_canon = {letter: [normalize_team(t) for t in tnames]
                     for letter, tnames in bundle.fixtures["groups"].items()}
     groups_of = {t: letter for letter, tnames in groups_canon.items() for t in tnames}
@@ -526,6 +598,7 @@ def _assemble(cfg, run_date, gen_cet, stage, stage_label, bundle, strengths, for
         "ratings_odds": bundle.ratings_odds.get("sources", []),
         "squads": bundle.squads_research.get("sources", []),
         "nostradamus": (bundle.nostradamus or {}).get("sources", []),
+        "gopicks": cfg.get("gopicks.sources", []),
         "fantasy": cfg.get("fantasy.rules_sources", []),
         "fantasy_feed": ["https://play.fifa.com/json/fantasy/players.json",
                          "https://play.fifa.com/json/fantasy/squads.json"],
@@ -551,9 +624,13 @@ def _assemble(cfg, run_date, gen_cet, stage, stage_label, bundle, strengths, for
         "first_day_matches": first_day_matches,
         "scored_results": scoring_summary["rows"],
         "scoring_total": scoring_summary["total"],
+        "gopicks_total": gp_summary["total"],
+        "gopicks_exact": gp_summary["exact"],
+        "gopicks_missed": gp_summary["missed"],
         "fantasy": fantasy_out,
         "fantasy_rules": cfg.get("fantasy", {}),
         "nostradamus_rules": cfg.get("nostradamus", {}),
+        "gopicks_rules": cfg.get("gopicks", {}),
         "sources": sources,
         "third_slot_fallbacks": simr.get("third_slot_fallbacks", 0),
     }
@@ -574,6 +651,8 @@ def _persist(run_date, result, forecast, simr, pred_records, fantasy_out, log):
     io_utils.save_json(pdir / "summary.json", {
         "run_date": run_date,
         "predictions": {str(r["num"]): f'{r["pred_home"]}-{r["pred_away"]}' for r in pred_records},
+        "gopicks_predictions": {str(r["num"]): f'{r["gp_home"]}-{r["gp_away"]}'
+                                for r in pred_records if "gp_home" in r},
         "title_odds": {r["team"]: r["title_prob"] for r in result["teams"][:24]},
         "squad": [p["pid"] for p in fantasy_out["squad"]["all"]] if fantasy_out else [],
         "captain": fantasy_out["squad"]["captain"]["name"] if fantasy_out else None,
@@ -583,10 +662,13 @@ def _persist(run_date, result, forecast, simr, pred_records, fantasy_out, log):
         import csv
         with open(pdir / "predictions.csv", "w", newline="") as f:
             w = csv.writer(f)
-            w.writerow(["num", "round", "home", "away", "pred", "p_home", "p_draw", "p_away", "ev_applied", "confidence"])
+            w.writerow(["num", "round", "home", "away", "pred", "gp_pred", "p_home", "p_draw", "p_away",
+                        "ev_applied", "gp_ev", "confidence"])
             for r in pred_records:
+                gp = f'{r["gp_home"]}-{r["gp_away"]}' if "gp_home" in r else ""
                 w.writerow([r["num"], r["round"], r["home"], r["away"], f'{r["pred_home"]}-{r["pred_away"]}',
-                            r["p_home"], r["p_draw"], r["p_away"], r["ev_applied"], r["confidence"]])
+                            gp, r["p_home"], r["p_draw"], r["p_away"], r["ev_applied"],
+                            r.get("gp_ev", ""), r["confidence"]])
     except Exception as e:  # noqa: BLE001
         log(f"  [warn] CSV write failed: {e}")
 
@@ -595,11 +677,12 @@ def _changelog(run_date, result, log) -> dict:
     prev = io_utils.previous_run_date(run_date)
     if not prev:
         return {"prev_run": None, "note": "First run — no previous run to diff against.",
-                "pred_flips": [], "squad_changes": [], "odds_moves": []}
+                "pred_flips": [], "gp_pred_flips": [], "squad_changes": [], "odds_moves": []}
     try:
         prev_sum = io_utils.load_json(io_utils.processed_dir(prev) / "summary.json")
     except FileNotFoundError:
-        return {"prev_run": prev, "note": "Previous run has no summary to diff.", "pred_flips": [], "squad_changes": [], "odds_moves": []}
+        return {"prev_run": prev, "note": "Previous run has no summary to diff.", "pred_flips": [],
+                "gp_pred_flips": [], "squad_changes": [], "odds_moves": []}
 
     cur_preds = {str(r["num"]): f'{r["pred_home"]}-{r["pred_away"]}' for r in result["predictions"]}
     flips = []
@@ -607,6 +690,14 @@ def _changelog(run_date, result, log) -> dict:
         old = prev_sum.get("predictions", {}).get(num)
         if old and old != pred:
             flips.append({"num": int(num), "from": old, "to": pred})
+    gp_flips = []
+    for r in result["predictions"]:
+        if "gp_home" not in r:
+            continue
+        pred = f'{r["gp_home"]}-{r["gp_away"]}'
+        old = prev_sum.get("gopicks_predictions", {}).get(str(r["num"]))
+        if old and old != pred:
+            gp_flips.append({"num": r["num"], "from": old, "to": pred})
     odds_moves = []
     old_odds = prev_sum.get("title_odds", {})
     for r in result["teams"][:18]:
@@ -624,7 +715,7 @@ def _changelog(run_date, result, log) -> dict:
             for pid in cur_squad - old_squad:
                 squad_changes.append({"change": "in", "pid": pid, "name": names.get(pid, f"#{pid}")})
     return {"prev_run": prev, "note": f"Diff vs {prev}.", "pred_flips": flips,
-            "squad_changes": squad_changes, "odds_moves": odds_moves}
+            "gp_pred_flips": gp_flips, "squad_changes": squad_changes, "odds_moves": odds_moves}
 
 
 def _update_state(state, run_date, result, fantasy_out):
@@ -640,8 +731,16 @@ def _update_state(state, run_date, result, fantasy_out):
     state.setdefault("owned", {"player_ids": [], "captain": None, "formation": None,
                               "bank": 0.0, "note": "CONFIRM your real team here each run (see RUNBOOK)."})
     state.setdefault("chips_used", [])
-    state.setdefault("cumulative", {"nostradamus_points": 0, "fantasy_points": 0})
+    state.setdefault("cumulative", {"nostradamus_points": 0, "gopicks_points": 0,
+                                    "gopicks_exact_goals": 0, "fantasy_points": 0})
     state.setdefault("predictions_entered", {})
+    # GoPicks (gopicks.app): same assume-followed semantics, separate entries because
+    # its EV-optimal pick can differ from the Nostradamus one. Matches dated before
+    # `joined` (the user signed up two matches into the tournament) score 0 / missed.
+    state.setdefault("gopicks", {"joined": run_date, "predictions_entered": {},
+                                 "points_official": None, "rank": None,
+                                 "note": "predictions_entered: '<num>': 'H-A' for a stated deviation, "
+                                         "'missed' for a match not entered; absent = followed the recommendation."})
     # Standing instruction: the user follows every recommendation exactly unless they
     # say otherwise, so the real team == the recommendation. Keep `owned` in sync so
     # reconciliation is automatic. (Set assume_followed:false in state.json to opt out.)

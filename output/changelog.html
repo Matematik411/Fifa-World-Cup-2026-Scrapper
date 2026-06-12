@@ -160,9 +160,9 @@ footer.foot a { word-break: break-all; }
 </header>
 <div class="wrap">
   <div class="meta-bar">
-    <span class="stage-pill">Pre-tournament — squad &amp; Matchday-1 predictions lock at first kickoff (2026-06-11)</span>
-    <span>Generated Thu 11 Jun 2026, 18:29 CEST</span>
-    <span>Run 2026-06-11</span>
+    <span class="stage-pill">Group stage — Matchday 1 (2/72 group results in) — transfers apply to Group stage — Matchday 2</span>
+    <span>Generated Fri 12 Jun 2026, 09:42 CEST</span>
+    <span>Run 2026-06-12</span>
     <span>200,000 simulations</span>
   </div>
 
@@ -176,37 +176,42 @@ footer.foot a { word-break: break-all; }
 <h1>What changed &amp; how we're doing</h1>
 
 <h2>Running performance</h2>
-<div class="grid cols-3">
-  <div class="card kpi"><div class="num">0</div><div class="lbl">Nostradamus points</div></div>
+<div class="grid cols-4">
+  <div class="card kpi"><div class="num">5</div><div class="lbl">Nostradamus points</div></div>
+  <div class="card kpi"><div class="num">0</div><div class="lbl">GoPicks points</div>
+    <div class="small muted" style="margin-top:6px">0 exact goals (tiebreak) · 2 missed</div></div>
   <div class="card kpi"><div class="num">0</div><div class="lbl">Fantasy points</div></div>
-  <div class="card kpi"><div class="num">0</div><div class="lbl">matches scored</div></div>
+  <div class="card kpi"><div class="num">2</div><div class="lbl">matches scored</div></div>
 </div>
 
+
+<h3>Results since last run (5 Nostradamus pts · 0 GoPicks pts)</h3>
+<div class="card"><div class="table-scroll"><table>
+  <thead><tr><th>Match</th><th>Nostradamus</th><th>GoPicks</th><th>Actual</th><th class="num">N pts</th><th class="num">GP pts</th></tr></thead>
+  <tbody>
+  
+    <tr><td>Mexico v South Africa</td><td>2-0</td>
+    <td><span class="muted">missed</span></td>
+    <td><b>2-0</b></td>
+    <td class="num up">3</td>
+    <td class="num down">0</td></tr>
+  
+    <tr><td>South Korea v Czechia</td><td>2-0</td>
+    <td><span class="muted">missed</span></td>
+    <td><b>2-1</b></td>
+    <td class="num up">2</td>
+    <td class="num down">0</td></tr>
+  
+  </tbody>
+</table></div></div>
 
 <p class="small muted">These come from <code>state.json</code> (your real results). Update them as matches finish — the
 runbook explains how — so each run can score how the strategy is doing. </p>
 
 <h2>Changes since last run</h2>
 
-<p class="small muted">Diff vs 2026-06-10.</p>
-
-<div class="grid cols-2">
-  <div class="card">
-    <h3>Prediction flips (0)</h3>
-    <div class="muted small">No score predictions changed.</div>
-  </div>
-  <div class="card">
-    <h3>Squad changes (2)</h3>
-    
-      <ul class="small"><li><b>OUT</b>: Marcus Rashford</li><li><b>IN</b>: Jérémy Doku</li></ul>
-    
-  </div>
-</div>
-
-<div class="card">
-  <h3>Title-odds moves</h3>
-  <div class="muted small">No material title-odds moves.</div>
-</div>
+<div class="note">First run — no previous run to diff against. Future runs will diff against the previous day here: which score predictions
+flipped and why, squad/transfer changes, and bookmaker/advancement moves.</div>
 
 
 
@@ -215,7 +220,8 @@ runbook explains how — so each run can score how the strategy is doing. </p>
       <div>
         <h4>Method &amp; confidence</h4>
         <p>One shared forecast model (de-vigged market odds + Elo + public models → Dixon–Coles scorelines →
-        Monte-Carlo of the full 48-team / Round-of-32 bracket) feeds both games. Each recommendation is a single
+        Monte-Carlo of the full 48-team / Round-of-32 bracket) feeds all three games (Nostradamus, GoPicks,
+        FIFA Fantasy). Each recommendation is a single
         decisive call with a <span class="conf High">High</span>/<span class="conf Med">Med</span>/<span class="conf Low">Low</span>
         confidence tag. Predictions are EV-maximizing (not just the most likely score). Fantasy picks are
         horizon-weighted by advancement. Re-run daily for fresh data — see the changelog for what moved.</p>
@@ -238,6 +244,10 @@ runbook explains how — so each run can score how the strategy is doing. </p>
           
             <li><strong>nostradamus:</strong>
               <a href="https://www.rtvslo.si/nostradamus/sp-v-nogometu-2026">www.rtvslo.si/nostradamus/sp-v-nogometu-2026</a>, <a href="https://www.rtvslo.si/nostradamus/sp-v-nogometu-2026/navodila/">www.rtvslo.si/nostradamus/sp-v-nogometu-2026/navodila/</a>, <a href="https://www.rtvslo.si/rtv/za-medije/sporocila-za-javnost/svetovno-prvenstvo-v-nogometu-2026-na-rtv-slovenija/777698">www.rtvslo.si/rtv/za-medije/sporocila-za-javnost/svetovno-prvenstvo-v-nogometu-2026-na-rtv-slovenija/777698</a>, <a href="https://www.rtvslo.si/sport/nogomet/svetovno-prvenstvo-v-nogometu/svetovno-prvenstvo-v-nogometu-na-televiziji-slovenija/777644">www.rtvslo.si/sport/nogomet/svetovno-prvenstvo-v-nogometu/svetovno-prvenstvo-v-nogometu-na-televiziji-slovenija/777644</a>
+            </li>
+          
+            <li><strong>gopicks:</strong>
+              <a href="https://gopicks.app">gopicks.app</a>
             </li>
           
             <li><strong>fantasy:</strong>

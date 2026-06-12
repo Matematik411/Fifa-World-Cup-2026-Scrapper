@@ -1,6 +1,6 @@
 {
   "schema": "wc2026-state-v1",
-  "last_run": "2026-06-11",
+  "last_run": "2026-06-12",
   "recommended_squad": {
     "player_ids": [
       31,
@@ -21,7 +21,7 @@
     ],
     "captain": "Raphinha",
     "formation": "3-5-2",
-    "as_of": "2026-06-11"
+    "as_of": "2026-06-12"
   },
   "owned": {
     "player_ids": [
@@ -48,9 +48,21 @@
   },
   "chips_used": [],
   "cumulative": {
-    "nostradamus_points": 0,
+    "nostradamus_points": 5,
+    "gopicks_points": 0,
+    "gopicks_exact_goals": 0,
     "fantasy_points": 0
   },
   "predictions_entered": {},
+  "gopicks": {
+    "joined": "2026-06-12",
+    "predictions_entered": {
+      "1": "missed",
+      "2": "missed"
+    },
+    "points_official": null,
+    "rank": null,
+    "note": "Sentora partners league on gopicks.app, joined 2026-06-12 (matches 1-2 already played -> missed, 0 pts). predictions_entered: '<num>': 'H-A' for a stated deviation, 'missed' for a match not entered; absent = followed the recommendation."
+  },
   "assume_followed": true
 }

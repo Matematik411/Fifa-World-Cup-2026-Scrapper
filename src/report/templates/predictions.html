@@ -2,13 +2,18 @@
 {% import "macros.html" as m %}
 {% block title %}Predictions — WC 2026 Guide{% endblock %}
 {% block content %}
-<h1>Nostradamus score predictions</h1>
-<p class="lede">One EV-optimal scoreline per match (maximizes expected points across the full scoreline distribution —
-not just the single most likely score). Enter each before its kickoff; you can edit until then.</p>
+<h1>Score predictions — Nostradamus &amp; GoPicks</h1>
+<p class="lede">One EV-optimal scoreline per match <b>per league</b> — each maximizes expected points under that league's
+own scoring (not just the most likely score), so the two picks can legitimately differ. Enter each before its kickoff;
+you can edit until then.</p>
 
 <div class="note small">
-  Scoring per match (90-minute result): <b>exact = 3</b>, correct outcome + one team's goals = 2, correct outcome only = 1, wrong = 0.
-  Knockout rounds (R32 → final) <b>double</b> all values. Knockout predictions unlock here as the bracket fills — re-run each day.
+  <b>Nostradamus</b> (RTV SLO) scoring per match (90-minute result): exact = 3, correct outcome + one team's goals = 2,
+  correct outcome only = 1, wrong = 0; knockout rounds (R32 → final) <b>double</b> all values.
+  <br><b>GoPicks</b> (gopicks.app, Sentora partners league) scoring per match (90-minute result): correct result = 3,
+  exact home goals = 1, exact away goals = 1 — the parts stack (exact score = 5) and are independent, so even a wrong
+  result can collect goal points. No doubling anywhere; leaderboard ties break on total exact goal picks.
+  <br>Knockout predictions unlock here as the bracket fills — re-run each day.
 </div>
 
 {% set ko_rounds = ['R32','R16','QF','SF','final','third-place'] %}
@@ -16,6 +21,7 @@ not just the single most likely score). Enter each before its kickoff; you can e
 <h2>{{ date }}</h2>
 <div class="card">
 {% for r in rows %}
+{% set gp_differs = r.gp_home is defined and (r.gp_home != r.pred_home or r.gp_away != r.pred_away) %}
 <div class="mrow">
   <div class="mhead">
     <span>Match {{ r.num }}{% if r.group %} · Group {{ r.group }}{% else %} · {{ r.round }}{% endif %} · {{ r.city }}</span>
@@ -23,17 +29,29 @@ not just the single most likely score). Enter each before its kickoff; you can e
   </div>
   <div class="match">
     <div class="team">{{ r.home }}</div>
-    <div class="sc"><span class="scoreline">{{ r.pred_home }}–{{ r.pred_away }}</span></div>
+    <div class="sc">
+      {% if gp_differs %}
+      <span class="scoreline">{{ r.pred_home }}–{{ r.pred_away }}</span><span class="small muted"> Nostr</span>
+      <span class="muted">·</span>
+      <span class="scoreline">{{ r.gp_home }}–{{ r.gp_away }}</span><span class="small muted"> GoPicks</span>
+      {% else %}
+      <span class="scoreline">{{ r.pred_home }}–{{ r.pred_away }}</span><span class="small muted"> both leagues</span>
+      {% endif %}
+    </div>
     <div class="team away">{{ r.away }}</div>
   </div>
   <div style="display:flex; flex-wrap:wrap; gap:8px 22px; align-items:center; margin-top:10px">
     <div style="min-width:170px; flex:1">{{ m.tribar(r.p_home, r.p_draw, r.p_away) }}</div>
     <div class="small muted">xG {{ r.exp_home|r(1) }}–{{ r.exp_away|r(1) }}</div>
-    <div class="small">EV <b>{{ r.ev|r(2) }}</b>{% if r.multiplier > 1 %} <span class="muted">(×{{ r.multiplier }} KO → {{ r.ev_applied|r(2) }})</span>{% endif %}</div>
+    <div class="small">Nostr EV <b>{{ r.ev|r(2) }}</b>{% if r.multiplier > 1 %} <span class="muted">(×{{ r.multiplier }} KO → {{ r.ev_applied|r(2) }})</span>{% endif %}</div>
+    {% if r.gp_ev is defined %}<div class="small">GoPicks EV <b>{{ r.gp_ev|r(2) }}</b> <span class="muted">(exact-goal {{ r.gp_exact_ev|r(2) }})</span></div>{% endif %}
     <div class="small muted">runner-up {{ r.runner_home }}–{{ r.runner_away }}</div>
     <div>{{ m.conf(r.confidence) }}</div>
   </div>
   <div class="small muted" style="margin-top:6px">{{ r.rationale }}</div>
+  {% if gp_differs %}
+  <div class="small muted" style="margin-top:4px"><b>GoPicks differs:</b> {{ r.gp_rationale }}</div>
+  {% endif %}
 </div>
 {% endfor %}
 </div>

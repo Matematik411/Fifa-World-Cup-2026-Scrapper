@@ -1,0 +1,15 @@
+{
+  "updated_at": "2026-06-12",
+  "note": "90-minute results only, keyed by match num (home_goals, away_goals). KO draws after 90' additionally need ko_advancers (see RUNBOOK §2).",
+  "results": {
+    "1": [2, 0],
+    "2": [2, 1]
+  },
+  "ko_advancers": {},
+  "sources": [
+    "https://www.espn.com/soccer/match/_/gameId/760415/south-africa-mexico",
+    "https://www.espn.com/soccer/match/_/gameId/760414/czechia-south-korea",
+    "https://www.cnn.com/2026/06/11/sport/live-news/world-cup-mexico-south-africa",
+    "https://www.foxsports.com/live-blog/soccer/south-korea-vs-czechia-live-updates-score-top-plays-from-todays-action"
+  ]
+}

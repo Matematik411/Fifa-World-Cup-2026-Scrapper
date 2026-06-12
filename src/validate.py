@@ -23,6 +23,12 @@ def validate_run(result: dict) -> list[str]:
         for k in ("pred_home", "pred_away"):
             if not (0 <= r[k] <= 8):
                 problems.append(f"Match {r['num']} {k}={r[k]} out of range.")
+        if "gp_home" not in r:
+            problems.append(f"Match {r['num']} has no GoPicks prediction.")
+        else:
+            for k in ("gp_home", "gp_away"):
+                if not (0 <= r[k] <= 8):
+                    problems.append(f"Match {r['num']} {k}={r[k]} out of range.")
 
     # every known group match should have exactly one prediction
     nums = [r["num"] for r in preds]

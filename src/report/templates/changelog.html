@@ -5,20 +5,25 @@
 <h1>What changed &amp; how we're doing</h1>
 
 <h2>Running performance</h2>
-<div class="grid cols-3">
+<div class="grid cols-4">
   <div class="card kpi"><div class="num">{{ performance.nostradamus_points }}</div><div class="lbl">Nostradamus points</div></div>
+  <div class="card kpi"><div class="num">{{ performance.gopicks_points }}</div><div class="lbl">GoPicks points</div>
+    <div class="small muted" style="margin-top:6px">{{ performance.gopicks_exact }} exact goals (tiebreak){% if performance.gopicks_missed %} · {{ performance.gopicks_missed }} missed{% endif %}</div></div>
   <div class="card kpi"><div class="num">{{ performance.fantasy_points }}</div><div class="lbl">Fantasy points</div></div>
   <div class="card kpi"><div class="num">{{ performance.predictions_scored }}</div><div class="lbl">matches scored</div></div>
 </div>
 
 {% if scored_results %}
-<h3>Results since last run ({{ scoring_total }} Nostradamus pts)</h3>
+<h3>Results since last run ({{ scoring_total }} Nostradamus pts · {{ gopicks_total }} GoPicks pts)</h3>
 <div class="card"><div class="table-scroll"><table>
-  <thead><tr><th>Match</th><th>Our pick</th><th>Actual</th><th class="num">Points</th></tr></thead>
+  <thead><tr><th>Match</th><th>Nostradamus</th><th>GoPicks</th><th>Actual</th><th class="num">N pts</th><th class="num">GP pts</th></tr></thead>
   <tbody>
   {% for s in scored_results %}
-    <tr><td>{{ s.home }} v {{ s.away }}</td><td>{{ s.pred }}</td><td><b>{{ s.actual }}</b></td>
-    <td class="num {{ 'up' if s.points >= 2 else ('muted' if s.points == 1 else 'down') }}">{{ s.points }}</td></tr>
+    <tr><td>{{ s.home }} v {{ s.away }}</td><td>{{ s.pred }}</td>
+    <td>{% if s.gp_missed %}<span class="muted">missed</span>{% else %}{{ s.gp_pred|default('—') }}{% endif %}</td>
+    <td><b>{{ s.actual }}</b></td>
+    <td class="num {{ 'up' if s.points >= 2 else ('muted' if s.points == 1 else 'down') }}">{{ s.points }}</td>
+    <td class="num {{ 'up' if s.gp_points|default(0) >= 3 else ('muted' if s.gp_points|default(0) >= 1 else 'down') }}">{{ s.gp_points|default('—') }}</td></tr>
   {% endfor %}
   </tbody>
 </table></div></div>
@@ -35,12 +40,13 @@ flipped and why, squad/transfer changes, and bookmaker/advancement moves.</div>
 
 <div class="grid cols-2">
   <div class="card">
-    <h3>Prediction flips ({{ changelog.pred_flips|length }})</h3>
-    {% if changelog.pred_flips %}
-      <table><thead><tr><th>Match</th><th>Was</th><th></th><th>Now</th></tr></thead><tbody>
-        {% for f in changelog.pred_flips %}<tr><td>#{{ f.num }}</td><td class="muted">{{ f.from }}</td><td>→</td><td class="flip">{{ f.to }}</td></tr>{% endfor %}
+    <h3>Prediction flips ({{ changelog.pred_flips|length }} Nostradamus · {{ changelog.gp_pred_flips|default([])|length }} GoPicks)</h3>
+    {% if changelog.pred_flips or changelog.gp_pred_flips %}
+      <table><thead><tr><th>League</th><th>Match</th><th>Was</th><th></th><th>Now</th></tr></thead><tbody>
+        {% for f in changelog.pred_flips %}<tr><td class="muted small">Nostr</td><td>#{{ f.num }}</td><td class="muted">{{ f.from }}</td><td>→</td><td class="flip">{{ f.to }}</td></tr>{% endfor %}
+        {% for f in changelog.gp_pred_flips|default([]) %}<tr><td class="muted small">GoPicks</td><td>#{{ f.num }}</td><td class="muted">{{ f.from }}</td><td>→</td><td class="flip">{{ f.to }}</td></tr>{% endfor %}
       </tbody></table>
-    {% else %}<div class="muted small">No score predictions changed.</div>{% endif %}
+    {% else %}<div class="muted small">No score predictions changed in either league.</div>{% endif %}
   </div>
   <div class="card">
     <h3>Squad changes ({{ changelog.squad_changes|length }})</h3>

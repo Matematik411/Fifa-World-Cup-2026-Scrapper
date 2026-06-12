@@ -1,8 +1,8 @@
 """Configuration loading: config.yaml + .env + live-verified rule overrides.
 
-The build session writes verified game rules to data/manual/{fantasy_rules,nostradamus}.json;
-those override the defaults baked into config.yaml so the optimizers always use the
-latest live-confirmed values.
+The build session writes verified game rules to
+data/manual/{fantasy_rules,nostradamus,gopicks}.json; those override the defaults
+baked into config.yaml so the optimizers always use the latest live-confirmed values.
 """
 from __future__ import annotations
 
@@ -106,6 +106,17 @@ def load_config(config_path: Path | None = None) -> Config:
         nos["confidence"] = nm.get("confidence", "Med")
         nos["sources"] = nm.get("sources", [])
         data["nostradamus"] = nos
+
+    gp = _safe_load_json(MANUAL / "gopicks.json")
+    if gp and "scoring" in gp:
+        g = dict(data.get("gopicks", {}))
+        g.update(gp["scoring"])
+        if "tiebreaker" in gp:
+            g["tiebreaker"] = gp["tiebreaker"]
+        g["match_coverage"] = gp.get("match_coverage", "all_104")
+        g["confidence"] = gp.get("confidence", "Med")
+        g["sources"] = gp.get("sources", [])
+        data["gopicks"] = g
 
     return Config(data)
 
