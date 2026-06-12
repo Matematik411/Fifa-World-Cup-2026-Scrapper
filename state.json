@@ -4,9 +4,9 @@
   "recommended_squad": {
     "player_ids": [
       31,
-      34,
+      167,
       38,
-      125,
+      1526,
       138,
       178,
       1366,
@@ -26,9 +26,9 @@
   "owned": {
     "player_ids": [
       31,
-      34,
+      167,
       38,
-      125,
+      1526,
       138,
       178,
       1366,
@@ -43,7 +43,7 @@
     ],
     "captain": "Raphinha",
     "formation": "3-5-2",
-    "bank": 0.0,
+    "bank": 0.9,
     "note": "Auto-synced to the recommendation (assume_followed=true). Tell the session if you deviated and it will re-optimize from your real team."
   },
   "chips_used": [],

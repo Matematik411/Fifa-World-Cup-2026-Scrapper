@@ -1,77 +1,7 @@
 {
-  "fetched_at": "2026-06-11",
-  "notes": "Matchday-1 refresh (Jun 11 ~17:00 UTC); research: data/raw/2026-06-11/lineups_research.md. All names validated vs the FIFA fantasy feed (accent/case-insensitive matcher). MEXICO: XI leaked pre-official by Claro Sports' Alejandro Orvananos and replicated by bolavip/365scores/Soccer Laduma - Edson Alvarez (captain) BENCHED (fitness managed post right-ankle surgery; Lira starts DM) and Israel Reyes RB over Jorge Sanchez; left confirmed:false because the official FIFA team sheet was not yet out (~T-2h), but confidence is near-confirmed. SOUTH AFRICA: unchanged consensus XI, no injuries. SOUTH KOREA: Korean matchday press (Hankook Ilbo, Kyeongin, Jun 11 KST) + Al Jazeera (Jun 11) now all start Lee Kang-in (only Jun-10 Sports Mole/101gg benched him) and 2-of-3 start Oh Hyeon-gyu as CF with Son dropping to the second line -> Hwang Hee-chan and Lee Jae-sung OUT of XI, Lee Kang-in + Oh Hyeon-gyu in; rest (Kim Seung-gyu GK, back-3, Seol/Lee Tae-seok WBs, Hwang In-beom + Paik Seung-ho) unanimous. CZECHIA: Koubek publicly said the XI = the Guatemala generalka winners (iSport/Livesport Jun 11); the Jun-5 generalka XI was Kovar; Chaloupek, Hranac, Krejci; Coufal, Sadilek, Soucek, Jurasek; Provod, Sulc; Schick -> Michal Sadilek replaces Cerv (Cerv was a sub there; Darida also behind Sadilek). Kuchta (ankle) 'on the edge', improving - bench. CANADA: unchanged; Davies (hamstring) re-confirmed OUT for the opener (TSN/CBC; Marsch targets game 2-3), Bombito out, Crepeau GK. BOSNIA: XI held (weakest read); Dzeko was deliberately rested vs Panama 'to be ready for Canada' and rejoined team training in Toronto - real chance he plays or even starts (RotoWire expects start; reprezentacija.ba says hard after the layoff) -> kept Demirovic + Bazdar, Dzeko NOT out; Tabakovic rejoined training Jun 8 (not out); Sunjic contested but 2-of-3 sources say fit/starts; Panama fallback XI used Basic + Lukic and the established Dedic/Katic/Kolasinac core (validates rejection of Sports Mole's rotated XI). USA: unchanged; Richards declared 'I'm ready' (Jun 10) but start unconfirmed - CB is a 3-way call (Richards/M.Robinson/McKenzie; SM Jun 10 starts M.Robinson, NBC projects Richards, SI McKenzie) -> kept Miles Robinson, Richards not out. PARAGUAY: Alfaro switched to a 4-4-2 with Alex Arce partnering Sanabria in Enciso's place (ABC Color Jun 10 'ultimo momento' + 1000noticias) -> Sosa drops; GK Gill holds 'a slight advantage' over Gatito Fernandez - kept Gill; Enciso (hamstring+quad) training separately, near-certain absentee but no official ruling -> not in out.",
+  "fetched_at": "2026-06-12",
+  "notes": "Matchday refresh Jun 12 ~17:00 UTC for matches 3-8; research: data/raw/2026-06-12/lineups_research.md. No official FIFA team sheet out yet for ANY match at research time (CAN-BIH sheets due ~18:00 UTC) - all confirmed:false. CANADA (high conf): unchanged consensus XI; Marsch confirmed Davies will NOT return at LB tonight (hamstring, Laryea starts); Bombito out of tournament; Marcelo Flores ACL. BOSNIA (medium): English-language predicted XIs (ESPN/Sports Mole/footballfaithful) all replicate one Canadian analyst's nonsense lineup that sportsport.ba publicly ridiculed - discarded; local consensus (hercegovina.info Jun 12, B92) = 4-4-2 with Dzeko STARTING (Barbarez Jun 12: 'Edin is here and ready'), Basic in for the doubtful Sunjic (muscle), back four Dedic-Katic-Muharemovic-Kolasinac held; local papers print Jovo Lukic as Dzeko's partner but Demirovic kept (nailed all qualifying; Lukic = live alternative). Bazdar drops to bench. USA (high): Richards (ankle) fully trained all week, US Soccer says entire roster available - he replaces Miles Robinson next to Ream; rest unchanged; Adams' Jun-8 missed session was load management. PARAGUAY (very high): Alfaro told press 'no mysteries' and named the team internally; ABC Color Jun 12: ENCISO RECOVERED AND STARTS (Arce drops, back to 4-4-2/4-2-3-1 hybrid), Gill confirmed GK. QATAR (medium-low): Abunada GK in both RotoWire+Sports Mole; midfield contested - RotoWire trio Fathy-Gaber-Boudiaf kept, Almoez Ali CF, Afif+Edmilson wide. SWITZERLAND (CF call medium): Embolo arrived late after ESTA/visa chaos (why Amdouni started the generalka) but RotoWire+German sources start him - Embolo in, Amdouni alternative; Vargas slight knock (questionable, kept - all sources start him), Aebischer first sub. BRAZIL (high): Brazilian press (Terra/Folha/TMC Jun 11-12) - Ancelotti repeated the same training XI: CUNHA is the 9 (Paqueta CAM), Igor Thiago only a training alteration -> No.9 race resolved toward Cunha; Danilo RB (Wesley OUT - thigh, squad-replaced by midfielder Ederson; NB Vanderson was never in the registered squad); Neymar NOT recovered (grade-2 calf) - out, targets MD2/3. MOROCCO (medium): Aguerd + Ezzalzouli ruled OUT of tournament (FRMF Jun 11); CBs Diop+Chadi Riad (Saiss not in squad); Mazraoui (shoulder) questionable but expected; Amrabat starts per 2-of-3 sources (RotoWire alone picks Bouaddi); front three Brahim Diaz-Saibari-El Khannouss unanimous, El Kaabi benched under new coach Ouahbi. HAITI (medium): settled 4-4-2, clean bill of health; Nazon+Isidor in every printed XI; Deedson RM over Casimir (SM dedicated article). SCOTLAND (medium-high, SM updated Jun 12 post-training): McTominay FIT (stomach bug Thu only, trained Fri); McKenna doubtful (knock, missed Fri) -> Hanley starts; Gunn over Gordon; GILMOUR OUT OF TOURNAMENT (knee, replaced by Tyler Fletcher); McGinn in for Christie. AUSTRALIA (medium): Popovic 3-4-2-1 consensus (Squawka/RacingPost/SM lineup article); Toure CF; fully fit. TURKEY (medium-high): halktv Jun 12 'Montella decided': Yildiz RECOVERED (calf, medical board cleared) and starts LEFT, Akturkoglu CF over Deniz Gul, Demiral-Bardakci CBs, Kokcu over Yuksek, Kadioglu fit at LB.",
   "teams": {
-    "Mexico": {
-      "confirmed": false,
-      "xi": [
-        "Raul Rangel",
-        "Israel Reyes",
-        "Cesar Montes",
-        "Johan Vasquez",
-        "Jesus Gallardo",
-        "Erik Lira",
-        "Alvaro Fidalgo",
-        "Brian Gutierrez",
-        "Roberto Alvarado",
-        "Julian Quinones",
-        "Raul Jimenez"
-      ],
-      "out": []
-    },
-    "South Africa": {
-      "confirmed": false,
-      "xi": [
-        "Ronwen Williams",
-        "Khuliso Mudau",
-        "Mbekezeli Mbokazi",
-        "Ime Okon",
-        "Aubrey Modiba",
-        "Thalente Mbatha",
-        "Yaya Sithole",
-        "Teboho Mokoena",
-        "Oswin Appollis",
-        "Tshepang Moremi",
-        "Lyle Foster"
-      ],
-      "out": []
-    },
-    "South Korea": {
-      "confirmed": false,
-      "xi": [
-        "Kim Seung-gyu",
-        "Lee Gi-hyuk",
-        "Kim Min-jae",
-        "Lee Han-beom",
-        "Seol Young-woo",
-        "Hwang In-beom",
-        "Paik Seung-ho",
-        "Lee Tae-seok",
-        "Lee Kang-in",
-        "Oh Hyeon-gyu",
-        "Son Heung-min"
-      ],
-      "out": [
-        "Cho Yu-min"
-      ]
-    },
-    "Czechia": {
-      "confirmed": false,
-      "xi": [
-        "Matej Kovar",
-        "Stepan Chaloupek",
-        "Robin Hranac",
-        "Ladislav Krejci",
-        "Vladimir Coufal",
-        "Michal Sadilek",
-        "Tomas Soucek",
-        "David Jurasek",
-        "Lukas Provod",
-        "Pavel Sulc",
-        "Patrik Schick"
-      ],
-      "out": []
-    },
     "Canada": {
       "confirmed": false,
       "xi": [
@@ -102,11 +32,11 @@
         "Tarik Muharemovic",
         "Sead Kolasinac",
         "Amar Memic",
+        "Ivan Basic",
         "Benjamin Tahirovic",
-        "Ivan Sunjic",
         "Esmir Bajraktarevic",
-        "Ermedin Demirovic",
-        "Samed Bazdar"
+        "Edin Dzeko",
+        "Ermedin Demirovic"
       ],
       "out": []
     },
@@ -115,7 +45,7 @@
       "xi": [
         "Matt Freese",
         "Alex Freeman",
-        "Miles Robinson",
+        "Mark McKenzie",
         "Tim Ream",
         "Antonee Robinson",
         "Tyler Adams",
@@ -130,7 +60,7 @@
     "Paraguay": {
       "confirmed": false,
       "xi": [
-        "Orlando Gill",
+        "Roberto Fernandez",
         "Juan Jose Caceres",
         "Gustavo Gomez",
         "Omar Alderete",
@@ -139,8 +69,154 @@
         "Andres Cubas",
         "Diego Gomez",
         "Miguel Almiron",
-        "Alex Arce",
+        "Ramon Sosa",
         "Antonio Sanabria"
+      ],
+      "out": [
+        "Julio Enciso"
+      ]
+    },
+    "Qatar": {
+      "confirmed": false,
+      "xi": [
+        "Mahmud Abunada",
+        "Ayoub Al Oui",
+        "Pedro Miguel",
+        "Boualem Khoukhi",
+        "Homam El Amin",
+        "Ahmed Fathy",
+        "Jassem Gaber",
+        "Karim Boudiaf",
+        "Edmilson Junior",
+        "Almoez Ali",
+        "Akram Afif"
+      ],
+      "out": []
+    },
+    "Switzerland": {
+      "confirmed": false,
+      "xi": [
+        "Gregor Kobel",
+        "Silvan Widmer",
+        "Manuel Akanji",
+        "Nico Elvedi",
+        "Ricardo Rodriguez",
+        "Granit Xhaka",
+        "Remo Freuler",
+        "Dan Ndoye",
+        "Fabian Rieder",
+        "Ruben Vargas",
+        "Breel Embolo"
+      ],
+      "out": []
+    },
+    "Brazil": {
+      "confirmed": false,
+      "xi": [
+        "Alisson",
+        "Danilo",
+        "Marquinhos",
+        "Gabriel Magalhaes",
+        "Alex Sandro",
+        "Casemiro",
+        "Bruno Guimaraes",
+        "Raphinha",
+        "Lucas Paqueta",
+        "Vinicius Junior",
+        "Matheus Cunha"
+      ],
+      "out": [
+        "Neymar",
+        "Wesley"
+      ]
+    },
+    "Morocco": {
+      "confirmed": false,
+      "xi": [
+        "Yassine Bounou",
+        "Achraf Hakimi",
+        "Issa Diop",
+        "Chadi Riad",
+        "Noussair Mazraoui",
+        "Sofyan Amrabat",
+        "Neil El Aynaoui",
+        "Azzedine Ounahi",
+        "Brahim Diaz",
+        "Ismael Saibari",
+        "Bilal El Khannouss"
+      ],
+      "out": [
+        "Nayef Aguerd",
+        "Abde Ezzalzouli"
+      ]
+    },
+    "Haiti": {
+      "confirmed": false,
+      "xi": [
+        "Johny Placide",
+        "Carlens Arcus",
+        "Ricardo Ade",
+        "Hannes Delcroix",
+        "Martin Experience",
+        "Louicius Deedson",
+        "Danley Jean Jacques",
+        "Jean-Ricner Bellegarde",
+        "Ruben Providence",
+        "Duckens Nazon",
+        "Wilson Isidor"
+      ],
+      "out": []
+    },
+    "Scotland": {
+      "confirmed": false,
+      "xi": [
+        "Angus Gunn",
+        "Aaron Hickey",
+        "John Souttar",
+        "Grant Hanley",
+        "Andy Robertson",
+        "Ben Gannon-Doak",
+        "Scott McTominay",
+        "Lewis Ferguson",
+        "John McGinn",
+        "Che Adams",
+        "Lawrence Shankland"
+      ],
+      "out": [
+        "Billy Gilmour"
+      ]
+    },
+    "Australia": {
+      "confirmed": false,
+      "xi": [
+        "Mathew Ryan",
+        "Harry Souttar",
+        "Alessandro Circati",
+        "Cameron Burgess",
+        "Jacob Italiano",
+        "Jackson Irvine",
+        "Aiden O'Neill",
+        "Jordan Bos",
+        "Nestory Irankunda",
+        "Mathew Leckie",
+        "Mohamed Toure"
+      ],
+      "out": []
+    },
+    "Turkey": {
+      "confirmed": false,
+      "xi": [
+        "Ugurcan Cakir",
+        "Zeki Celik",
+        "Merih Demiral",
+        "Abdulkerim Bardakci",
+        "Ferdi Kadioglu",
+        "Hakan Calhanoglu",
+        "Orkun Kokcu",
+        "Arda Guler",
+        "Kenan Yildiz",
+        "Baris Alper Yilmaz",
+        "Kerem Akturkoglu"
       ],
       "out": []
     }
