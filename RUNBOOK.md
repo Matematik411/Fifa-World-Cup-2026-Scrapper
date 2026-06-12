@@ -74,9 +74,12 @@ scorelines — unless they state a deviation this session.** So:
   `predictions_entered` to what they actually did *before* optimizing, run, and it
   re-plans from their real team (the end-of-run sync then realigns `owned` to the
   new recommendation).
-- The only thing the feed can't give you is their personal **fantasy points/rank**
-  — ask for it if they want rank tracked; otherwise `cumulative.fantasy_points`
-  stays user-entered. Nostradamus points are computed from results automatically.
+- **Never ask about league standings (user said so, 2026-06-12):** he won't share his
+  points/positions in any of the three leagues and wants pure best-EV recommendations,
+  not rank-aware strategy (no differential/variance plays based on the leaderboard).
+  Leave `cumulative.fantasy_points`, `gopicks.points_official` and `gopicks.rank` as
+  they are; Nostradamus/GoPicks points are recomputed from results automatically and
+  the fantasy XI tally comes from the live feed.
 
 The squad/XI/captain shown post-lock is the **reachable team** (`owned` ⊕ this
 round's transfer plan), not a fantasy-land optimum — so following it is always
