@@ -107,6 +107,14 @@ chromium --headless --no-sandbox --screenshot=/tmp/i.png --window-size=1180,2400
 ```
 Then tell the user, in CET and decisively:
 1. **Fantasy:** the XI + captain + any transfers/chip to play, and the deadline.
+   **Transfer timing (verified 2026-06-12):** advise confirming transfers shortly
+   before the round lock, never right away — a confirmed transfer is **irreversible**
+   (FIFA in-app rules: "Once confirmed a transfer cannot be reversed"; undoing one
+   later is a new transfer, i.e. a likely −3 hit), prices are **fixed** (no FPL-style
+   price-rise race) and 1 unused free rolls over within the group stage — so
+   confirming early has zero upside and forfeits the option value of pending team
+   news (lineups, knocks). Present the plan when it's computed; tell the user to
+   execute it on the lock-eve run once that round's final reveals are in.
 2. **Live-round playbook:** the captaincy relay ("if your captain ends on ≤N pts,
    move the armband to X before his kickoff") and the blank-rescue sub rule —
    the only actions the user can take between daily runs. Remind them any manual
@@ -118,10 +126,14 @@ Then tell the user, in CET and decisively:
 5. **Performance:** points since last run (from the changelog), both leagues.
 6. One line on what changed and why (changelog highlights).
 
-Finally **commit everything** (`git config user.name "Matematik411" && git config
-user.email "nejc.zajc@aflabs.com"` first — the VM has no identity) and ask the user
-to `git push` from the host (the sandbox has no SSH key; the push is what deploys
-`output/` to GitHub Pages).
+**Do NOT auto-commit daily runs** (user instruction 2026-06-12): leave the run's
+artifacts (`data/manual/*`, `output/*`, `state.json`) uncommitted — the user reviews
+and commits/pushes them himself from the host (the push is what deploys `output/` to
+GitHub Pages; the sandbox has no SSH key anyway). Commit only when you change the
+**project itself** (code, templates, runbook/docs, rules files) — set the identity
+first (`git config user.name "Matematik411" && git config user.email
+"nejc.zajc@aflabs.com"`; the VM has none) and keep such project commits free of run
+artifacts.
 
 ## 6. Stage-specific notes
 
