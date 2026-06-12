@@ -99,14 +99,41 @@ def test_captain_ladder_orders_by_date_and_thresholds():
     for p in pool:
         p.next_date = dates.get(p.pid, "2026-06-17")
     squad = build_squad(pool, cfg=None, budget=100.0, nation_cap=3)
-    ladder = _captain_ladder(squad)
+    ladder = _captain_ladder(squad, lambda p: None)   # no live feed -> no banked column
     assert ladder[0]["name"] == by_pid[squad.captain].name
+    assert all("banked" not in r for r in ladder)
     # rungs strictly later in the round, each with a switch rule except the last
     ds = [r["date"] for r in ladder]
     assert ds == sorted(ds) and len(set(ds)) == len(ds)
     for r in ladder[:-1]:
         assert "next_name" in r and r["switch_if"] >= 0
     assert "next_name" not in ladder[-1]
+
+
+def test_playbook_live_verdict_from_feed_points():
+    from src.pipeline import _playbook
+    pool = _balanced_pool()
+    dates = {19: "2026-06-12", 20: "2026-06-14", 21: "2026-06-16",
+             11: "2026-06-13", 12: "2026-06-15"}
+    for p in pool:
+        p.next_date = dates.get(p.pid, "2026-06-17")
+    squad = build_squad(pool, cfg=None, budget=100.0, nation_cap=3)
+    by_pid = squad.by_pid()
+    cap = by_pid[squad.captain]
+    cap.round_points = {"1": 2.0}
+
+    # captain's match has NOT ended -> no live verdict, no banked column
+    pb = _playbook(squad, "1", ended=frozenset())
+    assert pb["live"] is None and pb["xi_live"] is None
+
+    # captain's match ended on 2 pts -> concrete verdict vs the next rung's E
+    pb = _playbook(squad, "1", ended=frozenset({cap.nation}))
+    assert pb["ladder"][0]["banked"] == 2
+    expected = "SWITCH" if 2 < pb["ladder"][1]["exp"] else "HOLD"
+    assert pb["live"]["verdict"] == expected
+    # XI tally: captain double counted; same-nation teammates banked 0 (no feed entry)
+    n_done = sum(1 for pid in squad.starters if by_pid[pid].nation == cap.nation)
+    assert pb["xi_live"] == {"points": 4, "done": n_done, "captain_doubled": True}
 
 
 def test_squad_from_pids_assembles_exact_15():

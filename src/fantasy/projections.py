@@ -47,6 +47,8 @@ class PlayerProj:
     next_date: str = ""          # date of the next unplayed match ("" if none known)
     tags: list[str] = field(default_factory=list)
     why: str = ""
+    round_points: dict = field(default_factory=dict)   # live feed: fantasy round id -> banked pts
+    total_points: float = 0.0                          # live feed: tournament total so far
 
     def to_record(self) -> dict:
         d = dict(self.__dict__)
@@ -309,6 +311,9 @@ def build_projections(players: list[dict], squads_map: dict, forecast, advanceme
         residual = max(0.0, exp_remaining - len(upcoming))
         for p in plist:
             m = meta[p["id"]]
+            st = p.get("stats") or {}
+            rp = st.get("roundPoints")
+            live_rounds = {str(k): float(v) for k, v in rp.items()} if isinstance(rp, dict) else {}
             goal_share = m["att_w"] / team_att_sum[nation]
             assist_share = m["cre_w"] / team_cre_sum[nation]
             all_eps = {mx["num"]: _player_match_ep(p["position"], m, goal_share, assist_share, mx)
@@ -329,7 +334,8 @@ def build_projections(players: list[dict], squads_map: dict, forecast, advanceme
                 position=p["position"], price=m["price"], ownership=m["own"], minutes_prob=m["mins"],
                 exp_next=exp_next, exp_avg=exp_avg, horizon=horizon, per_match=per_match,
                 next_date=(upcoming[0]["date"] or "") if upcoming else "",
-                tags=_tags(p["position"], m), why=_why(p["position"], m, adv)))
+                tags=_tags(p["position"], m), why=_why(p["position"], m, adv),
+                round_points=live_rounds, total_points=float(st.get("totalPoints") or 0.0)))
     return projs
 
 

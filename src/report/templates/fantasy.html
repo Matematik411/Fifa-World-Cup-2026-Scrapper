@@ -103,16 +103,25 @@
 <h2 id="playbook">Live-round playbook <span class="small muted">(act on these mid-round — no new session needed)</span></h2>
 <div class="card">
   <h3>Captaincy relay</h3>
+  {% if fantasy.playbook.live %}
+  <div class="note small"><b>LIVE:</b> {{ sq.captain.name }}'s match has <b>ended</b> on <b>{{ fantasy.playbook.live.banked }} pts</b> —
+    {% if fantasy.playbook.live.verdict == 'SWITCH' %}<b>SWITCH</b> the armband to <b>{{ fantasy.playbook.live.to }}</b> (E {{ fantasy.playbook.live.to_exp }}) before his kickoff.{% else %}<b>HOLD</b> the armband — his banked points beat the next rung's expectation.{% endif %}</div>
+  {% endif %}
   {% if fantasy.playbook.ladder|length > 1 %}
-  <table><thead><tr><th>#</th><th>Captain</th><th>Plays</th><th class="num">E pts</th><th>Rule</th></tr></thead><tbody>
+  <table><thead><tr><th>#</th><th>Captain</th><th>Plays</th><th class="num">E pts</th><th class="num">Banked</th><th>Rule</th></tr></thead><tbody>
     {% for r in fantasy.playbook.ladder %}
     <tr><td>{{ loop.index }}</td><td><b>{{ r.name }}</b> <span class="small muted">{{ r.nation }}</span></td>
     <td>{{ r.date }}</td><td class="num">{{ r.exp|r(1) }}</td>
+    <td class="num">{% if r.banked is defined %}<b>{{ r.banked }}</b>{% else %}—{% endif %}</td>
     <td class="small">{% if r.next_name %}If he finishes on <b>≤ {{ r.switch_if }} pts</b>, move the armband to <b>{{ r.next_name }}</b> before his kickoff.{% else %}Final rung — ride it out.{% endif %}</td></tr>
     {% endfor %}
   </tbody></table>
   {% else %}
   <div class="muted small">No later-playing premium in the XI this round — keep the armband on {{ sq.captain.name }}.</div>
+  {% endif %}
+  {% if fantasy.playbook.xi_live %}
+  <p class="small">Live feed: your XI has banked <b>{{ fantasy.playbook.xi_live.points }} pts</b> this round so far
+  ({{ fantasy.playbook.xi_live.done }}/11 starters' matches finished{% if fantasy.playbook.xi_live.captain_doubled %}; captain double counted{% endif %}) — auto-read from the official feed each run.</p>
   {% endif %}
   <p class="small muted">How it works: the captain can be changed during a live round only if the old captain's match has <b>ended</b> and the new one's hasn't <b>started</b>. Switching forfeits the old captain's double (his points then count single) — hence the threshold is the next rung's expected points. <b>Any manual change cancels this round's auto-subs</b>, so only act when your remaining starters are confirmed in their line-ups.</p>
   {% if fantasy.playbook.bench_first %}

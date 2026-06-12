@@ -13,8 +13,8 @@
   "resolution": "90-minute regular time only (no extra time or penalty shootouts)",
   "tiebreaker": "Entries with the same points are ranked by total exact goal picks.",
   "match_coverage": "all_104",
-  "match_coverage_explanation": "Assumed: the league covers every World Cup match. VERIFY on gopicks.app on first login and correct here if some matches are excluded.",
-  "deadlines": "Assumed per-match kickoff (not yet verified on the site) — enter picks the evening before to be safe.",
+  "match_coverage_explanation": "Verified by the user on the site 2026-06-12: the league runs all 104 World Cup matches.",
+  "deadlines": "Per-match kickoff (verified by the user on the site 2026-06-12) — enter picks the evening before to be safe.",
   "joined": "2026-06-12",
   "missed_matches": [1, 2],
   "notes": "Rules provided verbatim by the user on 2026-06-12 from the gopicks.app 'How it works' page: 'Points are awarded per match based on your pick accuracy: 3 Correct result (home win, away win, or draw); 1 Exact home goals predicted; 1 Exact away goals predicted. Rankings: Entries are ranked by total points. Tiebreaker: entries with the same points are ranked by total exact goal picks. Matches only consider regular time outcome, no extra time or penalty shootouts.' The three components stack (exact score = 5 pts) and are awarded independently, so a wrong result can still earn 1-2 pts via exact goal counts. No multipliers, jokers, or KO doubling were mentioned. User joined after matches 1-2 (2026-06-11) had been played - those score 0 and are recorded as missed in state.json."

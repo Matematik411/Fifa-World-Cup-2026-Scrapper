@@ -381,7 +381,8 @@ def _run_fantasy(cfg, bundle, forecast, advancement, stage, target_round, state,
 
     return {
         "squad": _serialize_squad(squad),
-        "playbook": _playbook(squad),
+        "playbook": _playbook(squad, _active_round_id(bundle.fantasy_rounds, stage),
+                              _stage_matches_done(bundle.fixtures, results, stage)),
         "transfers": transfer_block,
         "chips": chips,
         "chips_remaining": chips_remaining,
@@ -395,7 +396,30 @@ def _run_fantasy(cfg, bundle, forecast, advancement, stage, target_round, state,
     }
 
 
-def _captain_ladder(squad) -> list[dict]:
+def _active_round_id(rounds_raw, stage) -> str | None:
+    """Fantasy round currently scoring: the feed's status=='playing' round, with a
+    deterministic stage-order fallback when the feed is unavailable (cache-only runs)."""
+    rows = rounds_raw if isinstance(rounds_raw, list) else (rounds_raw or {}).get("data", [])
+    for r in rows:
+        if r.get("status") == "playing":
+            return str(r.get("id"))
+    return {"MD1": "1", "MD2": "2", "MD3": "3", "R32": "4", "R16": "5",
+            "QF": "6", "SF": "7", "final": "8"}.get(stage)
+
+
+def _stage_matches_done(fixtures, results, stage) -> set[str]:
+    """Normalized team names whose match in the CURRENT round has finished."""
+    from .model.teams import normalize_team
+    md_of = _group_matchdays(fixtures)
+    done = set()
+    for m in fixtures["matches"]:
+        if _round_of(m, md_of) == stage and m["num"] in results:
+            done.add(normalize_team(str(m.get("home") or "")))
+            done.add(normalize_team(str(m.get("away") or "")))
+    return done
+
+
+def _captain_ladder(squad, banked_of) -> list[dict]:
     """Mid-round captaincy relay: the armband can move to a not-yet-played starter
     once the current captain's match ends (forfeiting his double). Switching is +EV
     whenever banked points < the next rung's expected points — that's the threshold."""
@@ -418,6 +442,9 @@ def _captain_ladder(squad) -> list[dict]:
     for i, p in enumerate(rungs):
         row = {"name": p.name, "nation": p.nation, "date": p.next_date or "TBD",
                "exp": round(p.exp_next, 1)}
+        b = banked_of(p)
+        if b is not None:
+            row["banked"] = int(b)
         if i + 1 < len(rungs):
             row["switch_if"] = int(rungs[i + 1].exp_next)
             row["next_name"] = rungs[i + 1].name
@@ -425,16 +452,43 @@ def _captain_ladder(squad) -> list[dict]:
     return rows
 
 
-def _playbook(squad) -> dict:
-    """In-round actions the user can take between daily runs."""
+def _playbook(squad, active_rid=None, ended=frozenset()) -> dict:
+    """In-round actions the user can take between daily runs. With the live feed's
+    per-round points (populated once matches finish), the captain rule resolves to a
+    concrete SWITCH/HOLD verdict instead of a threshold the user has to evaluate."""
     by_pid = squad.by_pid()
+
+    def banked_of(p):
+        if active_rid is None or p.nation not in ended:
+            return None             # his match hasn't finished (or no live feed)
+        return p.round_points.get(active_rid, 0.0)   # finished, no feed entry -> played 0'
+
+    ladder = _captain_ladder(squad, banked_of)
+    live = None
+    if ladder and ladder[0].get("banked") is not None:
+        b = ladder[0]["banked"]
+        if len(ladder) > 1:
+            live = {"banked": b, "verdict": "SWITCH" if b < ladder[1]["exp"] else "HOLD",
+                    "to": ladder[1]["name"], "to_exp": ladder[1]["exp"]}
+        else:
+            live = {"banked": b, "verdict": "HOLD", "to": None, "to_exp": None}
+
+    done_starters = [p for p in (by_pid[pid] for pid in squad.starters)
+                     if banked_of(p) is not None]
+    xi_pts = sum(banked_of(p) for p in done_starters)
+    cap_done = banked_of(by_pid[squad.captain]) is not None
+    if cap_done:
+        xi_pts += banked_of(by_pid[squad.captain])   # captain counts double
+    xi_live = {"points": int(xi_pts), "done": len(done_starters),
+               "captain_doubled": cap_done} if done_starters else None
+
     bench_first = None
     bench_out = [by_pid[pid] for pid in squad.bench if by_pid[pid].position != "GK"]
     if bench_out:
         b = bench_out[0]
         bench_first = {"name": b.name, "nation": b.nation, "exp": round(b.exp_next, 1),
                        "date": b.next_date or "TBD"}
-    return {"ladder": _captain_ladder(squad), "bench_first": bench_first}
+    return {"ladder": ladder, "bench_first": bench_first, "live": live, "xi_live": xi_live}
 
 
 def _apply_moves(owned: list[int], moves) -> list[int]:

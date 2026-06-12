@@ -44,7 +44,7 @@ depend on it). Cache raw pulls under `data/raw/<today>/`. Re-pull, in priority o
 | `results.json` | **after each matchday** | `{"results": {"<match_num>": [home_goals, away_goals], ...}}` — 90-minute results only. In the knockouts also fill `{"ko_advancers": {"<match_num>": "<Team>"}}` for any tie that was a draw after 90' (ET/pens decided it) — a decisive 90' KO score identifies the advancer automatically. **Keeping this file current matters doubly now: it drives stage detection (matchday/round, transfer windows, KO budget, nation caps) and conditions the bracket sim on real outcomes.** |
 | `player_stats.json` | **occasionally** | Per-90 xG/xA/shots/key-passes driving intra-team goal/assist shares. Club-season numbers — refresh pre-tournament and if a player's role/form shifts; not needed daily. |
 | `fixtures.json` | when KO bracket fills | Group stage is fixed. As knockouts resolve, fill the actual teams into the KO match `home`/`away` (replace `1A`/`W74` placeholders) so predictions unlock for them. |
-| `fantasy_feed.json`/players | automatic | `./run.sh run` pulls `play.fifa.com/json/fantasy/{players,squads,rounds}.json` live (prices fixed; ownership/status/points update). Nothing to do unless the endpoint changes. |
+| `fantasy_feed.json`/players | automatic | `./run.sh run` pulls `play.fifa.com/json/fantasy/{players,squads,rounds}.json` live (prices fixed; ownership/status/points update). Since MD1 the feed carries **live per-player round points** (`stats.roundPoints`, verified vs official scoring 2026-06-12); the pipeline reads them automatically — captain SWITCH/HOLD verdict + "XI banked N pts" on the fantasy page once matches in `results.json` finish. Nothing to do unless the endpoint changes. |
 | `fantasy_rules.json`, `nostradamus.json`, `gopicks.json` | rarely | Stable for 2026. Re-verify only if rules change. |
 | *optional APIs* | if keys set | `.env` keys (football-data.org / API-Football / The Odds API) are optional enrichment for fixtures/lineups/odds. The tested primary path is the curated files above; APIs are a convenience, not required. |
 
@@ -141,19 +141,9 @@ to `git push` from the host (the sandbox has no SSH key; the push is what deploy
 
 ## 6.5 One-time TODOs (do during the named run, then delete the line)
 
-- **First evening run with gopicks.app access (2026-06-12+):** the GoPicks rules in
-  `data/manual/gopicks.json` were taken verbatim from the user's message; two details
-  are ASSUMED and must be verified on the site (user can check while entering picks):
-  (1) the league covers all 104 matches, (2) per-match deadline = kickoff. Correct
-  `gopicks.json` if wrong, then delete this TODO.
-- **First run after MD1 games (2026-06-12+):** ~~create `data/manual/results.json`~~
-  (done 2026-06-12: matches 1–2 in). Remaining: inspect
-  `data/raw/<date>/fantasy_players_raw.json` → `stats.roundPoints` / `lastRoundPoints`
-  (empty pre-tournament): if it now carries per-round live points, wire it into the
-  live-round playbook so it can say "your captain banked N pts → switch/hold"
-  automatically (join: captain pid → feed stats; his team's match in `results.json`
-  means his match ended). Sanity-check one player's points against the official site
-  before trusting it. Then delete this TODO.
+(none right now — both 2026-06-12 TODOs done: `results.json` exists, GoPicks rules
+verified on-site by the user, and the feed's live per-round points are wired into
+the playbook — see §2 fantasy_feed row.)
 
 ## 7. Troubleshooting
 

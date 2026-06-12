@@ -72,7 +72,7 @@
   {% if fantasy and fantasy.playbook and fantasy.playbook.ladder|length > 1 %}
   <li>
     <div class="a-do">⑤ During the round — captain relay: {% for r in fantasy.playbook.ladder %}<b>{{ r.name.split(' ')[-1] }}</b>{% if not loop.last %} → {% endif %}{% endfor %}.</div>
-    <div class="a-sub">{{ fantasy.playbook.ladder[0].name }} plays {{ fantasy.playbook.ladder[0].date }}; if he ends on ≤ {{ fantasy.playbook.ladder[0].switch_if }} pts, move the armband to {{ fantasy.playbook.ladder[1].name }} before his kickoff. → <a href="fantasy.html#playbook">Full playbook &amp; rules</a></div>
+    <div class="a-sub">{% if fantasy.playbook.live %}LIVE: {{ fantasy.playbook.ladder[0].name }}'s match ended on <b>{{ fantasy.playbook.live.banked }} pts</b> → <b>{{ fantasy.playbook.live.verdict }}</b>{% if fantasy.playbook.live.verdict == 'SWITCH' %} to {{ fantasy.playbook.live.to }} before his kickoff{% endif %}.{% else %}{{ fantasy.playbook.ladder[0].name }} plays {{ fantasy.playbook.ladder[0].date }}; if he ends on ≤ {{ fantasy.playbook.ladder[0].switch_if }} pts, move the armband to {{ fantasy.playbook.ladder[1].name }} before his kickoff.{% endif %} → <a href="fantasy.html#playbook">Full playbook &amp; rules</a></div>
   </li>
   {% endif %}
 </ul>
