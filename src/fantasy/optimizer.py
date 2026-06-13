@@ -114,40 +114,76 @@ def build_squad(projs: list[PlayerProj], cfg, budget: float, nation_cap: int,
     return assemble_squad(chosen, budget)
 
 
-def squad_from_pids(projs: list[PlayerProj], pids: list[int], budget: float) -> Squad:
+def squad_from_pids(projs: list[PlayerProj], pids: list[int], budget: float,
+                    lineup: dict | None = None) -> Squad:
     """Squad object (XI/captain/bench) for a FIXED 15 — the user's reachable team
-    (owned ± this round's transfers), as opposed to the unconstrained optimum."""
+    (owned ± this round's transfers), as opposed to the unconstrained optimum.
+    Pass `lineup` (a stored starters/bench/captain) to freeze the XI for a round that
+    is already locked, instead of re-deriving the best XI from current projections."""
     by_pid = {p.pid: p for p in projs}
     missing = [pid for pid in pids if pid not in by_pid]
     if missing or len(pids) != 15:
         raise ValueError(f"Cannot assemble squad: {len(pids)} pids, missing from pool: {missing}")
-    return assemble_squad([by_pid[pid] for pid in pids], budget)
+    return assemble_squad([by_pid[pid] for pid in pids], budget, lineup=lineup)
 
 
-def assemble_squad(chosen: list[PlayerProj], budget: float) -> Squad:
-    starters, formation, xi_exp = pick_xi(chosen)
+def _xi_is_legal(starters: list[int], by_pid: dict) -> bool:
+    if len(starters) != 11:
+        return False
+    nb = {pos: 0 for pos in ("GK", "DEF", "MID", "FWD")}
+    for pid in starters:
+        nb[by_pid[pid].position] += 1
+    return all(XI_MIN[pos] <= nb[pos] <= XI_MAX[pos] for pos in nb)
+
+
+def assemble_squad(chosen: list[PlayerProj], budget: float, lineup: dict | None = None) -> Squad:
     by_pid = {p.pid: p for p in chosen}
+    # A locked round freezes the XI/captain set at its deadline. If a valid `lineup`
+    # is supplied and every starter is still in the squad, honour it as-is; otherwise
+    # (initial build, unlimited-window rebuild, post-transfer team) optimise the XI fresh.
+    fixed = None
+    if lineup:
+        ls = [pid for pid in (lineup.get("starters") or []) if pid in by_pid]
+        if _xi_is_legal(ls, by_pid):
+            fixed = ls
+    if fixed is not None:
+        starters = fixed
+        nb = {pos: sum(1 for pid in starters if by_pid[pid].position == pos)
+              for pos in ("GK", "DEF", "MID", "FWD")}
+        formation = f"{nb['DEF']}-{nb['MID']}-{nb['FWD']}"
+        xi_exp = sum(by_pid[pid].exp_next for pid in starters)
+    else:
+        starters, formation, xi_exp = pick_xi(chosen)
     # Captain/vice from outfield attackers/mids only — the x2 multiplier wants ceiling,
     # and GK/DEF expected points are clean-sheet-driven (low ceiling, high variance).
     attack_starters = sorted(
         [pid for pid in starters if by_pid[pid].position in ("MID", "FWD")],
         key=lambda pid: by_pid[pid].exp_next, reverse=True)
     cap_pool = attack_starters or sorted(starters, key=lambda pid: by_pid[pid].exp_next, reverse=True)
-    # Near-equal candidates: prefer the EARLIEST kickoff. The armband can be moved
-    # mid-round to a not-yet-played starter once the captain's match ends, so an
-    # early captain keeps the relay option alive at almost no EV cost.
-    best_ep = by_pid[cap_pool[0]].exp_next
-    near = [pid for pid in cap_pool if by_pid[pid].exp_next >= best_ep - 0.4]
-    captain = min(near, key=lambda pid: (by_pid[pid].next_date or "9999-99-99",
-                                         -by_pid[pid].exp_next))
+    locked_cap = (lineup or {}).get("captain")
+    if fixed is not None and locked_cap in starters:
+        # Honour the captain you locked in for this round (the relay is handled separately).
+        captain = locked_cap
+    else:
+        # Near-equal candidates: prefer the EARLIEST kickoff. The armband can be moved
+        # mid-round to a not-yet-played starter once the captain's match ends, so an
+        # early captain keeps the relay option alive at almost no EV cost.
+        best_ep = by_pid[cap_pool[0]].exp_next
+        near = [pid for pid in cap_pool if by_pid[pid].exp_next >= best_ep - 0.4]
+        captain = min(near, key=lambda pid: (by_pid[pid].next_date or "9999-99-99",
+                                             -by_pid[pid].exp_next))
     vice_pool = [pid for pid in cap_pool if pid != captain]
     vice = vice_pool[0] if vice_pool else captain
     bench_ids = [p.pid for p in chosen if p.pid not in starters]
-    # bench order: outfield by exp_next desc, backup GK last
-    bench_out = sorted([pid for pid in bench_ids if by_pid[pid].position != "GK"],
-                       key=lambda pid: by_pid[pid].exp_next, reverse=True)
-    bench_gk = [pid for pid in bench_ids if by_pid[pid].position == "GK"]
-    bench = bench_out + bench_gk
+    locked_bench = [pid for pid in ((lineup or {}).get("bench") or []) if pid in set(bench_ids)]
+    if fixed is not None and len(locked_bench) == len(bench_ids):
+        bench = locked_bench  # preserve the locked auto-sub order
+    else:
+        # bench order: outfield by exp_next desc, backup GK last
+        bench_out = sorted([pid for pid in bench_ids if by_pid[pid].position != "GK"],
+                           key=lambda pid: by_pid[pid].exp_next, reverse=True)
+        bench_gk = [pid for pid in bench_ids if by_pid[pid].position == "GK"]
+        bench = bench_out + bench_gk
     cost = sum(p.price for p in chosen)
     nation_counts: dict[str, int] = {}
     for p in chosen:

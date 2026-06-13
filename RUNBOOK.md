@@ -56,9 +56,12 @@ depend on it). Cache raw pulls under `data/raw/<today>/`. Re-pull, in priority o
 **Standing instruction (the user set this explicitly): assume they followed every
 recommendation exactly — squad, captain, transfers, chips AND the per-match
 scorelines — unless they state a deviation this session.** So:
-- `state.json` has `assume_followed: true`, and the pipeline auto-syncs
-  `owned` ← `recommended_squad` at the end of every run. You do **not** need to
-  ask them to list their 15 each time.
+- `state.json` has `assume_followed: true`. The pipeline keeps `owned` truthful
+  **without drift**: during a locked round `owned` stays = the real locked 15 (with
+  its frozen `lineup`), and only advances to a round's transfer plan once that round's
+  deadline passes (the pre-lock initial 15 and unlimited-window rebuilds sync
+  immediately, being buildable now). You do **not** need to ask them to list their 15
+  each time.
 - Nostradamus scoring already defaults to the recommended scoreline when
   `predictions_entered` has no explicit entry — so picks are scored as followed.
 - **GoPicks** (Sentora partners league on gopicks.app, joined 2026-06-12) works the
@@ -81,12 +84,18 @@ scorelines — unless they state a deviation this session.** So:
   they are; Nostradamus/GoPicks points are recomputed from results automatically and
   the fantasy XI tally comes from the live feed.
 
-The squad/XI/captain shown post-lock is the **reachable team** (`owned` ⊕ this
-round's transfer plan), not a fantasy-land optimum — so following it is always
-possible, and the auto-sync stays truthful. Transfer modes by window (automatic,
-from the stage engine): `initial` (pre-lock optimal 15) → `transfers` (N free per
-round) → `hold` (unlimited window open but R32 ties unknown — wait) → `rebuild`
-(unlimited window, ties known: full reset to the optimum, no hits).
+During a **locked round** the headline squad/XI/captain is your **active team** — the
+real 15 in the XI you locked at the deadline (`owned.lineup`), not a re-optimised one —
+and the next round's moves are shown separately as **upcoming** swaps (HOLD them: team
+news until the lock can change the pick, and a free transfer rolls over). On the
+**lock-eve / open window** the same `transfers` mode flips to *execute-now* (the
+post-transfer team to build before the imminent deadline). `owned` advances to that plan
+only when the round's deadline passes, so it always mirrors the team you really have
+locked. Transfer modes by window (automatic, from the stage engine): `initial` (pre-lock
+optimal 15) → `transfers` (N free per round; headline = active team while the round is
+locked, execute-now once its window is open) → `hold` (unlimited window open but R32 ties
+unknown — wait) → `rebuild` (unlimited window, ties known: full reset to the optimum, no
+hits).
 
 ## 4. Run + sanity-check
 

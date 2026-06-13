@@ -208,6 +208,7 @@ def run_pipeline(run_date: str | None = None, fetch: bool = True, sim: bool = Tr
 
     stage, target_round, stage_label = _stage(cfg, run_date, bundle.fixtures, results)
     log(f"Stage: {stage_label}")
+    _reconcile_owned(state, target_round, log)
 
     # ---- shared forecast model ----
     log("Building ensemble strengths...")
@@ -345,19 +346,20 @@ def _run_fantasy(cfg, bundle, forecast, advancement, stage, target_round, state,
     plan = None
 
     if not owned or stage == "pre":
-        squad = optimal
+        squad = rec_squad = optimal
         transfer_block = {"mode": "initial", "free_transfers": "unlimited",
                           "note": "Squad is freely editable until the first kickoff — set this exact 15."}
     elif ft == "unlimited" and (target_round != "R32" or ko_ties_known):
         # unlimited window (before the R32): full rebuild to the optimum, no hits
-        squad = optimal
+        squad = rec_squad = optimal
         transfer_block = {"mode": "rebuild", "free_transfers": "unlimited",
                           "moves": _rebuild_moves(owned, squad, by_pid),
                           "note": f"Transfers before the {STAGE_LABEL[target_round]} are unlimited — "
                                   f"rebuild to this exact 15 at no cost."}
     elif ft == "unlimited":
         # unlimited window already, but R32 ties unknown — hold the moves until they are
-        squad = _owned_squad(projs, owned, budget, optimal, log)
+        squad = rec_squad = _owned_squad(projs, owned, budget, optimal, log,
+                                         lineup=(state.get("owned") or {}).get("lineup"))
         transfer_block = {"mode": "hold", "free_transfers": "unlimited",
                           "note": "Unlimited transfers before the Round of 32 — but the ties aren't set yet. "
                                   "HOLD all moves; the rebuild recommendation lands once R32 matchups are known."}
@@ -366,10 +368,28 @@ def _run_fantasy(cfg, bundle, forecast, advancement, stage, target_round, state,
         penalty = float(cfg.get("fantasy.extra_transfer_penalty", -3))
         plan = ftr.plan_transfers(owned, projs, budget, nation_cap, int(ft), bank,
                                   extra_penalty=penalty)
+        # The squad to OWN for target_round = owned + this round's planned moves.
         effective = _apply_moves(owned, plan["moves"])
-        squad = _owned_squad(projs, effective, budget, optimal, log)
-        transfer_block = {"mode": "transfers", "plan": _serialize_plan(plan, by_pid),
-                          "free_transfers": ft}
+        rec_squad = _owned_squad(projs, effective, budget, optimal, log)
+        if target_round == stage:
+            # Window still open (this round locks today): the headline IS the
+            # post-transfer team — build it now, before today's lock.
+            squad = rec_squad
+            transfer_block = {"mode": "transfers", "window": "open", "applies_to": target_round,
+                              "plan": _serialize_plan(plan, by_pid), "free_transfers": ft,
+                              "note": (f"Make these transfer(s) now — {STAGE_LABEL[stage]} locks today. "
+                                       f"The 15 / XI / captain below are the post-transfer team.")}
+        else:
+            # A locked round is in progress: headline = your ACTIVE squad (what's
+            # scoring now). The moves are the suggested swaps for the next deadline —
+            # don't make them yet (team news can shift the pick; a free transfer rolls over).
+            squad = _owned_squad(projs, owned, budget, optimal, log,
+                                 lineup=(state.get("owned") or {}).get("lineup"))
+            transfer_block = {"mode": "transfers", "window": "upcoming", "applies_to": target_round,
+                              "plan": _serialize_plan(plan, by_pid), "free_transfers": ft,
+                              "note": (f"Your ACTIVE {STAGE_LABEL[stage]} squad — the XI, captain and bench "
+                                       f"below are what's scoring now. The swaps under 'Transfer plan' are "
+                                       f"for {STAGE_LABEL[target_round]}; don't make them until the lock-eve run.")}
 
     gap = round(optimal.squad_horizon - squad.squad_horizon, 1)
     owned_set = {p.pid for p in squad.players}
@@ -381,6 +401,7 @@ def _run_fantasy(cfg, bundle, forecast, advancement, stage, target_round, state,
 
     return {
         "squad": _serialize_squad(squad),
+        "recommended": _serialize_squad(rec_squad),
         "playbook": _playbook(squad, _active_round_id(bundle.fantasy_rounds, stage),
                               _stage_matches_done(bundle.fixtures, results, stage)),
         "transfers": transfer_block,
@@ -499,11 +520,12 @@ def _apply_moves(owned: list[int], moves) -> list[int]:
     return pids
 
 
-def _owned_squad(projs, pids, budget, fallback, log):
+def _owned_squad(projs, pids, budget, fallback, log, lineup=None):
     """Squad object for the user's reachable 15; falls back to the optimum if the
-    owned pids can't be resolved against the current player pool."""
+    owned pids can't be resolved against the current player pool. `lineup` freezes
+    the XI/captain for a round that is already locked."""
     try:
-        return fopt.squad_from_pids(projs, pids, budget)
+        return fopt.squad_from_pids(projs, pids, budget, lineup=lineup)
     except (ValueError, RuntimeError) as e:
         log(f"  [warn] Could not assemble owned squad ({e}); presenting the optimal squad instead.")
         return fallback
@@ -772,15 +794,54 @@ def _changelog(run_date, result, log) -> dict:
             "gp_pred_flips": gp_flips, "squad_changes": squad_changes, "odds_moves": odds_moves}
 
 
+def _lineup_of(sq: dict) -> dict:
+    """The XI/captain to freeze for a locked round (pids), from a serialized squad."""
+    return {"starters": [p["pid"] for p in sq.get("starters", [])],
+            "bench": [p["pid"] for p in sq.get("bench", [])],
+            "captain": (sq.get("captain") or {}).get("pid")}
+
+
+def _reconcile_owned(state, target_round, log):
+    """assume_followed bookkeeping: advance `owned` to a previously-recommended squad
+    only once the round it targeted has actually locked — i.e. the current transfer
+    target has moved PAST it. While that round is still the open or a future window,
+    `owned` stays = the squad currently locked, so a not-yet-executed forward transfer
+    plan is never silently folded into the real team. (No-op if the user opted out of
+    assume_followed or stated a deviation that already matches the recommendation.)"""
+    if not state.get("assume_followed", True):
+        return
+    rec = state.get("recommended_squad") or {}
+    fr = rec.get("for_round")
+    owned = state.get("owned") or {}
+    if not fr or not rec.get("player_ids"):
+        return
+    try:
+        locked_past = STAGE_SEQ.index(target_round) > STAGE_SEQ.index(fr)
+    except ValueError:
+        return
+    if locked_past and rec["player_ids"] != (owned.get("player_ids") or []):
+        state["owned"] = {
+            "player_ids": list(rec["player_ids"]), "captain": rec.get("captain"),
+            "formation": rec.get("formation"), "bank": owned.get("bank", 0.0),
+            "lineup": rec.get("lineup"),
+            "note": (f"Auto-advanced to the squad locked for {STAGE_LABEL.get(fr, fr)} "
+                     f"(assume_followed=true — the planned transfers took effect at that deadline)."),
+        }
+        log(f"  Advanced owned squad to the {STAGE_LABEL.get(fr, fr)} lock (planned transfers applied).")
+
+
 def _update_state(state, run_date, result, fantasy_out):
     state.setdefault("schema", "wc2026-state-v1")
     state["last_run"] = run_date
     if fantasy_out:
+        recsq = fantasy_out.get("recommended") or fantasy_out["squad"]
         state["recommended_squad"] = {
-            "player_ids": [p["pid"] for p in fantasy_out["squad"]["all"]],
-            "captain": fantasy_out["squad"]["captain"]["name"],
-            "formation": fantasy_out["squad"]["formation"],
+            "player_ids": [p["pid"] for p in recsq["all"]],
+            "captain": recsq["captain"]["name"],
+            "formation": recsq["formation"],
             "as_of": run_date,
+            "for_round": fantasy_out.get("target_round"),
+            "lineup": _lineup_of(recsq),
         }
     state.setdefault("owned", {"player_ids": [], "captain": None, "formation": None,
                               "bank": 0.0, "note": "CONFIRM your real team here each run (see RUNBOOK)."})
@@ -799,12 +860,20 @@ def _update_state(state, run_date, result, fantasy_out):
     # say otherwise, so the real team == the recommendation. Keep `owned` in sync so
     # reconciliation is automatic. (Set assume_followed:false in state.json to opt out.)
     state.setdefault("assume_followed", True)
-    if state.get("assume_followed") and fantasy_out:
+    # Only fold the recommendation into `owned` when it is a squad you can own in the
+    # CURRENT window — the pre-lock initial 15 or an unlimited-window rebuild. A locked
+    # round's forward transfer plan is NOT folded in here; `owned` advances to it later
+    # (via _reconcile_owned) once that round's deadline actually passes, so the file
+    # always reflects the team you really have locked.
+    tb = (fantasy_out or {}).get("transfers") or {}
+    if state.get("assume_followed") and fantasy_out and tb.get("mode") in ("initial", "rebuild"):
+        recsq = fantasy_out.get("recommended") or fantasy_out["squad"]
         rec = state["recommended_squad"]
         state["owned"] = {
             "player_ids": rec["player_ids"], "captain": rec["captain"],
-            "formation": rec["formation"], "bank": fantasy_out["squad"]["bank"],
-            "note": "Auto-synced to the recommendation (assume_followed=true). "
+            "formation": rec["formation"], "bank": recsq["bank"],
+            "lineup": _lineup_of(recsq),
+            "note": "Auto-synced to the recommendation (assume_followed=true; directly buildable now). "
                     "Tell the session if you deviated and it will re-optimize from your real team.",
         }
     _save_state(state)
