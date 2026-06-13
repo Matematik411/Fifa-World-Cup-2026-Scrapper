@@ -4,7 +4,7 @@
   "recommended_squad": {
     "player_ids": [
       31,
-      1709,
+      167,
       38,
       1526,
       138,
@@ -21,14 +21,37 @@
     ],
     "captain": "Raphinha",
     "formation": "3-5-2",
-    "as_of": "2026-06-13"
+    "as_of": "2026-06-13",
+    "for_round": "MD2",
+    "lineup": {
+      "starters": [
+        31,
+        38,
+        1526,
+        138,
+        1366,
+        501,
+        542,
+        939,
+        1088,
+        1094,
+        1098
+      ],
+      "bench": [
+        492,
+        167,
+        178,
+        506
+      ],
+      "captain": 1366
+    }
   },
   "owned": {
     "player_ids": [
       31,
-      1709,
+      34,
       38,
-      1526,
+      125,
       138,
       178,
       1366,
@@ -44,7 +67,29 @@
     "captain": "Raphinha",
     "formation": "3-5-2",
     "bank": 0.0,
-    "note": "Auto-synced to the recommendation (assume_followed=true). Tell the session if you deviated and it will re-optimize from your real team."
+    "note": "User-confirmed locked MD1 squad (the 06-11 pre-lock 15). Held fixed during the locked round; advances to the MD2 recommendation only when MD2 actually locks (assume_followed). Tell the session if you deviated.",
+    "lineup": {
+      "starters": [
+        34,
+        38,
+        125,
+        138,
+        1366,
+        501,
+        542,
+        939,
+        1088,
+        1094,
+        1098
+      ],
+      "bench": [
+        31,
+        492,
+        178,
+        506
+      ],
+      "captain": 1366
+    }
   },
   "chips_used": [],
   "cumulative": {
