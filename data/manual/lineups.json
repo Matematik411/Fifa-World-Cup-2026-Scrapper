@@ -1,151 +1,7 @@
 {
-  "fetched_at": "2026-06-13",
-  "notes": "Matchday refresh Jun 13 ~17:51 UTC for matches 5-12; research: data/raw/2026-06-13/lineups_research.md. NO official FIFA/FA team sheet out for ANY match at research time (QAT-SUI #5 sheet due ~18:00 UTC, not yet published; the khelnow 'Switzerland confirmed' 3-4-2-1-with-Zakaria article contradicts every other source and has a nonsensical timestamp - discarded). All confirmed:false. Dropped Canada/Bosnia/USA/Paraguay (played MD1). Curacao omitted - no reliable fresh XI found, not fabricating. QATAR (medium): mgr Lopetegui, fully fit; Jun-13 consensus (Al Jazeera/Yahoo/SI/footballfaithful/Tips.gg) moves ABDURISAG into attack and Almoez Ali to the bench (CHANGE from Jun-12), Afif central, Edmilson wide; Boudiaf kept as 3rd mid (Issa Laye is the live alt). SWITZERLAND (medium; CF call): 4-2-3-1 unanimous (Kobel; Widmer-Akanji-Elvedi-Rodriguez; Xhaka-Freuler; Vargas-Rieder-Ndoye); CF switched Embolo->AMDOUNI (CHANGE - Amdouni favoured by 4 Jun-13 sources after Embolo's late ESTA/visa-disrupted prep; Embolo the alt). All Jun-13 sources call SUI fully fit. BRAZIL (high): UNCHANGED - Cunha 9, Danilo RB, Neymar OUT (grade-2 calf, not ready Sat), Wesley OUT (muscle). MOROCCO (medium-high): UNCHANGED - Mazraoui (shoulder) a 'late call' but expected/in XI, Amrabat starts, front three Diaz-Saibari-El Khannouss; Aguerd (groin) + Ezzalzouli (knee) OUT of tournament. HAITI (medium): fully fit, settled 4-4-2 (SM dedicated XI kept: Deedson-JeanJacques-Bellegarde-Providence midfield; RotoWire's Casimir/Leverton Pierre = alts). SCOTLAND (medium-high): McTominay FIT, Gilmour OUT (knee, tournament); 4-4-2 consensus with Hanley starting (McKenna doubtful w/ knock - alt if passed fit; RotoWire alone starts McKenna), McGinn in, Gunn over Gordon. AUSTRALIA (medium; 10s low): Popovic 3-4-2-1 (most consistent shape - RotoWire Jun-12 + yesterday); Toure CF; two-10 pairing a coin-flip, kept Irankunda+Leckie (Leckie 'set to feature', Volpato/Hrustic = RotoWire alt); Metcalfe in for O'Neill per RotoWire Jun-12. TURKEY (medium; Yildiz doubt): Montella 4-2-3-1; YILDIZ calf - RotoWire Jun-13 says he 'completed full training' but start-vs-bench is an open game-time call; kept him starting LEFT, Akturkoglu CF (if benched -> Deniz Gul/reshuffle); Calhanoglu (calf)+Kadioglu also game-time decisions but projected to start; Yuksek alt for Kokcu, Elmali alt LB. GERMANY (medium): Nagelsmann 4-2-3-1; NEUER returns in goal (calf scare, 'clear plan' to start); Kimmich RB, Schlotterbeck over Rudiger, Brown over Raum, Nmecha over Goretzka (all live alts); Sane-Musiala-Wirtz; Havertz 9; Lennart Karl OUT (training injury, replaced by Ouedraogo). NETHERLANDS (medium; GK+9 calls): Koeman 4-2-3-1; VERBRUGGEN expected to start (bruised hip vs Uzbekistan, back training Fri; Flekken/Roefs standby); Depay leads the line (Koeman's Depay-vs-Malen call - Malen the alt); Timber OUT (groin, withdrawn->Geertruida); Ake the alt 4th DEF. JAPAN (medium): Moriyasu 3-4-2-1 (RotoWire Jun-13); Zion Suzuki; Kubo+Junya Ito behind Ueda; MITOMA OUT (hamstring - would've been first-choice winger). IVORY COAST (medium): Emerse Fae 4-3-3; Guessand CF (Haller excluded from squad); Diallo+Diomande wide (Pepe/Adingra/Singo contest the wide+CB slots); Ndicka OUT (thigh). ECUADOR (medium-low): Valencia a 'minor doubt' but expected to start, Pacho available, Caicedo/Hincapie/Estupinan locks; shape unsettled - took ESPN Jun-13 back-3 with Paez starting (SM had flat 4-2-3-1 w/ Plata/Angulo/Yeboah). SWEDEN (medium): Potter 3-5-1-2 (ESPN Jun-13 + SM agree): NORDFELDT GK (not V. Johansson), Isak+Gyokeres up top, ELANGA NOT in XI; Gudmundsson was ill but 'deemed fit'; Kulusevski OUT (long-term). TUNISIA (low-medium): new mgr Lamouchi (only 4 friendlies), 4-3-3 (ESPN Jun-13); Mejbri a DOUBT (friendly injury vs Austria); XI very unsettled (Squawka variant differs heavily).",
+  "fetched_at": "2026-06-14",
+  "notes": "Matchday refresh Jun 14 ~15:30 UTC for matches 9-12 (today) + secondary predicted XIs for Jun 15 teams; research: data/raw/2026-06-14/lineups_research.md. NO official/confirmed FIFA team sheet out for ANY match at research time (~15:30 UTC); Germany-Curacao KO 18:00 UTC so its sheet is due ~17:00 UTC, AFTER this run. All confirmed:false. MSN/Yahoo 'Germany XI vs Curacao: Confirmed team news' headlines are clickbait - bodies confirm only Neuer's fitness, not a posted XI. Dropped Qatar/Switzerland/Brazil/Morocco/Haiti/Scotland/Australia/Turkey (played matches 5-8 Jun 13). NB on Jun-15 teams: all four Jun-15 matches are those teams' FIRST group game (matchday 1) -> NO yellow-card carryover suspensions possible; news is fitness only. GERMANY (high; UNCHANGED): Nagelsmann 4-2-3-1; NEUER confirmed to start (calf scare recovered - ESPN/beIN/SI/MSN/Yahoo/SportsMole/Goal all start him; RotoWire 'game-time decision' is the lone hedge); Brown LB over Raum, Kimmich RB, Tah+Schlotterbeck CB; Nmecha+Pavlovic pivot; Sane-Musiala-Wirtz behind Havertz; Karl OUT (training injury->Ouedraogo). Alts: Raum, Goretzka, Rudiger. CURACAO (LOW - NOW INCLUDED, was omitted Jun-13): Dick Advocaat 4-3-3; wrote the beIN+ESPN-main consensus (Room; Floranus, Gaari, Obispo, Bazoer; Comenencia, L.Bacuna, J.Bacuna; Chong, Locadia, Fonville). All 3 sources agree on the spine (Room/Floranus/Gaari/Obispo/Comenencia/L.Bacuna/J.Bacuna/Chong/Locadia); DISAGREE on 4th DEF (Bazoer [beIN,ESPN-main] vs Sambo [RotoWire,SportsMole] - Sambo strong alt RB) and 3rd attacker (Fonville [beIN] vs Antonisse [RotoWire,SportsMole] vs Gorre[Jun-12, superseded]). No injuries reported. NETHERLANDS (medium; striker swing): Koeman 4-3-3; CHANGE - front line now Summerville-MALEN-Gakpo (was Depay at 9); ESPN+RotoWire+SportsMole all bench/doubt Depay and start Malen; Weghorst the other alt 9, Depay the headline alt. Verbruggen GK (fit), Dumfries-vanHecke-vanDijk-vandeVen, deJong-Gravenberch-Reijnders. Timber OUT (groin, withdrawn; vanHecke replaces, Ake alt 4th DEF). JAPAN (medium): Moriyasu 3-4-2-1 (RotoWire shape) - wrote Zion Suzuki; H.Ito, Yoshida, Itakura; Doan, Tanaka, Kamada, Nakamura; Kubo, J.Ito; Ueda. CHANGE - added Yoshida to a back-three, Tomiyasu now alt CB/RWB (ESPN ran a 4-2-3-1 w/ Tomiyasu + Nakamura LB - alt). Mitoma OUT (hamstring); Endo retired from int'l (squad omission, not in 'out'). IVORY COAST (medium; UNCHANGED): Emerse Fae 4-3-3; Guessand CF (over Wahi/Bonny; Haller excluded), Diallo+Diomande wide, S.Fofana/Sangare/Kessie mid (RotoWire+ESPN agree; SportsMole minority 4-2-3-1 w/ Singo CB+Adingra+Wahi - alts); Ndicka OUT (thigh). ECUADOR (medium-low; shape unsettled): back-three per ESPN Jun-14 - CHANGE from Jun-13 - wrote Galindez; Ordonez, Pacho, Hincapie, Estupinan; Caicedo, Franco; Yeboah, Plata, Angulo; E.Valencia. Kendry Paez + Anthony Valencia now ALTS (dropped from XI). 2nd holder Franco[chosen] vs Vite[SportsMole, alt]; RotoWire ran a flat 4-4-2 w/ Jordy Caicedo (alt shape). ENNER VALENCIA a 'minor doubt/game-time decision' (calf) but projected to START - Jordy Caicedo/K.Rodriguez alt 9. SWEDEN (medium; GK+shape resolved): Potter 3-5-2 (SI+RotoWire agree); NORDFELDT GK (not V.Johansson); CHANGE - midfield now Svensson-Ayari-Bergvall-Nygren-Gudmundsson (wing-backs Svensson+Gudmundsson), dropped Svanberg+Herman Johansson (alts); Isak+Gyokeres up top; ELANGA NOT in XI; Nygren a 'game-time decision'(ankle) but starting (else Svanberg returns); Lindelof managing a foot sprain but starts; Kulusevski OUT (knee, long-term). TUNISIA (LOW; new mgr): Lamouchi 4-2-3-1 (SI+RotoWire) - CHANGE from Jun-13 4-3-3 - wrote Chamakh; Valery, Rekik, Talbi, Ali Abdi; Khedira, Skhiri; Achouri, Hannibal, Ben Slimane; Chaouat. HANNIBAL upgraded to STARTER (10) - Jun-13 doubt now projected to start (RotoWire 'game-time decision' but starting); SI has Gharbi for Ben Slimane (alt); striker Chaouat over Khalil Ayari/Mastouri (alts). SECONDARY Jun-15 (all confirmed:false, predicted): SPAIN (medium-low wings): de la Fuente 4-3-3; KEY CALL - Yamal+N.Williams both back from hamstrings but 'unlikely to be risked from the start' (Yamal maybe 'a few minutes') so BENCHED both, started Ferran Torres+Oyarzabal+Baena (ESPN's literal graphic started Yamal+Williams but its own prose benches them - trusted prose); if they start, swap in for Baena+Ferran-wide. CAPE VERDE (low; debutants): Bubista 4-2-3-1; Vozinha; W.Pina, Borges, R.Lopes, S.L.Cabral; Arcanjo, K.Pina; Mendes, Monteiro, J.Cabral; da Costa. BELGIUM (medium): R.Garcia 4-2-3-1; Courtois; Castagne, Debast, Faes, De Cuyper; Onana, Tielemans; Doku, De Bruyne(c), Trossard; Lukaku (Theate alt CB - coin-flip; ESPN ran heavily-rotated variant w/ Mechele/Ngoy/Meunier/De Ketelaere - alts); Doku breathing issue earlier in week, expected fit. EGYPT (medium): H.Hassan 4-3-3; El Shenawy; Hany, Abdelmonem, Yasser Ibrahim, Fattouh; Attia, Elneny, Emam Ashour; Marmoush, Trezeguet, Salah(c) (Shobeir GK alt; Hamdy Fathy/Lasheen mid alts); SALAH nursing injury but projected to start, monitor for managed minutes. SAUDI ARABIA (low-medium; many interchangeable names): Renard 4-2-3-1; Al-Owais; Abdulhamid, Al-Tambakti, Al-Bulayhi, Al-Shahrani; Kanno, N.Al-Dawsari; S.Al-Dawsari(c), Al-Juwayr, Al-Shehri; Al-Buraikan (Al-Khaibari/Al-Amri/Boushal/Al-Shehri-as-9 all alts). URUGUAY (medium; BIG injury cloud): Bielsa 4-3-3; Rochet; Nandez, Caceres, Bueno, Olivera; Valverde, Ugarte, Bentancur; Pellistri, Nunez, M.Araujo. DOUBTFUL (->squads.json): Gimenez(ankle), R.Araujo(calf), de Arrascaeta(calf), Vina(muscle), Caceres(head, 'most likely to feature'); treated Gimenez/R.Araujo/de Arrascaeta as out of XI; Muslera GK alt, de la Cruz CM alt, Vinas wide alt. IRAN (medium): Ghalenoei 4-2-3-1; Beiranvand; Rezaeian, Khalilzadeh, Hosseini, Mohammadi; Ezatolahi, Ghoddos; Jahanbakhsh(c), Ghayedi, Mohebi; Taremi (CB/pivot picks interchangeable w/ Kanaanizadegan/Cheshmi/Hajsafi). NEW ZEALAND (LOW; mgr hadn't named XI): Bazeley 4-3-3; Crocombe; Payne, Surman, Boxall, Cacace; Bell, Stamenic, Singh; Just, Wood, Old (Garbett alt). Jun-16 teams (France/Senegal/Iraq/Norway/Argentina/Algeria/Austria/Jordan) NOT researched this run - re-check next run.",
   "teams": {
-    "Qatar": {
-      "confirmed": false,
-      "xi": [
-        "Mahmud Abunada",
-        "Ayoub Al Oui",
-        "Boualem Khoukhi",
-        "Pedro Miguel",
-        "Homam Ahmed",
-        "Ahmed Fathy",
-        "Jassem Gaber",
-        "Karim Boudiaf",
-        "Edmilson Junior",
-        "Akram Afif",
-        "Yusuf Abdurisag"
-      ],
-      "out": []
-    },
-    "Switzerland": {
-      "confirmed": false,
-      "xi": [
-        "Gregor Kobel",
-        "Silvan Widmer",
-        "Manuel Akanji",
-        "Nico Elvedi",
-        "Ricardo Rodriguez",
-        "Granit Xhaka",
-        "Remo Freuler",
-        "Ruben Vargas",
-        "Fabian Rieder",
-        "Dan Ndoye",
-        "Zeki Amdouni"
-      ],
-      "out": []
-    },
-    "Brazil": {
-      "confirmed": false,
-      "xi": [
-        "Alisson",
-        "Danilo",
-        "Marquinhos",
-        "Gabriel Magalhaes",
-        "Alex Sandro",
-        "Casemiro",
-        "Bruno Guimaraes",
-        "Raphinha",
-        "Lucas Paqueta",
-        "Vinicius Junior",
-        "Matheus Cunha"
-      ],
-      "out": [
-        "Neymar",
-        "Wesley"
-      ]
-    },
-    "Morocco": {
-      "confirmed": false,
-      "xi": [
-        "Yassine Bounou",
-        "Achraf Hakimi",
-        "Issa Diop",
-        "Chadi Riad",
-        "Noussair Mazraoui",
-        "Sofyan Amrabat",
-        "Neil El Aynaoui",
-        "Azzedine Ounahi",
-        "Brahim Diaz",
-        "Ismael Saibari",
-        "Bilal El Khannouss"
-      ],
-      "out": [
-        "Nayef Aguerd",
-        "Abde Ezzalzouli"
-      ]
-    },
-    "Haiti": {
-      "confirmed": false,
-      "xi": [
-        "Johny Placide",
-        "Carlens Arcus",
-        "Ricardo Ade",
-        "Hannes Delcroix",
-        "Martin Experience",
-        "Louicius Deedson",
-        "Danley Jean Jacques",
-        "Jean-Ricner Bellegarde",
-        "Ruben Providence",
-        "Duckens Nazon",
-        "Wilson Isidor"
-      ],
-      "out": []
-    },
-    "Scotland": {
-      "confirmed": false,
-      "xi": [
-        "Angus Gunn",
-        "Aaron Hickey",
-        "Grant Hanley",
-        "John Souttar",
-        "Andy Robertson",
-        "Ben Gannon-Doak",
-        "Scott McTominay",
-        "Lewis Ferguson",
-        "John McGinn",
-        "Lawrence Shankland",
-        "Che Adams"
-      ],
-      "out": [
-        "Billy Gilmour"
-      ]
-    },
-    "Australia": {
-      "confirmed": false,
-      "xi": [
-        "Mathew Ryan",
-        "Harry Souttar",
-        "Alessandro Circati",
-        "Cameron Burgess",
-        "Jacob Italiano",
-        "Jordan Bos",
-        "Jackson Irvine",
-        "Connor Metcalfe",
-        "Nestory Irankunda",
-        "Mathew Leckie",
-        "Mohamed Toure"
-      ],
-      "out": []
-    },
-    "Turkey": {
-      "confirmed": false,
-      "xi": [
-        "Ugurcan Cakir",
-        "Zeki Celik",
-        "Merih Demiral",
-        "Abdulkerim Bardakci",
-        "Ferdi Kadioglu",
-        "Hakan Calhanoglu",
-        "Orkun Kokcu",
-        "Baris Alper Yilmaz",
-        "Arda Guler",
-        "Kenan Yildiz",
-        "Kerem Akturkoglu"
-      ],
-      "out": []
-    },
     "Germany": {
       "confirmed": false,
       "xi": [
@@ -165,6 +21,23 @@
         "Lennart Karl"
       ]
     },
+    "Curacao": {
+      "confirmed": false,
+      "xi": [
+        "Eloy Room",
+        "Sherel Floranus",
+        "Jurien Gaari",
+        "Armando Obispo",
+        "Riechedly Bazoer",
+        "Livano Comenencia",
+        "Leandro Bacuna",
+        "Juninho Bacuna",
+        "Tahith Chong",
+        "Jurgen Locadia",
+        "Deveron Fonville"
+      ],
+      "out": []
+    },
     "Netherlands": {
       "confirmed": false,
       "xi": [
@@ -175,10 +48,10 @@
         "Micky van de Ven",
         "Frenkie de Jong",
         "Ryan Gravenberch",
-        "Crysencio Summerville",
         "Tijjani Reijnders",
-        "Cody Gakpo",
-        "Memphis Depay"
+        "Crysencio Summerville",
+        "Donyell Malen",
+        "Cody Gakpo"
       ],
       "out": [
         "Jurrien Timber"
@@ -189,7 +62,7 @@
       "xi": [
         "Zion Suzuki",
         "Hiroki Ito",
-        "Takehiro Tomiyasu",
+        "Maya Yoshida",
         "Ko Itakura",
         "Ritsu Doan",
         "Ao Tanaka",
@@ -231,10 +104,10 @@
         "Piero Hincapie",
         "Pervis Estupinan",
         "Moises Caicedo",
-        "Jordy Alcivar",
-        "Alan Minda",
-        "Anthony Valencia",
-        "Kendry Paez",
+        "Alan Franco",
+        "William Yeboah",
+        "Gonzalo Plata",
+        "Nilson Angulo",
         "Enner Valencia"
       ],
       "out": []
@@ -243,14 +116,14 @@
       "confirmed": false,
       "xi": [
         "Kristoffer Nordfeldt",
-        "Victor Lindelof",
-        "Isak Hien",
         "Gustaf Lagerbielke",
-        "Gabriel Gudmundsson",
+        "Isak Hien",
+        "Victor Lindelof",
+        "Daniel Svensson",
         "Yasin Ayari",
         "Lucas Bergvall",
-        "Herman Johansson",
-        "Mattias Svanberg",
+        "Benjamin Nygren",
+        "Gabriel Gudmundsson",
         "Alexander Isak",
         "Viktor Gyokeres"
       ],
@@ -262,16 +135,156 @@
       "confirmed": false,
       "xi": [
         "Abdelmouhib Chamakh",
-        "Amine Ben Hamida",
+        "Yan Valery",
         "Omar Rekik",
         "Montassar Talbi",
-        "Yan Valery",
-        "Ellyes Skhiri",
+        "Ali Abdi",
         "Rani Khedira",
-        "Hannibal Mejbri",
+        "Ellyes Skhiri",
         "Elias Achouri",
-        "Hazem Mastouri",
-        "Khalil Ayari"
+        "Hannibal Mejbri",
+        "Anis Ben Slimane",
+        "Firas Chaouat"
+      ],
+      "out": []
+    },
+    "Spain": {
+      "confirmed": false,
+      "xi": [
+        "Unai Simon",
+        "Marcos Llorente",
+        "Pau Cubarsi",
+        "Aymeric Laporte",
+        "Marc Cucurella",
+        "Fabian Ruiz",
+        "Rodri",
+        "Pedri",
+        "Ferran Torres",
+        "Mikel Oyarzabal",
+        "Alex Baena"
+      ],
+      "out": []
+    },
+    "Cape Verde": {
+      "confirmed": false,
+      "xi": [
+        "Vozinha",
+        "Wagner Pina",
+        "Diney Borges",
+        "Roberto Lopes",
+        "Sidny Lopes Cabral",
+        "Telmo Arcanjo",
+        "Kevin Pina",
+        "Ryan Mendes",
+        "Jamiro Monteiro",
+        "Jovane Cabral",
+        "Nuno da Costa"
+      ],
+      "out": []
+    },
+    "Belgium": {
+      "confirmed": false,
+      "xi": [
+        "Thibaut Courtois",
+        "Timothy Castagne",
+        "Zeno Debast",
+        "Wout Faes",
+        "Maxim De Cuyper",
+        "Amadou Onana",
+        "Youri Tielemans",
+        "Jeremy Doku",
+        "Kevin De Bruyne",
+        "Leandro Trossard",
+        "Romelu Lukaku"
+      ],
+      "out": []
+    },
+    "Egypt": {
+      "confirmed": false,
+      "xi": [
+        "Mohamed El Shenawy",
+        "Mohamed Hany",
+        "Mohamed Abdelmonem",
+        "Yasser Ibrahim",
+        "Ahmed Fattouh",
+        "Marwan Attia",
+        "Mohamed Elneny",
+        "Emam Ashour",
+        "Omar Marmoush",
+        "Trezeguet",
+        "Mohamed Salah"
+      ],
+      "out": []
+    },
+    "Saudi Arabia": {
+      "confirmed": false,
+      "xi": [
+        "Mohammed Al-Owais",
+        "Saud Abdulhamid",
+        "Hassan Al-Tambakti",
+        "Ali Al-Bulayhi",
+        "Yasser Al-Shahrani",
+        "Mohamed Kanno",
+        "Nasser Al-Dawsari",
+        "Salem Al-Dawsari",
+        "Musab Al-Juwayr",
+        "Saleh Al-Shehri",
+        "Firas Al-Buraikan"
+      ],
+      "out": []
+    },
+    "Uruguay": {
+      "confirmed": false,
+      "xi": [
+        "Sergio Rochet",
+        "Nahitan Nandez",
+        "Sebastian Caceres",
+        "Santiago Bueno",
+        "Mathias Olivera",
+        "Federico Valverde",
+        "Manuel Ugarte",
+        "Rodrigo Bentancur",
+        "Facundo Pellistri",
+        "Darwin Nunez",
+        "Maximiliano Araujo"
+      ],
+      "out": [
+        "Ronald Araujo",
+        "Jose Gimenez",
+        "Giorgian de Arrascaeta"
+      ]
+    },
+    "Iran": {
+      "confirmed": false,
+      "xi": [
+        "Alireza Beiranvand",
+        "Ramin Rezaeian",
+        "Shojae Khalilzadeh",
+        "Majid Hosseini",
+        "Milad Mohammadi",
+        "Saeid Ezatolahi",
+        "Saman Ghoddos",
+        "Alireza Jahanbakhsh",
+        "Mehdi Ghayedi",
+        "Mohammad Mohebi",
+        "Mehdi Taremi"
+      ],
+      "out": []
+    },
+    "New Zealand": {
+      "confirmed": false,
+      "xi": [
+        "Max Crocombe",
+        "Tim Payne",
+        "Finn Surman",
+        "Michael Boxall",
+        "Liberato Cacace",
+        "Joe Bell",
+        "Marko Stamenic",
+        "Sarpreet Singh",
+        "Elijah Just",
+        "Chris Wood",
+        "Ben Old"
       ],
       "out": []
     }
