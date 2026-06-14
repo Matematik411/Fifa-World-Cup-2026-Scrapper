@@ -136,6 +136,46 @@ def test_playbook_live_verdict_from_feed_points():
     assert pb["xi_live"] == {"points": 4, "done": n_done, "captain_doubled": True}
 
 
+def test_captain_relay_survives_played_captain_date_rollover():
+    """Regression: once the captain has played his round game, the live feed advances
+    his next_date to a LATER round. The relay ladder must still surface not-yet-played
+    teammates (anchored at his played game, not his rolled-forward date) and resolve to
+    SWITCH — otherwise it collapses to a false HOLD with the armband stuck on a spent
+    captain. This is the common case, since captains are picked to kick off early."""
+    from src.pipeline import _playbook
+    pool = _balanced_pool()
+    squad = build_squad(pool, cfg=None, budget=100.0, nation_cap=3)
+    by_pid = squad.by_pid()
+    cap = by_pid[squad.captain]
+    # captain played early, banked little; his NEXT fixture has rolled to a later round
+    cap.round_points = {"1": 2.0}
+    cap.next_date = "2026-06-25"
+    # other MID/FWD starters still have their current-round game ahead (all < 06-25).
+    # The EARLIEST kickoff gets the LOWEST projection and the latest the highest, so an
+    # EV-greedy chain would (wrongly) jump straight to the late name; the earliest-first
+    # relay must take the soonest game first (it can relay forward after seeing it).
+    earlier = sorted(pid for pid in squad.starters
+                     if pid != cap.pid and by_pid[pid].position in ("MID", "FWD"))
+    for i, pid in enumerate(earlier):
+        by_pid[pid].next_date = f"2026-06-{14 + i:02d}"   # 06-14, 06-15, 06-16, ...
+        by_pid[pid].exp_next = 4.0 + i                     # ascending: latest == highest EV
+
+    pb = _playbook(squad, "1", ended=frozenset({cap.nation}))
+    assert pb["ladder"][0]["banked"] == 2
+    assert len(pb["ladder"]) >= 2, "relay collapsed to the spent captain only"
+    assert pb["live"]["verdict"] == "SWITCH"
+    assert pb["live"]["to"] is not None and pb["live"]["to"] != cap.name
+    # earliest-first: the first relay rung is the soonest-kicking VALID teammate, and
+    # the published ladder is strictly date-ascending. Teammates sharing the captain's
+    # nation have already played too (their match is in `ended`) so they are not relay
+    # targets — exclude them when computing the expected earliest date.
+    cand_dates = sorted(by_pid[pid].next_date for pid in earlier
+                        if by_pid[pid].nation != cap.nation and by_pid[pid].exp_next >= 3.0)
+    assert pb["ladder"][1]["date"] == cand_dates[0]
+    rung_dates = [r["date"] for r in pb["ladder"][1:]]
+    assert rung_dates == sorted(rung_dates) and len(set(rung_dates)) == len(rung_dates)
+
+
 def test_squad_from_pids_assembles_exact_15():
     import pytest
 

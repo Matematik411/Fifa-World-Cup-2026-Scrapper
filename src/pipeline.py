@@ -443,19 +443,32 @@ def _stage_matches_done(fixtures, results, stage) -> set[str]:
 def _captain_ladder(squad, banked_of) -> list[dict]:
     """Mid-round captaincy relay: the armband can move to a not-yet-played starter
     once the current captain's match ends (forfeiting his double). Switching is +EV
-    whenever banked points < the next rung's expected points — that's the threshold."""
+    whenever banked points < the next rung's expected points — that's the threshold.
+
+    Relay candidates are MID/FWD starters whose own round match has NOT finished yet
+    (``banked_of`` is None). Crucially, once the captain has played, the live feed has
+    advanced his ``next_date`` to a LATER round — so anchor the chain at "" in that
+    case (every not-yet-played starter is eligible) rather than at his now-stale
+    next_date, which would otherwise filter out every teammate still to play this round
+    and collapse the ladder to a false HOLD."""
     by_pid = squad.by_pid()
-    rungs = [by_pid[squad.captain]]
+    cap = by_pid[squad.captain]
+    rungs = [cap]
+    cap_played = banked_of(cap) is not None
     cands = [by_pid[pid] for pid in squad.starters
-             if by_pid[pid].position in ("MID", "FWD") and pid != squad.captain]
-    last_date = rungs[0].next_date or ""
+             if pid != squad.captain and by_pid[pid].position in ("MID", "FWD")
+             and banked_of(by_pid[pid]) is None]
+    last_date = "" if cap_played else (cap.next_date or "")
     while len(rungs) < 3:
-        later = [p for p in cands if p.next_date and p.next_date > last_date]
+        later = [p for p in cands
+                 if p.next_date and p.next_date > last_date and p.exp_next >= 3.0]
         if not later:
             break
-        nxt = max(later, key=lambda p: p.exp_next)
-        if nxt.exp_next < 3.0:
-            break
+        # Chain forward in TIME, not by EV: the relay's value is seeing each result
+        # before committing the armband, so take the earliest viable kickoff next
+        # (best projection only breaks date ties). Picking the latest high-EV name
+        # instead would idle the armband through the earlier games it could capture.
+        nxt = min(later, key=lambda p: (p.next_date, -p.exp_next))
         rungs.append(nxt)
         cands.remove(nxt)
         last_date = nxt.next_date
