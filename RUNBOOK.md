@@ -124,10 +124,16 @@ Then tell the user, in CET and decisively:
    confirming early has zero upside and forfeits the option value of pending team
    news (lineups, knocks). Present the plan when it's computed; tell the user to
    execute it on the lock-eve run once that round's final reveals are in.
-2. **Live-round playbook:** the captaincy relay ("if your captain ends on ≤N pts,
-   move the armband to X before his kickoff") and the blank-rescue sub rule —
-   the only actions the user can take between daily runs. Remind them any manual
-   change cancels that round's auto-subs.
+2. **Live-round playbook:** the **line-up fixes** (each player locks at his OWN
+   kickoff, so before then you can freely bench a starter who won't play — injury,
+   rotation, a back-up keeper — for a bench player whose match also hasn't started;
+   the run lists out→in + per-player deadline), the captaincy relay ("if your
+   captain ends on ≤N pts, move the armband to X before his kickoff") and the
+   blank-rescue sub rule (the after-match-ended case) — the actions the user can
+   take between daily runs. Remind them any manual change cancels that round's
+   auto-subs, so once they touch the XI they should set every non-player by hand
+   (don't rely on the auto-fill). Do NOT tell the user a not-yet-played starter is
+   un-subbable — that was a past misread; the pre-kickoff line-up edit always works.
 3. **Nostradamus:** the scorelines to enter for the next matches + per-match deadlines.
 4. **GoPicks:** the scorelines to enter at gopicks.app for the same matches — list them
    separately and call out any match where the GoPicks pick differs from Nostradamus

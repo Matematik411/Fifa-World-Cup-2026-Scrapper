@@ -190,3 +190,43 @@ def test_squad_from_pids_assembles_exact_15():
     # an unknown pid must fail loudly (caller falls back + warns)
     with pytest.raises(ValueError):
         squad_from_pids(pool, pids[:-1] + [9999], budget=100.0)
+
+
+def _mk_squad(players, starters, bench, captain):
+    from src.fantasy.optimizer import Squad
+    return Squad(players=players, starters=starters, captain=captain,
+                 vice=starters[0], bench=bench, formation="3-5-2", cost=0.0,
+                 bank=0.0, budget=100.0, xi_exp=0.0, squad_horizon=0.0)
+
+
+def test_lineup_fixes_flags_non_playing_starters():
+    """A locked XI with a back-up GK and an injured DEF should yield one
+    same-position swap each, to a bench player who'll actually play; a nailed
+    starter is never flagged."""
+    from src.pipeline import _lineup_fixes
+    gk_out = mk(1, "GK", "a", 4.5, 0.5, exp_next=0.1, mins=0.03, next_date="2026-06-16")
+    gk_in = mk(2, "GK", "b", 5.0, 20, exp_next=4.0, mins=0.96, next_date="2026-06-16")
+    def_out = mk(3, "DEF", "c", 4.3, 0.3, exp_next=0.05, mins=0.02, next_date="2026-06-17")
+    def_in = mk(4, "DEF", "d", 5.0, 15, exp_next=3.0, mins=0.90, next_date="2026-06-16")
+    def_ok = mk(5, "DEF", "e", 5.5, 18, exp_next=3.5, mins=0.95, next_date="2026-06-16")
+    squad = _mk_squad([gk_out, gk_in, def_out, def_in, def_ok],
+                      starters=[1, 3, 5], bench=[2, 4], captain=5)
+    fixes = _lineup_fixes(squad, banked_of=lambda p: None)
+    pairs = {(f["out"], f["in"]) for f in fixes}
+    assert ("P1", "P2") in pairs                      # back-up GK -> playing GK
+    assert ("P3", "P4") in pairs                      # injured DEF -> playing DEF
+    assert all(f["out"] != "P5" for f in fixes)       # a nailed starter is never flagged
+    assert all(f["gain"] > 0 for f in fixes)
+
+
+def test_lineup_fixes_skips_locked_and_unreplaceable():
+    from src.pipeline import _lineup_fixes
+    def_out = mk(3, "DEF", "c", 4.3, 0.3, exp_next=0.05, mins=0.02, next_date="2026-06-17")
+    def_in = mk(4, "DEF", "d", 5.0, 15, exp_next=3.0, mins=0.90, next_date="2026-06-16")
+    squad = _mk_squad([def_out, def_in], starters=[3], bench=[4], captain=3)
+    # his match already FINISHED (banked != None) -> result locked, nothing to do
+    assert _lineup_fixes(squad, banked_of=lambda p: 0.0) == []
+    # only bench option is the wrong position -> no legal same-position swap
+    fwd_in = mk(5, "FWD", "d", 5.0, 15, exp_next=3.0, mins=0.90)
+    squad2 = _mk_squad([def_out, fwd_in], starters=[3], bench=[5], captain=3)
+    assert _lineup_fixes(squad2, banked_of=lambda p: None) == []

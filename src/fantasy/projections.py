@@ -277,8 +277,18 @@ def build_projections(players: list[dict], squads_map: dict, forecast, advanceme
     gk_first: dict[str, int] = {}
     for nation, plist in by_nation.items():
         gks = [pp for pp in plist if pp["position"] == "GK"]
-        if gks:
-            gk_first[nation] = max(gks, key=lambda x: float(x["price"]))["id"]
+        if not gks:
+            continue
+        # The starting keeper is whoever the known line-up names; the price heuristic
+        # is only a fallback when no line-up is available. If the line-up names a
+        # keeper who ISN'T one of our pooled GKs (an un-ownable #1, e.g. a backup-
+        # priced Raya behind Unai Simón), then NONE of the pooled GKs start — leave
+        # the nation out of gk_first so they're all treated as bench (won't play).
+        xi = (lidx.by_nation.get(normalize_team(nation)) or {}).get("xi") or []
+        named = [g for g in gks if _NameMatcher.matches(xi, _display_name(g))] if xi else []
+        if xi and not named:
+            continue
+        gk_first[nation] = (named[0] if named else max(gks, key=lambda x: float(x["price"])))["id"]
 
     meta: dict[int, dict] = {}
     for nation, plist in by_nation.items():

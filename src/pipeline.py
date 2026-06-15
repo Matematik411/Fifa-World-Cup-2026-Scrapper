@@ -486,6 +486,42 @@ def _captain_ladder(squad, banked_of) -> list[dict]:
     return rows
 
 
+def _lineup_fixes(squad, banked_of) -> list[dict]:
+    """Pre-kickoff line-up repair for a LOCKED round. Each player locks at his OWN
+    match kickoff, so until then you can freely move him between the XI and the
+    bench — a starter who won't play his upcoming match (injury, rotation, a
+    back-up keeper) should simply be benched for a same-position bench player whose
+    match also hasn't kicked off. This is a free line-up edit, NOT the narrower
+    "manual sub" (which only matters once a starter has already locked / played).
+
+    Returns one {out, in, ...} per fixable starter: low minutes-probability, his
+    match not yet finished, and a same-position bench player who is markedly more
+    likely to play and worth more EV. Naturally empty for a freshly-optimised squad
+    (the optimiser never starts a non-player), so it only fires on a locked XI."""
+    by_pid = squad.by_pid()
+    bench = [by_pid[pid] for pid in squad.bench]
+    used: set[int] = set()
+    fixes: list[dict] = []
+    for pid in squad.starters:
+        s = by_pid[pid]
+        if banked_of(s) is not None:            # his match already finished -> result is locked in
+            continue
+        if s.minutes_prob >= 0.5:               # expected to play -> keep him
+            continue
+        cands = [b for b in bench if b.position == s.position and b.pid not in used
+                 and banked_of(b) is None and b.minutes_prob >= s.minutes_prob + 0.3
+                 and b.exp_next > s.exp_next]
+        if not cands:
+            continue
+        b = max(cands, key=lambda x: x.exp_next)
+        used.add(b.pid)
+        fixes.append({"out": s.name, "out_nation": s.nation, "out_mins": round(100 * s.minutes_prob),
+                      "out_date": s.next_date or "TBD", "in": b.name, "in_nation": b.nation,
+                      "in_mins": round(100 * b.minutes_prob), "in_date": b.next_date or "TBD",
+                      "position": s.position, "gain": round(b.exp_next - s.exp_next, 1)})
+    return fixes
+
+
 def _playbook(squad, active_rid=None, ended=frozenset()) -> dict:
     """In-round actions the user can take between daily runs. With the live feed's
     per-round points (populated once matches finish), the captain rule resolves to a
@@ -522,7 +558,9 @@ def _playbook(squad, active_rid=None, ended=frozenset()) -> dict:
         b = bench_out[0]
         bench_first = {"name": b.name, "nation": b.nation, "exp": round(b.exp_next, 1),
                        "date": b.next_date or "TBD"}
-    return {"ladder": ladder, "bench_first": bench_first, "live": live, "xi_live": xi_live}
+    fixes = _lineup_fixes(squad, banked_of)
+    return {"ladder": ladder, "fixes": fixes, "bench_first": bench_first,
+            "live": live, "xi_live": xi_live}
 
 
 def _apply_moves(owned: list[int], moves) -> list[int]:

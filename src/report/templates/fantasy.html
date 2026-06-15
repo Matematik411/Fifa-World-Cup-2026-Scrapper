@@ -102,6 +102,19 @@
 {% if fantasy.playbook %}
 <h2 id="playbook">Live-round playbook <span class="small muted">(act on these mid-round — no new session needed)</span></h2>
 <div class="card">
+  {% if fantasy.playbook.fixes %}
+  <h3>Line-up fixes — set these before kickoff</h3>
+  <p class="small">Each player locks at his <b>own</b> match kickoff, so until then you can freely move him between the XI and the bench (a line-up edit, not a transfer). These starters are <b>not expected to play</b> their next match — bench each and start the named replacement <b>before the outgoing player's kickoff</b>:</p>
+  <table><thead><tr><th>Bench (out)</th><th>Start (in)</th><th>Pos</th><th class="num">+EV</th><th>Before</th></tr></thead><tbody>
+    {% for f in fantasy.playbook.fixes %}
+    <tr><td><b>{{ f.out }}</b> <span class="small muted">{{ f.out_nation }} · {{ f.out_mins }}% to play</span></td>
+    <td><b>{{ f.in }}</b> <span class="small muted">{{ f.in_nation }} · {{ f.in_mins }}% to play</span></td>
+    <td>{{ f.position }}</td><td class="num">+{{ f.gain|r(1) }}</td>
+    <td class="small">{{ f.out }}'s KO ({{ f.out_date }})</td></tr>
+    {% endfor %}
+  </tbody></table>
+  <p class="small muted">If the outgoing player's match has already kicked off you've missed the free edit — but you can still bring the replacement in once that match <b>ends</b> (the non-player scores 0 either way). Auto-subs would fill a did-not-play starter at round-end too, but <b>any manual change — a sub or moving the captain — cancels them</b>, so once you've touched the team, set the XI yourself.</p>
+  {% endif %}
   <h3>Captaincy relay</h3>
   {% if fantasy.playbook.live %}
   <div class="note small"><b>LIVE:</b> {{ sq.captain.name }}'s match has <b>ended</b> on <b>{{ fantasy.playbook.live.banked }} pts</b> —
@@ -125,8 +138,8 @@
   {% endif %}
   <p class="small muted">How it works: the captain can be changed during a live round only if the old captain's match has <b>ended</b> and the new one's hasn't <b>started</b>. Switching forfeits the old captain's double (his points then count single) — hence the threshold is the next rung's expected points. <b>Any manual change cancels this round's auto-subs</b>, so only act when your remaining starters are confirmed in their line-ups.</p>
   {% if fantasy.playbook.bench_first %}
-  <h3>Blank rescue (manual sub)</h3>
-  <p class="small">If a starter's match <b>ends</b> with him on ≤1 pt and a bench outfielder hasn't played yet, you can swap him out — first bench: <b>{{ fantasy.playbook.bench_first.name }}</b> (E {{ fantasy.playbook.bench_first.exp|r(1) }}, plays {{ fantasy.playbook.bench_first.date }}). You score only the incoming player. Do <b>not</b> do this for a did-not-play starter — the free end-of-round auto-sub already covers that (and a manual change cancels it).</p>
+  <h3>Blank rescue (after a match ends)</h3>
+  <p class="small">Distinct from the pre-kickoff fixes above: once a starter's match has <b>ended</b> with him on a blank (≤1 pt, or a late did-not-play you couldn't pre-empt), you can still swap him for a bench player whose match hasn't kicked off — first bench option <b>{{ fantasy.playbook.bench_first.name }}</b> (E {{ fantasy.playbook.bench_first.exp|r(1) }}, plays {{ fantasy.playbook.bench_first.date }}). You then score only the incoming player, and the replacement must play <b>later</b> than the man coming out (a same-match team-mate is no use). <b>Any manual change — incl. moving the captain — cancels this round's auto-subs</b>, so once you're managing the XI, handle every did-not-play yourself rather than trusting the end-of-round auto-fill.</p>
   {% endif %}
 </div>
 {% endif %}
