@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-06-14",
-  "note": "90-minute results only, keyed by match num (home_goals, away_goals). KO draws after 90' additionally need ko_advancers (see RUNBOOK §2). Matches 5-8 (Jun 13) added 2026-06-14, each verified across 2+ sources (ESPN/FOX/FIFA/CBS/Yahoo/SBS); cross-checks against the fantasy feed's round-1 points.",
+  "updated_at": "2026-06-15",
+  "note": "90-minute results only, keyed by match num (home_goals, away_goals). KO draws after 90' additionally need ko_advancers (see RUNBOOK §2). Matches 5-8 (Jun 13) added 2026-06-14, each verified across 2+ sources (ESPN/FOX/FIFA/CBS/Yahoo/SBS); cross-checks against the fantasy feed's round-1 points. Matches 9-12 (Jun 14) added 2026-06-15, each verified across 2+ independent sources (ESPN/FIFA/FOX/Sky/NBC/VAVEL): 9 Germany 7-1 Curacao, 10 Netherlands 2-2 Japan, 11 Ivory Coast 1-0 Ecuador, 12 Sweden 5-1 Tunisia — all group-stage so 90' = full-time.",
   "results": {
     "1": [2, 0],
     "2": [2, 1],
@@ -9,7 +9,11 @@
     "5": [1, 1],
     "6": [1, 1],
     "7": [0, 1],
-    "8": [2, 0]
+    "8": [2, 0],
+    "9": [7, 1],
+    "10": [2, 2],
+    "11": [1, 0],
+    "12": [5, 1]
   },
   "ko_advancers": {},
   "sources": [
@@ -28,6 +32,18 @@
     "https://sports.yahoo.com/soccer/article/2026-world-cup-scotland-holds-off-haiti-for-1-0-victory-in-triumphant-return-to-the-tournament-030812230.html",
     "https://www.espn.com/soccer/match/_/gameId/760421/turkiye-australia",
     "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021463",
-    "https://www.sbs.com.au/news/live-blog/australia-vs-turkiye-world-cup-live-score-updates/e7r7yd3iz"
+    "https://www.sbs.com.au/news/live-blog/australia-vs-turkiye-world-cup-live-score-updates/e7r7yd3iz",
+    "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/germany-curacao-highlights-match-report",
+    "https://www.espn.com/soccer/match/_/gameId/760422/curacao-germany",
+    "https://www.foxsports.com/soccer/fifa-world-cup-men-germany-vs-curacao-jun-14-2026-game-boxscore-647624",
+    "https://www.espn.com/soccer/match/_/gameId/760425/japan-netherlands",
+    "https://www.foxsports.com/soccer/fifa-world-cup-men-netherlands-vs-japan-jun-14-2026-game-boxscore-647625",
+    "https://www.nbcsports.com/soccer/news/netherlands-vs-japan-live-updates-world-cup-live-score-video-highlights-goals",
+    "https://www.espn.com/soccer/report/_/gameId/760423",
+    "https://www.skysports.com/football/news/12098/13552703/world-cup-2026-ivory-coast-1-0-ecuador-amad-diallo-nets-90th-minute-winner-to-end-ecuadors-19-game-unbeaten-streak",
+    "https://www.foxsports.com/soccer/fifa-world-cup-men-ivory-coast-vs-ecuador-jun-14-2026-game-boxscore-647626",
+    "https://www.espn.com/soccer/match/_/gameId/760424/tunisia-sweden",
+    "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/sweden-tunisia-highlights-match-report",
+    "https://www.foxsports.com/stories/soccer/sweden-tunisia-world-cup-4-takeaways"
   ]
 }

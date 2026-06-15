@@ -1,6 +1,6 @@
 {
   "schema": "wc2026-state-v1",
-  "last_run": "2026-06-14",
+  "last_run": "2026-06-15",
   "recommended_squad": {
     "player_ids": [
       31,
@@ -13,7 +13,7 @@
       492,
       501,
       506,
-      542,
+      1709,
       939,
       1088,
       1094,
@@ -21,7 +21,7 @@
     ],
     "captain": "Raphinha",
     "formation": "3-5-2",
-    "as_of": "2026-06-14",
+    "as_of": "2026-06-15",
     "for_round": "MD2",
     "lineup": {
       "starters": [
@@ -30,8 +30,8 @@
         125,
         138,
         1366,
+        492,
         501,
-        542,
         939,
         1088,
         1094,
@@ -40,7 +40,7 @@
       "bench": [
         178,
         31,
-        492,
+        1709,
         506
       ],
       "captain": 1366
@@ -64,10 +64,10 @@
       1094,
       1098
     ],
-    "captain": "Raphinha",
+    "captain": "De Bruyne",
     "formation": "3-5-2",
     "bank": 0.0,
-    "note": "User-confirmed locked MD1 squad (the 06-11 pre-lock 15). Held fixed during the locked round; advances to the MD2 recommendation only when MD2 actually locks (assume_followed). Tell the session if you deviated.",
+    "note": "User-confirmed locked MD1 squad (the 06-11 pre-lock 15). DEVIATION stated 2026-06-15: user moved the armband Raphinha -> De Bruyne (138) after Brazil's MD1 game, per the captaincy relay he was advised to run. This mid-round manual change CANCELS MD1 auto-subs (the injured Tagliafico starter slot will NOT be backfilled, and no valid manual sub exists for it). Held fixed during the locked MD1 round; advances to the MD2 recommendation only when MD2 actually locks (assume_followed). Tell the session if you deviated further.",
     "lineup": {
       "starters": [
         34,
@@ -88,13 +88,13 @@
         178,
         506
       ],
-      "captain": 1366
+      "captain": 138
     }
   },
   "chips_used": [],
   "cumulative": {
-    "nostradamus_points": 8,
-    "gopicks_points": 9,
+    "nostradamus_points": 10,
+    "gopicks_points": 15,
     "gopicks_exact_goals": 3,
     "fantasy_points": 0
   },
