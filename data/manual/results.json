@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-06-15",
-  "note": "90-minute results only, keyed by match num (home_goals, away_goals). KO draws after 90' additionally need ko_advancers (see RUNBOOK §2). Matches 5-8 (Jun 13) added 2026-06-14, each verified across 2+ sources (ESPN/FOX/FIFA/CBS/Yahoo/SBS); cross-checks against the fantasy feed's round-1 points. Matches 9-12 (Jun 14) added 2026-06-15, each verified across 2+ independent sources (ESPN/FIFA/FOX/Sky/NBC/VAVEL): 9 Germany 7-1 Curacao, 10 Netherlands 2-2 Japan, 11 Ivory Coast 1-0 Ecuador, 12 Sweden 5-1 Tunisia — all group-stage so 90' = full-time.",
+  "updated_at": "2026-06-16",
+  "note": "90-minute results only, keyed by match num (home_goals, away_goals). KO draws after 90' additionally need ko_advancers (see RUNBOOK §2). Matches 5-8 (Jun 13) added 2026-06-14, each verified across 2+ sources (ESPN/FOX/FIFA/CBS/Yahoo/SBS); cross-checks against the fantasy feed's round-1 points. Matches 9-12 (Jun 14) added 2026-06-15, each verified across 2+ independent sources (ESPN/FIFA/FOX/Sky/NBC/VAVEL): 9 Germany 7-1 Curacao, 10 Netherlands 2-2 Japan, 11 Ivory Coast 1-0 Ecuador, 12 Sweden 5-1 Tunisia — all group-stage so 90' = full-time. Matches 13-16 (Jun 15) added 2026-06-16, each verified across 2+ independent sources (ESPN/FOX/FIFA/Sky/Outlook/Opta/AlJazeera/ABC): 13 Spain 0-0 Cape Verde, 14 Belgium 1-1 Egypt, 15 Saudi Arabia 1-1 Uruguay, 16 Iran 2-2 New Zealand — all group-stage so 90' = full-time.",
   "results": {
     "1": [2, 0],
     "2": [2, 1],
@@ -13,7 +13,11 @@
     "9": [7, 1],
     "10": [2, 2],
     "11": [1, 0],
-    "12": [5, 1]
+    "12": [5, 1],
+    "13": [0, 0],
+    "14": [1, 1],
+    "15": [1, 1],
+    "16": [2, 2]
   },
   "ko_advancers": {},
   "sources": [
@@ -44,6 +48,19 @@
     "https://www.foxsports.com/soccer/fifa-world-cup-men-ivory-coast-vs-ecuador-jun-14-2026-game-boxscore-647626",
     "https://www.espn.com/soccer/match/_/gameId/760424/tunisia-sweden",
     "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/sweden-tunisia-highlights-match-report",
-    "https://www.foxsports.com/stories/soccer/sweden-tunisia-world-cup-4-takeaways"
+    "https://www.foxsports.com/stories/soccer/sweden-tunisia-world-cup-4-takeaways",
+    "https://www.espn.com/soccer/match/_/gameId/760428/cape-verde-spain",
+    "https://www.foxsports.com/soccer/fifa-world-cup-men-spain-vs-cape-verde-jun-15-2026-game-boxscore-647628",
+    "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/spain-cabo-verde-highlights-match-report",
+    "https://www.espn.com/soccer/match/_/gameId/760426/egypt-belgium",
+    "https://www.skysports.com/football/belgium-vs-egypt/report/549778",
+    "https://abcnews.com/Sports/wireStory/belgium-settles-1-1-draw-egypt-world-cup-133903534",
+    "https://sports.yahoo.com/articles/world-cup-2026-belgium-vs-174000540.html",
+    "https://www.espn.com/soccer/match/_/gameId/760429/uruguay-saudi-arabia",
+    "https://www.skysports.com/football/live-blog/12098/13552225/saudi-arabia-vs-uruguay-live-world-cup-2026-group-h-fixture-score-live-updates-and-team-news",
+    "https://www.foxsports.com/live-blog/soccer/saudi-arabia-vs-uruguay-live-updates-score-top-plays-from-group-shodown",
+    "https://www.espn.com/soccer/match/_/gameId/760427/new-zealand-iran",
+    "https://theanalyst.com/articles/iran-vs-new-zealand-stats-world-cup-2026",
+    "https://www.aljazeera.com/sports/liveblog/2026/6/15/iran-vs-new-zealand-live-world-cup-2026"
   ]
 }
