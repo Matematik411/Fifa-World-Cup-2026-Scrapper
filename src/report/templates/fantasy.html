@@ -115,6 +115,19 @@
   </tbody></table>
   <p class="small muted">If the outgoing player's match has already kicked off you've missed the free edit — but you can still bring the replacement in once that match <b>ends</b> (the non-player scores 0 either way). Auto-subs would fill a did-not-play starter at round-end too, but <b>any manual change — a sub or moving the captain — cancels them</b>, so once you've touched the team, set the XI yourself.</p>
   {% endif %}
+  {% if fantasy.playbook.freeroll %}
+  <h3>Free-roll starts — cash a bench player now, restore later (free)</h3>
+  <p class="small">Each of these bench players plays in the imminent window while a current starter doesn't play until a later day. Start the bench player now in that starter's slot — it's <b>free</b> (the parked starter scores nothing this window anyway). On a later run, restore him by subbing out whoever actually scored lowest. <b>Downside-protected:</b> if the player you bring in blanks, just put the starter back — net zero.</p>
+  <table><thead><tr><th>Start now (in)</th><th>Park (out)</th><th class="num">in E</th><th>New shape</th><th>Restore before</th></tr></thead><tbody>
+    {% for f in fantasy.playbook.freeroll %}
+    <tr><td><b>{{ f.in }}</b> <span class="small muted">{{ f.in_nation }} · plays {{ f.in_date }}</span></td>
+    <td><b>{{ f.out }}</b> <span class="small muted">{{ f.out_nation }} · plays {{ f.out_date }}</span></td>
+    <td class="num">{{ f.in_exp|r(1) }}</td><td>{{ f.formation }}</td>
+    <td class="small">{{ f.out }}'s KO ({{ f.out_date }})</td></tr>
+    {% endfor %}
+  </tbody></table>
+  <p class="small muted">Don't forget the restore — a parked starter left benched past his own kickoff forfeits his points. (Any manual change also cancels this round's auto-subs.)</p>
+  {% endif %}
   <h3>Captaincy relay</h3>
   {% if fantasy.playbook.live %}
   <div class="note small"><b>LIVE:</b> {{ sq.captain.name }}'s match has <b>ended</b> on <b>{{ fantasy.playbook.live.banked }} pts</b> —
@@ -124,9 +137,9 @@
   <table><thead><tr><th>#</th><th>Captain</th><th>Plays</th><th class="num">E pts</th><th class="num">Banked</th><th>Rule</th></tr></thead><tbody>
     {% for r in fantasy.playbook.ladder %}
     <tr><td>{{ loop.index }}</td><td><b>{{ r.name }}</b> <span class="small muted">{{ r.nation }}</span></td>
-    <td>{{ r.date }}</td><td class="num">{{ r.exp|r(1) }}</td>
+    {% if r.played %}<td class="small muted">✓ match ended</td><td class="num">—</td>{% else %}<td>{{ r.date }}</td><td class="num">{{ r.exp|r(1) }}</td>{% endif %}
     <td class="num">{% if r.banked is defined %}<b>{{ r.banked }}</b>{% else %}—{% endif %}</td>
-    <td class="small">{% if r.next_name %}If he finishes on <b>≤ {{ r.switch_if }} pts</b>, move the armband to <b>{{ r.next_name }}</b> before his kickoff.{% else %}Final rung — ride it out.{% endif %}</td></tr>
+    <td class="small">{% if r.played %}Ended on <b>{{ r.banked }} pts</b> → <b>{{ r.resolved }}</b>{% if r.resolved == 'SWITCH' %} the armband to <b>{{ r.next_name }}</b>{% endif %}.{% elif r.next_name %}If he finishes on <b>≤ {{ r.switch_if }} pts</b>, move the armband to <b>{{ r.next_name }}</b> before his kickoff.{% else %}Final rung — ride it out.{% endif %}</td></tr>
     {% endfor %}
   </tbody></table>
   {% else %}

@@ -474,14 +474,23 @@ def _captain_ladder(squad, banked_of) -> list[dict]:
         last_date = nxt.next_date
     rows = []
     for i, p in enumerate(rungs):
+        b = banked_of(p)
         row = {"name": p.name, "nation": p.nation, "date": p.next_date or "TBD",
                "exp": round(p.exp_next, 1)}
-        b = banked_of(p)
-        if b is not None:
-            row["banked"] = int(b)
         if i + 1 < len(rungs):
             row["switch_if"] = int(rungs[i + 1].exp_next)
             row["next_name"] = rungs[i + 1].name
+        if b is not None:
+            # His current-round match is already DONE — but the live feed has advanced
+            # his next_date/exp to a LATER round, so showing them here reads as stale
+            # ("plays 2026-06-21", "if he finishes…" for a match already finished). Mark
+            # the rung played and resolve the verdict in place instead.
+            row["banked"] = int(b)
+            row["played"] = True
+            row["date"] = None
+            row["exp"] = None
+            if "next_name" in row:
+                row["resolved"] = "SWITCH" if b < rungs[i + 1].exp_next else "HOLD"
         rows.append(row)
     return rows
 
@@ -522,6 +531,58 @@ def _lineup_fixes(squad, banked_of) -> list[dict]:
     return fixes
 
 
+def _freeroll(squad, banked_of, fixes) -> list[dict]:
+    """Free-roll bench activation (locked round): start a bench player whose match is in
+    the imminent window in place of a starter who plays a LATER DAY. The parked starter
+    scores nothing this window regardless, so the swap is free; restore him on a later
+    daily run by dropping whoever actually scored lowest. Downside-protected — if the
+    activated player blanks, just restore the starter (net zero). Distinct from
+    _lineup_fixes (which benches starters who WON'T play at all); here the parked starter
+    WILL play, only on a later day.
+
+    Composes on the (same-position, formation-neutral) line-up fixes: a bench player a fix
+    already pulls in is not re-used, and a starter a fix benches is not parked."""
+    LEGAL = {(4, 4, 2), (4, 3, 3), (4, 5, 1), (3, 4, 3), (3, 5, 2), (5, 4, 1), (5, 3, 2)}
+    by_pid = squad.by_pid()
+    fix_in = {f["in"] for f in fixes}
+    fix_out = {f["out"] for f in fixes}
+
+    def shape(players):
+        c = {"DEF": 0, "MID": 0, "FWD": 0}
+        for p in players:
+            if p.position in c:
+                c[p.position] += 1
+        return (c["DEF"], c["MID"], c["FWD"])
+
+    xi = [by_pid[pid] for pid in squad.starters]
+    cands = sorted(
+        [by_pid[pid] for pid in squad.bench
+         if by_pid[pid].position != "GK" and banked_of(by_pid[pid]) is None
+         and by_pid[pid].next_date and by_pid[pid].minutes_prob >= 0.5
+         and by_pid[pid].exp_next >= 2.0 and by_pid[pid].name not in fix_in],
+        key=lambda b: (b.next_date, -b.exp_next))
+    out: list[dict] = []
+    parked: set[int] = set()
+    for b in cands:
+        parkable = sorted(
+            [s for s in xi if banked_of(s) is None and s.next_date
+             and s.next_date > b.next_date and s.pid != squad.captain
+             and s.name not in fix_out and s.pid not in parked],
+            key=lambda s: s.next_date, reverse=True)
+        for s in parkable:
+            trial = [p for p in xi if p.pid != s.pid] + [b]
+            form = shape(trial)
+            if form in LEGAL:
+                out.append({"in": b.name, "in_nation": b.nation, "in_date": b.next_date,
+                            "in_exp": round(b.exp_next, 1), "out": s.name,
+                            "out_nation": s.nation, "out_date": s.next_date,
+                            "formation": "%d-%d-%d" % form})
+                xi = trial
+                parked.add(s.pid)
+                break
+    return out
+
+
 def _playbook(squad, active_rid=None, ended=frozenset()) -> dict:
     """In-round actions the user can take between daily runs. With the live feed's
     per-round points (populated once matches finish), the captain rule resolves to a
@@ -559,8 +620,9 @@ def _playbook(squad, active_rid=None, ended=frozenset()) -> dict:
         bench_first = {"name": b.name, "nation": b.nation, "exp": round(b.exp_next, 1),
                        "date": b.next_date or "TBD"}
     fixes = _lineup_fixes(squad, banked_of)
-    return {"ladder": ladder, "fixes": fixes, "bench_first": bench_first,
-            "live": live, "xi_live": xi_live}
+    freeroll = _freeroll(squad, banked_of, fixes)
+    return {"ladder": ladder, "fixes": fixes, "freeroll": freeroll,
+            "bench_first": bench_first, "live": live, "xi_live": xi_live}
 
 
 def _apply_moves(owned: list[int], moves) -> list[int]:

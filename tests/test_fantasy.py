@@ -219,6 +219,40 @@ def test_lineup_fixes_flags_non_playing_starters():
     assert all(f["gain"] > 0 for f in fixes)
 
 
+def test_freeroll_parks_later_starter_for_bench_player_playing_now():
+    """A bench player who plays today can take a slot from a starter who doesn't play
+    until a later day (free this window); the various guards must keep it from firing."""
+    from src.pipeline import _freeroll
+    today, tmrw = "2026-06-16", "2026-06-17"
+    gk = mk(1, "GK", "a", 5.0, 18, exp_next=3.0, next_date=today)
+    defs = [mk(2, "DEF", "b", 5, 15, exp_next=3.0, next_date=today),
+            mk(3, "DEF", "c", 5, 15, exp_next=3.0, next_date=today),
+            mk(4, "DEF", "d", 5, 15, exp_next=3.0, next_date=today)]
+    mids = [mk(5, "MID", "e", 6, 18, exp_next=4.0, next_date=today),
+            mk(6, "MID", "f", 6, 18, exp_next=4.0, next_date=today),
+            mk(7, "MID", "g", 6, 18, exp_next=4.0, next_date=today),
+            mk(8, "MID", "h", 6, 18, exp_next=4.0, next_date=today),
+            mk(9, "MID", "i", 8, 28, exp_next=5.0, next_date=tmrw)]    # plays LATER -> parkable
+    fwds = [mk(10, "FWD", "j", 9, 25, exp_next=4.5, next_date=today),
+            mk(11, "FWD", "k", 7, 20, exp_next=3.5, next_date=today)]
+    bench_def = mk(12, "DEF", "l", 4.5, 16, exp_next=3.2, mins=0.9, next_date=today)  # plays today
+    players = [gk] + defs + mids + fwds + [bench_def]
+    starters = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]                    # 3-5-2
+    squad = _mk_squad(players, starters=starters, bench=[12], captain=10)
+    fr = _freeroll(squad, banked_of=lambda p: None, fixes=[])
+    assert len(fr) == 1
+    assert fr[0]["in"] == "P12" and fr[0]["out"] == "P9"             # bench DEF in for tomorrow's MID
+    assert fr[0]["formation"] == "4-4-2"                             # 3-5-2 -> 4-4-2
+
+    # bench player already played (banked) -> nothing to free-roll
+    assert _freeroll(squad, banked_of=lambda p: 0.0 if p.pid == 12 else None, fixes=[]) == []
+    # the only later-playing starter is already consumed by a line-up fix -> not parked
+    assert _freeroll(squad, banked_of=lambda p: None, fixes=[{"in": "P12", "out": "P9"}]) == []
+    # no starter plays later than the bench player -> nothing parkable
+    mids[-1].next_date = today
+    assert _freeroll(squad, banked_of=lambda p: None, fixes=[]) == []
+
+
 def test_lineup_fixes_skips_locked_and_unreplaceable():
     from src.pipeline import _lineup_fixes
     def_out = mk(3, "DEF", "c", 4.3, 0.3, exp_next=0.05, mins=0.02, next_date="2026-06-17")

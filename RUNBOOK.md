@@ -134,6 +134,19 @@ Then tell the user, in CET and decisively:
    auto-subs, so once they touch the XI they should set every non-player by hand
    (don't rely on the auto-fill). Do NOT tell the user a not-yet-played starter is
    un-subbable — that was a past misread; the pre-kickoff line-up edit always works.
+   **Free-roll bench activation (downside-protected; co-developed with the user 2026-06-16).**
+   A starter whose match is in a LATER run-window (typically the next day) can be
+   benched for FREE right now — he scores nothing this window anyway — to start a
+   bench player whose match IS in this window, banking that player's points at zero
+   cost. On a later daily run, restore the parked starter by manual-subbing out whoever
+   TRULY scored lowest (results now known). This beats committing the forfeit up-front:
+   if the activated player hauls, keep him and drop a low scorer; if he blanks, drop HIM
+   back for the parked starter → baseline, no harm. Safe because the user runs ≥1h before
+   each day's first match (a reliable restore checkpoint); mind formation legality at each
+   step and don't forget the restore — a later starter left benched past his kickoff
+   forfeits his points. Ex 2026-06-16: bench Bruno Fernandes (Portugal, plays Jun 17) to
+   start Otamendi (Argentina, plays tonight, E 3.2 > 2); next run, bring Bruno in for the
+   lowest banked starter — or for Otamendi himself if he blanked.
 3. **Nostradamus:** the scorelines to enter for the next matches + per-match deadlines.
 4. **GoPicks:** the scorelines to enter at gopicks.app for the same matches — list them
    separately and call out any match where the GoPicks pick differs from Nostradamus
