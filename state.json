@@ -64,31 +64,31 @@
       1094,
       1098
     ],
-    "captain": "De Bruyne",
-    "formation": "3-5-2",
+    "captain": "Dembélé",
+    "formation": "4-4-2",
     "bank": 0.0,
-    "note": "User-confirmed locked MD1 squad (the 06-11 pre-lock 15). DEVIATION stated 2026-06-15: user moved the armband Raphinha -> De Bruyne (138) after Brazil's MD1 game, per the captaincy relay he was advised to run. This mid-round manual change CANCELS MD1 auto-subs (the injured Tagliafico starter slot will NOT be backfilled, and no valid manual sub exists for it). Held fixed during the locked MD1 round; advances to the MD2 recommendation only when MD2 actually locks (assume_followed). Tell the session if you deviated further.",
+    "note": "Locked MD1 15 (the 06-11 pre-lock squad); player_ids unchanged — no transfers. DEVIATIONS the user confirmed 2026-06-16, set before France KO: (1) captaincy relay executed Raphinha->De Bruyne (06-15)->Dembélé (06-16) — De Bruyne played & banked 2, so the armband moved to Dembélé (501, plays tonight); (2) blank-rescue Raya (1098, blanked — Unai Simón started) -> Maignan (506) in goal; (3) line-up fix Tagliafico (34, injured) -> Théo Hernández (492); (4) FREE-ROLL: Otamendi (31, plays tonight) started in place of Bruno Fernandes (939, plays 06-17 — parked for free). XI is now 4-4-2. RESTORE NEEDED 2026-06-17: bring Bruno back into the XI before Portugal KO (19:00 CET) by subbing out whoever scored lowest (a 2-pt player, or Otamendi himself if he blanked); also run the Dembélé->Bruno captain relay if Dembélé finished <=5. Any manual change CANCELS MD1 auto-subs, so the whole XI is set by hand. Advances to the MD2 recommendation only when MD2 locks (assume_followed). Tell the session if you deviated further.",
     "lineup": {
       "starters": [
-        34,
-        38,
-        125,
-        138,
-        1366,
-        501,
+        506,
+        31,
         542,
-        939,
         1088,
-        1094,
-        1098
+        492,
+        138,
+        501,
+        1366,
+        125,
+        38,
+        1094
       ],
       "bench": [
-        31,
-        492,
-        178,
-        506
+        939,
+        34,
+        1098,
+        178
       ],
-      "captain": 138
+      "captain": 501
     }
   },
   "chips_used": [],
