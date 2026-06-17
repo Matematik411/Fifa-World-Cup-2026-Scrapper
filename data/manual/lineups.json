@@ -1,149 +1,7 @@
 {
-  "fetched_at": "2026-06-16",
-  "notes": "Matchday refresh Jun 16 ~16:30 UTC (18:30 CEST) for Jun-16 matches 17-20 + ADDED predicted XIs for Jun-17 matches (Portugal-DR Congo, England-Croatia, Ghana-Panama, Uzbekistan-Colombia). Dropped Jun-15 teams (Spain/Cape Verde/Belgium/Egypt/Saudi Arabia/Uruguay/Iran/New Zealand). Research: data/raw/2026-06-16/lineups_research.md. CRITICAL: NO official team sheet posted for ANY of the 16 teams at research time -> ALL confirmed:false. France KO 19:00 UTC is ~2.5h out (sheets post ~1h pre-KO); FotMob/RotoWire/SI all label France 'predicted/not yet posted'. All Jun-16 matches are MD1 first games -> no card-carry suspensions, fitness news only. ===== EXTRA-IMPORTANT PLAYERS: Dembele STARTS (central CAM, no knock). Theo Hernandez STARTS at LB (ESPN lone outlier had Digne). Maignan STARTS GK. Mbappe(c) STARTS lone 9. Olise STARTS (right of attacking 3). Messi(c) STARTS (200th cap). Otamendi STARTS CB. Tagliafico OUT (calf) CONFIRMED -> Medina LB (Barco alt); one stale SI blurb wrongly listed him fit. Bruno Fernandes STARTS (No.10/CM, Portugal captain). Pickford STARTS GK. Kane STARTS. Haaland STARTS (9). Odegaard(c) STARTS. ===== FRANCE (medium): Deschamps 4-2-3-1: Maignan; Kounde, Saliba, Upamecano, Theo Hernandez; Tchouameni, Rabiot; Olise, Dembele, Doue; Mbappe(c). CHANGE vs prior: dropped CAMAVINGA to bench, Tchouameni-Rabiot double pivot, ADDED DESIRE DOUE to attacking band (Dembele central/Olise right/Doue left), Mbappe lone 9 (prior was 4-3-3 w/ Rabiot-Camavinga-Tchouameni trio + Dembele/Mbappe/Olise). Consensus RotoWire+SI+Yahoo+FotMob. Saliba back-knock cleared, STARTS (Konate alt); Kounde minor muscular issue but starts. Alts: Camavinga, Kante, Cherki, Barcola, Thuram, Digne. ===== SENEGAL (medium): Pape Thiaw 4-2-3-1: E.Mendy; Diatta, Koulibaly(c), Niakhate, Diouf; Lamine Camara, Pape Gueye; Ismaila Sarr, Iliman Ndiaye, Sadio Mane; Nicolas Jackson. CHANGE: ILIMAN NDIAYE now STARTS (prior file had him OUT) in attacking band; Habib Diarra (RotoWire) & Pape Matar Sarr (ESPN) live alts for that slot. JACKSON STARTS 9 (warmup red, still starts). MANE STARTS. KOULIBALY(c) STARTS but managing quad knock (8' last friendly). LB Diouf (RotoWire/SI) over Jakobs (ESPN). FotMob listed Mory Diaw GK + Mamadou Sarr CB = minority/likely-wrong, ignored. Doubts: Assane Diao, Cherif Ndiaye. ===== IRAQ (LOW; keeper dilemma): Arnold 4-2-3-1: Jalal Hassan; Doski, Tahseen, Sulaka, Hussein Ali; Al-Ammari, Zidane Iqbal; Bayesh, Ali Jasim, Al-Hamadi; Aymen Hussein. Jalal Hassan GK (consensus). Aymen Hussein leads line. No injuries. Unchanged vs prior. ===== NORWAY (medium): Solbakken 4-3-3: Nyland; Ryerson, Ajer, HEGGEM, Wolfe; Odegaard(c), Berge, Aursnes; Sorloth, Haaland, Nusa. CHANGE: HEGGEM partners Ajer at CB (prior file had OSTIGARD) - RotoWire+Yahoo+SportsMole unanimous; Ostigard now alt. HAALAND(9)+ODEGAARD(c) START, fully fit. Aursnes 3rd MID (Berg alt). No injuries. ===== ARGENTINA (medium-high): Scaloni 4-3-3: E.Martinez; Molina, Otamendi, Lisandro Martinez, Medina; De Paul, Enzo Fernandez, Mac Allister; Messi(c), Lautaro Martinez, Almada. MESSI(c) STARTS (200th cap). OTAMENDI STARTS. TAGLIAFICO OUT (calf) -> MEDINA LB (Barco alt). CB partner Lisandro Martinez better-sourced (RotoWire+SI) but CRISTIAN ROMERO genuine live alt ('which two of 3' unsettled). Emi Martinez passed fit (finger). Lautaro 9 (Julian Alvarez ankle, trained, strong bench alt). Almada LW. Paredes/Nico Gonzalez alts. ===== ALGERIA (medium; back line+3rd MID split): Petkovic 4-3-3: Luca Zidane; Belghali, Mandi, Hadjam, Ait-Nouri; Bentaleb, Boudaoui, Chaibi; Amoura, Gouiri, Mahrez(c). BENSEBAINI OUT (foot/ankle) unanimous. CB replacement split: HADJAM (RotoWire/thefootballfaithful, CB w/ Ait-Nouri at LB) vs Samir CHERGUI (SportsMole) vs Belaid - chose Hadjam; Chergui/Belaid alts. 3rd MID split: CHAIBI (RotoWire) vs MAZA (SportsMole/SI, as CAM) - chose Chaibi; Maza strong alt. MAHREZ(c) STARTS RW. Luca Zidane GK (recovered broken jaw). Gouiri 9. CHANGE vs prior (was Tougai/Chergui CB + Maza/Bentaleb/Boudaoui/Mahrez MID). ===== AUSTRIA (medium): Rangnick 4-2-3-1: A.Schlager; Laimer, Lienhart, Alaba, Mwene; X.Schlager, Seiwald; Schmid, Sabitzer, Gregoritsch; Arnautovic. ALABA on injury table (undisclosed) but EXPECTED to START at CB - DOUBT, monitor. ARNAUTOVIC STARTS 9. OUT: Baumgartner (muscle, tournament). Wimmer/Grillitsch knocks, not in XI. Unchanged vs prior. ===== JORDAN (LOW; debutants): Sellami 3-4-3: Y.Abulaila; Yazan Al-Arab, Nasib, Obaid; Abu Taha, Al-Rashdan, Al-Rawabdeh, Haddad; Fakhoury, Ali Olwan, Mousa Tamari. TAMARI STARTS (key attacker). Ali Olwan leads line. No injuries this preview. Unchanged vs prior. ===== JUN-17 ADDED ===== PORTUGAL (medium): R.Martinez 4-3-3/4-2-3-1: Diogo Costa; Cancelo, Ruben Dias, Goncalo Inacio, Nuno Mendes; Joao Neves, Vitinha, Bruno Fernandes; Bernardo Silva, Ronaldo, Pedro Neto. BRUNO FERNANDES STARTS (No.10/CM, captain). Ronaldo(41) STARTS 9 (started both warmups). PSG trio Neves/Vitinha/Nuno Mendes start. Inacio CB partner to Dias. No injuries. ===== DR CONGO (medium; formation split): Desabre 3-5-2 (RotoWire): Mpasi; Kapuadi, Mbemba, Tuanzebe; Wan-Bissaka, Moutoussamy, Mukau, Sadiki, Masuaku; Bakambu, Wissa. Alt 4-2-3-1 (SportsMole/Tips.gg): +Pickel pivot, Elia/Kayembe/Wissa band, Bakambu 9. WISSA STARTS both (9 qual goals). Mbemba leads. Common: Mpasi/Mbemba/Tuanzebe/Wan-Bissaka/Masuaku/Sadiki/Wissa/Bakambu. No injuries. ===== ENGLAND (medium): Tuchel 4-2-3-1: Pickford; Reece James, Stones, Guehi, O'Reilly; Rice, Anderson; Saka, Bellingham, Rashford; Kane. PICKFORD GK STARTS (#1). KANE STARTS 9. Spine settled. Splits: Stones>Konsa; Rashford narrowly>Gordon LW; Saka minutes maybe managed (Madueke alt); Bellingham>Rogers at 10. No injuries. ===== CROATIA (medium): Dalic 4-2-3-1: Livakovic; Stanisic, Pongracic, Vuskovic, Gvardiol; Modric, Kovacic; Pasalic, Kramaric, Perisic; Budimir. Modric(40)+Kovacic pivot. Gvardiol LB, Stanisic RB. Budimir 9. DOUBT: Caleta-Car (back) trained full Sat, 'an option', not in XI. ===== GHANA (medium; GK+shape split): Addo 4-3-3: Ati-Zigi; Senaya, Adjetey, Opoku, Mensah; Owusu, Yirenkyi; Inaki Williams, Jordan Ayew(c), Semenyo. PARTEY OUT (denied entry to Canada, NOT injury) -> Owusu in. AYEW(c)+SEMENYO+I.WILLIAMS START. Splits: GK Ati-Zigi (SportsMole/Pulse/khelnow) vs Asare (RotoWire); shape 4-3-3 vs RotoWire 3-4-2-1 (+Oppong/Sibo). KUDUS NOT in RotoWire projected XI (notable) - live alt. Nuamah/Boakye alt wingers. ===== PANAMA (low-med; CB+9 split): Christiansen 3-4-2-1: Mosquera; Andrade, Ramos, Harvey; Murillo, Godoy(c), Cristian Martinez, Davis; J.L.Rodriguez, Waterman, Ismael Diaz. CARRASQUILLA DOUBT/OUT (no warmup mins, muscular; maybe bench) -> Cristian Martinez in. Godoy(c)/Mejia fitness flags but trained. Alt version: Jose Cordoba in back 3 + Fajardo 9. ===== UZBEKISTAN (low-med; GK split): Cannavaro 3-4-2-1: Yusupov; Ashurmatov, Khusanov, Abdullaev; Nasrullayev, Hamrobekov, Shukurov, Sayfiyev; Fayzullaev, Urunov; Shomurodov. KHUSANOV STARTS (Man City CB). Shomurodov leads line. Fayzullaev key creator. GK split Yusupov (RotoWire) vs Nematov (aggregation). Doubts: Alijonov/Ganiev/Masharipov (none in XI). ===== COLOMBIA (medium; GK+9 split resolved): Lorenzo 4-2-3-1: Vargas; Munoz, Davinson Sanchez, Lucumi, Mojica; Lerma, Rios; Arias, James Rodriguez(c), Luis Diaz; Luis Suarez. JAMES(c) STARTS (creative 10). LUIS DIAZ STARTS (WC debut). Better-sourced pair: GK VARGAS over Ospina (alt); 9 LUIS SUAREZ over Jhon Cordoba (alt) - RotoWire/SI/SportsMole. Back four consistent. Yerry Mina pushes for CB (alt). Rios DM (Puerta alt). No injuries.",
+  "fetched_at": "2026-06-17",
+  "notes": "Matchday refresh Jun 17 ~13:40 UTC (15:40 CEST) for Jun-17 matches 21-24 (Portugal-DR Congo, England-Croatia, Ghana-Panama, Uzbekistan-Colombia). Dropped all Jun-16 teams (France/Senegal/Iraq/Norway/Argentina/Algeria/Austria/Jordan). Research: data/raw/2026-06-17/lineups_research.md. CRITICAL: NO official team sheet posted for ANY of the 8 teams at research time -> ALL confirmed:false. Earliest KO is Portugal-DR Congo 17:00 UTC (~3h20m out); sheets post ~1h pre-KO, so even Portugal not yet official. Still MD1 (each team's FIRST group game) -> no card-carry suspensions, fitness/rotation only. ===== EXTRA-IMPORTANT PLAYERS: BRUNO FERNANDES STARTS for Portugal (No.10/central CAM, captain) - YES, unanimous RotoWire+SI. RONALDO STARTS lone 9 (41yo, started both warmups). PORTUGAL PENALTY TAKER = BRUNO FERNANDES (RotoWire order 'Bruno Fernandes, Cristiano Ronaldo'; Ronaldo secondary). KANE STARTS 9 for England. JAMES RODRIGUEZ(c) STARTS Colombia 10. LUIS DIAZ STARTS (WC debut). MODRIC STARTS Croatia MID (40yo). AYEW(c) STARTS Ghana. ===== PORTUGAL (medium-high; PREDICTED): R.Martinez 4-2-3-1: Diogo Costa; Cancelo, Ruben Dias, Goncalo Inacio, Nuno Mendes; Joao Neves, Vitinha; Bernardo Silva, Bruno Fernandes, Pedro Neto; Ronaldo. INACIO is CB partner to Dias (NOT Tomas Araujo - one low-quality aggregate floated Araujo+Joao Felix, contradicted by RotoWire AND SI, discarded). PSG trio Neves/Vitinha/Nuno Mendes start. OUT: Rafael Leao (red card in Chile warmup, unavailable). Matches prior file exactly. Alts: Joao Felix, Trincao, Renato Veiga, Ruben Neves. ===== DR CONGO (medium; FORMATION SPLIT; PREDICTED): kept RotoWire 3-5-2: Mpasi; Kapuadi, Mbemba, Tuanzebe; Wan-Bissaka, Moutoussamy, Mukau, Sadiki, Masuaku; Bakambu, Wissa. WISSA STARTS (9 qual goals) both shapes. SI alt 4-5-1: Mpasi; Wan-Bissaka, Mbemba, Tuanzebe, Masuaku; Elia, Moutoussamy, Sadiki, Mukau, Mbuku; Wissa (Bakambu->bench, Elia+Mbuku in). Kept prior 3-5-2. Alts: Meschack Elia, Nathanael Mbuku, Charles Pickel. No injuries. ===== ENGLAND (medium-high; PREDICTED; CHANGED vs prior): Tuchel 4-2-3-1: Pickford; Reece James, Stones, Guehi, O'Reilly; Anderson, Rice; Madueke, Bellingham, Gordon; Kane. CHANGE vs prior file: SAKA + RASHFORD now OUT of XI -> MADUEKE (RW) + GORDON (LW) in. Saka 'yet to reach 100%' (Tuchel) after injury-hit season -> benched; Gordon's 2 goal-involvements vs Costa Rica won LW over Rashford. Consensus SI+SportsMole+FotMob+Yahoo. CB soft split: STONES (SI/FotMob/Yahoo, kept) vs KONSA (SportsMole) - Stones incumbent but 'not entirely assured'. OUT: Tino Livramento (injury withdrawal from squad; Chalobah called up) -> Reece James RB. Alts: Saka, Rashford, Konsa, Eze, Foden, Palmer, Rogers. ===== CROATIA (medium; SHAPE CHANGED vs prior; PREDICTED): Dalic 3-4-2-1: Livakovic; Sutalo, Vuskovic, Gvardiol; Stanisic, Modric, Kovacic, Perisic; Sucic, Baturina; Musa. CHANGE vs prior file: prior was 4-2-3-1 (Pongracic CB; Pasalic/Kramaric/Perisic; Budimir 9). New consensus SportsMole+FotMob: 3-4-2-1 back-three (Sutalo/Vuskovic/Gvardiol), wing-backs Stanisic(R)+Perisic(L), Sucic+Baturina as 10s, MUSA lone 9 over Budimir/Kramaric. MODRIC(40)+Kovacic central. Gvardiol plays CB here (not LB). Striker 'unclear' - Musa current lean; BUDIMIR + KRAMARIC strong alts. OUT: none (Caleta-Car back, an option, not in XI). Alts: Budimir, Kramaric, Pongracic, M.Pasalic, Majer. ===== GHANA (medium; MAJOR CHANGE - coach+GK+shape; PREDICTED): COACHING FACT-CHECK: Otto Addo PARTED WAYS in March (friendly losses to Austria+Germany); CARLOS QUEIROZ appointed 2026-04-14 (CAF+ESPN+Al Jazeera). Prior file wrongly listed Addo. Queiroz 3-4-2-1: Benjamin Asare; Opoku, Adjetey, Oppong; Yirenkyi, Owusu, Sibo, Mensah; Semenyo, Inaki Williams, Jordan Ayew(c). => GK Ati-Zigi -> ASARE; shape 4-3-3 -> 3-4-2-1 (Oppong 3rd CB, Sibo extra MID). RotoWire+SI+Yahoo converge on Asare/Queiroz/3-4-2-1. AYEW(c)+SEMENYO+INAKI WILLIAMS START front three (Williams a forward here, not winger). PARTEY OUT (denied entry to Canada - administrative, NOT injury) -> Owusu in MID. KUDUS NOT in any projected XI (notable) - live alt. SportsMole OUTLIER (Ati-Zigi + 4-3-3: Senaya/Nuamah/Boakye) discarded -> alts. Alts: Ati-Zigi, Kudus, Senaya, Nuamah, Boakye, Salis Samed. ===== PANAMA (low-med; CB+9 split; PREDICTED): Christiansen 3-4-2-1: Mosquera; Andrade, Ramos, Harvey; Murillo, Godoy(c), Cristian Martinez, Davis; J.L.Rodriguez, Waterman, Ismael Diaz. GK MOSQUERA (RotoWire+SI; Luis Mejia a fitness doubt but trained -> alt). CARRASQUILLA DOUBT (muscular, no warmup mins, spotted training) -> Cristian Martinez starts. Godoy(c)+Mejia flagged doubts but trained -> expected available. NOTE: 'Jose Luis Rodriguez' is the PANAMA winger, NOT Colombia's James Rodriguez - do not conflate. Waterman central 9, Ismael Diaz + JL Rodriguez the two 10s. Matches prior file. Alts: Carrasquilla, Luis Mejia(GK), Jose Cordoba, Jose Fajardo(9), Barcenas. ===== UZBEKISTAN (low-med; minor MID split; PREDICTED): Cannavaro 3-4-2-1: Yusupov; Ashurmatov, Khusanov, Abdullaev; Nasrullayev, Hamrobekov, Shukurov, Sayfiev; Fayzullaev, Urunov; Shomurodov. GK YUSUPOV (RotoWire+SI; Nematov not mentioned). KHUSANOV (Man City CB) + SHOMURODOV(9) + FAYZULLAEV(creator) start. Kept prior file. Minor MID split: RotoWire = Nasrullayev+Hamrobekov+Shukurov+Sayfiev (kept); SI = Sayfiev+Shukurov+MOZGOVOY+Nasrulloev (Mozgovoy in for Hamrobekov, strong alt). Doubts (none in XI): Masharipov (primary creator, significant doubt), Ganiev, Alijonov. Alts: Akmal Mozgovoy, Masharipov, Sergeev. ===== COLOMBIA (medium; splits resolved; PREDICTED; unchanged vs prior): Lorenzo 4-2-3-1: Vargas; Munoz, Davinson Sanchez, Lucumi, Mojica; Lerma, Rios; Arias, James Rodriguez(c), Luis Diaz; Luis Suarez. JAMES(c) STARTS 10. LUIS DIAZ STARTS (WC debut). LUIS SUAREZ 9 (over Jhon Cordoba). VARGAS GK (over Ospina). DM pair LERMA+RIOS (SI explicit 'Lerma, Rios' NOT Puerta; one RotoWire table floated Puerta, SI overrides -> kept Rios). All confirmed RotoWire+SI. No injuries. Alts: Ospina(GK), Puerta(DM), Jhon Cordoba(9), Yerry Mina(CB), Quintero.",
   "teams": {
-    "France": {
-      "confirmed": false,
-      "xi": [
-        "Mike Maignan",
-        "Jules Kounde",
-        "William Saliba",
-        "Dayot Upamecano",
-        "Theo Hernandez",
-        "Aurelien Tchouameni",
-        "Adrien Rabiot",
-        "Michael Olise",
-        "Ousmane Dembele",
-        "Desire Doue",
-        "Kylian Mbappe"
-      ],
-      "out": []
-    },
-    "Senegal": {
-      "confirmed": false,
-      "xi": [
-        "Edouard Mendy",
-        "Krepin Diatta",
-        "Kalidou Koulibaly",
-        "Moussa Niakhate",
-        "El Hadji Malick Diouf",
-        "Lamine Camara",
-        "Pape Gueye",
-        "Ismaila Sarr",
-        "Iliman Ndiaye",
-        "Sadio Mane",
-        "Nicolas Jackson"
-      ],
-      "out": []
-    },
-    "Iraq": {
-      "confirmed": false,
-      "xi": [
-        "Jalal Hassan",
-        "Merchas Doski",
-        "Zaid Tahseen",
-        "Rebin Sulaka",
-        "Hussein Ali",
-        "Amir Al-Ammari",
-        "Zidane Iqbal",
-        "Ibrahim Bayesh",
-        "Ali Jasim",
-        "Ali Al-Hamadi",
-        "Aymen Hussein"
-      ],
-      "out": []
-    },
-    "Norway": {
-      "confirmed": false,
-      "xi": [
-        "Orjan Nyland",
-        "Julian Ryerson",
-        "Kristoffer Ajer",
-        "Torbjorn Heggem",
-        "David Moller Wolfe",
-        "Martin Odegaard",
-        "Sander Berge",
-        "Fredrik Aursnes",
-        "Alexander Sorloth",
-        "Erling Haaland",
-        "Antonio Nusa"
-      ],
-      "out": []
-    },
-    "Argentina": {
-      "confirmed": false,
-      "xi": [
-        "Emiliano Martinez",
-        "Nahuel Molina",
-        "Nicolas Otamendi",
-        "Lisandro Martinez",
-        "Facundo Medina",
-        "Rodrigo De Paul",
-        "Enzo Fernandez",
-        "Alexis Mac Allister",
-        "Lionel Messi",
-        "Lautaro Martinez",
-        "Thiago Almada"
-      ],
-      "out": [
-        "Nicolas Tagliafico"
-      ]
-    },
-    "Algeria": {
-      "confirmed": false,
-      "xi": [
-        "Luca Zidane",
-        "Rafik Belghali",
-        "Aissa Mandi",
-        "Jaouen Hadjam",
-        "Rayan Ait-Nouri",
-        "Nabil Bentaleb",
-        "Hicham Boudaoui",
-        "Fares Chaibi",
-        "Mohamed Amoura",
-        "Amine Gouiri",
-        "Riyad Mahrez"
-      ],
-      "out": [
-        "Ramy Bensebaini"
-      ]
-    },
-    "Austria": {
-      "confirmed": false,
-      "xi": [
-        "Alexander Schlager",
-        "Konrad Laimer",
-        "Philipp Lienhart",
-        "David Alaba",
-        "Phillipp Mwene",
-        "Xaver Schlager",
-        "Nicolas Seiwald",
-        "Romano Schmid",
-        "Marcel Sabitzer",
-        "Michael Gregoritsch",
-        "Marko Arnautovic"
-      ],
-      "out": [
-        "Christoph Baumgartner"
-      ]
-    },
-    "Jordan": {
-      "confirmed": false,
-      "xi": [
-        "Yazeed Abulaila",
-        "Yazan Al-Arab",
-        "Abdallah Nasib",
-        "Salem Obaid",
-        "Mohannad Abu Taha",
-        "Nizar Al-Rashdan",
-        "Noor Al-Rawabdeh",
-        "Ehsan Haddad",
-        "Odeh Fakhoury",
-        "Ali Olwan",
-        "Mousa Tamari"
-      ],
-      "out": []
-    },
     "Portugal": {
       "confirmed": false,
       "xi": [
@@ -154,12 +12,14 @@
         "Nuno Mendes",
         "Joao Neves",
         "Vitinha",
-        "Bruno Fernandes",
         "Bernardo Silva",
-        "Cristiano Ronaldo",
-        "Pedro Neto"
+        "Bruno Fernandes",
+        "Pedro Neto",
+        "Cristiano Ronaldo"
       ],
-      "out": []
+      "out": [
+        "Rafael Leao"
+      ]
     },
     "DR Congo": {
       "confirmed": false,
@@ -188,44 +48,46 @@
         "Nico O'Reilly",
         "Declan Rice",
         "Elliot Anderson",
-        "Bukayo Saka",
+        "Noni Madueke",
         "Jude Bellingham",
-        "Marcus Rashford",
+        "Anthony Gordon",
         "Harry Kane"
       ],
-      "out": []
+      "out": [
+        "Tino Livramento"
+      ]
     },
     "Croatia": {
       "confirmed": false,
       "xi": [
         "Dominik Livakovic",
-        "Josip Stanisic",
-        "Marin Pongracic",
+        "Josip Sutalo",
         "Luka Vuskovic",
         "Josko Gvardiol",
+        "Josip Stanisic",
         "Luka Modric",
         "Mateo Kovacic",
-        "Marco Pasalic",
-        "Andrej Kramaric",
         "Ivan Perisic",
-        "Ante Budimir"
+        "Petar Sucic",
+        "Martin Baturina",
+        "Petar Musa"
       ],
       "out": []
     },
     "Ghana": {
       "confirmed": false,
       "xi": [
-        "Lawrence Ati-Zigi",
-        "Marvin Senaya",
-        "Jonas Adjetey",
+        "Benjamin Asare",
         "Jerome Opoku",
-        "Gideon Mensah",
-        "Elisha Owusu",
+        "Jonas Adjetey",
+        "Kojo Peprah Oppong",
         "Caleb Yirenkyi",
-        "Inaki Williams",
-        "Jordan Ayew",
+        "Elisha Owusu",
+        "Kwasi Sibo",
+        "Gideon Mensah",
         "Antoine Semenyo",
-        "Ernest Nuamah"
+        "Inaki Williams",
+        "Jordan Ayew"
       ],
       "out": [
         "Thomas Partey"

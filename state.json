@@ -1,18 +1,18 @@
 {
   "schema": "wc2026-state-v1",
-  "last_run": "2026-06-16",
+  "last_run": "2026-06-17",
   "recommended_squad": {
     "player_ids": [
       31,
       253,
       38,
-      471,
+      125,
       138,
       178,
       1366,
       492,
       501,
-      506,
+      479,
       542,
       939,
       1088,
@@ -21,17 +21,17 @@
     ],
     "captain": "Raphinha",
     "formation": "3-5-2",
-    "as_of": "2026-06-16",
+    "as_of": "2026-06-17",
     "for_round": "MD2",
     "lineup": {
       "starters": [
         253,
         38,
-        471,
+        125,
         138,
         1366,
+        492,
         501,
-        542,
         939,
         1088,
         1094,
@@ -39,9 +39,9 @@
       ],
       "bench": [
         178,
-        492,
+        542,
         31,
-        506
+        479
       ],
       "captain": 1366
     }
@@ -64,38 +64,38 @@
       1094,
       1098
     ],
-    "captain": "Dembélé",
-    "formation": "4-4-2",
+    "captain": "Bruno Fernandes",
+    "formation": "3-5-2",
     "bank": 0.0,
-    "note": "Locked MD1 15 (the 06-11 pre-lock squad); player_ids unchanged — no transfers. DEVIATIONS the user confirmed 2026-06-16, set before France KO: (1) captaincy relay executed Raphinha->De Bruyne (06-15)->Dembélé (06-16) — De Bruyne played & banked 2, so the armband moved to Dembélé (501, plays tonight); (2) blank-rescue Raya (1098, blanked — Unai Simón started) -> Maignan (506) in goal; (3) line-up fix Tagliafico (34, injured) -> Théo Hernández (492); (4) FREE-ROLL: Otamendi (31, plays tonight) started in place of Bruno Fernandes (939, plays 06-17 — parked for free). XI is now 4-4-2. RESTORE NEEDED 2026-06-17: bring Bruno back into the XI before Portugal KO (19:00 CET) by subbing out whoever scored lowest (a 2-pt player, or Otamendi himself if he blanked); also run the Dembélé->Bruno captain relay if Dembélé finished <=5. Any manual change CANCELS MD1 auto-subs, so the whole XI is set by hand. Advances to the MD2 recommendation only when MD2 locks (assume_followed). Tell the session if you deviated further.",
+    "note": "Locked MD1 15 (the 06-11 pre-lock squad); player_ids UNCHANGED — no transfers (a restore is a line-up edit, not a transfer). MD1 round is LIVE; every owned team except Portugal has played. State as of the 2026-06-17 run, to be set by the user before PORTUGAL KO 19:00 CEST (match 21): (A) FREE-ROLL RESTORE — Otamendi (31) banked only 1 (late sub in ARG 3-0 ALG, the lowest XI scorer) -> subbed OUT for Bruno Fernandes (939, Portugal, plays tonight, exp 5.2); XI now 3-5-2. (B) CAPTAIN RELAY — Dembélé (501) played & banked 3; relay rule (banked 3 < Bruno exp 5.2) -> armband moved Dembélé->Bruno (939). Any manual change CANCELS MD1 auto-subs, so the whole XI is set by hand. ===== FLAG: Messi (38) hauled 19 (hat-trick vs Algeria) but was NOT captain — yesterday's plan queued the Dembélé->Bruno rung and SKIPPED the Dembélé->Messi rung (Messi's KO 03:00 CEST 06-17 was later the same night than Dembélé's 21:00 06-16). Under assume_followed the armband stayed on Dembélé (banked 6 doubled). If the user actually moved it to Messi on 06-16 his MD1 captain haul is far higher — user to confirm. Lesson logged to memory: the relay ladder must enumerate EVERY not-yet-kicked-off XI starter in KO order, incl. same-day-later matches. ===== XI banked from the 10 played: 49 (Messi 19, Kimmich 8, Cucurella 7, Dembélé 3, rest 2; Otamendi benched out); Bruno (C) to play tonight. owned advances to the MD2 recommended_squad only when MD2 locks (06-18, match 25, ~18:00 CEST). assume_followed; tell the session of any deviation.",
     "lineup": {
       "starters": [
         506,
-        31,
+        492,
         542,
         1088,
-        492,
         138,
         501,
         1366,
         125,
+        939,
         38,
         1094
       ],
       "bench": [
-        939,
+        31,
         34,
         1098,
         178
       ],
-      "captain": 501
+      "captain": 939
     }
   },
   "chips_used": [],
   "cumulative": {
-    "nostradamus_points": 10,
-    "gopicks_points": 18,
-    "gopicks_exact_goals": 6,
+    "nostradamus_points": 15,
+    "gopicks_points": 31,
+    "gopicks_exact_goals": 7,
     "fantasy_points": 0
   },
   "predictions_entered": {},
