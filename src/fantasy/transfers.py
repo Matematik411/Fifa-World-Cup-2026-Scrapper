@@ -23,6 +23,35 @@ class TransferMove:
     price_delta: float
 
 
+# valid starting-XI shapes (DEF, MID, FWD); 1 GK always
+_FORMATIONS = [(3, 4, 3), (3, 5, 2), (4, 3, 3), (4, 4, 2), (4, 5, 1), (5, 3, 2), (5, 4, 1), (5, 2, 3)]
+
+
+def _apply(pids: list[int], moves) -> list[int]:
+    out = {m.out_pid for m in moves}
+    return [p for p in pids if p not in out] + [m.in_pid for m in moves]
+
+
+def _best_xi_exp(squad_projs) -> float:
+    """Next-round EV of the best legal starting XI from a 15-man pool (by exp_next).
+    Used to test whether a transfer actually improves what SCORES (the XI) rather than
+    only deepening the bench."""
+    pos: dict[str, list[float]] = {"GK": [], "DEF": [], "MID": [], "FWD": []}
+    for p in squad_projs:
+        if p.position in pos:
+            pos[p.position].append(float(p.exp_next))
+    for k in pos:
+        pos[k].sort(reverse=True)
+    if not pos["GK"]:
+        return 0.0
+    best = -1.0
+    gk = pos["GK"][0]
+    for d, m, f in _FORMATIONS:
+        if len(pos["DEF"]) >= d and len(pos["MID"]) >= m and len(pos["FWD"]) >= f:
+            best = max(best, gk + sum(pos["DEF"][:d]) + sum(pos["MID"][:m]) + sum(pos["FWD"][:f]))
+    return best
+
+
 def plan_transfers(current_pids: list[int], projs: list[PlayerProj], budget: float,
                    nation_cap: int, free_transfers: int, bank: float,
                    extra_penalty: float = -3.0, hit_threshold: float = 4.0):
@@ -73,7 +102,22 @@ def plan_transfers(current_pids: list[int], projs: list[PlayerProj], budget: flo
         nc[by_pid[m.in_pid].nation] = nc.get(by_pid[m.in_pid].nation, 0) + 1
 
     free_moves = picked[:free_transfers]
-    extra_moves = [m for m in picked[free_transfers:] if m.gain >= hit_threshold]
+    # Paid transfers (beyond the free allowance) each cost extra_penalty, so only take one
+    # when it (a) clears the horizon threshold AND (b) actually improves the STARTING XI's
+    # next-round EV. Swapping a player who'd sit on the bench for another bench player (e.g.
+    # upgrading 5th-choice cover) raises squad horizon on paper but scores ~nothing for the
+    # user — it must never justify a -3 hit. Free transfers stay unconstrained (squad health).
+    extra_moves: list[TransferMove] = []
+    cur_ids = _apply(current_pids, free_moves)
+    base_xi = _best_xi_exp([by_pid[p] for p in cur_ids if p in by_pid])
+    for m in picked[free_transfers:]:
+        if m.gain < hit_threshold:
+            continue
+        trial_ids = _apply(cur_ids, [m])
+        trial_xi = _best_xi_exp([by_pid[p] for p in trial_ids if p in by_pid])
+        if trial_xi > base_xi + 1e-6:
+            extra_moves.append(m)
+            cur_ids, base_xi = trial_ids, trial_xi
     moves = free_moves + extra_moves
     n_hits = len(extra_moves)
     total_gain = sum(m.gain for m in moves)
