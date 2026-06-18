@@ -285,6 +285,15 @@ def build_projections(players: list[dict], squads_map: dict, forecast, advanceme
         # priced Raya behind Unai Simón), then NONE of the pooled GKs start — leave
         # the nation out of gk_first so they're all treated as bench (won't play).
         xi = (lidx.by_nation.get(normalize_team(nation)) or {}).get("xi") or []
+        if not xi:
+            # No day-of line-up posted yet: take the #1 keeper from squad-news
+            # likely_xi ("GK <name>"). This stops a backup who is merely priced like
+            # a starter (e.g. David Raya, $5.0) from being assumed first-choice over
+            # the nation's actual #1 (Unai Simón) just because he is the costliest
+            # pooled GK. If the named #1 isn't in our pool, all pooled GKs are bench.
+            info = ridx.by_nation.get(normalize_team(nation)) or {}
+            xi = [str(e).strip()[3:] for e in (info.get("likely_xi") or [])
+                  if str(e).strip()[:3].upper() == "GK "]
         named = [g for g in gks if _NameMatcher.matches(xi, _display_name(g))] if xi else []
         if xi and not named:
             continue
