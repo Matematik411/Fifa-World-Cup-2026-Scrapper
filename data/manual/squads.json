@@ -129,7 +129,7 @@
         "GK Emiliano Martinez",
         "DEF Nahuel Molina",
         "DEF Cristian Romero",
-        "DEF Nicolas Otamendi",
+        "DEF Lisandro Martinez (started + played 90' vs Algeria; Otamendi was an 80' SUB -> now rotation, not nailed)",
         "DEF Facundo Medina (Tagliafico OUT - soleus strain)",
         "MID Rodrigo De Paul",
         "MID Alexis Mac Allister",
@@ -153,7 +153,6 @@
       ],
       "nailed_starters": [
         "Emiliano Martinez",
-        "Otamendi",
         "De Paul",
         "Mac Allister",
         "Enzo Fernandez",
@@ -162,7 +161,7 @@
       ],
       "rotation_risk": [
         "Julian Alvarez vs Nico Gonzalez/Giuliano Simeone for 3rd forward (Alvarez likely)",
-        "Lisandro Martinez vs Otamendi/Romero pairing",
+        "Otamendi (an 80' sub vs Algeria; Lisandro Martinez + Romero were the starting CB pair) - rotation, ~30-40% start",
         "Messi minutes possibly managed across 3 weak group games"
       ],
       "injuries_suspensions": [
@@ -378,7 +377,7 @@
         "MID Bruno Guimaraes",
         "MID Lucas Paqueta",
         "FWD Raphinha",
-        "FWD Igor Thiago (CF - RotoWire/CBS Jun 13 start him as lone 9; Cunha the alt - confirm ~1h pre-KO)",
+        "FWD Matheus Cunha (CF vs Haiti - Ancelotti ROTATED in Cunha after the 1-1 Morocco draw; Igor Thiago dropped to bench, Endrick the other alt - RotoWire/SportsMole Jun 18)",
         "FWD Vinicius Junior"
       ],
       "penalty_taker": "Raphinha",
@@ -403,7 +402,7 @@
         "Vinicius Junior"
       ],
       "rotation_risk": [
-        "Central striker: Igor Thiago the freshest Jun 13 predicted lone 9 (RotoWire/CBS) but Cunha (started vs Panama) still in contention - Ancelotti decided, not revealed; confirm ~1h pre-KO",
+        "Central striker: Matheus Cunha is the Jun 18 predicted CF vs Haiti (Ancelotti rotates post 1-1 Morocco); Igor Thiago dropped to the bench (HIGH bench risk), Endrick the impact alt - confirm ~1h pre-KO",
         "RB: Danilo the firm Jun 13 predicted starter (Vanderson/Ibanez alternates; Wesley OUT - thigh)",
         "Paqueta vs others for advanced mid"
       ],
