@@ -541,7 +541,13 @@ def _freeroll(squad, banked_of, fixes) -> list[dict]:
     WILL play, only on a later day.
 
     Composes on the (same-position, formation-neutral) line-up fixes: a bench player a fix
-    already pulls in is not re-used, and a starter a fix benches is not parked."""
+    already pulls in is not re-used, and a starter a fix benches is not parked.
+
+    Only activate a bench player who is RELIABLE (minutes_prob >= 0.65) and worthwhile
+    (exp_next >= 2.5): the swap is downside-protected only if the activated player
+    actually takes the pitch, so a flaky rotation body his club is benching (e.g. a
+    striker at ~0.5 start prob) must never be started on a hunch. The parked starter is
+    chosen latest-kickoff-first to maximise the window to restore him."""
     LEGAL = {(4, 4, 2), (4, 3, 3), (4, 5, 1), (3, 4, 3), (3, 5, 2), (5, 4, 1), (5, 3, 2)}
     by_pid = squad.by_pid()
     fix_in = {f["in"] for f in fixes}
@@ -558,8 +564,8 @@ def _freeroll(squad, banked_of, fixes) -> list[dict]:
     cands = sorted(
         [by_pid[pid] for pid in squad.bench
          if by_pid[pid].position != "GK" and banked_of(by_pid[pid]) is None
-         and by_pid[pid].next_date and by_pid[pid].minutes_prob >= 0.5
-         and by_pid[pid].exp_next >= 2.0 and by_pid[pid].name not in fix_in],
+         and by_pid[pid].next_date and by_pid[pid].minutes_prob >= 0.65
+         and by_pid[pid].exp_next >= 2.5 and by_pid[pid].name not in fix_in],
         key=lambda b: (b.next_date, -b.exp_next))
     out: list[dict] = []
     parked: set[int] = set()
