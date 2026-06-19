@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-06-18",
-  "note": "90-minute results only, keyed by match num (home_goals, away_goals). KO draws after 90' additionally need ko_advancers (see RUNBOOK §2). Matches 5-8 (Jun 13) added 2026-06-14, each verified across 2+ sources (ESPN/FOX/FIFA/CBS/Yahoo/SBS); cross-checks against the fantasy feed's round-1 points. Matches 9-12 (Jun 14) added 2026-06-15, each verified across 2+ independent sources (ESPN/FIFA/FOX/Sky/NBC/VAVEL): 9 Germany 7-1 Curacao, 10 Netherlands 2-2 Japan, 11 Ivory Coast 1-0 Ecuador, 12 Sweden 5-1 Tunisia — all group-stage so 90' = full-time. Matches 13-16 (Jun 15) added 2026-06-16, each verified across 2+ independent sources (ESPN/FOX/FIFA/Sky/Outlook/Opta/AlJazeera/ABC): 13 Spain 0-0 Cape Verde, 14 Belgium 1-1 Egypt, 15 Saudi Arabia 1-1 Uruguay, 16 Iran 2-2 New Zealand — all group-stage so 90' = full-time. Matches 17-20 (Jun 16) added 2026-06-17, each verified across 2+ independent sources (ESPN/FOX/FIFA/Sky/AlJazeera): 17 France 3-1 Senegal (Mbappe brace 66'+90+6', Barcola 82'; Mbaye 90+5'), 18 Iraq 1-4 Norway (Hussein 39'; Haaland brace 29'+43', Ostigard 76', Thorstvedt 90+7'), 19 Argentina 3-0 Algeria (Messi hat-trick 17'/60'/76' — equalled Klose's 16 WC goals; no pens), 20 Austria 3-1 Jordan (Schmid 21', Al Arab OG 76', Arnautovic 90+12' pen; Olwan 50' = Jordan's 1st-ever WC goal) — all group-stage so 90' = full-time; no upsets, all consistent with pre-match favourites. Matches 21-24 (Jun 17) added 2026-06-18, completing MATCHDAY 1; each verified across 2+ independent sources (ESPN/FOX/FIFA/Sky/CBS/Al Jazeera) by TWO independent research passes that agreed on all four: 21 Portugal 1-1 DR Congo (Joao Neves 6'; Wissa 45+5' — DRC's 1st WC point since 1974; Portugal HELD, a draw vs the 2-0 favourite pick), 22 England 4-2 Croatia (Kane 12' pen + 42', Bellingham 47', Rashford 85'; Baturina 36', Musa 45+5'), 23 Ghana 1-0 Panama (Yirenkyi 90+5'), 24 Uzbekistan 1-3 Colombia (Munoz 40', L.Diaz 65', Campaz 90+9'; Fayzullaev 60' = Uzbekistan's 1st WC goal — a Colombia away win). NO red cards in matches 21-24 -> no MD2 suspensions from day 4. (For context: South Africa had 2 reds in match 1 -> miss match 25; Mexico's C.Montes red in MD1 -> miss match 28.) MD1 (matches 1-24) was DRAW-HEAVY: 9 of 24 finished level (38%), well above the ~28% base rate, which depressed every favourite-margin predictor league-wide.",
+  "updated_at": "2026-06-19",
+  "note": "90-minute results only, keyed by match num (home_goals, away_goals). KO draws after 90' additionally need ko_advancers (see RUNBOOK §2). Matches 5-8 (Jun 13) added 2026-06-14, each verified across 2+ sources (ESPN/FOX/FIFA/CBS/Yahoo/SBS); cross-checks against the fantasy feed's round-1 points. Matches 9-12 (Jun 14) added 2026-06-15, each verified across 2+ independent sources (ESPN/FIFA/FOX/Sky/NBC/VAVEL): 9 Germany 7-1 Curacao, 10 Netherlands 2-2 Japan, 11 Ivory Coast 1-0 Ecuador, 12 Sweden 5-1 Tunisia — all group-stage so 90' = full-time. Matches 13-16 (Jun 15) added 2026-06-16, each verified across 2+ independent sources (ESPN/FOX/FIFA/Sky/Outlook/Opta/AlJazeera/ABC): 13 Spain 0-0 Cape Verde, 14 Belgium 1-1 Egypt, 15 Saudi Arabia 1-1 Uruguay, 16 Iran 2-2 New Zealand — all group-stage so 90' = full-time. Matches 17-20 (Jun 16) added 2026-06-17, each verified across 2+ independent sources (ESPN/FOX/FIFA/Sky/AlJazeera): 17 France 3-1 Senegal (Mbappe brace 66'+90+6', Barcola 82'; Mbaye 90+5'), 18 Iraq 1-4 Norway (Hussein 39'; Haaland brace 29'+43', Ostigard 76', Thorstvedt 90+7'), 19 Argentina 3-0 Algeria (Messi hat-trick 17'/60'/76' — equalled Klose's 16 WC goals; no pens), 20 Austria 3-1 Jordan (Schmid 21', Al Arab OG 76', Arnautovic 90+12' pen; Olwan 50' = Jordan's 1st-ever WC goal) — all group-stage so 90' = full-time; no upsets, all consistent with pre-match favourites. Matches 21-24 (Jun 17) added 2026-06-18, completing MATCHDAY 1; each verified across 2+ independent sources (ESPN/FOX/FIFA/Sky/CBS/Al Jazeera) by TWO independent research passes that agreed on all four: 21 Portugal 1-1 DR Congo (Joao Neves 6'; Wissa 45+5' — DRC's 1st WC point since 1974; Portugal HELD, a draw vs the 2-0 favourite pick), 22 England 4-2 Croatia (Kane 12' pen + 42', Bellingham 47', Rashford 85'; Baturina 36', Musa 45+5'), 23 Ghana 1-0 Panama (Yirenkyi 90+5'), 24 Uzbekistan 1-3 Colombia (Munoz 40', L.Diaz 65', Campaz 90+9'; Fayzullaev 60' = Uzbekistan's 1st WC goal — a Colombia away win). NO red cards in matches 21-24 -> no MD2 suspensions from day 4. (For context: South Africa had 2 reds in match 1 -> miss match 25; Mexico's C.Montes red in MD1 -> miss match 28.) MD1 (matches 1-24) was DRAW-HEAVY: 9 of 24 finished level (38%), well above the ~28% base rate, which depressed every favourite-margin predictor league-wide. Matches 25-28 (Jun 18) added 2026-06-19, completing MD2 DAY 1; each verified across 2+ independent sources (ESPN/FOX/Al Jazeera/VAVEL/NBC/Yahoo) by a dedicated research pass: 25 Czechia 1-1 South Africa (Sadilek 6'; Mokoena 83' pen - SA drew again despite still missing the suspended Sithole+Zwane), 26 Switzerland 4-1 Bosnia (Manzambi 74'+90', Vargas 84', Xhaka 90+7' pen; Mahmic 90+3' - Swiss blitz after Bosnia's 80' red), 27 Canada 6-0 Qatar (J.David 29'/45+3'/90+2' HAT-TRICK, Larin 16', Saliba 64', Al Manai 75' OG - Canada's 1st-ever men's WC win, vs 9-man Qatar), 28 Mexico 1-0 South Korea (Romo 50' - Mexico FIRST into the R32, kept a CS despite missing the suspended C.Montes). All group-stage so 90' = full-time; only 1 of 4 drawn (vs MD1's draw-glut). RED CARDS -> MD3 (1-match) SUSPENSIONS: Tarik Muharemovic (Bosnia, M26 80') misses match 50 vs Qatar; Homam Ahmed (Qatar, M27 33') + Assim Madibo (Qatar, M27 53', the tackle that injured Kone) BOTH miss match 50 vs Bosnia. INJURY: Ismael Kone (Canada) suffered a BROKEN LEFT LEG (Madibo's M27 tackle, stretchered off ~53', surgery) - out for the tournament; affects Canada's M49 vs Switzerland (Jun 24). No owned players involved in 25-28 (0 fantasy pts banked MD2-day-1; first owned action is Brazil's Raphinha+Danilo in match 31, Jun 19 overnight).",
   "results": {
     "1": [2, 0],
     "2": [2, 1],
@@ -25,7 +25,11 @@
     "21": [1, 1],
     "22": [4, 2],
     "23": [1, 0],
-    "24": [1, 3]
+    "24": [1, 3],
+    "25": [1, 1],
+    "26": [4, 1],
+    "27": [6, 0],
+    "28": [1, 0]
   },
   "ko_advancers": {},
   "sources": [
@@ -77,6 +81,19 @@
     "https://www.espn.com/soccer/report/_/gameId/760433",
     "https://www.aljazeera.com/sports/liveblog/2026/6/16/argentina-vs-algeria-live-world-cup-2026",
     "https://www.espn.com/soccer/match/_/gameId/760431/jordan-austria",
-    "https://www.skysports.com/football/austria-vs-jordan/549785"
+    "https://www.skysports.com/football/austria-vs-jordan/549785",
+    "https://www.espn.com/soccer/match/_/gameId/760438/south-africa-czechia",
+    "https://www.foxsports.com/soccer/fifa-world-cup-men-czechia-vs-south-africa-jun-18-2026-game-boxscore-647640",
+    "https://www.aljazeera.com/sports/liveblog/2026/6/18/czechia-vs-south-africa-live-world-cup-2026",
+    "https://www.espn.com/soccer/match/_/gameId/760439/bosnia-herzegovina-switzerland",
+    "https://www.foxsports.com/soccer/fifa-world-cup-men-switzerland-vs-bosnia-and-herzegovina-jun-18-2026-game-boxscore-647641",
+    "https://www.vavel.com/en-us/soccer/1263741-switzerland-vs-bosnia-live-score-2026-fifa-world-cup.html",
+    "https://www.espn.com/soccer/match/_/gameId/760440/qatar-canada",
+    "https://www.foxsports.com/soccer/fifa-world-cup-men-canada-vs-qatar-jun-18-2026-game-boxscore-647642",
+    "https://www.aljazeera.com/sports/2026/6/19/canada-vs-qatar-world-cup-3-goals-for-david-2-red-cards-1-injured-kone",
+    "https://sports.yahoo.com/soccer/article/2026-world-cup-canadas-ismael-kone-stretchered-off-with-potential-leg-injury-vs-qatar-232738127.html",
+    "https://www.espn.com/soccer/match/_/gameId/760441/south-korea-mexico",
+    "https://www.foxsports.com/soccer/fifa-world-cup-men-mexico-vs-south-korea-jun-18-2026-game-boxscore-647643",
+    "https://www.nbcnews.com/sports/soccer/live-blog/fifa-world-cup-games-2026-june-18-live-updates-rcna350678"
   ]
 }

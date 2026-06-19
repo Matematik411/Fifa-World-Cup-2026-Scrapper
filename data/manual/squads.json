@@ -1,6 +1,7 @@
 {
-  "fetched_at": "2026-06-15",
+  "fetched_at": "2026-06-19",
   "confidence": "Med-High",
+  "note_2026_06_19": "MD2 day-2 delta sweep (pre-matches 29-32). OWNED-PLAYER CHECK: all owned players FIT + expected to start, none carrying a yellow (no one a booking from a ban). DANILO (Brazil, owned) UPGRADED to confirmed-consensus starter at RB vs Haiti (in for Ibanez, hooked at HT vs Morocco) - already reflected (he's in likely_xi / the model started him). Brazil CF vs Haiti = Matheus CUNHA (Igor Thiago benched), NEYMAR still OUT (calf, not travelling; targets Scotland Jun 24), Raphinha (owned captain) starts + primary pen/FK taker, Vinicius starts. Today's NON-owned doubts (predicted XIs only, none confirmed at ~17:00 CEST): Pulisic (USA, knock - real doubt), McKenna (Scotland, calf), Kenan Yildiz (Turkey, calf) + Turkey CB rotation likely. MD3 (1-match) SUSPENSIONS from matches 25-28 reds (logged here; apply to team minutes on the Jun 22-23 run when matches 49-50 are next-day): Tarik Muharemovic (Bosnia) misses M50; Homam Ahmed + Assim Madibo (Qatar) miss M50. Tomorrow (Jun 20) Germany XI consensus (owned Kimmich nailed RB/captain): Neuer; Kimmich, Tah, Schlotterbeck, Raum/Brown; Pavlovic, Nmecha/Goretzka; Sane/Undav, Musiala, Wirtz; Havertz. No material market moves vs Jun 17 (per owned-sweep). Per-team entries below are current from the 2026-06-18 MD1->MD2 refresh; only Canada updated today (Kone injury).",
   "sources": [
     "2026-06-15 injury/availability DELTA sweep (owned-player status check + Jun 16-17 openers fitness/set-piece) - raw notes in data/raw/2026-06-15/squads_research.md",
     "https://en.africatopsports.com/world-cup-2026-nicolas-tagliafico-doubtful-for-algeria-clash/",
@@ -460,7 +461,8 @@
         "CB next to Cornelius contested after Bombito's injury: Joel Waterman (bet365/Racing Post Jun 10-11) vs Luc de Fougerolles (earlier previews)"
       ],
       "injuries_suspensions": [
-        "Alphonso Davies - hamstring (May 6, UCL semi) - OUT for the Jun 12 opener (Marsch confirmed to CBC); targets game 2 vs Qatar Jun 18",
+        "Ismael Kone (MID) - BROKEN LEFT LEG suffered in match 27 vs Qatar (Jun 18, Madibo's tackle from behind ~53', stretchered off + surgery): OUT FOR THE TOURNAMENT. Replaced in-game by Nathan Saliba (who then scored). Affects Canada's M49 vs Switzerland (Jun 24) - drop as a fantasy/minutes asset.",
+        "Alphonso Davies - hamstring (May 6, UCL semi) - missed the Jun 12 opener; targeted a return around game 2 (Qatar, Jun 18) - confirm his current match-fitness/role pre-M49",
         "Moise Bombito - OUT of the tournament (surgically repaired tibia not healthy enough); replaced on the roster by Luc de Fougerolles (20), who is set to START",
         "Minor knocks (RotoWire Jun 10): Ali Ahmed (hamstring), Jacob Shaffelburg (leg) - both expected available; no other major doubts"
       ],

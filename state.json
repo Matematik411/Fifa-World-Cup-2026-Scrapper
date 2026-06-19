@@ -1,7 +1,52 @@
 {
   "schema": "wc2026-state-v1",
-  "last_run": "2026-06-18",
+  "last_run": "2026-06-19",
   "recommended_squad": {
+    "player_ids": [
+      30,
+      167,
+      38,
+      125,
+      138,
+      777,
+      1366,
+      492,
+      501,
+      506,
+      542,
+      939,
+      1088,
+      1094,
+      477
+    ],
+    "captain": "Raphinha",
+    "formation": "3-5-2",
+    "as_of": "2026-06-19",
+    "for_round": "MD3",
+    "lineup": {
+      "starters": [
+        167,
+        38,
+        125,
+        138,
+        1366,
+        492,
+        501,
+        506,
+        939,
+        1088,
+        1094
+      ],
+      "bench": [
+        542,
+        777,
+        30,
+        477
+      ],
+      "captain": 1366
+    }
+  },
+  "owned": {
     "player_ids": [
       31,
       167,
@@ -20,9 +65,8 @@
       477
     ],
     "captain": "Raphinha",
-    "formation": "3-5-2",
-    "as_of": "2026-06-18",
-    "for_round": "MD2",
+    "formation": "3-4-3",
+    "bank": 0.0,
     "lineup": {
       "starters": [
         167,
@@ -33,69 +77,25 @@
         492,
         501,
         506,
-        939,
+        178,
         1088,
         1094
       ],
       "bench": [
         542,
-        178,
+        939,
         31,
         477
       ],
       "captain": 1366
-    }
-  },
-  "owned": {
-    "player_ids": [
-      31,
-      34,
-      38,
-      125,
-      138,
-      178,
-      1366,
-      492,
-      501,
-      506,
-      542,
-      939,
-      1088,
-      1094,
-      1098
-    ],
-    "captain": "Bruno Fernandes",
-    "formation": "3-5-2",
-    "bank": 0.0,
-    "note": "Locked MD1 15 (the 06-11 pre-lock squad); player_ids UNCHANGED through MD1 — no transfers were available. MATCHDAY 1 COMPLETE (matches 1-24). XI BANKED 55 fantasy pts (authoritative from the live feed roundPoints[1]): Messi 19, Kimmich 8, Cucurella 7, Bruno Fernandes (C) 3->6 doubled, Dembélé 3, Maignan/Theo/Doku/De Bruyne/Raphinha/Oyarzabal 2 each. The MD1 captain ended on Bruno (a lateral relay off Dembélé — both banked 3, so the relay was points-neutral). THE LEAK: Messi's 19 (hat-trick vs Algeria) was UN-captained -> captaining Messi instead of Bruno would have been 71 not 55 (+16), and the field's best captains (Haaland 17, Mbappe 14, Kane 13) doubled to ~28-34. Lesson logged to [[wc2026-edits-before-first-ko]] (refined 06-18: user CAN stay up to a game's end if KO <= 22:00 CEST, so evening-window relays are live; overnight KOs set pre-sleep) -> captain the round's MAX-EV starter up front. owned stays = this real locked 15 until MD2 LOCKS today (06-18, match 25, ~18:00 CEST), then advances to recommended_squad. MD2 PLAN to execute before the lock: 2 FREE transfers -> OUT Tagliafico (34, injured-soleus) IN Danilo (167, Brazil RB, starts), OUT David Raya (1098, Spain #2 behind Unai Simon, dead) IN Pickford (477, England #1); SKIP the model's optional 3rd transfer Otamendi->Molina (a -3 hit for a bench slot). Captain Raphinha (relay ladder if he blanks). assume_followed; tell the session of any deviation.",
-    "lineup": {
-      "starters": [
-        506,
-        492,
-        542,
-        1088,
-        138,
-        501,
-        1366,
-        125,
-        939,
-        38,
-        1094
-      ],
-      "bench": [
-        31,
-        34,
-        1098,
-        178
-      ],
-      "captain": 939
-    }
+    },
+    "note": "MANUAL FREE-ROLL (user decision 2026-06-19): activated Igor Thiago (178) into the XI for MD2 and parked Bruno Fernandes (939) on the bench -> 3-4-3. Zero downside today because the ONLY owned players in action Jun 19 are the 3 Brazilians (Raphinha C + Danilo start, Igor Thiago now starts); Bruno doesn't play until Jun 23 so he scores nothing tonight regardless, and Igor Thiago's points lock at Brazil's M31 final whistle -> a free extra scorer. RESTORE Bruno before Portugal's M45 KO (Jun 23 ~19:00 CEST) by manual-subbing out whoever has banked the LOWEST by then (Bruno then locks his own points). Captain stays Raphinha (1366). NB this manual change cancels MD2 auto-subs - manage every line-up slot by hand for the rest of the round. (Was: auto-advanced to the MD2-locked 15.)"
   },
   "chips_used": [],
   "cumulative": {
-    "nostradamus_points": 18,
-    "gopicks_points": 42,
-    "gopicks_exact_goals": 9,
+    "nostradamus_points": 23,
+    "gopicks_points": 55,
+    "gopicks_exact_goals": 13,
     "fantasy_points": 0
   },
   "predictions_entered": {
