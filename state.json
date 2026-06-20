@@ -1,6 +1,6 @@
 {
   "schema": "wc2026-state-v1",
-  "last_run": "2026-06-19",
+  "last_run": "2026-06-20",
   "recommended_squad": {
     "player_ids": [
       30,
@@ -8,8 +8,8 @@
       38,
       125,
       138,
-      777,
-      1366,
+      178,
+      2000,
       492,
       501,
       506,
@@ -19,31 +19,31 @@
       1094,
       477
     ],
-    "captain": "Raphinha",
+    "captain": "Ousmane Dembélé",
     "formation": "3-5-2",
-    "as_of": "2026-06-19",
+    "as_of": "2026-06-20",
     "for_round": "MD3",
     "lineup": {
       "starters": [
-        167,
         38,
         125,
         138,
-        1366,
+        2000,
         492,
         501,
         506,
+        542,
         939,
         1088,
         1094
       ],
       "bench": [
-        542,
-        777,
+        167,
         30,
+        178,
         477
       ],
-      "captain": 1366
+      "captain": 501
     }
   },
   "owned": {
@@ -64,38 +64,38 @@
       1094,
       477
     ],
-    "captain": "Raphinha",
-    "formation": "3-4-3",
+    "captain": "Kevin De Bruyne",
+    "formation": "3-5-2",
     "bank": 0.0,
     "lineup": {
       "starters": [
+        506,
         167,
-        38,
+        1088,
+        542,
         125,
         138,
         1366,
-        492,
         501,
-        506,
-        178,
-        1088,
+        939,
+        38,
         1094
       ],
       "bench": [
-        542,
-        939,
+        492,
+        178,
         31,
         477
       ],
-      "captain": 1366
+      "captain": 138
     },
-    "note": "MANUAL FREE-ROLL (user decision 2026-06-19): activated Igor Thiago (178) into the XI for MD2 and parked Bruno Fernandes (939) on the bench -> 3-4-3. Zero downside today because the ONLY owned players in action Jun 19 are the 3 Brazilians (Raphinha C + Danilo start, Igor Thiago now starts); Bruno doesn't play until Jun 23 so he scores nothing tonight regardless, and Igor Thiago's points lock at Brazil's M31 final whistle -> a free extra scorer. RESTORE Bruno before Portugal's M45 KO (Jun 23 ~19:00 CEST) by manual-subbing out whoever has banked the LOWEST by then (Bruno then locks his own points). Captain stays Raphinha (1366). NB this manual change cancels MD2 auto-subs - manage every line-up slot by hand for the rest of the round. (Was: auto-advanced to the MD2-locked 15.)"
+    "note": "MD2 LIVE-ROUND MANAGEMENT, updated 2026-06-20 (assume_followed; the user executes these in-app). THREE line-up edits this run, all before tonight's Germany M34 KO (22:00 CEST): (1) CAPTAIN SWITCH Raphinha(1366) -> Kevin De Bruyne(138). Raphinha went off injured at 40' vs Haiti (M31) and banked only 1 as captain (doubled), so the relay moves the armband to KDB (E 5.3, plays Jun 21) - forfeiting Raphinha's small double. (2) BLANK-RESCUE / Jun-19 free-roll RESTORE: manual-sub OUT Igor Thiago(178, FWD - did NOT play M31, locked at 0, the true lowest banked starter) -> IN Bruno Fernandes(939, MID, plays Portugal M45 Jun 23). This completes last run's parked-Bruno plan; the playbook can't auto-name it (Igor Thiago's match already ended -> not a 'fix'). (3) KIMMICH FREE-ROLL: bench Theo Hernandez(492, DEF, plays France M42 Jun 22 - and a France rotation risk, likely benched for Digne) -> start Joshua Kimmich(542, DEF, plays Germany M34 TONIGHT 22:00 CEST). Banks Kimmich's points at zero downside; Theo scores nothing tonight regardless. Net XI = 3-5-2. RESTORE THEO before France M42 (Jun 22 ~23:00 CEST) on the Jun 21/22 run - downside-protected: if Kimmich blanked tonight, bring Theo back for Kimmich; if Kimmich hauled, instead drop the TRUE lowest banked starter (likely Raphinha @1); if France confirm-bench Theo, just leave him out. CAPTAINCY RELAY continues: if KDB ends <=6 (Jun 21), move armband to Dembele(501, E 6.8, Jun 22) before his KO. NB any manual change cancels MD2 auto-subs -> manage EVERY slot by hand for the rest of the round. MD3 transfers (Raphinha->Nico Williams, Otamendi->Molina) are HOLD until the lock-eve run."
   },
   "chips_used": [],
   "cumulative": {
-    "nostradamus_points": 23,
-    "gopicks_points": 55,
-    "gopicks_exact_goals": 13,
+    "nostradamus_points": 31,
+    "gopicks_points": 69,
+    "gopicks_exact_goals": 18,
     "fantasy_points": 0
   },
   "predictions_entered": {
