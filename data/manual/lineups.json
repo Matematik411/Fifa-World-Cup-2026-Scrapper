@@ -1,5 +1,16 @@
 {
-  "fetched_at": "2026-06-20",
-  "notes": "MD2 day-3 refresh (Jun 20, ~16:30 CEST). NO confirmed team sheets are posted yet for any of today's MD2 fixtures (matches 33-36; sheets drop ~1h pre-kickoff and the earliest, match 33 Netherlands-Sweden, kicks off 12:00 CT / 19:00 CEST, ~2.5h away). So teams stays {} and the minutes model falls back to data/manual/squads.json (refreshed today). For the only owned team playing today, GERMANY (match 34 vs Ivory Coast, 22:00 CEST), the strong-consensus predicted XI (4-2-3-1) is in squads.json with owned KIMMICH nailed at RB (also captain + on PKs/FKs) - no pin needed; unresolved minor doubts there (LB Raum vs Brown, DM Goretzka vs Nmecha) don't touch an owned player. Today's NON-owned doubts captured in squads.json note: Frenkie de Jong (Netherlands, abdomen - genuine doubt), Memphis Depay (Netherlands, bench), Quinten Timber (Netherlands, OUT concussion), Ivory Coast N'Dicka (hamstring doubt), Tunisia new coach Herve Renard may reshuffle, Japan Kubo OUT (knee). An evening/overnight re-run can PIN confirmed XIs here as they post (each ~1h pre its own kickoff) - useful for the captaincy relay (esp. if a Germany sheet surprises before Kimmich's 22:00 KO). Yesterday's predicted XIs (matches 29-32, now PLAYED) were never pinned; squads-fallback was used. Key MD2-day-2 outcome for minutes going forward: RAPHINHA (Brazil) hamstring-injured (M31, off 40') -> doubtful MD3, reflected in squads.json injuries_suspensions. Stale-injury-flag gotcha re-checked: no resolved entry pins a nailed owned starter low.",
-  "teams": {}
+  "fetched_at": "2026-06-21",
+  "note": "MD2 day-4 refresh (Jun 21, ~11:00 CEST). Predicted XIs for today's owned-relevant fixtures (confirmed sheets drop ~1h pre-KO; an evening re-run can PIN them and lock the captaincy relay). confirmed:false everywhere -> listed XI players get the 0.90 predicted-start weight. SPAIN (M37 vs Saudi Arabia, 18:00 CEST): owned OYARZABAL nailed through the middle + Spain FIRST-CHOICE penalty taker; owned CUCURELLA nailed LB. Lamine Yamal listed but de la Fuente flagged ~45' managed minutes (not owned, immaterial to owned picks). High confidence on Oyarzabal/Cucurella starting + Oyarzabal pens (RotoWire/SI/Squawka Jun 21). BELGIUM (M38 vs Iran, 21:00 CEST): owned KDB nailed No.10 (carries pens/FKs); owned DOKU listed in `out` -> OFFICIALLY RULED OUT (illness/respiratory infection, Belgium statement Sat Jun 20; ESPN/Yahoo/Goal) -> minutes model zeroes him; Matias Fernandez-Pardo replaces him. Uruguay/Cape Verde/NZ/Egypt left to squads.json fallback (no owned players; Uruguay R.Araujo + De Arrascaeta doubtful, Gimenez back). NEXT-DAY owned notes (NOT pinned here - confirm on the Jun 21/22 run ~1h pre-KO): Theo Hernandez (France M42 Jun22) likely BENCHED for Lucas Digne (rotation, not injury); Otamendi (Argentina M41 Jun22) predicted to START at CB (but historically behind Romero/L.Martinez - rotation call); Messi starts+captains; Dembele starts; Maignan starts in goal; Bruno Fernandes (Por M45 Jun23) + Pickford (Eng M46 Jun23) nailed.",
+  "teams": {
+    "Spain": {
+      "confirmed": false,
+      "xi": ["Unai Simon", "Marcos Llorente", "Laporte", "Cubarsi", "Cucurella", "Pedri", "Rodri", "Fabian Ruiz", "Lamine Yamal", "Oyarzabal", "Nico Williams"],
+      "out": []
+    },
+    "Belgium": {
+      "confirmed": false,
+      "xi": ["Courtois", "Meunier", "Mechele", "Ngoy", "De Cuyper", "Onana", "Tielemans", "Trossard", "De Bruyne", "Fernandez-Pardo", "De Ketelaere"],
+      "out": ["Doku"]
+    }
+  }
 }
