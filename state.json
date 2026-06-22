@@ -1,6 +1,6 @@
 {
   "schema": "wc2026-state-v1",
-  "last_run": "2026-06-21",
+  "last_run": "2026-06-22",
   "recommended_squad": {
     "player_ids": [
       31,
@@ -9,7 +9,7 @@
       57,
       138,
       178,
-      2000,
+      256,
       492,
       501,
       506,
@@ -21,14 +21,14 @@
     ],
     "captain": "Ousmane Dembélé",
     "formation": "3-5-2",
-    "as_of": "2026-06-21",
+    "as_of": "2026-06-22",
     "for_round": "MD3",
     "lineup": {
       "starters": [
         38,
         57,
         138,
-        2000,
+        256,
         492,
         501,
         506,
@@ -65,7 +65,7 @@
       477
     ],
     "captain": "Mikel Oyarzabal",
-    "formation": "3-5-2",
+    "formation": "5-3-2",
     "bank": 0.0,
     "lineup": {
       "starters": [
@@ -73,29 +73,29 @@
         167,
         1088,
         542,
-        125,
+        31,
+        492,
         138,
         1366,
         501,
-        939,
         38,
         1094
       ],
       "bench": [
-        31,
-        492,
+        939,
+        125,
         178,
         477
       ],
       "captain": 1094
     },
-    "note": "MD2 LIVE-ROUND MANAGEMENT, updated 2026-06-21 (assume_followed; the user executes these in-app). MD2 day-4. Two actions: a CAPTAIN RELAY and a DEFERRED Doku swap (user's chosen execution 2026-06-21). (1) CAPTAIN: Kimmich (542) played Germany M34 (Jun 20) and banked only ~2 (full 90' RB, NO clean sheet - Germany 2-1 but conceded; no goal/assist/card) - below the '>=7 keep' threshold, so the armband leaves him. USER PLAN (stated 2026-06-21, EV-optimal): captain OYARZABAL (1094, Spain M37 TODAY 18:00 CEST - nailed CF + Spain 1st-choice penalty taker) as the FIRST-LOOK -> move the armband off Kimmich to Oyarzabal before 18:00, pending Oyarzabal confirmed on the ~17:00 team sheet. INTRA-DAY RELAY LADDER (hand-built; the pipeline's date-granular ladder cannot show two same-day rungs): if Oyarzabal ends his match WITHOUT a goal (single-game pts < E[KDB]~5.x), move the armband to KDB (138, Belgium M38 TODAY 21:00 CEST) in the 19:50-21:00 CEST window; THEN if KDB ends <=6, on the Jun 22 run move it to DEMBELE (501, France M42 Jun 22 23:00 CEST, E~6.8) before KO. Keep Oyarzabal iff he SCORES (goal=7 > E[KDB]); keep KDB iff he banks >6. The captain field is set to Oyarzabal (the first move). (2) DOKU OUT - DEFERRED BLANK-RESCUE (user's choice 2026-06-21): Doku (125, MID) OFFICIALLY ruled OUT of M38 (illness, Belgium statement Jun 20). The user is KEEPING Doku in the XI tonight (stays 3-5-2; Doku locks at his 21:00 KO and blanks 0) and will BLANK-RESCUE him TOMORROW (Jun 22): manual-sub Doku OUT for a CONFIRMED-STARTING bench DEF - Otamendi (31, Argentina M41 19:00 CEST) or Theo (492, France M42 23:00 CEST if France start him over Digne) - BEFORE that player's KO -> the incoming player scores (same mechanic as the Jun-20 Igor Thiago->Bruno blank-rescue; precedent confirms subbing out a locked 0-min starter works). ZERO cost vs benching now (Otamendi/Theo don't play tonight anyway) and it defers the Otamendi-vs-Theo pick to tomorrow's confirmed lineups. JUN-22 RUN CHECKLIST: (a) do the sub BEFORE the incoming player's KO, (b) pick a CONFIRMED starter, (c) DON'T FORGET or Doku stays locked at 0. Otamendi sits on the bench (NOT started) for now. (3) LOCKED MD2 returns so far: Danilo (167) ~7 (clean sheet), Kimmich (542) ~2, Raphinha (1366) ~1 (off injured 40' M31), Igor Thiago (178) 0 (benched, did not feature). Still to play: Cucurella + Oyarzabal (today 18:00), KDB (today 21:00), Maignan + Dembele (Jun 22), Messi + Otamendi (Jun 22), Bruno (Jun 23). Pickford (477) = redundant 2nd GK behind Maignan. (4) Any manual change cancels MD2 auto-subs -> manage EVERY slot by hand for the rest of MD2. (5) MD3 transfers remain HOLD until the MD3 lock-eve run: Raphinha->Nico Williams (Raphinha hamstring, doubtful MD3) and Otamendi->Molina (per recommended_squad, for_round MD3)."
+    "note": "MD2 EXECUTED 2026-06-22 (user's REAL XI, 5-3-2): GK Maignan; DEF Danilo/Cucurella/Kimmich/OTAMENDI/THEO; MID KDB/Raphinha/Dembele; FWD Messi/Oyarzabal(C). Bench: BRUNO/Doku/Igor Thiago/Pickford. CAPTAIN Oyarzabal CONFIRMED (HOLD, banked ~15/~30 doubled). TWO live-round moves: (a) DOKU(125, dead 0)->OTAMENDI(31): rescue of a locked 0, NO restore needed (if Otamendi blanks the slot is still 0, same as Doku). (b) FREE-ROLL: BRUNO(939, plays Jun 23, scores 0 tonight anyway) PARKED on bench to start THEO(492) tonight. Both Theo & Otamendi are PREDICTED BENCHED tonight (Argentina keep Romero+L.Martinez; France start Digne) -> likely both 0, but the move is downside-protected. *** PENDING ACTION Jun 23 (DO NOT FORGET): before BRUNO's M45 KO (Portugal, Jun 23 19:00 CEST), manual-sub BRUNO INTO the XI for the LOWEST-scoring tonight starter (almost certainly Theo or Otamendi if they sat at 0). UNCONDITIONAL - Bruno must be in the XI to score his own Jun-23 match; if left benched past 19:00 CEST he forfeits ~5.5. Dropping Theo or Otamendi (DEF) for Bruno (MID) -> 4-4-2, legal. *** Any manual change cancels auto-subs -> every slot managed by hand. MD3 transfers HOLD until lock-eve (Raphinha->Luis Diaz, Doku->Enzo)."
   },
   "chips_used": [],
   "cumulative": {
-    "nostradamus_points": 36,
-    "gopicks_points": 80,
-    "gopicks_exact_goals": 20,
+    "nostradamus_points": 39,
+    "gopicks_points": 88,
+    "gopicks_exact_goals": 22,
     "fantasy_points": 0
   },
   "predictions_entered": {
