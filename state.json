@@ -1,15 +1,15 @@
 {
   "schema": "wc2026-state-v1",
-  "last_run": "2026-06-22",
+  "last_run": "2026-06-23",
   "recommended_squad": {
     "player_ids": [
-      31,
+      30,
       167,
       38,
-      57,
+      474,
       138,
       178,
-      256,
+      2000,
       492,
       501,
       506,
@@ -19,31 +19,31 @@
       1094,
       477
     ],
-    "captain": "Ousmane Dembélé",
+    "captain": "Kevin De Bruyne",
     "formation": "3-5-2",
-    "as_of": "2026-06-22",
+    "as_of": "2026-06-23",
     "for_round": "MD3",
     "lineup": {
       "starters": [
+        30,
         38,
-        57,
+        474,
         138,
-        256,
-        492,
+        2000,
         501,
-        506,
         542,
         939,
         1088,
-        1094
+        1094,
+        477
       ],
       "bench": [
         167,
+        492,
         178,
-        31,
-        477
+        506
       ],
-      "captain": 501
+      "captain": 138
     }
   },
   "owned": {
@@ -65,7 +65,7 @@
       477
     ],
     "captain": "Mikel Oyarzabal",
-    "formation": "5-3-2",
+    "formation": "4-4-2",
     "bank": 0.0,
     "lineup": {
       "starters": [
@@ -74,28 +74,28 @@
         1088,
         542,
         31,
-        492,
         138,
         1366,
         501,
+        939,
         38,
         1094
       ],
       "bench": [
-        939,
         125,
         178,
+        492,
         477
       ],
       "captain": 1094
     },
-    "note": "MD2 EXECUTED 2026-06-22 (user's REAL XI, 5-3-2): GK Maignan; DEF Danilo/Cucurella/Kimmich/OTAMENDI/THEO; MID KDB/Raphinha/Dembele; FWD Messi/Oyarzabal(C). Bench: BRUNO/Doku/Igor Thiago/Pickford. CAPTAIN Oyarzabal CONFIRMED (HOLD, banked ~15/~30 doubled). TWO live-round moves: (a) DOKU(125, dead 0)->OTAMENDI(31): rescue of a locked 0, NO restore needed (if Otamendi blanks the slot is still 0, same as Doku). (b) FREE-ROLL: BRUNO(939, plays Jun 23, scores 0 tonight anyway) PARKED on bench to start THEO(492) tonight. Both Theo & Otamendi are PREDICTED BENCHED tonight (Argentina keep Romero+L.Martinez; France start Digne) -> likely both 0, but the move is downside-protected. *** PENDING ACTION Jun 23 (DO NOT FORGET): before BRUNO's M45 KO (Portugal, Jun 23 19:00 CEST), manual-sub BRUNO INTO the XI for the LOWEST-scoring tonight starter (almost certainly Theo or Otamendi if they sat at 0). UNCONDITIONAL - Bruno must be in the XI to score his own Jun-23 match; if left benched past 19:00 CEST he forfeits ~5.5. Dropping Theo or Otamendi (DEF) for Bruno (MID) -> 4-4-2, legal. *** Any manual change cancels auto-subs -> every slot managed by hand. MD3 transfers HOLD until lock-eve (Raphinha->Luis Diaz, Doku->Enzo)."
+    "note": "MD2 LIVE, final day (Jun 23). Active XI now 4-4-2 after the planned free-roll RESTORE was executed: BRUNO FERNANDES (939, Portugal, plays M45 today 19:00 CEST) manual-subbed IN for THEO (492), who was the parked free-roll start and finished at 0 (France benched him for Digne, M42). Real XI: GK Maignan(506); DEF Danilo(167)/Cucurella(1088)/Kimmich(542)/Otamendi(31); MID De Bruyne(138)/Raphinha(1366)/Dembele(501)/Bruno(939); FWD Messi(38)/OYARZABAL(1094, CAPTAIN). Bench: Doku(125)/Igor Thiago(178)/Theo(492)/Pickford(477,GK). CAPTAIN = OYARZABAL, HOLD CONFIRMED: he banked ~14 (x2 = ~28) in Spain's 4-0 (M37, Jun 21); the only not-yet-played XI starter today is Bruno (E~6-7 << 14), so relaying the armband would forfeit a locked double for one player's single bonus -> HOLD. No other line-up move today: Pickford stays the benched GK behind Maignan, who already banked a CLEAN SHEET (~7 >> E[Pickford]) - Maignan hauled, so the GK blank-rescue does not fire. MD2 owned banked: Oyarzabal ~28(C), Messi ~12, Dembele ~11, Maignan ~7, Cucurella ~7, KDB ~3, Otamendi ~1, Kimmich ~2, Danilo (CS), Raphinha/Igor Thiago/Theo/Doku 0. ANY manual change cancels this round's auto-subs -> every slot is set by hand. MD3 (lock Jun 24 ~21:00 CEST) transfers HOLD until tomorrow's lock-eve run; provisional plan: Raphinha (CONFIRMED OUT - hamstring, misses Scotland + likely R32) -> Luis Diaz, and Doku (now trending FIT for Jun 26) -> Enzo (re-point the 2nd transfer tomorrow if Doku is confirmed fit). Do NOT execute transfers today."
   },
   "chips_used": [],
   "cumulative": {
-    "nostradamus_points": 39,
-    "gopicks_points": 88,
-    "gopicks_exact_goals": 22,
+    "nostradamus_points": 48,
+    "gopicks_points": 103,
+    "gopicks_exact_goals": 25,
     "fantasy_points": 0
   },
   "predictions_entered": {

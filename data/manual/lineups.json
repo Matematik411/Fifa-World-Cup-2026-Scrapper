@@ -1,15 +1,45 @@
 {
-  "fetched_at": "2026-06-22",
-  "note": "MD2 day-5 refresh (Jun 22, ~11:00 CEST). Predicted XIs for today's owned-relevant fixtures (confirmed sheets drop ~1h pre-KO; an evening re-run can PIN them and lock the captaincy relay - though the relay is already RESOLVED, see below). confirmed:false everywhere -> listed XI players get the 0.90 predicted-start weight. CAPTAIN: armband STAYS on OYARZABAL (banked a brace + assist vs Saudi Arabia Jun 21, ~28 doubled) - relay closed, no further captaincy move needed. ARGENTINA (M41 vs Austria, 19:00 CEST): owned MESSI nailed (starts+captains, chasing records). owned OTAMENDI predicted BENCH (3-source consensus Jun 22 - Scaloni keeps the Romero + Lisandro Martinez pairing that beat Algeria, NOT resting CBs despite Argentina being well placed). NB Otamendi is deliberately NOT in the `out` list: he is a rotation CB tonight only and remains the MD3 fantasy bench cover, so flagging him `out` would wrongly zero his MD3 value. FRANCE (M42 vs Iraq, 23:00 CEST): owned MAIGNAN nailed #1, owned DEMBELE nailed (RW). owned THEO HERNANDEZ predicted BENCH for Lucas DIGNE (rotation, NOT injury - one of 3 Deschamps changes incl. Kone for Tchouameni, Barcola for Doue). Theo also NOT in `out`: he is a nailed MD3 starter (in the MD3 recommended XI), so do not zero him. -> CONSEQUENCE for tonight: the model's freeroll/bench-first cards may still list Theo/Otamendi (their global min-prob can't be lowered for one match without harming MD3); IGNORE them - both are confirmed-research benched tonight, so a free-roll would just blank. No profitable bench/free-roll move tonight. DOKU blank-rescue: Doku is a locked 0 (illness, M38 done); its only rescue targets are Otamendi/Theo who are benched tonight -> rescue likely cannot fire; at the ~18:00 Arg sheet / ~22:00 Fra sheet, IF either is confirmed STARTING, sub Doku->that player before his KO (downside-free); else accept Doku's 0. NEXT-DAY (Jun 23, NOT pinned - confirm ~1h pre-KO): owned BRUNO FERNANDES (Portugal M45) + PICKFORD (England M46, our fantasy BENCH GK) both nailed.",
+  "fetched_at": "2026-06-23",
+  "note": "MD2 day-6 (FINAL day of Matchday 2, Jun 23) predicted XIs for today's four fixtures (M45-48). Confirmed sheets drop ~1h pre-KO; at run time they are NOT yet out, so confirmed:false everywhere -> listed players carry the 0.90 predicted-start weight. OWNED relevance: only BRUNO FERNANDES (Portugal, M45, KO 19:00 CEST) is in the active XI today (subbed in for Theo per the free-roll restore) - he is NAILED to start (ESPN/RotoWire/Sports Mole consensus, no rotation despite the DRC draw; Portugal must win to be sure of progress). PICKFORD (England, M46) is also NAILED #1 but is our fantasy BENCH GK (Maignan already played + banked a clean sheet, so no GK swap). CAPTAIN stays Oyarzabal (already played M37). Predicted XIs from ESPN/Sports Mole/RotoWire/Covers Jun 23. Minor uncertainties noted but immaterial (no owned players): Portugal Ruben Dias fitness (predicted to return); England Stones vs Guehi/Konsa at CB; Croatia Vuskovic in the back-four switch.",
   "teams": {
-    "Argentina": {
+    "Portugal": {
       "confirmed": false,
-      "xi": ["Emiliano Martinez", "Molina", "Cristian Romero", "Lisandro Martinez", "Medina", "De Paul", "Mac Allister", "Enzo Fernandez", "Messi", "Julian Alvarez", "Almada"],
+      "xi": ["Diogo Costa", "Joao Cancelo", "Tomas Araujo", "Ruben Dias", "Nuno Mendes", "Vitinha", "Joao Neves", "Bernardo Silva", "Bruno Fernandes", "Pedro Neto", "Cristiano Ronaldo"],
       "out": []
     },
-    "France": {
+    "Uzbekistan": {
       "confirmed": false,
-      "xi": ["Maignan", "Kounde", "Saliba", "Upamecano", "Digne", "Rabiot", "Kone", "Dembele", "Olise", "Barcola", "Mbappe"],
+      "xi": ["Utkir Yusupov", "Abdukodir Khusanov", "Rustam Ashurmatov", "Abdvomit Abdullaev", "Abbosbek Fayzullaev", "Jaloliddin Masharipov", "Otabek Shukurov", "Azizbek Amonov", "Khojiakbar Alijonov", "Eldor Shomurodov", "Igor Sergeev"],
+      "out": []
+    },
+    "England": {
+      "confirmed": false,
+      "xi": ["Jordan Pickford", "Reece James", "Ezri Konsa", "Marc Guehi", "Nico O'Reilly", "Declan Rice", "Elliot Anderson", "Noni Madueke", "Jude Bellingham", "Anthony Gordon", "Harry Kane"],
+      "out": []
+    },
+    "Ghana": {
+      "confirmed": false,
+      "xi": ["Lawrence Ati-Zigi", "Gideon Mensah", "Alidu Seidu", "Mohammed Salisu", "Alexander Djiku", "Thomas Partey", "Elisha Owusu", "Mohammed Kudus", "Antoine Semenyo", "Jordan Ayew", "Inaki Williams"],
+      "out": []
+    },
+    "Panama": {
+      "confirmed": false,
+      "xi": ["Orlando Mosquera", "Cesar Blackman", "Andres Andrade", "Roderick Miller", "Eric Davis", "Carlos Harvey", "Adalberto Carrasquilla", "Cristian Martinez", "Ismael Diaz", "Jose Fajardo", "Cecilio Waterman"],
+      "out": []
+    },
+    "Croatia": {
+      "confirmed": false,
+      "xi": ["Dominik Livakovic", "Josip Stanisic", "Josip Sutalo", "Luka Vuskovic", "Josko Gvardiol", "Luka Modric", "Mateo Kovacic", "Mario Pasalic", "Andrej Kramaric", "Petar Musa", "Ivan Perisic"],
+      "out": []
+    },
+    "Colombia": {
+      "confirmed": false,
+      "xi": ["Camilo Vargas", "Daniel Munoz", "Davinson Sanchez", "Jhon Lucumi", "Johan Mojica", "Richard Rios", "Jefferson Lerma", "Santiago Arias", "James Rodriguez", "Luis Diaz", "Luis Suarez"],
+      "out": []
+    },
+    "DR Congo": {
+      "confirmed": false,
+      "xi": ["Lionel Mpasi", "Aaron Wan-Bissaka", "Chancel Mbemba", "Axel Tuanzebe", "Arthur Masuaku", "Samuel Moutoussamy", "Charles Pickel", "Edo Kayembe", "Theo Bongonda", "Yoane Wissa", "Cedric Bakambu"],
       "out": []
     }
   }
