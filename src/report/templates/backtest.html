@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block title %}Backtest &amp; calibration — WC 2026 Guide{% endblock %}
+{% block content %}
+<h1>Backtest &amp; calibration</h1>
+<p class="lede">How the model has actually done on the {{ n_results }} played match(es), scored
+out-of-sample. {{ covered }}/{{ n_results }} matches have a leak-free pre-match pick-of-record across
+{{ n_runs }} persisted daily runs ({{ first_run }} → {{ last_run }}).</p>
+
+{# ---------------- Realized scoring (walk-forward) ---------------- #}
+{% set rz = realized %}
+<h2>Realized points (walk-forward — what we actually scored)</h2>
+<div class="grid cols-3">
+  <div class="card">
+    <h3>Nostradamus</h3>
+    <p class="big">{{ rz.nostradamus_total }} <span class="muted small">pts</span></p>
+    <p class="small muted">{{ rz.nostradamus_scored }} matches · {{ rz.nostradamus_per_match }}/match
+    {% if rz.cum_nostradamus is not none %}· pipeline re-score {{ rz.cum_nostradamus }}{% endif %}</p>
+  </div>
+  <div class="card">
+    <h3>GoPicks</h3>
+    <p class="big">{{ rz.gopicks_total }} <span class="muted small">pts</span></p>
+    <p class="small muted">{{ rz.gopicks_scored }} scored · {{ rz.gopicks_exact }} exact goals ·
+    {{ rz.gopicks_missed }} missed {% if rz.cum_gopicks is not none %}· pipeline {{ rz.cum_gopicks }}{% endif %}</p>
+  </div>
+  <div class="card">
+    <h3>Per stage</h3>
+    <table class="small">
+      <thead><tr><th>Stage</th><th class="num">N</th><th class="num">Nostra</th><th class="num">GoPicks</th></tr></thead>
+      <tbody>
+      {% for stage, s in rz.by_stage.items() %}
+        <tr><td>{{ stage }}</td><td class="num">{{ s.n }}</td><td class="num">{{ s.nostra }}</td><td class="num">{{ s.gp }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<p class="small muted">Pick-of-record = the prediction from the latest run where the match was still unplayed
+(genuinely pre-result). The pipeline re-score is the current model graded with hindsight (state.cumulative);
+a gap means the model would now pick differently than we did pre-match.</p>
+
+{# ---------------- Calibration (as-shipped, walk-forward) ---------------- #}
+{% set c = calibration %}
+<h2>Calibration of the pre-match forecasts (as shipped)</h2>
+<div class="grid cols-4">
+  <div class="card"><h3>RPS</h3><p class="big">{{ c.rps|r(4) }}</p><p class="small muted">1X2, lower better</p></div>
+  <div class="card"><h3>Log-loss</h3><p class="big">{{ c.log_loss|r(4) }}</p><p class="small muted">lower better</p></div>
+  <div class="card"><h3>Brier</h3><p class="big">{{ c.brier|r(4) }}</p><p class="small muted">lower better</p></div>
+  <div class="card"><h3>Goals MAE</h3><p class="big">{{ c.goals_mae|r(3) }}</p><p class="small muted">per team, lower better</p></div>
+</div>
+
+<div class="card">
+  <h3>Clean-sheet calibration {% if c.cs_ratio and c.cs_ratio > 1.15 %}<span class="tag rotation-risk">over-predicting</span>{% endif %}</h3>
+  <p>Expected <b>{{ c.cs_expected }}</b> clean sheets vs <b>{{ c.cs_actual }}</b> actual over {{ c.cs_team_innings }}
+  team-innings{% if c.cs_ratio %} — ratio <b>{{ c.cs_ratio }}×</b>{% endif %}. A ratio above ~1 means the model expects
+  more shut-outs than happen (the known MD1 issue — track per stage as U6/U3 land).</p>
+  <table class="small">
+    <thead><tr><th>Stage</th><th class="num">Team-innings</th><th class="num">Expected CS</th><th class="num">Actual CS</th><th class="num">Ratio</th></tr></thead>
+    <tbody>
+    {% for stage, s in c.cs_by_stage.items() %}
+      <tr><td>{{ stage }}</td><td class="num">{{ s.n }}</td><td class="num">{{ s.pred }}</td><td class="num">{{ s.act }}</td>
+        <td class="num">{{ (s.pred / s.act)|r(2) if s.act else '—' }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="card">
+  <h3>Reliability (pooled H/D/A outcome probabilities)</h3>
+  <table class="small">
+    <thead><tr><th>Predicted bin</th><th class="num">N</th><th class="num">Mean predicted</th><th class="num">Empirical</th><th class="num">Gap</th></tr></thead>
+    <tbody>
+    {% for r in c.reliability %}
+      <tr>
+        <td>{{ (r.lo*100)|round|int }}–{{ (r.hi*100)|round|int }}%</td>
+        <td class="num">{{ r.n }}</td>
+        <td class="num">{{ r.pred|pct if r.pred is not none else '—' }}</td>
+        <td class="num">{{ r.emp|pct if r.emp is not none else '—' }}</td>
+        <td class="num">{{ ((r.emp - r.pred)*100)|round(1) if r.pred is not none else '—' }}{% if r.pred is not none %} pp{% endif %}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <p class="small muted">Well-calibrated → predicted ≈ empirical in every bin. Positive gap = under-confident, negative = over-confident.</p>
+</div>
+
+{# ---------------- Counterfactual A/B (current data) ---------------- #}
+{% set cf = counterfactual %}
+{% if cf.as_shipped or cf.ratings_only %}
+<h2>Model isolation — A/B (current data)</h2>
+<p class="small muted">Re-runs the current model over all played matches in two modes. Not walk-forward for the
+slow-moving base ratings (uses current inputs), so read it as relative signal isolation, not a realized score.
+"Ratings-only" forces strength-derived goals (ignores per-match odds) — the mode U2/U5 are gated on.</p>
+<div class="card"><div class="table-scroll"><table>
+  <thead><tr><th>Mode</th><th class="num">N</th><th class="num">RPS</th><th class="num">Log-loss</th><th class="num">Brier</th>
+    <th class="num">Goals MAE</th><th class="num">Exp CS</th><th class="num">Act CS</th></tr></thead>
+  <tbody>
+  {% for label, m in [("As-shipped (market where available)", cf.as_shipped), ("Ratings-only (strength)", cf.ratings_only)] %}
+    {% if m %}
+    <tr>
+      <td>{{ label }}</td><td class="num">{{ m.n }}</td>
+      <td class="num">{{ m.rps|r(4) }}</td><td class="num">{{ m.log_loss|r(4) }}</td><td class="num">{{ m.brier|r(4) }}</td>
+      <td class="num">{{ m.goals_mae|r(3) }}</td><td class="num">{{ m.cs_expected }}</td><td class="num">{{ m.cs_actual }}</td>
+    </tr>
+    {% endif %}
+  {% endfor %}
+  </tbody>
+</table></div>
+<p class="small muted">The market column should beat ratings-only on RPS/log-loss (that's why curated odds override
+strength for the next match). The gap is the headroom team-form (U2) can claw back where odds are absent.</p>
+</div>
+{% endif %}
+
+{# ---------------- Per-match detail ---------------- #}
+<h2>Per-match (walk-forward)</h2>
+<div class="card"><div class="table-scroll"><table>
+  <thead><tr><th>#</th><th>Stage</th><th>Match</th><th>Run</th><th>Nostra</th><th>GoPicks</th><th>Actual</th>
+    <th class="num sortable">N pts</th><th class="num sortable">GP pts</th></tr></thead>
+  <tbody>
+  {% for row in rz.rows %}
+    <tr>
+      <td class="muted">{{ row.num }}</td><td class="muted">{{ row.stage }}</td>
+      <td>{{ row.home }} v {{ row.away }}</td><td class="muted small">{{ row.run }}</td>
+      <td>{{ row.nostra_pick }}</td><td>{{ row.gp_pick }}</td><td><b>{{ row.actual }}</b></td>
+      <td class="num" data-sort="{{ row.nostra_pts }}">{{ row.nostra_pts }}</td>
+      <td class="num" data-sort="{{ row.gp_pts }}">{{ row.gp_pts }}{% if row.gp_exact %} <span class="muted small">({{ row.gp_exact }}e)</span>{% endif %}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table></div></div>
+{% endblock %}

@@ -46,6 +46,11 @@ p.lede { color: var(--muted); margin-top: 0; }
 .kpi { text-align: center; }
 .kpi .num { font-size: 30px; font-weight: 800; color: var(--accent); line-height: 1.1; }
 .kpi .lbl { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+.big { font-size: 30px; font-weight: 800; color: var(--accent); line-height: 1.1; margin: 4px 0; }
+.tag.fresh-stale { background:#3a1d1d; color:#ff9b9b; }
+.tag.fresh-low-confidence { background:#3a311d; color:#ffd28a; }
+.tag.fresh-baseline { background:#1d2a3a; color:#9bc2ff; }
+.tag.fresh-ok { background:#1d3a2a; color:#9bf0bf; }
 
 .countdown { background: linear-gradient(135deg, #142a2e, #1a2129); border-color: #1f4d49; }
 .countdown .num { color: var(--gold); }

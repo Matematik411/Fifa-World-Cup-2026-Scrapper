@@ -58,7 +58,8 @@ HOSTS = {"USA", "Mexico", "Canada"}
 
 
 class Forecast:
-    def __init__(self, teams: list[str], strengths: Strengths, cfg, ratings_odds: dict, fixtures: dict):
+    def __init__(self, teams: list[str], strengths: Strengths, cfg, ratings_odds: dict, fixtures: dict,
+                 ignore_market: bool = False, stakes: dict | None = None):
         self.teams = teams
         self.team_idx = {t: i for i, t in enumerate(teams)}
         self.st = strengths
@@ -66,6 +67,15 @@ class Forecast:
         self.rho = float(cfg.get("model.dixon_coles_rho", -0.12))
         self.max_goals = int(cfg.get("model.goal_cap", 8))
         self.k_et = 0.35
+        # When True, skip per-match market odds and force rating-derived lambdas — the
+        # "ratings-only" mode the backtest (src/eval) uses to isolate the strength model.
+        self.ignore_market = ignore_market
+        # Dead-rubber stakes (U3): {num: {both_settled: bool, ...}} from src/model/standings.
+        # A light goal-intensity damping is applied to a match only when BOTH teams are
+        # settled (clinched/eliminated) — a lower-stakes end-of-group game tends to be
+        # slower and lower-scoring. Empty pre-MD3 -> no effect.
+        self.stakes = stakes or {}
+        self.dead_rubber_intensity = float(cfg.get("model.dead_rubber_intensity", 0.92))
         self.altitude_cities = set(cfg.get("model.altitude_venues", []))
         self._market = self._index_market(ratings_odds.get("match_odds") or [])
         self.match_forecasts: dict[int, MatchForecast] = {}
@@ -118,7 +128,7 @@ class Forecast:
 
     def match_matrix(self, home: str, away: str, *, neutral: bool, city: str = "") -> tuple[float, float, np.ndarray, str]:
         """Return (lam_home, lam_away, P, source) for a (possibly hypothetical) match."""
-        mk = self._market_lambdas(home, away)
+        mk = None if self.ignore_market else self._market_lambdas(home, away)
         if mk is not None:
             lam, mu = mk
             source = "market"
@@ -140,6 +150,11 @@ class Forecast:
             neutral = m["round"] != "group"  # group host teams play at "home"; KO treated neutral
             # Group games: home team is nominal host designation; apply host/altitude only at group stage.
             lam, mu, P, source = self.match_matrix(home, away, neutral=neutral, city=m.get("city", ""))
+            if self.stakes.get(m["num"], {}).get("both_settled"):
+                f = self.dead_rubber_intensity
+                lam, mu = lam * f, mu * f
+                P = dc.score_matrix(lam, mu, self.rho, self.max_goals)
+                source += "+deadrubber"
             summ = dc.summarize(P)
             self.match_forecasts[m["num"]] = MatchForecast(
                 num=m["num"], round=m["round"], group=m.get("group"), home=home, away=away,

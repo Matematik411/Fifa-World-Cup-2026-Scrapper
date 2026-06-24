@@ -25,6 +25,8 @@ class Bundle:
     fantasy_rounds: object = None
     player_stats: dict = field(default_factory=dict)
     lineups: dict = field(default_factory=dict)
+    wc_form: dict = field(default_factory=dict)
+    freshness: dict = field(default_factory=dict)   # U8: per-input {as_of, confidence}
     warnings: list = field(default_factory=list)
 
 
@@ -80,6 +82,7 @@ def load_bundle(cfg, run_date: str, fetch: bool = True, log=print) -> Bundle:
     nostradamus = _load("nostradamus.json", required=False)
     player_stats = _load("player_stats.json", required=False)
     lineups = _load("lineups.json", required=False)
+    wc_form = _load("wc_form.json", required=False)   # U5: in-tournament player form (manual WC xG)
 
     # Merge expanded / sharper odds (Pinnacle, more matchdays) non-destructively.
     odds_extra = _load("odds_extra.json", required=False)
@@ -88,6 +91,22 @@ def load_bundle(cfg, run_date: str, fetch: bool = True, log=print) -> Bundle:
     n_after = len(ratings_odds.get("match_odds") or [])
     if n_after != n_before:
         warnings.append(f"Merged odds_extra: match_odds {n_before} -> {n_after}.")
+
+    # U8: per-input freshness/confidence (as_of from whichever date key the file uses).
+    def _meta(d):
+        if not isinstance(d, dict):
+            return None
+        as_of = d.get("fetched_at") or d.get("updated_at") or d.get("as_of")
+        conf = d.get("confidence")
+        return {"as_of": as_of, "confidence": conf} if (as_of or conf) else None
+
+    freshness = {}
+    for label, d in [("fixtures", fixtures), ("ratings_odds", ratings_odds),
+                     ("squads", squads_research), ("player_stats", player_stats),
+                     ("lineups", lineups), ("wc_form", wc_form), ("nostradamus", nostradamus)]:
+        meta = _meta(d)
+        if meta:
+            freshness[label] = meta
 
     teams = [normalize_team(t) for t in fixtures["teams"]]
     register_canonical(teams)
@@ -118,5 +137,6 @@ def load_bundle(cfg, run_date: str, fetch: bool = True, log=print) -> Bundle:
     return Bundle(
         fixtures=fixtures, ratings_odds=ratings_odds, squads_research=squads_research,
         nostradamus=nostradamus, players=players, squads_map=squads_map, teams=teams,
-        fantasy_rounds=rounds, player_stats=player_stats, lineups=lineups, warnings=warnings,
+        fantasy_rounds=rounds, player_stats=player_stats, lineups=lineups, wc_form=wc_form,
+        freshness=freshness, warnings=warnings,
     )

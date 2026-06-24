@@ -42,6 +42,17 @@ def cmd_run(args):
     return 0
 
 
+def cmd_backtest(args):
+    """Walk-forward backtest + calibration over persisted runs (see src/eval)."""
+    from .eval.backtest import render_backtest_html, run_backtest
+    log = _log()
+    result = run_backtest(load_config(), log=log)
+    if not args.no_render:
+        render_backtest_html(result, log=log)
+        log("Backtest report written to output/backtest.html")
+    return 0
+
+
 def cmd_validate(args):
     from . import io_utils
     log = _log()
@@ -66,6 +77,10 @@ def build_parser():
     r.add_argument("--no-validate", action="store_true", help="Skip post-run validation")
     r.add_argument("--sim-iters", type=int, default=None, help="Override Monte-Carlo iterations")
     r.set_defaults(func=cmd_run)
+
+    b = sub.add_parser("backtest", help="Walk-forward backtest + calibration over persisted runs")
+    b.add_argument("--no-render", action="store_true", help="Compute metrics only, skip HTML")
+    b.set_defaults(func=cmd_backtest)
 
     v = sub.add_parser("validate", help="Summarize/validate the latest processed run")
     v.add_argument("--date", default=None)

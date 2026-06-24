@@ -66,3 +66,25 @@ def test_horizon_covers_residual_beyond_known_fixtures():
 def test_eliminated_team_zeroed():
     p = _proj(played={1}, eliminated=True)
     assert p.horizon == 0.0 and p.exp_next == 0.0 and p.per_match == {}
+
+
+def test_per_match_minutes_rests_nailed_starter_in_dead_rubber():
+    fc, players, squads_map, adv = _setup()
+    base = build_projections(players, squads_map, fc, adv, {}, {"matches": []}, None, played=set())[0]
+    stakes = {2: {"home_state": "clinched", "away_state": "live", "both_settled": False}}
+    rested = build_projections(players, squads_map, fc, adv, {}, {"matches": []}, None,
+                               played=set(), stakes=stakes)[0]
+    # match 2 is Mexico's (clinched) dead rubber -> the nailed starter's EP for THAT
+    # fixture drops, while the other (live) fixtures are byte-identical (per-match minutes)
+    assert rested.per_match[2] < base.per_match[2]
+    assert abs(rested.per_match[1] - base.per_match[1]) < 1e-9
+    assert abs(rested.per_match[73] - base.per_match[73]) < 1e-9
+
+
+def test_next_minutes_reflects_rest_for_next_match():
+    fc, players, squads_map, adv = _setup()
+    stakes = {2: {"home_state": "clinched", "away_state": "live", "both_settled": False}}
+    p = build_projections(players, squads_map, fc, adv, {}, {"matches": []}, None,
+                          played={1}, stakes=stakes)[0]
+    # with match 1 played, the next match is the clinched dead rubber (2) -> next_minutes rested
+    assert p.next_minutes < p.minutes_prob

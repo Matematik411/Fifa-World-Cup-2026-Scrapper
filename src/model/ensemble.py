@@ -167,3 +167,50 @@ def build_strengths(teams: list[str], ratings_odds: dict, cfg) -> Strengths:
         altitude_log=altitude_log, title_prob_devig=title_devig,
         signals_used=signals_used, sources=ratings_odds.get("sources", []), notes=notes,
     )
+
+
+def apply_team_form(strengths: Strengths, wc_form: dict | None, cfg, log=None) -> Strengths:
+    """U2 — nudge team strength by opponent-adjusted in-tournament xG.
+
+    Applied AFTER market calibration (so the supremacy slope `beta` is NOT re-fit on
+    form — avoids the double-count) and kept deliberately SMALL: the signal is the
+    opponent-credited xG-difference per game, centred on neutral (0 = even), scaled,
+    matches-shrunk, and capped. `model.team_form_weight`=0 disables it entirely.
+
+    NB (market-override): because curated per-match odds override strength for priced
+    fixtures, this mostly moves the KO advance-prob matrix, odds-less matches, and the
+    bracket-derived quantities (title/deep-run probs, fantasy horizon, QB EV) — not the
+    next-match scoreline where odds already exist.
+    """
+    weight = float(cfg.get("model.team_form_weight", 0.0))
+    teams_form = (wc_form or {}).get("teams") or {}
+    if weight <= 0 or not teams_form:
+        return strengths
+    base = float(cfg.get("model.base_total_goals", 2.65)) / 2.0   # neutral per-team xG/game
+    k = float(cfg.get("model.team_form_shrink_matches", 3.0))
+    opp_coef = float(cfg.get("model.team_form_opp_coef", 0.5))
+    scale = float(cfg.get("model.team_form_scale", 1.5))
+    s = strengths.s
+    moved = []
+    for nation, info in teams_form.items():
+        if not isinstance(info, dict) or info.get("wc_xg_for") is None:
+            continue
+        m = float(info.get("matches") or 0)
+        if m < 1:
+            continue
+        t = normalize_team(nation)
+        xgf = float(info["wc_xg_for"]) / m
+        xga = float(info.get("wc_xg_against") or 0.0) / m
+        opps = [normalize_team(o) for o in (info.get("opponents") or [])]
+        opp_s = float(np.mean([s.get(o, 0.0) for o in opps])) if opps else 0.0
+        raw = (xgf - xga) + opp_coef * opp_s          # xG-diff per game, credited for schedule
+        off = weight * (m / (m + k)) * float(np.clip(raw / scale, -1.5, 1.5))
+        s[t] = s.get(t, 0.0) + off
+        moved.append((t, off))
+    if moved and log:
+        top = sorted(moved, key=lambda x: -abs(x[1]))[:5]
+        strengths.notes.append(
+            "Team form (U2, post-calibration): "
+            + ", ".join(f"{t} {o:+.2f}" for t, o in top)
+            + f" (weight {weight}, {len(moved)} teams w/ WC xG).")
+    return strengths

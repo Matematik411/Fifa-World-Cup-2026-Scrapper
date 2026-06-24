@@ -49,10 +49,11 @@ class PlayerProj:
     why: str = ""
     round_points: dict = field(default_factory=dict)   # live feed: fantasy round id -> banked pts
     total_points: float = 0.0                          # live feed: tournament total so far
+    next_minutes: float = 0.0                          # per-match start prob for the NEXT match (rest-adjusted)
 
     def to_record(self) -> dict:
         d = dict(self.__dict__)
-        for k in ("price", "ownership", "minutes_prob", "exp_next", "exp_avg", "horizon"):
+        for k in ("price", "ownership", "minutes_prob", "next_minutes", "exp_next", "exp_avg", "horizon"):
             d[k] = round(float(d[k]), 3)
         d["per_match"] = {k: round(float(v), 3) for k, v in self.per_match.items()}
         return d
@@ -68,20 +69,27 @@ BASE_GOAL_RATE = {"GK": 0.0, "DEF": 0.06, "MID": 0.17, "FWD": 0.42}
 BASE_CRE_RATE = {"GK": 0.0, "DEF": 0.08, "MID": 0.22, "FWD": 0.18}
 
 
-def _team_match_env(forecast, fixtures: dict) -> dict:
+def _team_match_env(forecast, fixtures: dict, stakes: dict | None = None) -> dict:
     """Per-team list of forecast match environments — group games plus any
-    knockout tie whose teams are already known (those are certain to happen)."""
+    knockout tie whose teams are already known (those are certain to happen).
+    Each entry carries the team's dead-rubber `team_state` for that match
+    (clinched/eliminated/live, from src/model/standings) so minutes can be
+    rested per-fixture."""
+    stakes = stakes or {}
     env: dict[str, list] = {}
     for num, mf in forecast.match_forecasts.items():
         P = mf.P
         home_goal_marg = P.sum(axis=1)
         away_goal_marg = P.sum(axis=0)
+        sk = stakes.get(num, {})
         env.setdefault(mf.home, []).append({
             "num": num, "round": mf.round, "lam_for": mf.lam_home, "cs_prob": float(P[:, 0].sum()),
-            "opp_goal_marg": away_goal_marg, "opp": mf.away, "is_home": True, "date": mf.date})
+            "opp_goal_marg": away_goal_marg, "opp": mf.away, "is_home": True, "date": mf.date,
+            "team_state": sk.get("home_state", "live")})
         env.setdefault(mf.away, []).append({
             "num": num, "round": mf.round, "lam_for": mf.lam_away, "cs_prob": float(P[0, :].sum()),
-            "opp_goal_marg": home_goal_marg, "opp": mf.home, "is_home": False, "date": mf.date})
+            "opp_goal_marg": home_goal_marg, "opp": mf.home, "is_home": False, "date": mf.date,
+            "team_state": sk.get("away_state", "live")})
     for t in env:
         env[t].sort(key=lambda x: (x["date"] or "9999-99-99", x["num"]))
     return env
@@ -140,6 +148,25 @@ class StatsIndex:
     def __init__(self, player_stats: dict):
         self.by_nation: dict[str, list] = {}
         for nation, rows in (player_stats.get("players") or {}).items():
+            self.by_nation[normalize_team(nation)] = rows or []
+
+    def lookup(self, nation: str, player_name: str) -> dict | None:
+        for row in self.by_nation.get(normalize_team(nation), []):
+            if _NameMatcher.matches(row.get("name", ""), player_name):
+                return row
+        return None
+
+
+class WCFormIndex:
+    """In-tournament per-player form from data/manual/wc_form.json (U5).
+
+    Same `players: {nation: [rows]}` shape as StatsIndex; each row carries WC totals
+    (wc_minutes/wc_goals/wc_assists/wc_xg/wc_xa/wc_shots). Consumed by `_rates` to
+    shrink the club-season per-90 toward in-tournament evidence, minutes-weighted.
+    """
+    def __init__(self, wc_form: dict):
+        self.by_nation: dict[str, list] = {}
+        for nation, rows in (wc_form.get("players") or {}).items():
             self.by_nation[normalize_team(nation)] = rows or []
 
     def lookup(self, nation: str, player_name: str) -> dict | None:
@@ -211,8 +238,10 @@ def _minutes_prob(p: dict, rs: dict, lineup_status: str | None, stat: dict | Non
     return float(base)
 
 
-def _rates(p: dict, rs: dict, stat: dict | None) -> tuple[float, float]:
-    """(goal_rate_p90, assist_rate_p90) — real underlying numbers if available."""
+def _rates(p: dict, rs: dict, stat: dict | None, wc: dict | None = None,
+           k_form: float = 600.0) -> tuple[float, float]:
+    """(goal_rate_p90, assist_rate_p90) — club-season underlying numbers, shrunk toward
+    in-tournament WC form (U5) when available."""
     pos = p["position"]
     price = float(p["price"])
     if stat:
@@ -244,6 +273,18 @@ def _rates(p: dict, rs: dict, stat: dict | None) -> tuple[float, float]:
         goal_rate = BASE_GOAL_RATE[pos] * pf
     if cre_rate is None:
         cre_rate = BASE_CRE_RATE[pos] * (pf ** 0.8)
+    # --- U5: shrink toward in-tournament form, minutes-weighted ---
+    # Lean on xG/xA (process — sticky, captures a real role change) over goals/assists
+    # (finishing — noisy, regresses), and weight by WC minutes so two games barely move
+    # the club-season prior (m=180 -> ~23% weight at k_form=600; it grows as the run goes).
+    if wc:
+        m = float(wc.get("wc_minutes") or 0.0)
+        if m >= 1.0:
+            w = m / (m + k_form)
+            wc_goal = (0.7 * float(wc.get("wc_xg") or 0.0) + 0.3 * float(wc.get("wc_goals") or 0.0)) * 90.0 / m
+            wc_cre = (0.7 * float(wc.get("wc_xa") or 0.0) + 0.3 * float(wc.get("wc_assists") or 0.0)) * 90.0 / m
+            goal_rate = (1.0 - w) * goal_rate + w * wc_goal
+            cre_rate = (1.0 - w) * cre_rate + w * wc_cre
     # WC penalty taker upside (may differ from club): add expected pens/90 * conversion
     if rs.get("is_pen"):
         goal_rate += 0.10
@@ -253,12 +294,16 @@ def _rates(p: dict, rs: dict, stat: dict | None) -> tuple[float, float]:
 def build_projections(players: list[dict], squads_map: dict, forecast, advancement: dict,
                       squads_research: dict, fixtures: dict, cfg,
                       player_stats: dict | None = None, lineups: dict | None = None,
-                      played: set[int] | None = None) -> list[PlayerProj]:
-    env = _team_match_env(forecast, fixtures)
+                      played: set[int] | None = None, stakes: dict | None = None,
+                      wc_form: dict | None = None) -> list[PlayerProj]:
+    env = _team_match_env(forecast, fixtures, stakes)
+    rest_factor = float(cfg.get("fantasy.rotation_rest_factor", 0.6)) if cfg else 0.6
+    k_form = float(cfg.get("fantasy.wc_form_shrink_minutes", 600)) if cfg else 600.0
     played = set(played or ())
     ridx = ResearchIndex(squads_research or {})
     sidx = StatsIndex(player_stats or {})
     lidx = LineupIndex(lineups or {})
+    wcidx = WCFormIndex(wc_form or {})
 
     by_nation: dict[str, list[dict]] = {}
     nation_out: dict[str, bool] = {}
@@ -305,13 +350,14 @@ def build_projections(players: list[dict], squads_map: dict, forecast, advanceme
             name = _display_name(p)
             rs = ridx.lookup(nation, name)
             stat = sidx.lookup(nation, name)
+            wc = wcidx.lookup(nation, name)
             lstat = lidx.status(nation, name)
             mins = _minutes_prob(p, rs, lstat, stat, is_first_choice_gk=(p["id"] == gk_first.get(nation)))
-            goal_rate, cre_rate = _rates(p, rs, stat)
+            goal_rate, cre_rate = _rates(p, rs, stat, wc, k_form)
             meta[p["id"]] = {"name": name, "rs": rs, "stat": stat, "mins": mins,
                              "att_w": goal_rate * mins, "cre_w": cre_rate * mins,
                              "price": float(p["price"]), "own": float(p.get("percentSelected") or 0.0),
-                             "has_stat": stat is not None}
+                             "has_stat": stat is not None, "has_wc": wc is not None}
 
     team_att_sum = {n: (sum(meta[p["id"]]["att_w"] for p in pl) or 1.0) for n, pl in by_nation.items()}
     team_cre_sum = {n: (sum(meta[p["id"]]["cre_w"] for p in pl) or 1.0) for n, pl in by_nation.items()}
@@ -335,7 +381,19 @@ def build_projections(players: list[dict], squads_map: dict, forecast, advanceme
             live_rounds = {str(k): float(v) for k, v in rp.items()} if isinstance(rp, dict) else {}
             goal_share = m["att_w"] / team_att_sum[nation]
             assist_share = m["cre_w"] / team_cre_sum[nation]
-            all_eps = {mx["num"]: _player_match_ep(p["position"], m, goal_share, assist_share, mx)
+            # Per-match minutes (U6/U3): a nailed starter (high baseline) is rested in a
+            # clinched team's dead-rubber last group game -> reduced start prob for THAT
+            # fixture only. Every other fixture keeps the baseline, so normal-stakes
+            # behaviour is unchanged.
+            base_mins = m["mins"]
+            nailed = base_mins >= 0.7
+
+            def _eff(mx, _base=base_mins, _nailed=nailed):
+                if _nailed and mx.get("team_state") == "clinched":
+                    return _base * rest_factor
+                return _base
+
+            all_eps = {mx["num"]: _player_match_ep(p["position"], m, goal_share, assist_share, mx, _eff(mx))
                        for mx in matches}
             per_match = {mx["num"]: all_eps[mx["num"]] for mx in upcoming}
             upcoming_eps = list(per_match.values())
@@ -348,18 +406,24 @@ def build_projections(players: list[dict], squads_map: dict, forecast, advanceme
                 # still alive but next tie not yet in fixtures (e.g. opponent TBD)
                 exp_next = exp_avg if residual > 0.5 else 0.0
             horizon = float(sum(upcoming_eps) + exp_avg * 0.88 * residual)
+            next_minutes = _eff(upcoming[0]) if upcoming else base_mins
             projs.append(PlayerProj(
                 pid=p["id"], name=m["name"], nation=nation, group=str(p.get("_group", "")).upper(),
                 position=p["position"], price=m["price"], ownership=m["own"], minutes_prob=m["mins"],
                 exp_next=exp_next, exp_avg=exp_avg, horizon=horizon, per_match=per_match,
                 next_date=(upcoming[0]["date"] or "") if upcoming else "",
                 tags=_tags(p["position"], m), why=_why(p["position"], m, adv),
-                round_points=live_rounds, total_points=float(st.get("totalPoints") or 0.0)))
+                round_points=live_rounds, total_points=float(st.get("totalPoints") or 0.0),
+                next_minutes=next_minutes))
     return projs
 
 
-def _player_match_ep(pos: str, m: dict, goal_share: float, assist_share: float, mx: dict) -> float:
-    mins = m["mins"]
+def _player_match_ep(pos: str, m: dict, goal_share: float, assist_share: float, mx: dict,
+                     eff_mins: float | None = None) -> float:
+    # eff_mins overrides the player's baseline start prob for THIS fixture (per-match
+    # minutes — e.g. a nailed starter rested in a clinched team's dead rubber). When
+    # None, behaviour is identical to the old single-scalar model.
+    mins = m["mins"] if eff_mins is None else eff_mins
     p60 = mins * 0.92
     lam_for = mx["lam_for"]
     stat = m.get("stat") or {}
@@ -417,6 +481,8 @@ def _tags(pos: str, m: dict) -> list[str]:
         t.append("differential")
     if m["has_stat"]:
         t.append("xG-backed")
+    if m.get("has_wc"):
+        t.append("WC form")
     if m["mins"] < 0.4:
         t.append("bench risk")
     return t

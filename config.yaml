@@ -34,6 +34,8 @@ fantasy:
     - [5, 2, 3]
   free_transfers_per_round: 2   # default; the verified per-round map in fantasy_rules.json overrides
   extra_transfer_penalty: -3    # verified: -3 per extra transfer (fantasy_rules.json overrides anyway)
+  rotation_rest_factor: 0.6     # U3: a clinched team's nailed starters drop to this × start prob in the dead rubber
+  wc_form_shrink_minutes: 600   # U5: shrinkage constant K — club-season per-90 gets weight K/(K+wc_minutes)
 
 # --- Nostradamus scoring (defaults; overridden by data/manual/nostradamus.json) ---
 nostradamus:
@@ -72,6 +74,12 @@ model:
     - "Guadalajara"
   altitude_factor: 1.05
   base_total_goals: 2.65       # league-neutral expected total when no market total available
+  dead_rubber_intensity: 0.92  # U3: goal multiplier when BOTH teams are settled in a last group game (light)
+  # U2 team form (opponent-adjusted WC xG → small post-calibration strength offset). weight=0 disables.
+  team_form_weight: 0.15       # max strength shift in z-units (small — market already prices priced matches)
+  team_form_shrink_matches: 3  # shrink K: weight m/(m+K), so 2 games ≈ 0.4 of full effect
+  team_form_opp_coef: 0.5      # credit for the strength of opponents faced (schedule adjustment)
+  team_form_scale: 1.5         # xG-difference/game that maps to a full-unit (pre-weight) nudge
 
 sources:
   # Toggle individual fetchers. Manual (Claude-curated) inputs are always read.

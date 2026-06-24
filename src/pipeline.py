@@ -14,8 +14,9 @@ from .fantasy import optimizer as fopt
 from .fantasy import transfers as ftr
 from .fantasy.projections import build_projections
 from .model.bracket import BracketSimulator
-from .model.ensemble import build_strengths
+from .model.ensemble import apply_team_form, build_strengths
 from .model.forecast import Forecast
+from .model.standings import dead_rubber_flags
 from .gopicks import optimizer as gopt
 from .nostradamus import optimizer as nopt
 from .sources.loader import load_bundle
@@ -210,13 +211,23 @@ def run_pipeline(run_date: str | None = None, fetch: bool = True, sim: bool = Tr
     log(f"Stage: {stage_label}")
     _reconcile_owned(state, target_round, log)
 
+    # Dead-rubber stakes (U3): standings-derived, sim-independent. Feeds both the
+    # forecast (goal-intensity damping when both teams are settled) and player
+    # projections (rest a clinched team's nailed starters in their last group game).
+    stakes = dead_rubber_flags(bundle.fixtures, results)
+    if stakes:
+        n_both = sum(1 for v in stakes.values() if v["both_settled"])
+        log(f"Dead-rubber stakes: {len(stakes)} last-group match(es) with a settled team "
+            f"({n_both} both-settled → goal intensity damped).")
+
     # ---- shared forecast model ----
     log("Building ensemble strengths...")
     strengths = build_strengths(bundle.teams, bundle.ratings_odds, cfg)
+    apply_team_form(strengths, bundle.wc_form, cfg, log=log)   # U2: small post-calibration form offset
     for n in strengths.notes:
         log(f"  {n}")
     log("Building per-match Dixon-Coles forecasts...")
-    forecast = Forecast(bundle.teams, strengths, cfg, bundle.ratings_odds, bundle.fixtures)
+    forecast = Forecast(bundle.teams, strengths, cfg, bundle.ratings_odds, bundle.fixtures, stakes=stakes)
 
     # ---- Monte-Carlo bracket ----
     if sim:
@@ -269,7 +280,7 @@ def run_pipeline(run_date: str | None = None, fetch: bool = True, sim: bool = Tr
     if bundle.players and bundle.squads_map:
         log("Projecting fantasy points + optimizing squad...")
         fantasy_out = _run_fantasy(cfg, bundle, forecast, advancement, stage, target_round,
-                                   state, results, log)
+                                   state, results, log, stakes=stakes)
     else:
         log("  [warn] Skipping fantasy (no player feed).")
 
@@ -327,11 +338,12 @@ def _decorate_prediction(p, forecast) -> dict:
     return rec
 
 
-def _run_fantasy(cfg, bundle, forecast, advancement, stage, target_round, state, results, log) -> dict:
+def _run_fantasy(cfg, bundle, forecast, advancement, stage, target_round, state, results, log,
+                 stakes=None) -> dict:
     projs = build_projections(bundle.players, bundle.squads_map, forecast, advancement,
                               bundle.squads_research, bundle.fixtures, cfg,
                               player_stats=bundle.player_stats, lineups=bundle.lineups,
-                              played=set(results))
+                              played=set(results), stakes=stakes, wc_form=bundle.wc_form)
     budget = _budget(cfg, target_round)
     nation_cap = _nation_cap(cfg, target_round)
     owned = (state.get("owned") or {}).get("player_ids") or []
@@ -738,11 +750,53 @@ def _pool_by_pos(projs) -> dict:
     return out
 
 
+def _freshness_rows(bundle, run_date, cfg) -> list[dict]:
+    """U8: per-input as_of / age / confidence + a staleness status for the reports.
+    `player_stats` is intentionally a pre-tournament club-season baseline (status
+    'baseline', not a warning); daily inputs older than 2 days are flagged 'stale'."""
+    daily = {"lineups", "ratings_odds", "squads", "wc_form", "results"}
+    start = cfg.get("tournament.start_date", "2026-06-11")
+    fresh = dict(bundle.freshness)
+    rp = MANUAL / "results.json"                       # results.json carries its own updated_at
+    if rp.exists():
+        raw = io_utils.load_json(rp)
+        if isinstance(raw, dict) and raw.get("updated_at"):
+            fresh["results"] = {"as_of": raw["updated_at"], "confidence": None}
+
+    def _age(as_of):
+        try:
+            return (datetime.fromisoformat(run_date) - datetime.fromisoformat(as_of)).days
+        except (TypeError, ValueError):
+            return None
+
+    rows = []
+    for label, m in fresh.items():
+        as_of, conf = m.get("as_of"), m.get("confidence")
+        age = _age(as_of) if as_of else None
+        status = "ok"
+        if label == "player_stats" and as_of and as_of < start:
+            status = "baseline"                        # club-season prior, intentionally pre-tournament
+        elif label in daily and age is not None and age >= 2:
+            status = "stale"
+        elif conf and any(w in str(conf).lower() for w in ("low", "seed")):
+            status = "low-confidence"
+        rows.append({"input": label, "as_of": as_of or "—", "age_days": age,
+                     "confidence": conf or "—", "status": status})
+    order = {"stale": 0, "low-confidence": 1, "baseline": 2, "ok": 3}
+    rows.sort(key=lambda r: (order.get(r["status"], 9), r["input"]))
+    return rows
+
+
 def _assemble(cfg, run_date, gen_cet, stage, stage_label, bundle, strengths, forecast,
               simr, pred_records, fantasy_out, scoring_summary=None, gp_summary=None) -> dict:
     from .model.teams import normalize_team
     scoring_summary = scoring_summary or {"total": 0, "rows": [], "n": 0}
     gp_summary = gp_summary or {"total": 0, "exact": 0, "rows": [], "n": 0, "missed": 0}
+    freshness_rows = _freshness_rows(bundle, run_date, cfg)
+    for fr in freshness_rows:
+        if fr["status"] == "stale":
+            bundle.warnings.append(f"Stale input: {fr['input']} is {fr['age_days']}d old "
+                                   f"(as of {fr['as_of']}) — refresh it before relying on this run.")
     groups_canon = {letter: [normalize_team(t) for t in tnames]
                     for letter, tnames in bundle.fixtures["groups"].items()}
     groups_of = {t: letter for letter, tnames in groups_canon.items() for t in tnames}
@@ -829,6 +883,7 @@ def _assemble(cfg, run_date, gen_cet, stage, stage_label, bundle, strengths, for
         "nostradamus_rules": cfg.get("nostradamus", {}),
         "gopicks_rules": cfg.get("gopicks", {}),
         "sources": sources,
+        "data_freshness": freshness_rows,
         "third_slot_fallbacks": simr.get("third_slot_fallbacks", 0),
     }
 

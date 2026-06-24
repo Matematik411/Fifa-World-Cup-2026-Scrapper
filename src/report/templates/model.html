@@ -77,4 +77,26 @@ follows FIFA's Annex-C eligibility (a valid matching is used per simulated combi
   <p class="muted">Uncertainty: outright title odds are inherently wide; lineups and form move daily. Treat single-team
   title percentages as point estimates from one model run, not precise truths. Re-run daily to refresh.</p>
 </div>
+
+{% if data_freshness %}
+<h2>Data freshness &amp; confidence</h2>
+<div class="card"><div class="table-scroll"><table>
+  <thead><tr><th>Input</th><th>As of</th><th class="num">Age</th><th>Confidence</th><th>Status</th></tr></thead>
+  <tbody>
+  {% for r in data_freshness %}
+    <tr>
+      <td>{{ r.input|replace('_',' ') }}</td>
+      <td class="muted">{{ r.as_of }}</td>
+      <td class="num">{% if r.age_days is not none %}{{ r.age_days }}d{% else %}—{% endif %}</td>
+      <td class="muted">{{ r.confidence }}</td>
+      <td><span class="tag fresh-{{ r.status }}">{{ r.status }}</span></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table></div>
+<p class="small muted">Daily inputs (lineups, odds, squads, results, WC form) should be ≤1 day old. “baseline”
+is the intentional pre-tournament club-season prior (player_stats); “low-confidence” flags seed/estimated
+inputs (e.g. the WC-form seed before real xG is curated). Stale daily inputs also raise the banner atop every page.</p>
+</div>
+{% endif %}
 {% endblock %}
