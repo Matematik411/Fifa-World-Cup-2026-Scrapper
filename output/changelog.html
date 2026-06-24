@@ -52,6 +52,11 @@ p.lede { color: var(--muted); margin-top: 0; }
 .kpi { text-align: center; }
 .kpi .num { font-size: 30px; font-weight: 800; color: var(--accent); line-height: 1.1; }
 .kpi .lbl { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+.big { font-size: 30px; font-weight: 800; color: var(--accent); line-height: 1.1; margin: 4px 0; }
+.tag.fresh-stale { background:#3a1d1d; color:#ff9b9b; }
+.tag.fresh-low-confidence { background:#3a311d; color:#ffd28a; }
+.tag.fresh-baseline { background:#1d2a3a; color:#9bc2ff; }
+.tag.fresh-ok { background:#1d3a2a; color:#9bf0bf; }
 
 .countdown { background: linear-gradient(135deg, #142a2e, #1a2129); border-color: #1f4d49; }
 .countdown .num { color: var(--gold); }
@@ -160,15 +165,15 @@ footer.foot a { word-break: break-all; }
 </header>
 <div class="wrap">
   <div class="meta-bar">
-    <span class="stage-pill">Group stage — Matchday 2 (44/72 group results in) — transfers apply to Group stage — Matchday 3</span>
-    <span>Generated Tue 23 Jun 2026, 11:14 CEST</span>
-    <span>Run 2026-06-23</span>
+    <span class="stage-pill">Group stage — Matchday 3 (48/72 group results in) — transfers apply to Group stage — Matchday 3</span>
+    <span>Generated Wed 24 Jun 2026, 13:54 CEST</span>
+    <span>Run 2026-06-24</span>
     <span>200,000 simulations</span>
   </div>
 
   
   <div class="warn"><strong>Notes:</strong>
-    Merged odds_extra: match_odds 24 -&gt; 72.
+    Merged odds_extra: match_odds 24 -&gt; 72. · Stale input: ratings_odds is 6d old (as of 2026-06-18) — refresh it before relying on this run.
   </div>
   
 
@@ -177,15 +182,15 @@ footer.foot a { word-break: break-all; }
 
 <h2>Running performance</h2>
 <div class="grid cols-4">
-  <div class="card kpi"><div class="num">48</div><div class="lbl">Nostradamus points</div></div>
-  <div class="card kpi"><div class="num">103</div><div class="lbl">GoPicks points</div>
-    <div class="small muted" style="margin-top:6px">25 exact goals (tiebreak) · 2 missed</div></div>
+  <div class="card kpi"><div class="num">54</div><div class="lbl">Nostradamus points</div></div>
+  <div class="card kpi"><div class="num">118</div><div class="lbl">GoPicks points</div>
+    <div class="small muted" style="margin-top:6px">31 exact goals (tiebreak) · 2 missed</div></div>
   <div class="card kpi"><div class="num">0</div><div class="lbl">Fantasy points</div></div>
-  <div class="card kpi"><div class="num">44</div><div class="lbl">matches scored</div></div>
+  <div class="card kpi"><div class="num">48</div><div class="lbl">matches scored</div></div>
 </div>
 
 
-<h3>Results since last run (48 Nostradamus pts · 103 GoPicks pts)</h3>
+<h3>Results since last run (54 Nostradamus pts · 118 GoPicks pts)</h3>
 <div class="card"><div class="table-scroll"><table>
   <thead><tr><th>Match</th><th>Nostradamus</th><th>GoPicks</th><th>Actual</th><th class="num">N pts</th><th class="num">GP pts</th></tr></thead>
   <tbody>
@@ -454,6 +459,30 @@ footer.foot a { word-break: break-all; }
     <td class="num up">2</td>
     <td class="num up">3</td></tr>
   
+    <tr><td>Portugal v Uzbekistan</td><td>2-0</td>
+    <td>2-0</td>
+    <td><b>5-0</b></td>
+    <td class="num up">2</td>
+    <td class="num up">4</td></tr>
+  
+    <tr><td>England v Ghana</td><td>2-0</td>
+    <td>2-0</td>
+    <td><b>0-0</b></td>
+    <td class="num down">0</td>
+    <td class="num muted">1</td></tr>
+  
+    <tr><td>Panama v Croatia</td><td>0-2</td>
+    <td>0-1</td>
+    <td><b>0-1</b></td>
+    <td class="num up">2</td>
+    <td class="num up">5</td></tr>
+  
+    <tr><td>Colombia v DR Congo</td><td>2-0</td>
+    <td>1-0</td>
+    <td><b>1-0</b></td>
+    <td class="num up">2</td>
+    <td class="num up">5</td></tr>
+  
   </tbody>
 </table></div></div>
 
@@ -462,22 +491,22 @@ runbook explains how — so each run can score how the strategy is doing. </p>
 
 <h2>Changes since last run</h2>
 
-<p class="small muted">Diff vs 2026-06-12.</p>
+<p class="small muted">Diff vs 2026-06-22.</p>
 
 <div class="grid cols-2">
   <div class="card">
-    <h3>Prediction flips (2 Nostradamus · 3 GoPicks)</h3>
+    <h3>Prediction flips (1 Nostradamus · 2 GoPicks)</h3>
     
       <table><thead><tr><th>League</th><th>Match</th><th>Was</th><th></th><th>Now</th></tr></thead><tbody>
-        <tr><td class="muted small">Nostr</td><td>#56</td><td class="muted">0-2</td><td>→</td><td class="flip">0-3</td></tr><tr><td class="muted small">Nostr</td><td>#63</td><td class="muted">2-0</td><td>→</td><td class="flip">0-2</td></tr>
-        <tr><td class="muted small">GoPicks</td><td>#58</td><td class="muted">0-1</td><td>→</td><td class="flip">0-2</td></tr><tr><td class="muted small">GoPicks</td><td>#62</td><td class="muted">1-0</td><td>→</td><td class="flip">2-0</td></tr><tr><td class="muted small">GoPicks</td><td>#63</td><td class="muted">1-0</td><td>→</td><td class="flip">0-1</td></tr>
+        <tr><td class="muted small">Nostr</td><td>#60</td><td class="muted">2-0</td><td>→</td><td class="flip">0-0</td></tr>
+        <tr><td class="muted small">GoPicks</td><td>#60</td><td class="muted">1-0</td><td>→</td><td class="flip">0-0</td></tr><tr><td class="muted small">GoPicks</td><td>#62</td><td class="muted">2-0</td><td>→</td><td class="flip">1-0</td></tr>
       </tbody></table>
     
   </div>
   <div class="card">
     <h3>Squad changes (4)</h3>
     
-      <ul class="small"><li><b>OUT</b>: Nicolás Tagliafico</li><li><b>OUT</b>: David Raya</li><li><b>IN</b>: Jordan Pickford</li><li><b>IN</b>: Danilo</li></ul>
+      <ul class="small"><li><b>OUT</b>: Jérémy Doku</li><li><b>OUT</b>: Raphinha</li><li><b>IN</b>: Nico Williams</li><li><b>IN</b>: Enzo Fernández</li></ul>
     
   </div>
 </div>
@@ -487,32 +516,14 @@ runbook explains how — so each run can score how the strategy is doing. </p>
   
     <table><thead><tr><th>Team</th><th class="num">Was</th><th class="num">Now</th><th class="num">Δ</th></tr></thead><tbody>
       
-      <tr><td>Argentina</td><td class="num muted">13.7%</td><td class="num">19.6%</td>
-      <td class="num up">+5.9pp</td></tr>
-      
-      <tr><td>France</td><td class="num muted">16.3%</td><td class="num">18.6%</td>
+      <tr><td>Argentina</td><td class="num muted">18.6%</td><td class="num">20.8%</td>
       <td class="num up">+2.3pp</td></tr>
       
-      <tr><td>England</td><td class="num muted">11.2%</td><td class="num">12.1%</td>
-      <td class="num up">+0.9pp</td></tr>
+      <tr><td>France</td><td class="num muted">18.8%</td><td class="num">19.3%</td>
+      <td class="num up">+0.5pp</td></tr>
       
-      <tr><td>Portugal</td><td class="num muted">7.0%</td><td class="num">6.0%</td>
+      <tr><td>England</td><td class="num muted">12.7%</td><td class="num">11.7%</td>
       <td class="num down">-1.0pp</td></tr>
-      
-      <tr><td>Brazil</td><td class="num muted">7.0%</td><td class="num">5.1%</td>
-      <td class="num down">-1.9pp</td></tr>
-      
-      <tr><td>Netherlands</td><td class="num muted">3.4%</td><td class="num">2.6%</td>
-      <td class="num down">-0.7pp</td></tr>
-      
-      <tr><td>Belgium</td><td class="num muted">2.1%</td><td class="num">1.1%</td>
-      <td class="num down">-1.1pp</td></tr>
-      
-      <tr><td>Croatia</td><td class="num muted">1.0%</td><td class="num">0.4%</td>
-      <td class="num down">-0.6pp</td></tr>
-      
-      <tr><td>Uruguay</td><td class="num muted">1.0%</td><td class="num">0.3%</td>
-      <td class="num down">-0.7pp</td></tr>
       
     </tbody></table>
   

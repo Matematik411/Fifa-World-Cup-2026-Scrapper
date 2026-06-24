@@ -1,46 +1,66 @@
 {
-  "fetched_at": "2026-06-23",
-  "note": "MD2 day-6 (FINAL day of Matchday 2, Jun 23) predicted XIs for today's four fixtures (M45-48). Confirmed sheets drop ~1h pre-KO; at run time they are NOT yet out, so confirmed:false everywhere -> listed players carry the 0.90 predicted-start weight. OWNED relevance: only BRUNO FERNANDES (Portugal, M45, KO 19:00 CEST) is in the active XI today (subbed in for Theo per the free-roll restore) - he is NAILED to start (ESPN/RotoWire/Sports Mole consensus, no rotation despite the DRC draw; Portugal must win to be sure of progress). PICKFORD (England, M46) is also NAILED #1 but is our fantasy BENCH GK (Maignan already played + banked a clean sheet, so no GK swap). CAPTAIN stays Oyarzabal (already played M37). Predicted XIs from ESPN/Sports Mole/RotoWire/Covers Jun 23. Minor uncertainties noted but immaterial (no owned players): Portugal Ruben Dias fitness (predicted to return); England Stones vs Guehi/Konsa at CB; Croatia Vuskovic in the back-four switch.",
+  "fetched_at": "2026-06-24",
+  "note": "MD3 day-1 (Jun 24) PREDICTED XIs for tonight's six fixtures M49-54 (KO 15:00/18:00/21:00 ET per match; first ~21:00 CEST). Confirmed sheets drop ~1h pre-KO; at run time NONE are out yet -> confirmed:false everywhere (listed players carry the 0.90 predicted-start weight). OWNED relevance: BRAZIL (M51 vs Scotland) - RAPHINHA OUT (right-hamstring tear, imaging-confirmed); 4-source consensus (ESPN/RotoWire/SI/Sports Mole Jun 24) replaces him with 19yo RAYAN (Bournemouth) on the RIGHT flank (Luiz Henrique the alt), Vinicius Jr KEEPS the LEFT (scored in both group games, no card/suspension risk), DANILO starts RB, Marquinhos+Gabriel CB, Douglas Santos LB, Casemiro+Bruno Guimaraes pivot, Paqueta No.10, CUNHA lone CF (brace vs Haiti). NEYMAR passed fit but a START considered UNLIKELY -> bench cameo, NOT in the XI. Brazil ALREADY QUALIFIED for the R32 but chasing top spot of Group C (level/ahead of Morocco) so the consensus XI keeps the first-choice spine - mild rotation watch only: Ancelotti could swap Douglas Santos/Casemiro for Alex Sandro/Fabinho to dodge a R32 suspension (neither is one yellow from a ban per previews; treat as low-prob). SUSPENSIONS tonight (in each team's 'out'): Bosnia Muharemovic (red vs SUI); Qatar Homam Ahmed + Assim Madibo (reds vs CAN); South Africa Mokoena (2nd yellow vs CZE) + Zwane (still serving). Sources: ESPN/RotoWire/SI/Sports Mole predicted-XI pages Jun 24 (cross-checked 2+ per team). Switzerland CF/attacking-mid (Embolo lone-9 vs a front-three) + one CB/mid slot split across RotoWire vs SI/SportsMole - 9 names agreed, the 2 fringe slots are best-effort (not owned, immaterial).",
   "teams": {
-    "Portugal": {
+    "Brazil": {
       "confirmed": false,
-      "xi": ["Diogo Costa", "Joao Cancelo", "Tomas Araujo", "Ruben Dias", "Nuno Mendes", "Vitinha", "Joao Neves", "Bernardo Silva", "Bruno Fernandes", "Pedro Neto", "Cristiano Ronaldo"],
+      "xi": ["Alisson", "Danilo", "Marquinhos", "Gabriel Magalhaes", "Douglas Santos", "Casemiro", "Bruno Guimaraes", "Rayan", "Lucas Paqueta", "Vinicius Junior", "Matheus Cunha"],
+      "out": ["Raphinha", "Neymar", "Wesley", "Rodrygo", "Estevao", "Eder Militao"]
+    },
+    "Scotland": {
+      "confirmed": false,
+      "xi": ["Angus Gunn", "Nathan Patterson", "Jack Hendry", "Scott McKenna", "Andrew Robertson", "Ryan Christie", "Lewis Ferguson", "Scott McTominay", "John McGinn", "Ben Doak", "Che Adams"],
+      "out": ["Billy Gilmour"]
+    },
+    "Switzerland": {
+      "confirmed": false,
+      "xi": ["Gregor Kobel", "Silvan Widmer", "Manuel Akanji", "Nico Elvedi", "Ricardo Rodriguez", "Granit Xhaka", "Remo Freuler", "Michel Aebischer", "Dan Ndoye", "Breel Embolo", "Ruben Vargas"],
       "out": []
     },
-    "Uzbekistan": {
+    "Canada": {
       "confirmed": false,
-      "xi": ["Utkir Yusupov", "Abdukodir Khusanov", "Rustam Ashurmatov", "Abdvomit Abdullaev", "Abbosbek Fayzullaev", "Jaloliddin Masharipov", "Otabek Shukurov", "Azizbek Amonov", "Khojiakbar Alijonov", "Eldor Shomurodov", "Igor Sergeev"],
+      "xi": ["Maxime Crepeau", "Alistair Johnston", "Derek Cornelius", "Luc de Fougerolles", "Richie Laryea", "Tajon Buchanan", "Stephen Eustaquio", "Nathan Saliba", "Ali Ahmed", "Jonathan David", "Cyle Larin"],
+      "out": ["Ismael Kone", "Moise Bombito", "Alfie Jones"]
+    },
+    "Bosnia and Herzegovina": {
+      "confirmed": false,
+      "xi": ["Nikola Vasilj", "Amar Dedic", "Nikola Katic", "Dennis Hadzikadunic", "Sead Kolasinac", "Esmir Bajraktarevic", "Benjamin Tahirovic", "Ivan Sunjic", "Haris Memic", "Ermedin Demirovic", "Edin Dzeko"],
+      "out": ["Tarik Muharemovic"]
+    },
+    "Qatar": {
+      "confirmed": false,
+      "xi": ["Mahmud Abunada", "Sultan Al Brake", "Pedro Miguel", "Boualem Khoukhi", "Tarek Salman", "Ahmed Fathy", "Ahmed Fadel Gaber", "Mostafa Meshaal", "Edmilson Junior", "Yusuf Abdurisag", "Akram Afif"],
+      "out": ["Homam Ahmed", "Assim Madibo"]
+    },
+    "Morocco": {
+      "confirmed": false,
+      "xi": ["Yassine Bono", "Achraf Hakimi", "Issa Diop", "Chadi Riad", "Noussair Mazraoui", "Ayyoub Bouaddi", "Neil El Aynaoui", "Azzedine Ounahi", "Brahim Diaz", "Bilal El Khannouss", "Ilias Saibari"],
+      "out": ["Nayef Aguerd", "Abde Ezzalzouli", "Youssef En-Nesyri"]
+    },
+    "Haiti": {
+      "confirmed": false,
+      "xi": ["Johny Placide", "Carlens Arcus", "Ricardo Ade", "Hannes Delcroix", "M. Experience", "Deedson Louicius", "Jean Jacques", "Jean-Ricner Bellegarde", "Ruben Providence", "Wilson Isidor", "Frantzdy Pierrot"],
       "out": []
     },
-    "England": {
+    "Mexico": {
       "confirmed": false,
-      "xi": ["Jordan Pickford", "Reece James", "Ezri Konsa", "Marc Guehi", "Nico O'Reilly", "Declan Rice", "Elliot Anderson", "Noni Madueke", "Jude Bellingham", "Anthony Gordon", "Harry Kane"],
-      "out": []
+      "xi": ["Guillermo Ochoa", "Jorge Sanchez", "Israel Reyes", "Edson Alvarez", "Jesus Gallardo", "Alvaro Fidalgo", "Luis Romo", "Erik Lira", "Roberto Alvarado", "Santiago Gimenez", "Cesar Huerta"],
+      "out": ["Luis Malagon"]
     },
-    "Ghana": {
+    "Czechia": {
       "confirmed": false,
-      "xi": ["Lawrence Ati-Zigi", "Gideon Mensah", "Alidu Seidu", "Mohammed Salisu", "Alexander Djiku", "Thomas Partey", "Elisha Owusu", "Mohammed Kudus", "Antoine Semenyo", "Jordan Ayew", "Inaki Williams"],
-      "out": []
+      "xi": ["Matej Kovar", "Stepan Chaloupek", "Robin Hranac", "Ladislav Krejci", "Vladimir Coufal", "Tomas Soucek", "Lukas Cerv", "David Doudera", "Lukas Provod", "Pavel Sulc", "Patrik Schick"],
+      "out": ["David Jurasek"]
     },
-    "Panama": {
+    "South Africa": {
       "confirmed": false,
-      "xi": ["Orlando Mosquera", "Cesar Blackman", "Andres Andrade", "Roderick Miller", "Eric Davis", "Carlos Harvey", "Adalberto Carrasquilla", "Cristian Martinez", "Ismael Diaz", "Jose Fajardo", "Cecilio Waterman"],
-      "out": []
+      "xi": ["Ronwen Williams", "Khuliso Mudau", "Ime Okon", "Mbekezeli Mbokazi", "Aubrey Modiba", "Jayden Adams", "Thalente Mbatha", "Sphephelo Sithole", "Thapelo Maseko", "Oswin Appollis", "Evidence Makgopa"],
+      "out": ["Teboho Mokoena", "Themba Zwane"]
     },
-    "Croatia": {
+    "South Korea": {
       "confirmed": false,
-      "xi": ["Dominik Livakovic", "Josip Stanisic", "Josip Sutalo", "Luka Vuskovic", "Josko Gvardiol", "Luka Modric", "Mateo Kovacic", "Mario Pasalic", "Andrej Kramaric", "Petar Musa", "Ivan Perisic"],
-      "out": []
-    },
-    "Colombia": {
-      "confirmed": false,
-      "xi": ["Camilo Vargas", "Daniel Munoz", "Davinson Sanchez", "Jhon Lucumi", "Johan Mojica", "Richard Rios", "Jefferson Lerma", "Santiago Arias", "James Rodriguez", "Luis Diaz", "Luis Suarez"],
-      "out": []
-    },
-    "DR Congo": {
-      "confirmed": false,
-      "xi": ["Lionel Mpasi", "Aaron Wan-Bissaka", "Chancel Mbemba", "Axel Tuanzebe", "Arthur Masuaku", "Samuel Moutoussamy", "Charles Pickel", "Edo Kayembe", "Theo Bongonda", "Yoane Wissa", "Cedric Bakambu"],
-      "out": []
+      "xi": ["Kim Seung-gyu", "Seol Young-woo", "Kim Min-jae", "Lee Han-beom", "Kim Moon-hwan", "Hwang In-beom", "Paik Seung-ho", "Lee Jae-sung", "Lee Kang-in", "Son Heung-min", "Oh Hyeon-gyu"],
+      "out": ["Cho Yu-min"]
     }
   }
 }

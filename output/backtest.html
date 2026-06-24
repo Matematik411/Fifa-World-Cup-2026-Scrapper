@@ -1,0 +1,746 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Backtest &amp; calibration — WC 2026 Guide</title>
+<style>:root {
+  --bg: #0f1419; --panel: #1a2129; --panel2: #222b35; --ink: #e8edf2; --muted: #9aa7b4;
+  --line: #2d3742; --accent: #00c2a8; --accent2: #4f9dff; --gold: #ffcf4d;
+  --win: #2ecc71; --draw: #95a5a6; --loss: #e74c3c;
+  --hi: #2ecc71; --med: #f5a623; --lo: #e74c3c;
+  --radius: 12px; --maxw: 1080px;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 15px/1.55 -apple-system, BlinkMacSystemFont, &#34;Segoe UI&#34;, Roboto, Helvetica, Arial, sans-serif;
+}
+a { color: var(--accent2); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 16px 64px; }
+
+header.top {
+  position: sticky; top: 0; z-index: 50; background: rgba(15,20,25,.92);
+  backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);
+}
+.top .wrap { padding-top: 12px; padding-bottom: 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
+.brand { font-weight: 700; font-size: 16px; letter-spacing: .2px; margin-right: auto; }
+.brand .dot { color: var(--accent); }
+nav.tabs { display: flex; flex-wrap: wrap; gap: 4px; }
+nav.tabs a {
+  padding: 6px 12px; border-radius: 999px; color: var(--muted); font-weight: 600; font-size: 13px;
+}
+nav.tabs a.active, nav.tabs a:hover { background: var(--panel2); color: var(--ink); text-decoration: none; }
+
+.meta-bar { color: var(--muted); font-size: 12.5px; margin: 14px 0 6px; display: flex; flex-wrap: wrap; gap: 6px 16px; }
+.stage-pill { background: var(--panel2); color: var(--accent); padding: 2px 10px; border-radius: 999px; font-weight: 600; }
+
+h1 { font-size: 26px; margin: 14px 0 4px; }
+h2 { font-size: 19px; margin: 30px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+h3 { font-size: 15px; margin: 18px 0 8px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+p.lede { color: var(--muted); margin-top: 0; }
+
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; margin: 14px 0; }
+.grid { display: grid; gap: 14px; }
+.grid.cols-2 { grid-template-columns: 1fr 1fr; }
+.grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 760px){ .grid.cols-2,.grid.cols-3,.grid.cols-4 { grid-template-columns: 1fr; } .top .wrap{gap:6px;} }
+
+.kpi { text-align: center; }
+.kpi .num { font-size: 30px; font-weight: 800; color: var(--accent); line-height: 1.1; }
+.kpi .lbl { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+.big { font-size: 30px; font-weight: 800; color: var(--accent); line-height: 1.1; margin: 4px 0; }
+.tag.fresh-stale { background:#3a1d1d; color:#ff9b9b; }
+.tag.fresh-low-confidence { background:#3a311d; color:#ffd28a; }
+.tag.fresh-baseline { background:#1d2a3a; color:#9bc2ff; }
+.tag.fresh-ok { background:#1d3a2a; color:#9bf0bf; }
+
+.countdown { background: linear-gradient(135deg, #142a2e, #1a2129); border-color: #1f4d49; }
+.countdown .num { color: var(--gold); }
+
+.conf { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; text-transform: uppercase; letter-spacing:.04em; }
+.conf.High { background: rgba(46,204,113,.16); color: var(--hi); }
+.conf.Med { background: rgba(245,166,35,.16); color: var(--med); }
+.conf.Low { background: rgba(231,76,60,.16); color: var(--lo); }
+
+.tag { display:inline-block; font-size: 10.5px; font-weight:600; padding: 1px 7px; border-radius: 999px; background: var(--panel2); color: var(--muted); margin: 0 3px 3px 0; }
+.tag.pen, .tag.penalties { background: rgba(255,207,77,.16); color: var(--gold); }
+.tag.differential { background: rgba(79,157,255,.16); color: var(--accent2); }
+.tag.nailed { background: rgba(46,204,113,.14); color: var(--hi); }
+
+ul.actions { list-style: none; padding: 0; margin: 0; }
+ul.actions li { padding: 12px 14px; border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 8px; margin-bottom: 10px; background: var(--panel); }
+ul.actions li .a-do { font-weight: 700; }
+ul.actions li .a-sub { color: var(--muted); font-size: 13px; }
+
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+th, td { text-align: left; padding: 7px 9px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; cursor: pointer; user-select: none; position: sticky; top: 56px; background: var(--bg); }
+th.sortable::after { content: &#34; ⇅&#34;; opacity: .35; font-size: 10px; }
+tbody tr:hover { background: var(--panel2); }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: var(--radius); border: 1px solid var(--line); }
+.table-scroll table th { top: 0; }
+
+.scoreline { font-weight: 800; font-size: 16px; font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+.small { font-size: 12.5px; }
+.right { text-align: right; }
+.center { text-align: center; }
+.pos { font-weight: 700; font-size: 11px; padding: 1px 6px; border-radius: 4px; }
+.pos.GK { background:#6b4ea3; } .pos.DEF { background:#2f6fb0; } .pos.MID { background:#1f8f6f; } .pos.FWD { background:#b0532f; }
+
+/* probability tri-bar */
+.tribar { display:flex; height: 10px; border-radius: 5px; overflow:hidden; min-width: 120px; background:var(--panel2); }
+.tribar i { display:block; height:100%; }
+.tribar .h { background: var(--win); } .tribar .d { background: var(--draw); } .tribar .a { background: var(--loss); }
+.trilabel { font-size: 11px; color: var(--muted); margin-top: 2px; display:flex; justify-content: space-between; }
+
+/* match cards */
+.match { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 8px; }
+.match .team { font-weight: 600; }
+.match .team.away { text-align: right; }
+.match .sc { background: var(--panel2); border-radius: 8px; padding: 6px 12px; text-align:center; }
+.mrow { border-bottom: 1px solid var(--line); padding: 12px 0; }
+.mrow:last-child { border-bottom: none; }
+.mhead { display:flex; justify-content: space-between; align-items:center; gap: 10px; color: var(--muted); font-size: 12px; margin-bottom: 6px; }
+
+/* pitch */
+.pitch { background: linear-gradient(180deg,#15803d22,#14532d10); border: 1px solid #2e7d4f55; border-radius: var(--radius);
+  padding: 18px 8px; display: grid; gap: 14px; background-color: #0e2a18; }
+.pitch .line { display:flex; justify-content: space-around; gap: 6px; flex-wrap: wrap; }
+.chip { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 6px 8px; min-width: 84px; max-width: 130px; text-align:center; position: relative; }
+.chip .nm { font-weight: 700; font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.chip .sub { font-size: 10.5px; color: var(--muted); }
+.chip .pts { font-size: 11px; color: var(--accent); font-weight: 700; }
+.chip.cap { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold) inset; }
+.chip .badge { position:absolute; top:-8px; right:-8px; background: var(--gold); color:#1a1a1a; font-weight:800; font-size:10px; border-radius:999px; width:18px; height:18px; line-height:18px; }
+.chip .badge.v { background: var(--accent2); color:#fff; }
+.bench { display:flex; gap:8px; flex-wrap: wrap; }
+.bench .chip { min-width: 96px; }
+
+.note { background: rgba(79,157,255,.08); border: 1px solid rgba(79,157,255,.3); border-radius: 8px; padding: 10px 12px; font-size: 13px; }
+.warn { background: rgba(245,166,35,.08); border: 1px solid rgba(245,166,35,.35); border-radius: 8px; padding: 10px 12px; font-size: 13px; }
+
+footer.foot { border-top: 1px solid var(--line); margin-top: 40px; padding-top: 16px; color: var(--muted); font-size: 12px; }
+footer.foot h4 { color: var(--ink); margin: 0 0 6px; font-size: 13px; }
+footer.foot ul { margin: 0 0 10px; padding-left: 18px; }
+footer.foot a { word-break: break-all; }
+
+.flip { color: var(--gold); }
+.up { color: var(--win); } .down { color: var(--loss); }
+
+@media print {
+  :root { --bg:#fff; --panel:#fff; --panel2:#f1f3f5; --ink:#111; --muted:#555; --line:#ccc; }
+  body { background:#fff; color:#111; }
+  header.top { position: static; }
+  nav.tabs, .countdown { display: none; }
+  .card, .table-scroll { break-inside: avoid; }
+  a { color:#111; }
+  .pitch { background:#eef6f0; }
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <span class="brand">WC&nbsp;2026 <span class="dot">●</span> Guide</span>
+    <nav class="tabs">
+      
+      <a href="index.html" class="">Dashboard</a>
+      
+      <a href="fantasy.html" class="">Fantasy</a>
+      
+      <a href="predictions.html" class="">Predictions</a>
+      
+      <a href="model.html" class="">Model</a>
+      
+      <a href="changelog.html" class="">Changelog</a>
+      
+      <a href="backtest.html" class="active">Backtest</a>
+      
+    </nav>
+  </div>
+</header>
+<div class="wrap">
+  <div class="meta-bar">
+    <span class="stage-pill">Backtest &amp; calibration</span>
+    <span>Generated 2026-06-24 11:28 UTC</span>
+    <span>Run 2026-06-22</span>
+    
+  </div>
+
+  
+
+  
+<h1>Backtest &amp; calibration</h1>
+<p class="lede">How the model has actually done on the 44 played match(es), scored
+out-of-sample. 44/44 matches have a leak-free pre-match pick-of-record across
+18 persisted daily runs (2026-06-05 → 2026-06-22).</p>
+
+
+
+<h2>Realized points (walk-forward — what we actually scored)</h2>
+<div class="grid cols-3">
+  <div class="card">
+    <h3>Nostradamus</h3>
+    <p class="big">48 <span class="muted small">pts</span></p>
+    <p class="small muted">44 matches · 1.09/match
+    · pipeline re-score 48</p>
+  </div>
+  <div class="card">
+    <h3>GoPicks</h3>
+    <p class="big">103 <span class="muted small">pts</span></p>
+    <p class="small muted">42 scored · 25 exact goals ·
+    2 missed · pipeline 103</p>
+  </div>
+  <div class="card">
+    <h3>Per stage</h3>
+    <table class="small">
+      <thead><tr><th>Stage</th><th class="num">N</th><th class="num">Nostra</th><th class="num">GoPicks</th></tr></thead>
+      <tbody>
+      
+        <tr><td>MD1</td><td class="num">24</td><td class="num">18</td><td class="num">42</td></tr>
+      
+        <tr><td>MD2</td><td class="num">20</td><td class="num">30</td><td class="num">61</td></tr>
+      
+      </tbody>
+    </table>
+  </div>
+</div>
+<p class="small muted">Pick-of-record = the prediction from the latest run where the match was still unplayed
+(genuinely pre-result). The pipeline re-score is the current model graded with hindsight (state.cumulative);
+a gap means the model would now pick differently than we did pre-match.</p>
+
+
+
+<h2>Calibration of the pre-match forecasts (as shipped)</h2>
+<div class="grid cols-4">
+  <div class="card"><h3>RPS</h3><p class="big">0.1543</p><p class="small muted">1X2, lower better</p></div>
+  <div class="card"><h3>Log-loss</h3><p class="big">0.8668</p><p class="small muted">lower better</p></div>
+  <div class="card"><h3>Brier</h3><p class="big">0.5303</p><p class="small muted">lower better</p></div>
+  <div class="card"><h3>Goals MAE</h3><p class="big">0.905</p><p class="small muted">per team, lower better</p></div>
+</div>
+
+<div class="card">
+  <h3>Clean-sheet calibration <span class="tag rotation-risk">over-predicting</span></h3>
+  <p>Expected <b>29.6</b> clean sheets vs <b>22</b> actual over 88
+  team-innings — ratio <b>1.34×</b>. A ratio above ~1 means the model expects
+  more shut-outs than happen (the known MD1 issue — track per stage as U6/U3 land).</p>
+  <table class="small">
+    <thead><tr><th>Stage</th><th class="num">Team-innings</th><th class="num">Expected CS</th><th class="num">Actual CS</th><th class="num">Ratio</th></tr></thead>
+    <tbody>
+    
+      <tr><td>MD1</td><td class="num">48</td><td class="num">16.3</td><td class="num">8</td>
+        <td class="num">2.04</td></tr>
+    
+      <tr><td>MD2</td><td class="num">40</td><td class="num">13.3</td><td class="num">14</td>
+        <td class="num">0.95</td></tr>
+    
+    </tbody>
+  </table>
+</div>
+
+<div class="card">
+  <h3>Reliability (pooled H/D/A outcome probabilities)</h3>
+  <table class="small">
+    <thead><tr><th>Predicted bin</th><th class="num">N</th><th class="num">Mean predicted</th><th class="num">Empirical</th><th class="num">Gap</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td>0–20%</td>
+        <td class="num">45</td>
+        <td class="num">10.9%</td>
+        <td class="num">11.1%</td>
+        <td class="num">0.2 pp</td>
+      </tr>
+    
+      <tr>
+        <td>20–40%</td>
+        <td class="num">45</td>
+        <td class="num">26.9%</td>
+        <td class="num">26.7%</td>
+        <td class="num">-0.2 pp</td>
+      </tr>
+    
+      <tr>
+        <td>40–60%</td>
+        <td class="num">18</td>
+        <td class="num">51.9%</td>
+        <td class="num">55.6%</td>
+        <td class="num">3.7 pp</td>
+      </tr>
+    
+      <tr>
+        <td>60–80%</td>
+        <td class="num">16</td>
+        <td class="num">66.9%</td>
+        <td class="num">75.0%</td>
+        <td class="num">8.1 pp</td>
+      </tr>
+    
+      <tr>
+        <td>80–100%</td>
+        <td class="num">8</td>
+        <td class="num">86.9%</td>
+        <td class="num">62.5%</td>
+        <td class="num">-24.4 pp</td>
+      </tr>
+    
+    </tbody>
+  </table>
+  <p class="small muted">Well-calibrated → predicted ≈ empirical in every bin. Positive gap = under-confident, negative = over-confident.</p>
+</div>
+
+
+
+
+<h2>Model isolation — A/B (current data)</h2>
+<p class="small muted">Re-runs the current model over all played matches in two modes. Not walk-forward for the
+slow-moving base ratings (uses current inputs), so read it as relative signal isolation, not a realized score.
+"Ratings-only" forces strength-derived goals (ignores per-match odds) — the mode U2/U5 are gated on.</p>
+<div class="card"><div class="table-scroll"><table>
+  <thead><tr><th>Mode</th><th class="num">N</th><th class="num">RPS</th><th class="num">Log-loss</th><th class="num">Brier</th>
+    <th class="num">Goals MAE</th><th class="num">Exp CS</th><th class="num">Act CS</th></tr></thead>
+  <tbody>
+  
+    
+    <tr>
+      <td>As-shipped (market where available)</td><td class="num">44</td>
+      <td class="num">0.1552</td><td class="num">0.8752</td><td class="num">0.5333</td>
+      <td class="num">0.907</td><td class="num">29.6</td><td class="num">22</td>
+    </tr>
+    
+  
+    
+    <tr>
+      <td>Ratings-only (strength)</td><td class="num">44</td>
+      <td class="num">0.1571</td><td class="num">0.8934</td><td class="num">0.5394</td>
+      <td class="num">0.902</td><td class="num">24.7</td><td class="num">22</td>
+    </tr>
+    
+  
+  </tbody>
+</table></div>
+<p class="small muted">The market column should beat ratings-only on RPS/log-loss (that's why curated odds override
+strength for the next match). The gap is the headroom team-form (U2) can claw back where odds are absent.</p>
+</div>
+
+
+
+<h2>Per-match (walk-forward)</h2>
+<div class="card"><div class="table-scroll"><table>
+  <thead><tr><th>#</th><th>Stage</th><th>Match</th><th>Run</th><th>Nostra</th><th>GoPicks</th><th>Actual</th>
+    <th class="num sortable">N pts</th><th class="num sortable">GP pts</th></tr></thead>
+  <tbody>
+  
+    <tr>
+      <td class="muted">1</td><td class="muted">MD1</td>
+      <td>Mexico v South Africa</td><td class="muted small">2026-06-11</td>
+      <td>2-0</td><td>—</td><td><b>2-0</b></td>
+      <td class="num" data-sort="3">3</td>
+      <td class="num" data-sort="0">0</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">2</td><td class="muted">MD1</td>
+      <td>South Korea v Czechia</td><td class="muted small">2026-06-11</td>
+      <td>2-0</td><td>—</td><td><b>2-1</b></td>
+      <td class="num" data-sort="2">2</td>
+      <td class="num" data-sort="0">0</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">3</td><td class="muted">MD1</td>
+      <td>Canada v Bosnia and Herzegovina</td><td class="muted small">2026-06-12</td>
+      <td>2-0</td><td>1-0</td><td><b>1-1</b></td>
+      <td class="num" data-sort="0">0</td>
+      <td class="num" data-sort="1">1 <span class="muted small">(1e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">4</td><td class="muted">MD1</td>
+      <td>USA v Paraguay</td><td class="muted small">2026-06-12</td>
+      <td>2-0</td><td>1-0</td><td><b>4-1</b></td>
+      <td class="num" data-sort="1">1</td>
+      <td class="num" data-sort="3">3</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">5</td><td class="muted">MD1</td>
+      <td>Qatar v Switzerland</td><td class="muted small">2026-06-13</td>
+      <td>0-2</td><td>0-2</td><td><b>1-1</b></td>
+      <td class="num" data-sort="0">0</td>
+      <td class="num" data-sort="0">0</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">6</td><td class="muted">MD1</td>
+      <td>Brazil v Morocco</td><td class="muted small">2026-06-13</td>
+      <td>2-0</td><td>1-0</td><td><b>1-1</b></td>
+      <td class="num" data-sort="0">0</td>
+      <td class="num" data-sort="1">1 <span class="muted small">(1e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">7</td><td class="muted">MD1</td>
+      <td>Haiti v Scotland</td><td class="muted small">2026-06-13</td>
+      <td>0-2</td><td>0-2</td><td><b>0-1</b></td>
+      <td class="num" data-sort="2">2</td>
+      <td class="num" data-sort="4">4 <span class="muted small">(1e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">8</td><td class="muted">MD1</td>
+      <td>Australia v Turkey</td><td class="muted small">2026-06-13</td>
+      <td>0-2</td><td>0-1</td><td><b>2-0</b></td>
+      <td class="num" data-sort="0">0</td>
+      <td class="num" data-sort="0">0</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">9</td><td class="muted">MD1</td>
+      <td>Germany v Curacao</td><td class="muted small">2026-06-14</td>
+      <td>3-0</td><td>3-0</td><td><b>7-1</b></td>
+      <td class="num" data-sort="1">1</td>
+      <td class="num" data-sort="3">3</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">10</td><td class="muted">MD1</td>
+      <td>Netherlands v Japan</td><td class="muted small">2026-06-14</td>
+      <td>2-0</td><td>1-0</td><td><b>2-2</b></td>
+      <td class="num" data-sort="0">0</td>
+      <td class="num" data-sort="0">0</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">11</td><td class="muted">MD1</td>
+      <td>Ivory Coast v Ecuador</td><td class="muted small">2026-06-14</td>
+      <td>0-2</td><td>0-1</td><td><b>1-0</b></td>
+      <td class="num" data-sort="0">0</td>
+      <td class="num" data-sort="0">0</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">12</td><td class="muted">MD1</td>
+      <td>Sweden v Tunisia</td><td class="muted small">2026-06-14</td>
+      <td>0-2</td><td>1-0</td><td><b>5-1</b></td>
+      <td class="num" data-sort="0">0</td>
+      <td class="num" data-sort="3">3</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">13</td><td class="muted">MD1</td>
+      <td>Spain v Cape Verde</td><td class="muted small">2026-06-14</td>
+      <td>3-0</td><td>3-0</td><td><b>0-0</b></td>
+      <td class="num" data-sort="0">0</td>
+      <td class="num" data-sort="1">1 <span class="muted small">(1e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">14</td><td class="muted">MD1</td>
+      <td>Belgium v Egypt</td><td class="muted small">2026-06-15</td>
+      <td>2-0</td><td>1-0</td><td><b>1-1</b></td>
+      <td class="num" data-sort="0">0</td>
+      <td class="num" data-sort="1">1 <span class="muted small">(1e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">15</td><td class="muted">MD1</td>
+      <td>Saudi Arabia v Uruguay</td><td class="muted small">2026-06-15</td>
+      <td>0-2</td><td>0-1</td><td><b>1-1</b></td>
+      <td class="num" data-sort="0">0</td>
+      <td class="num" data-sort="1">1 <span class="muted small">(1e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">16</td><td class="muted">MD1</td>
+      <td>Iran v New Zealand</td><td class="muted small">2026-06-15</td>
+      <td>2-0</td><td>1-0</td><td><b>2-2</b></td>
+      <td class="num" data-sort="0">0</td>
+      <td class="num" data-sort="0">0</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">17</td><td class="muted">MD1</td>
+      <td>France v Senegal</td><td class="muted small">2026-06-16</td>
+      <td>2-0</td><td>1-0</td><td><b>3-1</b></td>
+      <td class="num" data-sort="1">1</td>
+      <td class="num" data-sort="3">3</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">18</td><td class="muted">MD1</td>
+      <td>Iraq v Norway</td><td class="muted small">2026-06-16</td>
+      <td>0-2</td><td>0-2</td><td><b>1-4</b></td>
+      <td class="num" data-sort="1">1</td>
+      <td class="num" data-sort="3">3</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">19</td><td class="muted">MD1</td>
+      <td>Argentina v Algeria</td><td class="muted small">2026-06-16</td>
+      <td>2-0</td><td>1-0</td><td><b>3-0</b></td>
+      <td class="num" data-sort="2">2</td>
+      <td class="num" data-sort="4">4 <span class="muted small">(1e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">20</td><td class="muted">MD1</td>
+      <td>Austria v Jordan</td><td class="muted small">2026-06-16</td>
+      <td>2-0</td><td>2-0</td><td><b>3-1</b></td>
+      <td class="num" data-sort="1">1</td>
+      <td class="num" data-sort="3">3</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">21</td><td class="muted">MD1</td>
+      <td>Portugal v DR Congo</td><td class="muted small">2026-06-17</td>
+      <td>2-0</td><td>2-0</td><td><b>1-1</b></td>
+      <td class="num" data-sort="0">0</td>
+      <td class="num" data-sort="0">0</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">22</td><td class="muted">MD1</td>
+      <td>England v Croatia</td><td class="muted small">2026-06-17</td>
+      <td>2-0</td><td>1-0</td><td><b>4-2</b></td>
+      <td class="num" data-sort="1">1</td>
+      <td class="num" data-sort="3">3</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">23</td><td class="muted">MD1</td>
+      <td>Ghana v Panama</td><td class="muted small">2026-06-17</td>
+      <td>2-0</td><td>1-0</td><td><b>1-0</b></td>
+      <td class="num" data-sort="2">2</td>
+      <td class="num" data-sort="5">5 <span class="muted small">(2e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">24</td><td class="muted">MD1</td>
+      <td>Uzbekistan v Colombia</td><td class="muted small">2026-06-17</td>
+      <td>0-2</td><td>0-1</td><td><b>1-3</b></td>
+      <td class="num" data-sort="1">1</td>
+      <td class="num" data-sort="3">3</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">25</td><td class="muted">MD2</td>
+      <td>Czechia v South Africa</td><td class="muted small">2026-06-18</td>
+      <td>2-0</td><td>1-0</td><td><b>1-1</b></td>
+      <td class="num" data-sort="0">0</td>
+      <td class="num" data-sort="1">1 <span class="muted small">(1e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">26</td><td class="muted">MD2</td>
+      <td>Switzerland v Bosnia and Herzegovina</td><td class="muted small">2026-06-18</td>
+      <td>2-0</td><td>1-0</td><td><b>4-1</b></td>
+      <td class="num" data-sort="1">1</td>
+      <td class="num" data-sort="3">3</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">27</td><td class="muted">MD2</td>
+      <td>Canada v Qatar</td><td class="muted small">2026-06-18</td>
+      <td>2-0</td><td>2-0</td><td><b>6-0</b></td>
+      <td class="num" data-sort="2">2</td>
+      <td class="num" data-sort="4">4 <span class="muted small">(1e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">28</td><td class="muted">MD2</td>
+      <td>Mexico v South Korea</td><td class="muted small">2026-06-18</td>
+      <td>2-0</td><td>1-0</td><td><b>1-0</b></td>
+      <td class="num" data-sort="2">2</td>
+      <td class="num" data-sort="5">5 <span class="muted small">(2e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">29</td><td class="muted">MD2</td>
+      <td>USA v Australia</td><td class="muted small">2026-06-19</td>
+      <td>2-0</td><td>1-0</td><td><b>2-0</b></td>
+      <td class="num" data-sort="3">3</td>
+      <td class="num" data-sort="4">4 <span class="muted small">(1e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">30</td><td class="muted">MD2</td>
+      <td>Scotland v Morocco</td><td class="muted small">2026-06-19</td>
+      <td>0-2</td><td>0-1</td><td><b>0-1</b></td>
+      <td class="num" data-sort="2">2</td>
+      <td class="num" data-sort="5">5 <span class="muted small">(2e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">31</td><td class="muted">MD2</td>
+      <td>Brazil v Haiti</td><td class="muted small">2026-06-19</td>
+      <td>3-0</td><td>3-0</td><td><b>3-0</b></td>
+      <td class="num" data-sort="3">3</td>
+      <td class="num" data-sort="5">5 <span class="muted small">(2e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">32</td><td class="muted">MD2</td>
+      <td>Turkey v Paraguay</td><td class="muted small">2026-06-19</td>
+      <td>2-0</td><td>1-0</td><td><b>0-1</b></td>
+      <td class="num" data-sort="0">0</td>
+      <td class="num" data-sort="0">0</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">33</td><td class="muted">MD2</td>
+      <td>Netherlands v Sweden</td><td class="muted small">2026-06-20</td>
+      <td>2-0</td><td>1-0</td><td><b>5-1</b></td>
+      <td class="num" data-sort="1">1</td>
+      <td class="num" data-sort="3">3</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">34</td><td class="muted">MD2</td>
+      <td>Germany v Ivory Coast</td><td class="muted small">2026-06-20</td>
+      <td>2-0</td><td>1-0</td><td><b>2-1</b></td>
+      <td class="num" data-sort="2">2</td>
+      <td class="num" data-sort="3">3</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">35</td><td class="muted">MD2</td>
+      <td>Ecuador v Curacao</td><td class="muted small">2026-06-20</td>
+      <td>3-0</td><td>2-0</td><td><b>0-0</b></td>
+      <td class="num" data-sort="0">0</td>
+      <td class="num" data-sort="1">1 <span class="muted small">(1e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">36</td><td class="muted">MD2</td>
+      <td>Tunisia v Japan</td><td class="muted small">2026-06-20</td>
+      <td>0-2</td><td>0-1</td><td><b>0-4</b></td>
+      <td class="num" data-sort="2">2</td>
+      <td class="num" data-sort="4">4 <span class="muted small">(1e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">37</td><td class="muted">MD2</td>
+      <td>Spain v Saudi Arabia</td><td class="muted small">2026-06-21</td>
+      <td>3-0</td><td>2-0</td><td><b>4-0</b></td>
+      <td class="num" data-sort="2">2</td>
+      <td class="num" data-sort="4">4 <span class="muted small">(1e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">38</td><td class="muted">MD2</td>
+      <td>Belgium v Iran</td><td class="muted small">2026-06-21</td>
+      <td>2-0</td><td>1-0</td><td><b>0-0</b></td>
+      <td class="num" data-sort="0">0</td>
+      <td class="num" data-sort="1">1 <span class="muted small">(1e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">39</td><td class="muted">MD2</td>
+      <td>Uruguay v Cape Verde</td><td class="muted small">2026-06-21</td>
+      <td>2-0</td><td>1-0</td><td><b>2-2</b></td>
+      <td class="num" data-sort="0">0</td>
+      <td class="num" data-sort="0">0</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">40</td><td class="muted">MD2</td>
+      <td>New Zealand v Egypt</td><td class="muted small">2026-06-21</td>
+      <td>0-2</td><td>0-1</td><td><b>1-3</b></td>
+      <td class="num" data-sort="1">1</td>
+      <td class="num" data-sort="3">3</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">41</td><td class="muted">MD2</td>
+      <td>Argentina v Austria</td><td class="muted small">2026-06-22</td>
+      <td>2-0</td><td>1-0</td><td><b>2-0</b></td>
+      <td class="num" data-sort="3">3</td>
+      <td class="num" data-sort="4">4 <span class="muted small">(1e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">42</td><td class="muted">MD2</td>
+      <td>France v Iraq</td><td class="muted small">2026-06-22</td>
+      <td>3-0</td><td>3-0</td><td><b>3-0</b></td>
+      <td class="num" data-sort="3">3</td>
+      <td class="num" data-sort="5">5 <span class="muted small">(2e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">43</td><td class="muted">MD2</td>
+      <td>Norway v Senegal</td><td class="muted small">2026-06-22</td>
+      <td>2-0</td><td>1-0</td><td><b>3-2</b></td>
+      <td class="num" data-sort="1">1</td>
+      <td class="num" data-sort="3">3</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">44</td><td class="muted">MD2</td>
+      <td>Jordan v Algeria</td><td class="muted small">2026-06-22</td>
+      <td>0-2</td><td>0-1</td><td><b>1-2</b></td>
+      <td class="num" data-sort="2">2</td>
+      <td class="num" data-sort="3">3</td>
+    </tr>
+  
+  </tbody>
+</table></div></div>
+
+
+  <footer class="foot">
+    <div class="grid cols-2">
+      <div>
+        <h4>Method &amp; confidence</h4>
+        <p>One shared forecast model (de-vigged market odds + Elo + public models → Dixon–Coles scorelines →
+        Monte-Carlo of the full 48-team / Round-of-32 bracket) feeds all three games (Nostradamus, GoPicks,
+        FIFA Fantasy). Each recommendation is a single
+        decisive call with a <span class="conf High">High</span>/<span class="conf Med">Med</span>/<span class="conf Low">Low</span>
+        confidence tag. Predictions are EV-maximizing (not just the most likely score). Fantasy picks are
+        horizon-weighted by advancement. Re-run daily for fresh data — see the changelog for what moved.</p>
+      </div>
+      <div>
+        <h4>Sources</h4>
+        <ul>
+          
+            <li><strong>results:</strong>
+              <a href="data/manual/results.json">data/manual/results.json</a>
+            </li>
+          
+            <li><strong>backtest:</strong>
+              <a href="walk-forward over data/processed/&lt;date&gt;/ snapshots">walk-forward over data/processed/&lt;date&gt;/ snapshots</a>
+            </li>
+          
+        </ul>
+      </div>
+    </div>
+    <p class="small">Self-contained report — opens offline, prints cleanly. Not affiliated with FIFA or RTV SLO.
+    Odds/lineups move; the recommendations reflect data as of the run timestamp above.</p>
+  </footer>
+</div>
+<script>
+document.addEventListener(&#39;click&#39;, function(e){
+  var th = e.target.closest(&#39;th.sortable&#39;); if(!th) return;
+  var table = th.closest(&#39;table&#39;); var idx = Array.prototype.indexOf.call(th.parentNode.children, th);
+  var dir = th.getAttribute(&#39;data-dir&#39;) === &#39;asc&#39; ? &#39;desc&#39; : &#39;asc&#39;;
+  Array.prototype.forEach.call(th.parentNode.children, function(x){x.removeAttribute(&#39;data-dir&#39;);});
+  th.setAttribute(&#39;data-dir&#39;, dir);
+  var rows = Array.prototype.slice.call(table.tBodies[0].rows);
+  var num = function(v){ var n = parseFloat(String(v).replace(/[^0-9.\-]/g,&#39;&#39;)); return isNaN(n)?null:n; };
+  rows.sort(function(a,b){
+    var x=a.cells[idx].getAttribute(&#39;data-sort&#39;)||a.cells[idx].innerText;
+    var y=b.cells[idx].getAttribute(&#39;data-sort&#39;)||b.cells[idx].innerText;
+    var nx=num(x), ny=num(y), r;
+    if(nx!==null&amp;&amp;ny!==null){ r=nx-ny; } else { r=String(x).localeCompare(String(y)); }
+    return dir===&#39;asc&#39;? r : -r;
+  });
+  rows.forEach(function(r){ table.tBodies[0].appendChild(r); });
+});
+</script>
+</body>
+</html>

@@ -1,15 +1,13 @@
 {
   "schema": "wc2026-state-v1",
-  "last_run": "2026-06-23",
+  "last_run": "2026-06-24",
   "recommended_squad": {
     "player_ids": [
-      30,
+      31,
       167,
       38,
-      474,
       138,
       178,
-      2000,
       492,
       501,
       506,
@@ -17,44 +15,45 @@
       939,
       1088,
       1094,
-      477
+      477,
+      173,
+      322
     ],
-    "captain": "Kevin De Bruyne",
+    "captain": "Vinícius Júnior",
     "formation": "3-5-2",
-    "as_of": "2026-06-23",
+    "as_of": "2026-06-24",
     "for_round": "MD3",
     "lineup": {
       "starters": [
-        30,
-        38,
-        474,
-        138,
-        2000,
-        501,
-        542,
-        939,
+        477,
+        167,
         1088,
-        1094,
-        477
+        542,
+        138,
+        939,
+        501,
+        173,
+        322,
+        38,
+        1094
       ],
       "bench": [
-        167,
+        506,
+        31,
         492,
-        178,
-        506
+        178
       ],
-      "captain": 138
-    }
+      "captain": 173
+    },
+    "note": "User override of the model's Nico Williams+Enzo pick (model used horizon EV + overrated Nico's minutes). Raphinha(OUT-injured)->Vinicius Junior(173), Doku(OUT-doubtful)->Franck Kessie(322); captain Vinicius, relay-forward to KDB then Messi. Best verified MD3 pair (feed 20+12). owned auto-advances here once MD3 locks."
   },
   "owned": {
     "player_ids": [
       31,
       167,
       38,
-      125,
       138,
       178,
-      1366,
       492,
       501,
       506,
@@ -62,40 +61,42 @@
       939,
       1088,
       1094,
-      477
+      477,
+      173,
+      322
     ],
-    "captain": "Mikel Oyarzabal",
-    "formation": "4-4-2",
+    "captain": "Vinícius Júnior",
+    "formation": "3-5-2",
     "bank": 0.0,
     "lineup": {
       "starters": [
-        506,
+        477,
         167,
         1088,
         542,
-        31,
         138,
-        1366,
-        501,
         939,
+        501,
+        173,
+        322,
         38,
         1094
       ],
       "bench": [
-        125,
-        178,
+        506,
+        31,
         492,
-        477
+        178
       ],
-      "captain": 1094
+      "captain": 173
     },
-    "note": "MD2 LIVE, final day (Jun 23). Active XI now 4-4-2 after the planned free-roll RESTORE was executed: BRUNO FERNANDES (939, Portugal, plays M45 today 19:00 CEST) manual-subbed IN for THEO (492), who was the parked free-roll start and finished at 0 (France benched him for Digne, M42). Real XI: GK Maignan(506); DEF Danilo(167)/Cucurella(1088)/Kimmich(542)/Otamendi(31); MID De Bruyne(138)/Raphinha(1366)/Dembele(501)/Bruno(939); FWD Messi(38)/OYARZABAL(1094, CAPTAIN). Bench: Doku(125)/Igor Thiago(178)/Theo(492)/Pickford(477,GK). CAPTAIN = OYARZABAL, HOLD CONFIRMED: he banked ~14 (x2 = ~28) in Spain's 4-0 (M37, Jun 21); the only not-yet-played XI starter today is Bruno (E~6-7 << 14), so relaying the armband would forfeit a locked double for one player's single bonus -> HOLD. No other line-up move today: Pickford stays the benched GK behind Maignan, who already banked a CLEAN SHEET (~7 >> E[Pickford]) - Maignan hauled, so the GK blank-rescue does not fire. MD2 owned banked: Oyarzabal ~28(C), Messi ~12, Dembele ~11, Maignan ~7, Cucurella ~7, KDB ~3, Otamendi ~1, Kimmich ~2, Danilo (CS), Raphinha/Igor Thiago/Theo/Doku 0. ANY manual change cancels this round's auto-subs -> every slot is set by hand. MD3 (lock Jun 24 ~21:00 CEST) transfers HOLD until tomorrow's lock-eve run; provisional plan: Raphinha (CONFIRMED OUT - hamstring, misses Scotland + likely R32) -> Luis Diaz, and Doku (now trending FIT for Jun 26) -> Enzo (re-point the 2nd transfer tomorrow if Doku is confirmed fit). Do NOT execute transfers today."
+    "note": "MD3 (lock Jun 24 ~21:00 CEST). CONFIRMED transfers: Raphinha(OUT-injured)->Vinicius Junior(173), Doku(OUT-doubtful)->Franck Kessie(322). XI 3-5-2: GK Pickford(477); DEF Danilo(167)/Cucurella(1088)/Kimmich(542); MID KDB(138)/Bruno(939)/Dembele(501)/Vinicius(173)/Kessie(322); FWD Messi(38)/Oyarzabal(1094). CAPTAIN Vinicius (vice KDB), relay-forward to KDB(Jun26)->Messi(Jun27). Bench: Maignan(506)/Otamendi(31)/Theo(492)/Igor Thiago(178). User override of the model's horizon-based Nico+Enzo pick (Nico's minutes overrated; only this-round EV matters before the free R32 rebuild)."
   },
   "chips_used": [],
   "cumulative": {
-    "nostradamus_points": 48,
-    "gopicks_points": 103,
-    "gopicks_exact_goals": 25,
+    "nostradamus_points": 54,
+    "gopicks_points": 118,
+    "gopicks_exact_goals": 31,
     "fantasy_points": 0
   },
   "predictions_entered": {
