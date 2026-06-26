@@ -1,6 +1,6 @@
 {
   "schema": "wc2026-state-v1",
-  "last_run": "2026-06-25",
+  "last_run": "2026-06-26",
   "recommended_squad": {
     "player_ids": [
       31,
@@ -20,17 +20,17 @@
       322
     ],
     "captain": "Vinícius Júnior",
-    "formation": "3-5-2",
-    "as_of": "2026-06-25",
+    "formation": "4-4-2",
+    "as_of": "2026-06-26",
     "for_round": "R32",
     "lineup": {
       "starters": [
-        477,
+        506,
         167,
         1088,
         542,
+        492,
         138,
-        939,
         501,
         173,
         322,
@@ -38,10 +38,10 @@
         1094
       ],
       "bench": [
-        506,
+        477,
         31,
-        492,
-        178
+        178,
+        939
       ],
       "captain": 173
     }
@@ -65,16 +65,16 @@
       322
     ],
     "captain": "Vinícius Júnior",
-    "formation": "3-5-2",
+    "formation": "4-4-2",
     "bank": 0.0,
     "lineup": {
       "starters": [
-        477,
+        506,
         167,
         1088,
         542,
+        492,
         138,
-        939,
         501,
         173,
         322,
@@ -82,20 +82,20 @@
         1094
       ],
       "bench": [
-        506,
+        477,
         31,
-        492,
-        178
+        178,
+        939
       ],
       "captain": 173
     },
-    "note": "MD3 (lock Jun 24 ~21:00 CEST). CONFIRMED transfers: Raphinha(OUT-injured)->Vinicius Junior(173), Doku(OUT-doubtful)->Franck Kessie(322). XI 3-5-2: GK Pickford(477); DEF Danilo(167)/Cucurella(1088)/Kimmich(542); MID KDB(138)/Bruno(939)/Dembele(501)/Vinicius(173)/Kessie(322); FWD Messi(38)/Oyarzabal(1094). CAPTAIN Vinicius (vice KDB), relay-forward to KDB(Jun26)->Messi(Jun27). Bench: Maignan(506)/Otamendi(31)/Theo(492)/Igor Thiago(178). User override of the model's horizon-based Nico+Enzo pick (Nico's minutes overrated; only this-round EV matters before the free R32 rebuild)."
+    "note": "MD3 LIVE (round locked Jun 24). FREE-ROLL BENCH ACTIVATION (user-executed Jun 26, ~0 downside): benched Pickford(477->bench, plays M67 Jun27) & Bruno(939->bench, plays M69 Jun27) — both score 0 tonight regardless — to START Maignan(506,GK,plays M61 tonight) & Theo(492,LB,plays M61 tonight), banking their M61 points for free. XI now 4-4-2: GK Maignan(506); DEF Danilo(167)/Cucurella(1088)/Kimmich(542)/Theo(492); MID KDB(138)/Dembele(501)/Vinicius(173,C)/Kessie(322); FWD Messi(38)/Oyarzabal(1094). Bench(auto-sub moot): Pickford(477)/Otamendi(31)/IgorThiago(178)/Bruno(939). CAPTAIN Vinicius (banked ~30 in M51 -> HOLD, relay closed). ***RESTORE NEXT RUN (Jun27, before M67 23:00 CEST): sub Pickford(477) IN at GK for Maignan, and Bruno(939) IN for the lowest banked outfielder (Theo 492 if he blanked, else a low scorer)*** — don't forget or Pickford+Bruno blank Jun27. Any manual change already cancelled MD3 auto-subs (thin anyway: no bench MID). Owned 15 unchanged; R32 free rebuild pending ties. [Prior MD3 transfers: Raphinha(inj)->Vinicius(173), Doku(doubt)->Kessie(322).]"
   },
   "chips_used": [],
   "cumulative": {
-    "nostradamus_points": 62,
-    "gopicks_points": 135,
-    "gopicks_exact_goals": 33,
+    "nostradamus_points": 68,
+    "gopicks_points": 150,
+    "gopicks_exact_goals": 39,
     "fantasy_points": 0
   },
   "predictions_entered": {
