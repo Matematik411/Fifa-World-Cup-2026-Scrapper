@@ -59,7 +59,39 @@ def qb_ev_by_round(squad, advancement: dict, from_round: str) -> dict[str, float
             for r in KO_ORDER[KO_ORDER.index(from_round):] if r != "final"}
 
 
+# round -> (reach-this-round key, reach-PREVIOUS-round key); prev None means R32 (=1.0, all in)
+_ROUND_REACH = {"R16": ("reach_R16", None), "QF": ("reach_QF", "reach_R16"),
+                "SF": ("reach_SF", "reach_QF"), "final": ("reach_final", "reach_SF")}
+
+
+def wc_breakage_by_round(squad, advancement: dict, ft_by_round: dict, rounds) -> dict[str, float]:
+    """Wildcard value proxy per round = E[squad players forced out ENTERING the round]
+    (their team eliminated the round before) − that round's free transfers.
+
+    The Wildcard's only edge over free transfers is making MORE than the free allowance of
+    changes in ONE round, so it's worth most where this is largest. A favourites-heavy R32
+    squad SURVIVES the R32 (few eliminations entering R16, well under R16's free transfers),
+    so the peak is deeper (QF/SF) as the field collapses — NOT a fixed R16. Returns
+    {round: elim − free_transfers}; the Wildcard goes to the argmax.
+    """
+    if not squad or not advancement:
+        return {}
+    out: dict[str, float] = {}
+    for r in rounds:
+        if r not in _ROUND_REACH:
+            continue
+        cur_k, prev_k = _ROUND_REACH[r]
+        elim = 0.0
+        for p in squad.players:
+            a = advancement.get(p.nation, {})
+            prev = 1.0 if prev_k is None else float(a.get(prev_k, 0.0))
+            elim += max(0.0, prev - float(a.get(cur_k, 0.0)))
+        out[r] = round(elim - float((ft_by_round or {}).get(r, 4)), 2)
+    return out
+
+
 def chip_schedule(target_round: str, chips_remaining, qb_by_round: dict[str, float], *,
+                  squad=None, advancement: dict | None = None, ft_by_round: dict | None = None,
                   mystery: dict | None = None, max_cap_ev: float | None = None,
                   twelfth: dict | None = None) -> dict:
     """Forward chip plan across the remaining KO rounds (one chip per round).
@@ -85,10 +117,10 @@ def chip_schedule(target_round: str, chips_remaining, qb_by_round: dict[str, flo
         used.add(chip)
         return True
 
-    # With 5 chips and 5 KO rounds left it's a one-chip-per-round assignment. Place the
-    # high-confidence anchors first (QB@R32, Wildcard@R16), then fit the rest by their
-    # nature; the QF/SF/Final order among the back three is provisional (re-optimized as
-    # the bracket sets). `first_open` picks the earliest still-free round from a preference.
+    # With 5 chips and 5 KO rounds left it's a one-chip-per-round assignment. Place QB first
+    # (anchored at R32), then the Wildcard at the round where the squad breaks HARDEST (not a
+    # fixed R16), then fit the rest. The QF/SF/Final order is provisional (re-optimized as the
+    # bracket sets). `first_open` picks the earliest still-free round from a preference.
     def first_open(prefs):
         return next((r for r in prefs if r in rounds and r not in assigned), None)
 
@@ -101,19 +133,30 @@ def chip_schedule(target_round: str, chips_remaining, qb_by_round: dict[str, flo
               f"favoured. QB EV falls each round as players are knocked out.",
               status="PLAY" if qb_round == target_round else "PLAN")
 
-    # --- Wildcard -> R16: unlimited free rebuild for the durable QF→Final core (not usable at R32) ---
+    # --- Wildcard -> the round of MAXIMUM squad breakage (forced changes beyond the free
+    #     allowance), HELD past R16. A favourites-heavy R32 squad survives the R32, so R16's
+    #     free transfers cover the few casualties; the unlimited rebuild is worth most deeper
+    #     (QF/SF) as the field collapses. Falls back to QF when no squad data is supplied. ---
     if "Wildcard" in chips:
-        wc_round = "R16" if "R16" in rounds else first_open(["QF", "SF", "final"])
+        brk = wc_breakage_by_round(squad, advancement, ft_by_round,
+                                   [r for r in rounds if r != "R32"])
+        wc_round = max(brk, key=brk.get) if brk else first_open(["QF", "SF", "final", "R16"])
+        if wc_round == "R32":
+            wc_round = first_open(["QF", "SF", "final", "R16"])
         if wc_round:
+            b = brk.get(wc_round)
+            why = (f"Unlimited rebuild where the squad breaks hardest ({wc_round}: ~{b:+.1f} forced "
+                   f"changes vs the free allowance). " if b is not None else
+                   f"Unlimited rebuild for the deep run ({wc_round}). ")
             place(wc_round, "Wildcard", None,
-                  "Unlimited free rebuild → build the durable QF→Final core once the R16 ties are set. "
-                  "(Unnecessary at R32, where transfers are already unlimited.)")
+                  why + "Held past R16 — a favourites-heavy R32 squad survives the R32, so R16's free "
+                  "transfers cover it; the Wildcard is saved for the deeper break.")
 
-    # --- 12th Man -> the EARLIEST open deep round (QF), where the most of your players are active
-    #     across 4 games, so an extra scorer adds the most. (Wasted at the Final: only 2 teams play
-    #     and your XI already holds both sides' best — user, 2026-06-28.) ---
+    # --- 12th Man -> the EARLIEST open deep round (R16 has the most games → the most of your
+    #     players active, so an extra scorer adds the most). (Wasted at the Final: only 2 teams
+    #     play and your XI already holds both sides' best — user, 2026-06-28.) ---
     if "12th Man" in chips:
-        tm_round = first_open(["QF", "SF", "final", "R16"])
+        tm_round = first_open(["R16", "QF", "SF", "final"])
         if tm_round:
             extra = f" Best external option now: {twelfth['name']} (E {twelfth['ev']:.1f})." if twelfth else ""
             place(tm_round, "12th Man", None,

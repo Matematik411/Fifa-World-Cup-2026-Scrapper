@@ -303,6 +303,25 @@ contend with QB for the R32 slot — re-evaluate then.
 > Template: `### <date> — <stage> — <agent>` then bullets: items touched, status changes, **backtest delta**,
 > follow-ups / resume-notes.
 
+### 2026-06-28 (later, user review) — U4 chip-timing revision: Wildcard by squad-breakage, not fixed R16
+- **The R16-Wildcard default was wrong for a burner.** The user caught it: a favourites-heavy R32 squad
+  (built to max R32 pts + QB) SURVIVES the R32 — every owned team advances 79–97%, so **expected players
+  eliminated entering R16 ≈ 1.7, well under R16's 4 free transfers**. A Wildcard at R16 would rebuild a
+  near-intact squad = wasted chip; the burner premise ("blow up at R16, ignore horizon") is partly
+  self-defeating.
+- **Fix:** new `booster.wc_breakage_by_round` (E[forced changes entering a round] − that round's free
+  transfers); `chip_schedule` now places the Wildcard at the **argmax breakage round (held past R16,
+  typically QF/SF)**, not a fixed R16. `pipeline` passes `squad`/`advancement`/`ft_by_round`.
+  `config.fantasy.burner_margin` 0.0 → **2.0** (WC no longer auto-committed to R16 → horizon has option
+  value → durable wins ties; the R32 squad was a burner≈durable tie anyway, so the locked 15 is unchanged).
+- **Revised KO chip plan:** QB@R32 (played) · **12th Man@R16** (most games) · **Wildcard@QF** (deepest
+  break) · Clean Sheet Shield@SF · Maximum Captain@Final — all re-evaluated each round. **pytest 76→77**
+  (new `test_wildcard_goes_to_max_squad_breakage_not_r16`). Also corrected the Haaland rationale (out on
+  R32 EV+QB 5.41 < bench Oyarzabal 5.58, not "low horizon") and cleared two more resolved-injury artifacts
+  (Vargas/SUI, Lukaku/BEL — non-owned). See [[wc2026-ko-chip-plan]] memory (updated).
+- **Follow-up:** the breakage proxy is per-round (E[elim] − free transfers); a fuller version would model
+  cumulative transfer backlog + re-optimization upside. Good enough to retire the R16 default.
+
 ### 2026-06-28 — before R32 (group stage finished) — U4 + U7 DONE, R1/R2/R3 run
 - **U4 (booster engine) DONE.** New `src/fantasy/booster.py`: `qb_advance_bonus` (advancement → the QB's
   +2·P(advance) per starter, the value that now FEEDS selection), `chip_schedule` (forward one-chip-per-round

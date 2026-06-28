@@ -36,10 +36,12 @@ fantasy:
   extra_transfer_penalty: -3    # verified: -3 per extra transfer (fantasy_rules.json overrides anyway)
   rotation_rest_factor: 0.6     # U3: a clinched team's nailed starters drop to this × start prob in the dead rubber
   wc_form_shrink_minutes: 600   # U5: shrinkage constant K — club-season per-90 gets weight K/(K+wc_minutes)
-  burner_margin: 0.0            # U4: pick the R32 burner over the durable squad whenever it's ≥ on R32 EV.
-                                #     0.0 = always burn at R32, because the Wildcard is COMMITTED to R16 (user,
-                                #     2026-06-28): once R16 rebuilds the squad, the durable build's extra horizon
-                                #     is worthless, so there's no reason to trade any R32 EV for it.
+  burner_margin: 2.0            # U4: pick the R32 burner over the durable squad ONLY if it beats it on R32 EV
+                                #     (points + QB) by ≥ this — else the durable squad's extra horizon is free
+                                #     option value. Revised 2026-06-28: the Wildcard is NOT auto-committed to R16
+                                #     (a favourites-heavy R32 squad survives the R32, so R16's free transfers cover
+                                #     it; the WC is held for the deeper QF/SF break), so horizon matters → durable
+                                #     wins ties. The chip scheduler places the WC by squad-breakage, not a fixed round.
   # Mystery Booster — REVEALED at R32 (2026-06-28) as the "Clean Sheet Shield" (FFScout).
   mystery_booster:
     known: true

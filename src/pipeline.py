@@ -462,8 +462,14 @@ def _run_fantasy(cfg, bundle, forecast, advancement, stage, target_round, state,
     # Mystery effect refine it when available.
     qb_round_ev = fboost.qb_ev_by_round(squad, advancement, target_round)
     cap_ceiling = fcorr.captain_ceiling(squad, forecast, cfg) if target_round in fboost.KO_ORDER else None
+    # free transfers per KO round (for the Wildcard squad-breakage timing); "unlimited" → big
+    ft_by_round = {}
+    for r in ("R16", "QF", "SF", "final"):
+        v = _free_transfers(cfg, r)
+        ft_by_round[r] = 99 if v == "unlimited" else int(v)
     chip_plan = fboost.chip_schedule(
-        target_round, chips_remaining, qb_round_ev, mystery=cfg.get("fantasy.mystery_booster"),
+        target_round, chips_remaining, qb_round_ev, squad=squad, advancement=advancement,
+        ft_by_round=ft_by_round, mystery=cfg.get("fantasy.mystery_booster"),
         max_cap_ev=(cap_ceiling or {}).get("max_cap_gain"), twelfth=twelfth_card)
 
     return {
