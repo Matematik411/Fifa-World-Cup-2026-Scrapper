@@ -99,6 +99,59 @@
   </div>
 </div>
 
+{% if fantasy.chip_plan and fantasy.chip_plan.schedule %}
+<div class="card">
+  <h3>Forward chip schedule <span class="small muted">(one chip per round, scheduled across the remaining knockouts)</span></h3>
+  {% if fantasy.chip_plan.this_round %}
+  <div class="note"><b>This round ({{ fantasy.target_round }}):</b> play <b>{{ fantasy.chip_plan.this_round.chip }}</b>{% if fantasy.chip_plan.this_round.ev %} — worth ≈{{ fantasy.chip_plan.this_round.ev|r(0) }} pts{% endif %}. {{ fantasy.chip_plan.this_round.reason }}</div>
+  {% endif %}
+  <table><thead><tr><th>Round</th><th>Chip</th><th class="num">EV</th><th>Why</th></tr></thead><tbody>
+    {% for e in fantasy.chip_plan.schedule %}
+    <tr><td><b>{{ e.round }}</b></td><td>{{ e.chip }} <span class="conf {{ 'High' if e.status=='PLAY' else 'Med' }}">{{ e.status }}</span></td>
+    <td class="num">{% if e.ev %}{{ e.ev|r(0) }}{% else %}—{% endif %}</td><td class="small">{{ e.reason }}</td></tr>
+    {% endfor %}
+  </tbody></table>
+  {% if fantasy.chip_plan.qb_by_round %}
+  <p class="small muted">Qualification Booster EV by round (current XI as proxy): {% for r, v in fantasy.chip_plan.qb_by_round.items() %}{{ r }} {{ v|r(0) }}{% if not loop.last %} · {% endif %}{% endfor %} — it peaks at the earliest round (most starters still alive), which is why it's the R32 play.</p>
+  {% endif %}
+  {% for n in fantasy.chip_plan.notes %}<p class="small muted">⚠ {{ n }}</p>{% endfor %}
+</div>
+{% endif %}
+
+{% if fantasy.build_compare %}
+{% set bc = fantasy.build_compare %}
+<div class="card">
+  <h3>Build choice: durable vs R32-burner <span class="small muted">(why this rebuild)</span></h3>
+  <p class="small">With the Wildcard reserved for R16 (a second free rebuild), the R32 squad could be a <b>burner</b> — maximize R32 points + the Qualification Booster and let R16 rebuild the durable core. It's only worth it if the burner clears the durable optimum on R32 EV by ≥{{ bc.margin }} pts; otherwise the durable squad's extra horizon is free option value.</p>
+  <table><thead><tr><th>Build</th><th class="num">XI next pts</th><th class="num">+ QB EV</th><th class="num">= R32 EV</th><th class="num">Horizon</th></tr></thead><tbody>
+    <tr{% if bc.chosen=='durable' %} class="up"{% endif %}><td><b>Durable</b>{% if bc.chosen=='durable' %} ✓ chosen{% endif %}</td><td class="num">{{ bc.durable.xi_exp|r(1) }}</td><td class="num">{{ bc.durable.qb_ev|r(1) }}</td><td class="num"><b>{{ bc.durable.r32_ev|r(1) }}</b></td><td class="num">{{ bc.durable.horizon|r(0) }}</td></tr>
+    <tr{% if bc.chosen=='burner' %} class="up"{% endif %}><td><b>R32 burner</b>{% if bc.chosen=='burner' %} ✓ chosen{% endif %}</td><td class="num">{{ bc.burner.xi_exp|r(1) }}</td><td class="num">{{ bc.burner.qb_ev|r(1) }}</td><td class="num"><b>{{ bc.burner.r32_ev|r(1) }}</b></td><td class="num">{{ bc.burner.horizon|r(0) }}</td></tr>
+  </tbody></table>
+</div>
+{% endif %}
+
+{% if fantasy.captain_ceiling %}
+{% set cc = fantasy.captain_ceiling %}
+<div class="card">
+  <h3>Captain ceiling &amp; Maximum-Captain value <span class="small muted">(joint-scoreline sim, {{ cc.n_sims }} draws — U7)</span></h3>
+  <div class="grid cols-4">
+    <div class="kpi"><div class="num">{{ cc.xi_mean }}</div><div class="lbl">XI mean (next round)</div></div>
+    <div class="kpi"><div class="num">{{ cc.xi_p90 }}</div><div class="lbl">XI ceiling (p90)</div></div>
+    <div class="kpi"><div class="num">{{ cc.captain.doubled_mean }}</div><div class="lbl">captain ×2 mean</div></div>
+    <div class="kpi"><div class="num">+{{ cc.max_cap_gain }}</div><div class="lbl">Max-Captain edge</div></div>
+  </div>
+  <p class="small">Captaining <b>{{ cc.captain.name }}</b> projects {{ cc.captain.doubled_mean }} pts (p90 {{ cc.captain.doubled_p90 }}). The <b>Maximum Captain</b> chip (auto-double the round's top scorer) is worth ≈<b>+{{ cc.max_cap_gain }}</b> pts over a fixed armband on this XI — its value rises with several explosive fixtures, which is why it's parked for a later round.</p>
+  {% if cc.candidates %}
+  <table><thead><tr><th>Captain candidate</th><th>Team</th><th class="num">mean</th><th class="num">ceiling (p90)</th></tr></thead><tbody>
+    {% for c in cc.candidates %}<tr><td><b>{{ c.name }}</b>{% if c.is_captain %} <span class="conf High">C</span>{% endif %}</td><td class="small">{{ c.nation }}</td><td class="num">{{ c.mean }}</td><td class="num">{{ c.p90 }}</td></tr>{% endfor %}
+  </tbody></table>
+  {% endif %}
+  {% if cc.stacks %}
+  <p class="small muted">Defensive stacks (shared clean sheet → correlated upside): {% for s in cc.stacks %}<b>{{ s.nation }}</b> ×{{ s.n }} ({{ s.players|join(', ') }}{% if s.cs_prob %}, CS {{ (s.cs_prob*100)|r(0) }}%{% endif %}){% if not loop.last %} · {% endif %}{% endfor %}. Stacking raises the lineup ceiling (not its mean) — relevant only for the captain/Max-Captain call, never for EV-optimal selection.</p>
+  {% endif %}
+</div>
+{% endif %}
+
 {% if fantasy.playbook %}
 <h2 id="playbook">Live-round playbook <span class="small muted">(act on these mid-round — no new session needed)</span></h2>
 <div class="card">

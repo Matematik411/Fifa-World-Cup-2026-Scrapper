@@ -50,10 +50,16 @@ class PlayerProj:
     round_points: dict = field(default_factory=dict)   # live feed: fantasy round id -> banked pts
     total_points: float = 0.0                          # live feed: tournament total so far
     next_minutes: float = 0.0                          # per-match start prob for the NEXT match (rest-adjusted)
+    # U7 (player correlation): the data the joint-scoreline sampler needs for the NEXT match
+    next_num: int = 0                                  # match number of the next unplayed fixture
+    next_is_home: bool = True                          # this team is the home side in that match
+    goal_share: float = 0.0                            # share of the team's goals (intra-team)
+    assist_share: float = 0.0                          # share of the team's assists (intra-team)
 
     def to_record(self) -> dict:
         d = dict(self.__dict__)
-        for k in ("price", "ownership", "minutes_prob", "next_minutes", "exp_next", "exp_avg", "horizon"):
+        for k in ("price", "ownership", "minutes_prob", "next_minutes", "exp_next", "exp_avg",
+                  "horizon", "goal_share", "assist_share"):
             d[k] = round(float(d[k]), 3)
         d["per_match"] = {k: round(float(v), 3) for k, v in self.per_match.items()}
         return d
@@ -406,15 +412,18 @@ def build_projections(players: list[dict], squads_map: dict, forecast, advanceme
                 # still alive but next tie not yet in fixtures (e.g. opponent TBD)
                 exp_next = exp_avg if residual > 0.5 else 0.0
             horizon = float(sum(upcoming_eps) + exp_avg * 0.88 * residual)
-            next_minutes = _eff(upcoming[0]) if upcoming else base_mins
+            nxt = upcoming[0] if upcoming else None
+            next_minutes = _eff(nxt) if nxt else base_mins
             projs.append(PlayerProj(
                 pid=p["id"], name=m["name"], nation=nation, group=str(p.get("_group", "")).upper(),
                 position=p["position"], price=m["price"], ownership=m["own"], minutes_prob=m["mins"],
                 exp_next=exp_next, exp_avg=exp_avg, horizon=horizon, per_match=per_match,
-                next_date=(upcoming[0]["date"] or "") if upcoming else "",
+                next_date=(nxt["date"] or "") if nxt else "",
                 tags=_tags(p["position"], m), why=_why(p["position"], m, adv),
                 round_points=live_rounds, total_points=float(st.get("totalPoints") or 0.0),
-                next_minutes=next_minutes))
+                next_minutes=next_minutes,
+                next_num=int(nxt["num"]) if nxt else 0, next_is_home=bool(nxt["is_home"]) if nxt else True,
+                goal_share=float(goal_share), assist_share=float(assist_share)))
     return projs
 
 

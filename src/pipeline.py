@@ -10,6 +10,8 @@ from datetime import datetime, timezone
 
 from . import io_utils
 from .config import MANUAL, OUTPUT, ROOT, ensure_dirs, load_config
+from .fantasy import booster as fboost
+from .fantasy import correlation as fcorr
 from .fantasy import optimizer as fopt
 from .fantasy import transfers as ftr
 from .fantasy.projections import build_projections
@@ -356,18 +358,62 @@ def _run_fantasy(cfg, bundle, forecast, advancement, stage, target_round, state,
     ft = _free_transfers(cfg, target_round)
     ko_ties_known = any(mf.round != "group" for mf in forecast.match_forecasts.values())
     plan = None
+    build_compare = None
 
     if not owned or stage == "pre":
         squad = rec_squad = optimal
         transfer_block = {"mode": "initial", "free_transfers": "unlimited",
                           "note": "Squad is freely editable until the first kickoff — set this exact 15."}
     elif ft == "unlimited" and (target_round != "R32" or ko_ties_known):
-        # unlimited window (before the R32): full rebuild to the optimum, no hits
-        squad = rec_squad = optimal
-        transfer_block = {"mode": "rebuild", "free_transfers": "unlimited",
-                          "moves": _rebuild_moves(owned, squad, by_pid),
-                          "note": f"Transfers before the {STAGE_LABEL[target_round]} are unlimited — "
-                                  f"rebuild to this exact 15 at no cost."}
+        # unlimited window (before the R32/R16…): full rebuild, no hits. At R32, if the
+        # Wildcard is still in hand (reserved for R16), build a 'burner' — maximize the
+        # R32 starting XI's points + Qualification-Booster advancement instead of squad
+        # longevity, since the R16 Wildcard re-optimizes the durable core anyway (U4).
+        wc_queued = "Wildcard" in chips_remaining and target_round == "R32"
+        squad = optimal           # durable optimum (max horizon) is the default
+        build_mode = "durable"
+        if wc_queued:
+            nat_bonus = fboost.qb_advance_bonus(advancement, target_round, {p.nation for p in projs})
+            qb_bonus_pid = {p.pid: nat_bonus.get(p.nation, 0.0) for p in projs}
+            try:
+                burner = fopt.build_burner_squad(projs, budget, nation_cap, qb_bonus=qb_bonus_pid)
+            except (RuntimeError, ValueError) as e:
+                burner = None
+                log(f"  [warn] R32 burner build failed ({e}); using the durable optimum.")
+            if burner is not None:
+                qb_b = fboost.squad_qb_ev(burner, advancement, "R32")
+                qb_d = fboost.squad_qb_ev(optimal, advancement, "R32")
+                burner_r32, durable_r32 = burner.xi_exp + qb_b, optimal.xi_exp + qb_d
+                # Burner only wins if its R32 EV clears the durable optimum by a real margin:
+                # otherwise the durable squad's extra horizon is free option value (it still
+                # lets you hold or move the Wildcard if the plan changes) for ~no R32 cost.
+                margin = float(cfg.get("fantasy.burner_margin", 2.0))
+                if burner_r32 - durable_r32 >= margin:
+                    squad, build_mode = burner, "burner"
+                build_compare = {
+                    "burner": {"xi_exp": round(burner.xi_exp, 1), "qb_ev": qb_b,
+                               "horizon": burner.squad_horizon, "r32_ev": round(burner_r32, 1)},
+                    "durable": {"xi_exp": round(optimal.xi_exp, 1), "qb_ev": qb_d,
+                                "horizon": optimal.squad_horizon, "r32_ev": round(durable_r32, 1)},
+                    "chosen": build_mode, "margin": margin,
+                }
+        rec_squad = squad
+        if build_mode == "burner":
+            note = (f"Transfers before the {STAGE_LABEL[target_round]} are unlimited — rebuild to this "
+                    f"exact 15 at no cost. Built as an R32 BURNER: it clears the durable optimum on R32 "
+                    f"points + Qualification Booster, and the R16 Wildcard rebuilds the durable core anyway.")
+        elif build_compare is not None:
+            note = (f"Transfers before the {STAGE_LABEL[target_round]} are unlimited — rebuild to this "
+                    f"exact 15 at no cost. A burner build was evaluated but matched the durable optimum "
+                    f"on R32 EV (Δ{build_compare['burner']['r32_ev'] - build_compare['durable']['r32_ev']:+.1f}) "
+                    f"while sacrificing {build_compare['durable']['horizon'] - build_compare['burner']['horizon']:.0f} "
+                    f"horizon — so this DURABLE rebuild is recommended (same R32 points, more flexibility for the "
+                    f"Wildcard/chip plan).")
+        else:
+            note = (f"Transfers before the {STAGE_LABEL[target_round]} are unlimited — rebuild to this "
+                    f"exact 15 at no cost.")
+        transfer_block = {"mode": "rebuild", "free_transfers": "unlimited", "build": build_mode,
+                          "moves": _rebuild_moves(owned, squad, by_pid), "note": note}
     elif ft == "unlimited":
         # unlimited window already, but R32 ties unknown — hold the moves until they are
         squad = rec_squad = _owned_squad(projs, owned, budget, optimal, log,
@@ -407,9 +453,18 @@ def _run_fantasy(cfg, bundle, forecast, advancement, stage, target_round, state,
     owned_set = {p.pid for p in squad.players}
     twelfth = max((p for p in projs if p.pid not in owned_set and p.minutes_prob > 0.5),
                   key=lambda p: p.exp_next, default=None)
+    twelfth_card = {"name": twelfth.name, "ev": round(twelfth.exp_next, 1)} if twelfth else None
     chips = ftr.chip_advice(stage, target_round, chips_remaining, squad, plan,
                             advancement=advancement, optimal_gap=gap if gap > 0.05 else None,
-                            twelfth={"name": twelfth.name, "ev": round(twelfth.exp_next, 1)} if twelfth else None)
+                            twelfth=twelfth_card)
+    # U4: forward chip schedule across the remaining KO rounds (one chip per round),
+    # with QB valued numerically per round. max_cap_ev (U7 captain ceiling) + a revealed
+    # Mystery effect refine it when available.
+    qb_round_ev = fboost.qb_ev_by_round(squad, advancement, target_round)
+    cap_ceiling = fcorr.captain_ceiling(squad, forecast, cfg) if target_round in fboost.KO_ORDER else None
+    chip_plan = fboost.chip_schedule(
+        target_round, chips_remaining, qb_round_ev, mystery=cfg.get("fantasy.mystery_booster"),
+        max_cap_ev=(cap_ceiling or {}).get("max_cap_gain"), twelfth=twelfth_card)
 
     return {
         "squad": _serialize_squad(squad),
@@ -418,6 +473,9 @@ def _run_fantasy(cfg, bundle, forecast, advancement, stage, target_round, state,
                               _stage_matches_done(bundle.fixtures, results, stage)),
         "transfers": transfer_block,
         "chips": chips,
+        "chip_plan": chip_plan,
+        "build_compare": build_compare,
+        "captain_ceiling": cap_ceiling,
         "chips_remaining": chips_remaining,
         "nation_cap": nation_cap,
         "budget": budget,

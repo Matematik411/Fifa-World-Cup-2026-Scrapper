@@ -36,6 +36,17 @@ fantasy:
   extra_transfer_penalty: -3    # verified: -3 per extra transfer (fantasy_rules.json overrides anyway)
   rotation_rest_factor: 0.6     # U3: a clinched team's nailed starters drop to this × start prob in the dead rubber
   wc_form_shrink_minutes: 600   # U5: shrinkage constant K — club-season per-90 gets weight K/(K+wc_minutes)
+  burner_margin: 0.0            # U4: pick the R32 burner over the durable squad whenever it's ≥ on R32 EV.
+                                #     0.0 = always burn at R32, because the Wildcard is COMMITTED to R16 (user,
+                                #     2026-06-28): once R16 rebuilds the squad, the durable build's extra horizon
+                                #     is worthless, so there's no reason to trade any R32 EV for it.
+  # Mystery Booster — REVEALED at R32 (2026-06-28) as the "Clean Sheet Shield" (FFScout).
+  mystery_booster:
+    known: true
+    name: "Clean Sheet Shield"
+    clean_sheet: true           # defensive-stack chip → scheduled at a deep round, not the R32 (QB) slot
+    best_round: "SF"            # provisional; the QF/SF/Final order is re-optimized as the bracket sets
+    effect: "GK/DEF/MID keep their clean-sheet bonus until the team concedes a SECOND goal (one-goal buffer); the 60-minute rule still applies. Usable R32→Final, once."
 
 # --- Nostradamus scoring (defaults; overridden by data/manual/nostradamus.json) ---
 nostradamus:

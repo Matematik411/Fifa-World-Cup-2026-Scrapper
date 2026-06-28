@@ -1,0 +1,112 @@
+"""U4 — QB-aware selection (select_squad_xi / build_burner_squad) + the chip schedule."""
+from collections import Counter
+
+from src.fantasy.booster import chip_schedule, qb_advance_bonus, qb_ev_by_round
+from src.fantasy.optimizer import build_burner_squad, select_squad_xi
+from src.fantasy.projections import PlayerProj
+
+
+def mk(pid, pos, nation, price, exp_next, mins=0.9):
+    return PlayerProj(pid=pid, name=f"P{pid}", nation=nation, group="A", position=pos,
+                      price=price, ownership=10.0, minutes_prob=mins, exp_next=exp_next,
+                      exp_avg=exp_next, horizon=exp_next * 3, per_match={}, next_date="2026-06-28")
+
+
+def _pool():
+    pool, pid = [], 1
+    for nat, pr, e in [("a", 4.5, 4.0), ("b", 4.5, 3.8), ("c", 4.0, 1.0)]:
+        pool.append(mk(pid, "GK", nat, pr, e)); pid += 1
+    for nat, pr, e in [("a", 5.0, 4.5), ("b", 5.5, 4.2), ("c", 4.5, 4.0), ("d", 6.0, 3.8),
+                       ("e", 4.5, 3.5), ("f", 4.0, 1.2), ("d", 4.0, 1.0)]:
+        pool.append(mk(pid, "DEF", nat, pr, e)); pid += 1
+    for nat, pr, e in [("a", 8.0, 6.5), ("b", 7.5, 6.0), ("c", 6.5, 5.5), ("e", 6.0, 5.0),
+                       ("f", 5.5, 4.5), ("d", 5.0, 2.0), ("e", 4.5, 1.5), ("f", 4.0, 1.2)]:
+        pool.append(mk(pid, "MID", nat, pr, e)); pid += 1
+    for nat, pr, e in [("a", 10.5, 7.5), ("b", 8.5, 6.5), ("c", 7.5, 5.5),
+                       ("e", 6.0, 4.0), ("f", 5.0, 1.5), ("d", 4.5, 1.2)]:
+        pool.append(mk(pid, "FWD", nat, pr, e)); pid += 1
+    return pool
+
+
+def test_qb_advance_bonus_is_2x_conditional_advance():
+    adv = {"A": {"reach_R32": 1.0, "reach_R16": 0.7}, "B": {"reach_R32": 1.0, "reach_R16": 0.4}}
+    b = qb_advance_bonus(adv, "R32", {"A", "B"})
+    assert abs(b["A"] - 1.4) < 1e-9 and abs(b["B"] - 0.8) < 1e-9
+    # P(advance | reached) capped at 1 (so bonus ≤ 2)
+    assert qb_advance_bonus({"A": {"reach_R16": 0.5, "reach_QF": 0.9}}, "R16", {"A"})["A"] == 2.0
+    # a team with no chance contributes 0
+    assert qb_advance_bonus({"A": {"reach_R32": 0.0}}, "R32", {"A"})["A"] == 0.0
+
+
+def test_select_squad_xi_is_legal_and_xi_focused():
+    chosen, starters = select_squad_xi(_pool(), budget=100.0, nation_cap=3, value_attr="exp_next")
+    assert len(chosen) == 15 and len(starters) == 11
+    pos = Counter(p.position for p in chosen)
+    assert (pos["GK"], pos["DEF"], pos["MID"], pos["FWD"]) == (2, 5, 5, 3)
+    assert sum(p.price for p in chosen) <= 100.0 + 1e-6
+    for nat, c in Counter(p.nation for p in chosen).items():
+        assert c <= 3
+    sp = Counter(next(pl.position for pl in chosen if pl.pid == s) for s in starters)
+    assert sp["GK"] == 1 and 3 <= sp["DEF"] <= 5 and 3 <= sp["MID"] <= 5 and 1 <= sp["FWD"] <= 3
+    # the burner starts the best XI; the cheap fillers (low exp_next) are benched
+    bench = {p.pid for p in chosen} - set(starters)
+    assert 3 in bench  # the worthless GK never starts
+
+
+def test_qb_bonus_tips_a_borderline_starter_into_the_xi():
+    pool = _pool()
+    base_chosen, base_xi = select_squad_xi(pool, 100.0, 3, value_attr="exp_next")
+    # pid 24 (FWD 'e', exp 4.0) is normally the bench FWD; a big advancement bonus only for
+    # HIS pid must pull him into the starting XI (QB synergy favours likely-advancers).
+    qb = {p.pid: 0.0 for p in pool}
+    qb[24] = 5.0
+    _, xi2 = select_squad_xi(pool, 100.0, 3, value_attr="exp_next", qb_bonus=qb)
+    assert 24 in xi2 and 24 not in base_xi
+
+
+def test_build_burner_squad_freezes_its_xi():
+    sq = build_burner_squad(_pool(), budget=100.0, nation_cap=3)
+    assert len(sq.starters) == 11 and len(sq.players) == 15
+    assert sq.captain in sq.starters
+    d, m, f = (int(x) for x in sq.formation.split("-"))
+    assert (d + m + f) == 10
+
+
+def test_chip_schedule_assigns_qb_r32_wc_r16_one_per_round():
+    chips = ["Wildcard", "Qualification Booster", "Maximum Captain", "12th Man", "Mystery Booster"]
+    qb_by_round = {"R32": 17.0, "R16": 12.0, "QF": 7.0, "SF": 4.0}
+    sched = chip_schedule("R32", chips, qb_by_round)
+    by_round = {e["round"]: e["chip"] for e in sched["schedule"]}
+    assert by_round.get("R32") == "Qualification Booster"   # QB best where most are alive
+    assert by_round.get("R16") == "Wildcard"                # WC not usable at R32 → R16
+    assert sched["this_round"]["chip"] == "Qualification Booster"
+    assert sched["this_round"]["status"] == "PLAY"
+    # one chip per round, and Mystery (effect unknown pre-R32) stays unscheduled with a note
+    used = [e["chip"] for e in sched["schedule"]]
+    assert len(used) == len(set(used))
+    assert "Mystery Booster" not in used
+    assert any("Mystery" in n for n in sched["notes"])
+
+
+def test_chip_schedule_places_all_five_one_per_round_with_clean_sheet_shield():
+    chips = ["Wildcard", "Qualification Booster", "Maximum Captain", "12th Man", "Mystery Booster"]
+    qb = {"R32": 20.0, "R16": 16.0, "QF": 14.0, "SF": 12.0}
+    sched = chip_schedule("R32", chips, qb,
+                          mystery={"known": True, "clean_sheet": True, "name": "Clean Sheet Shield",
+                                   "best_round": "SF", "effect": "one-goal CS buffer"})
+    by_round = {e["round"]: e["chip"] for e in sched["schedule"]}
+    # 5 chips, 5 rounds, one each — QB@R32, WC@R16, 12th Man@QF (most games), CSS@SF, Max Captain@Final
+    assert by_round == {"R32": "Qualification Booster", "R16": "Wildcard", "QF": "12th Man",
+                        "SF": "Clean Sheet Shield", "final": "Maximum Captain"}
+    assert len(sched["schedule"]) == 5
+    assert sched["this_round"]["chip"] == "Qualification Booster"
+
+
+def test_qb_ev_by_round_proxy_monotone_helper():
+    # qb_ev_by_round just maps each remaining round through squad_qb_ev; smoke-test shape
+    class _Sq:
+        starters = []
+        def by_pid(self):
+            return {}
+    out = qb_ev_by_round(_Sq(), {}, "R32")
+    assert set(out) == {"R32", "R16", "QF", "SF"}

@@ -112,10 +112,10 @@ Rationale for the ordering (decided 2026-06-24 — so future sessions don't re-l
 | U1 | Backtesting & calibration harness | After MD2 | DONE | — |
 | U2 | Team form, opponent-adjusted | After MD2 | DONE | U1 |
 | U3 | Stakes/intensity + rotation→minutes | After MD2 | DONE | U1 |
-| U4 | Booster engine: schedule + lookahead + R32-burner | Before R32 | TODO | U1 |
+| U4 | Booster engine: schedule + lookahead + R32-burner | Before R32 | DONE | U1 |
 | U5 | Player form (WC xG + shrinkage) | After MD2 | DONE | U1 |
 | U6 | Minutes as a distribution | After MD2 | DONE | — |
-| U7 | Player-level correlation (CS stacking, captain ceiling) | Before R32 | TODO | — |
+| U7 | Player-level correlation (CS stacking, captain ceiling) | Before R32 | DONE | — |
 | U8 | Data freshness / confidence tags | Anytime | DONE | — |
 
 Statuses: `TODO` · `IN-PROGRESS` (leave a resume note in §7) · `DONE` · `DEFERRED` (say why in §7).
@@ -302,6 +302,45 @@ contend with QB for the R32 slot — re-evaluate then.
 
 > Template: `### <date> — <stage> — <agent>` then bullets: items touched, status changes, **backtest delta**,
 > follow-ups / resume-notes.
+
+### 2026-06-28 — before R32 (group stage finished) — U4 + U7 DONE, R1/R2/R3 run
+- **U4 (booster engine) DONE.** New `src/fantasy/booster.py`: `qb_advance_bonus` (advancement → the QB's
+  +2·P(advance) per starter, the value that now FEEDS selection), `chip_schedule` (forward one-chip-per-round
+  plan across R32→final, QB valued numerically per round, Mystery-R32 contention + WAIT), `qb_ev_by_round`.
+  New `optimizer.select_squad_xi` — a **joint 15+XI ILP** maximizing the STARTING XI's value + per-starter QB
+  bonus with a cheap bench (`build_burner_squad`), the correct objective for the R32 burner. Pipeline R32
+  rebuild now builds BOTH the durable optimum and the burner and picks the burner **only if it clears the
+  durable squad on R32 EV by ≥`fantasy.burner_margin` (2.0)** — otherwise durable wins on dominance (same R32
+  EV, more horizon = free option value, since WC@R16 rebuilds the core anyway). Emits the forward chip schedule.
+  - **Key finding (this squad):** burner ≈ durable at R32 — burner R32-EV 70.9 vs durable 70.8 (Δ+0.1),
+    burner horizon 195.7 vs durable 204.4. The EV-max R32 XI is already the durable optimum (the best
+    long-run players also have the best R32 ties), so **durable is chosen**. The burner only diverges when
+    maximizing R32 points means picking less-durable players; it didn't here.
+- **U7 (player correlation) DONE.** New `src/fantasy/correlation.py`: `captain_ceiling` — a joint-scoreline
+  Monte-Carlo (teammates share their match's sampled scoreline; each player's MEAN pinned to `exp_next` so
+  squad EV is untouched) → XI ceiling (p90/p10), the captain's doubled distribution, the **Maximum-Captain
+  EV** (E[top scorer]−E[captain]), and defensive-stack detection. `PlayerProj` gained `next_num/next_is_home/
+  goal_share/assist_share`. Wired into the pipeline → feeds the chip schedule's Max-Captain timing + a report
+  card. Respects the golden rule: distributional output used ONLY for the captain/Max-Cap call, never to bias
+  selection toward variance.
+- **Tests:** pytest **65 → 76 green** (new `test_booster.py`, `test_correlation.py`; incl. mean-consistency
+  E[ceiling MC] ≈ Σ exp_next, QB bonus tips a borderline starter into the XI, schedule one-chip-per-round).
+- **R1 (re-backtest) — IMPROVED, no config change.** On all 72 results: RPS **0.1543 → 0.1453**, log-loss
+  **0.8668 → 0.8214** (both better), goals-MAE 0.905 → 0.927 (≈flat). Clean sheets exp **48.3 vs 40 actual**
+  (mild **1.21×** over-prediction, down from MD1's 2.04× and largely MD1-driven; and **market-shielded for
+  R32**, which uses curated odds). No re-tune: a blanket goals tilt would overfit (the calibration-watch rule),
+  and there's no regression. Realized walk-forward 82 Nost / 185 GoPicks / 47 exact = exactly `state.cumulative`.
+- **R2 (refresh form):** `wc_form.json` refreshed to real full-group-stage (3-game) WC xG (90 players / 20
+  teams, FOX/Opta); `squads.json`/`lineups.json` reset for R32 (zero priority-team suspensions; Raphinha &
+  Schlotterbeck out); R32 odds added (sharp Pinnacle). Team-form offsets: Brazil/France/Argentina/England/
+  Spain +0.05–0.06.
+- **R3 (chip+transfer plan for R32):** unlimited **durable** rebuild; **QB@R32** (EV ≈20, peaks at R32);
+  **Wildcard@R16**; Max-Captain@QF (ceiling edge ≈+5); 12th Man@SF; **Mystery = WAIT** (effect reveals at R32;
+  if clean-sheet-related it pairs with a defensive stack and may contend with QB for the R32 slot — re-check).
+- **Follow-ups:** (a) wire the Mystery effect into `cfg.fantasy.mystery_booster` once revealed so the schedule
+  resolves it automatically; (b) `_lineup_fixes`/`_freeroll` still key on the global `minutes_prob` not
+  `next_minutes` (per-match) — left as a later pass; (c) at R16, re-run with the Wildcard to build the durable
+  QF→Final core (Vinícius/Brazil the prime buy-back once Raphinha returns).
 
 ### 2026-06-24 — after MD2 — U2 DONE (team form, opponent-adjusted WC xG)
 - New `ensemble.apply_team_form`: opponent-adjusted xG-difference per game (credited for the strength of

@@ -90,6 +90,76 @@ def select_squad(projs: list[PlayerProj], budget: float, nation_cap: int,
     return chosen
 
 
+def select_squad_xi(projs: list[PlayerProj], budget: float, nation_cap: int, *,
+                    value_attr: str = "exp_next", qb_bonus: dict[int, float] | None = None,
+                    bench_value_frac: float = 0.1,
+                    forced_in: set[int] | None = None, forced_out: set[int] | None = None
+                    ) -> tuple[list[PlayerProj], list[int]]:
+    """Joint 15-man squad + starting-XI ILP that maximizes the STARTING XI's value
+    (optionally plus a per-starter Qualification-Booster advancement bonus), with the
+    bench only lightly weighted (U4).
+
+    This is the right objective for a single-round "burner" build — the R32 free
+    rebuild when the Wildcard is queued for R16 — where squad depth/longevity (the
+    `horizon` objective of select_squad) is wasted, because the R16 Wildcard
+    re-optimizes the whole squad anyway. Maximizing the XI's next-round points (+ the
+    QB advancement bonus, which only pays for STARTERS) instead spends the budget on
+    the best XI and lets the bench be cheap.
+
+    value_attr: PlayerProj attribute used as the per-player starting value (e.g. "exp_next").
+    qb_bonus:   {pid: bonus} added to a player's value IFF he starts (QB's +2*P(advance)).
+    Returns (chosen 15, starter pids).
+    """
+    forced_in = forced_in or set()
+    forced_out = forced_out or set()
+    qb_bonus = qb_bonus or {}
+    pool = [p for p in projs if p.pid not in forced_out and p.minutes_prob > 0.05]
+    pool_ids = {p.pid for p in pool}
+    for p in projs:
+        if p.pid in forced_in and p.pid not in pool_ids:
+            pool.append(p)
+
+    prob = pulp.LpProblem("squad_xi", pulp.LpMaximize)
+    x = {p.pid: pulp.LpVariable(f"x_{p.pid}", cat="Binary") for p in pool}   # in the 15
+    y = {p.pid: pulp.LpVariable(f"y_{p.pid}", cat="Binary") for p in pool}   # in the XI
+    val = {p.pid: float(getattr(p, value_attr)) for p in pool}
+    start_val = {p.pid: val[p.pid] + float(qb_bonus.get(p.pid, 0.0)) for p in pool}
+    prob += pulp.lpSum(start_val[p.pid] * y[p.pid]
+                       + bench_value_frac * val[p.pid] * (x[p.pid] - y[p.pid]) for p in pool)
+    prob += pulp.lpSum(x.values()) == 15
+    prob += pulp.lpSum(y.values()) == 11
+    for p in pool:
+        prob += y[p.pid] <= x[p.pid]
+    for pos, need in POS_NEED.items():
+        prob += pulp.lpSum(x[p.pid] for p in pool if p.position == pos) == need
+        cnt_y = pulp.lpSum(y[p.pid] for p in pool if p.position == pos)
+        prob += cnt_y >= XI_MIN[pos]
+        prob += cnt_y <= XI_MAX[pos]
+    prob += pulp.lpSum(p.price * x[p.pid] for p in pool) <= budget
+    for nat in {p.nation for p in pool}:
+        prob += pulp.lpSum(x[p.pid] for p in pool if p.nation == nat) <= nation_cap
+    for pid in forced_in:
+        if pid in x:
+            prob += x[pid] == 1
+
+    status = prob.solve(_solver())
+    if pulp.LpStatus[status] != "Optimal":
+        raise RuntimeError(f"Squad+XI ILP not optimal: {pulp.LpStatus[status]}")
+    chosen = [p for p in pool if x[p.pid].value() and x[p.pid].value() > 0.5]
+    starters = [p.pid for p in pool if y[p.pid].value() and y[p.pid].value() > 0.5]
+    return chosen, starters
+
+
+def build_burner_squad(projs: list[PlayerProj], budget: float, nation_cap: int, *,
+                       qb_bonus: dict[int, float] | None = None,
+                       forced_in: set[int] | None = None) -> Squad:
+    """A single-round 'burner' Squad: best starting XI (+ optional QB advancement bonus)
+    with a cheap bench. Used for the R32 rebuild when the Wildcard is reserved for R16."""
+    chosen, starters = select_squad_xi(projs, budget, nation_cap, value_attr="exp_next",
+                                       qb_bonus=qb_bonus, forced_in=forced_in)
+    return assemble_squad(chosen, budget, lineup={"starters": starters})
+
+
 def pick_xi(squad_players: list[PlayerProj]) -> tuple[list[int], str, float]:
     prob = pulp.LpProblem("xi", pulp.LpMaximize)
     y = {p.pid: pulp.LpVariable(f"y_{p.pid}", cat="Binary") for p in squad_players}
