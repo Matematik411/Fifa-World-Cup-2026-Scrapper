@@ -1,141 +1,167 @@
 {
-  "updated_at": "2026-06-26",
-  "confidence": "Low-Med-seed",
-  "method": "SEED for U5 (in-tournament player form). wc_goals/wc_assists are FACTUAL from data/manual/results.json match notes + cross-checked golden-boot trackers (NBC + FOX + planetfootball + per-match Wikipedia) through MD2 (matches 1-48) and MD3-day-1 (M49-54, Jun 24). wc_minutes are best-estimate from start/sub timing. wc_xg/wc_xa/wc_shots are CONSERVATIVE ESTIMATES (~goals discounted toward process) unless a tracker published a value (a few xG are real, labelled). Most owned-player teams have NOT played their MD3 game yet (M61-72 are Jun 26-27), so their totals are through 2 games; Brazil (Vinicius/Cunha) + the other MD3-day-1 sides include their 3rd game. REFRESH each matchday (RUNBOOK §2): add real per-player WC xG/xA/shots + every fantasy-relevant performer, and keep the `teams` block (wc_xg_for/against) current. The model shrinks the club-season per-90 toward these, minutes-weighted (2-3 games barely move it), leaning on xG over goals so finishing heat regresses.",
+  "updated_at": "2026-06-28",
+  "confidence": "Med-real-3game",
+  "method": "FULL group stage complete (72 matches, through Jun 27 M67-72). wc_goals/wc_assists are FACTUAL from data/manual/results.json match notes + golden-boot/assist trackers (planetfootball + ESPN/CBS/NBC live blogs for M67-72) and the fantasy feed roundPoints. wc_minutes are best-estimate from start/sub timing. wc_xg are now REAL Opta-based numbers from the FOX Sports WC2026 player stats table (sorted by xG, pages 1-6), the canonical per-player xG source available without a login; a few players not in FOX's published xG list (Hakimi, Raul Jimenez, James Rodriguez) keep a small role-based estimate, flagged 'xg est' in notes. wc_xa are SHAPED ESTIMATES (FOX/Sofascore/FotMob did not expose a per-player xA decimal via fetch): anchored to actual assists + planetfootball chances-created rank + role; flagged 'xa est'. wc_shots/wc_sot are REAL from the FOX table where the player appears there. teams block (wc_xg_for/against) is REAL FOX team xG (FOX rounds team xGA to integers; sub-0.5 values stored as small positives to stay process-consistent). The model shrinks the club-season per-90 toward these, minutes-weighted, leaning on xG over goals so finishing heat (e.g. Dembele 4 goals on 0.81 xG, Munoz 2 on 0.15, Summerville 2 on 0.13) regresses. Eliminated nations dropped/not refreshed; focus is the 20 R32 sides that supply fantasy picks.",
   "sources": [
-    "data/manual/results.json match notes (goals/assists/minutes, multi-source-verified)",
-    "NBC golden-boot list + FOX golden-boot tracker + planetfootball stats leaders (tournament goal/assist totals, Jun 24-25)",
-    "Wikipedia 2026 FIFA World Cup Group A/B/C match reports (Jun 24 scorers, M49-54)",
-    "fbref.com / understat.com / fotmob.com (WC per-match xG — partial; most xG here remain estimates)"
+    "data/manual/results.json match notes (goals/assists/minutes, multi-source-verified, M1-72)",
+    "FOX Sports WC2026 player stats — REAL Opta xG, sorted by xG pages 1-6 (foxsports.com/soccer/fifa-world-cup/stats?category=standard&sort=xg&season=2026)",
+    "FOX Sports WC2026 team stats — REAL team xG-for + xGA (foxsports.com/soccer/fifa-world-cup/team-stats?category=standard&sort=t_xg&season=2026)",
+    "planetfootball WC2026 stat leaders — assists + chances-created (xA shaping)",
+    "ESPN / CBS / NBC live blogs Jun 27 (M67-72 scorers: Lo Celso+Lautaro+Messi for ARG, Bellingham+Kane for ENG, Vlasic/Modric for CRO, Colombia 0-0 Portugal CS)"
   ],
   "players": {
     "Argentina": [
-      {"name": "Lionel Messi", "wc_minutes": 180, "wc_goals": 5, "wc_assists": 0, "wc_xg": 2.54, "wc_xa": 0.9, "wc_shots": 14, "wc_sot": 8, "role_change": "primary penalty taker; talisman, all-time WC goals record (18 career)", "notes": "hat-trick M19 + brace M41; 5 in 2026, leads Golden Boot; xg 2.54 tracker-published"}
+      {"name": "Lionel Messi", "wc_minutes": 210, "wc_goals": 6, "wc_assists": 0, "wc_xg": 2.41, "wc_xa": 0.8, "wc_shots": 14, "wc_sot": 7, "role_change": "primary penalty taker + talisman; BUT rotated to a SUB in dead-rubber M72 (Scaloni manages KO minutes)", "notes": "hat-trick M19 + brace M41 + 1 off the bench M72 (7th straight WC game scoring); leads Golden Boot with 6; xg 2.41 REAL (FOX/Opta); xa est"},
+      {"name": "Lautaro Martinez", "wc_minutes": 200, "wc_goals": 1, "wc_assists": 0, "wc_xg": 1.11, "wc_xa": 0.4, "wc_shots": 4, "wc_sot": 2, "role_change": "nailed CF alongside/under Messi", "notes": "1st WC goal M72 (Jordan); xg 1.11 REAL (FOX); xa est"},
+      {"name": "Giovani Lo Celso", "wc_minutes": 150, "wc_goals": 1, "wc_assists": 0, "wc_xg": 0.4, "wc_xa": 0.6, "wc_shots": 4, "wc_sot": 2, "role_change": "central mid, set pieces", "notes": "FK goal M72 (19', 1st WC goal); xg/xa est (not in FOX top list)"}
     ],
     "France": [
-      {"name": "Kylian Mbappe", "wc_minutes": 250, "wc_goals": 4, "wc_assists": 1, "wc_xg": 3.3, "wc_xa": 0.8, "wc_shots": 14, "wc_sot": 8, "role_change": "captain, on penalties", "notes": "brace M17 + brace M42; 16 career WC goals (=Klose); xg est"},
-      {"name": "Ousmane Dembele", "wc_minutes": 210, "wc_goals": 1, "wc_assists": 2, "wc_xg": 1.1, "wc_xa": 1.4, "wc_shots": 7, "wc_sot": 3, "notes": "goal+assist M42, shifted RW behind Mbappe; xg est"},
-      {"name": "Michael Olise", "wc_minutes": 200, "wc_goals": 0, "wc_assists": 3, "wc_xg": 0.7, "wc_xa": 1.8, "wc_shots": 6, "wc_sot": 2, "role_change": "dual-position (MID/FWD); chief creator", "notes": "joint WC assist LEAD (3); assists M42 (Mbappe) among them; xg est"},
-      {"name": "Mike Maignan", "wc_minutes": 180, "wc_goals": 0, "wc_assists": 0, "wc_xg": 0.0, "wc_xa": 0.0, "wc_shots": 0, "wc_sot": 0, "role_change": "nailed No.1 GK", "notes": "clean sheet M42 (France 3-0 Iraq) -> GK CS pts; owned"}
+      {"name": "Kylian Mbappe", "wc_minutes": 270, "wc_goals": 4, "wc_assists": 2, "wc_xg": 2.15, "wc_xa": 0.7, "wc_shots": 16, "wc_sot": 9, "role_change": "captain, on penalties", "notes": "brace M17 + brace M42; 16 career WC goals; xg 2.15 REAL (FOX); xa est"},
+      {"name": "Ousmane Dembele", "wc_minutes": 230, "wc_goals": 4, "wc_assists": 1, "wc_xg": 0.81, "wc_xa": 0.6, "wc_shots": 8, "wc_sot": 4, "role_change": "nailed France RW", "notes": "goal+assist M42 + HAT-TRICK M61 (7'/20'/32' vs Norway, 2nd-fastest WC hat-trick); 4 goals on just 0.81 xG = MASSIVE finishing over-perf -> regress hard; xg 0.81 REAL (FOX); xa est"},
+      {"name": "Michael Olise", "wc_minutes": 230, "wc_goals": 0, "wc_assists": 3, "wc_xg": 0.67, "wc_xa": 1.6, "wc_shots": 8, "wc_sot": 2, "role_change": "dual-position (MID/FWD); chief creator", "notes": "WC assist co-LEAD (3); xg 0.67 REAL (FOX); xa est (top creator)"},
+      {"name": "Bradley Barcola", "wc_minutes": 150, "wc_goals": 1, "wc_assists": 1, "wc_xg": 0.45, "wc_xa": 0.5, "wc_shots": 3, "wc_sot": 2, "notes": "goal M17 (Senegal) + assist; rotation winger; xg 0.45 REAL (FOX); xa est"},
+      {"name": "Mike Maignan", "wc_minutes": 270, "wc_goals": 0, "wc_assists": 0, "wc_xg": 0.0, "wc_xa": 0.0, "wc_shots": 0, "wc_sot": 0, "role_change": "nailed No.1 GK", "notes": "CS M42 (3-0 Iraq); conceded M61 (no CS) but banked saves; owned"},
+      {"name": "Theo Hernandez", "wc_minutes": 180, "wc_goals": 0, "wc_assists": 0, "wc_xg": 0.1, "wc_xa": 0.3, "wc_shots": 1, "wc_sot": 0, "role_change": "started France LB M61 (not Digne)", "notes": "owned; no CS in his starts; attacking LB"}
     ],
     "Norway": [
-      {"name": "Erling Haaland", "wc_minutes": 180, "wc_goals": 4, "wc_assists": 0, "wc_xg": 2.68, "wc_xa": 0.3, "wc_shots": 13, "wc_sot": 8, "role_change": "lone #9, on penalties", "notes": "brace M18 + brace M43; xg 2.68 tracker-published"},
-      {"name": "Martin Odegaard", "wc_minutes": 180, "wc_goals": 0, "wc_assists": 2, "wc_xg": 0.6, "wc_xa": 1.3, "wc_shots": 5, "wc_sot": 2, "role_change": "captain, FK taker, creative hub", "notes": "2 WC assists; xg est"}
+      {"name": "Erling Haaland", "wc_minutes": 250, "wc_goals": 4, "wc_assists": 0, "wc_xg": 2.05, "wc_xa": 0.3, "wc_shots": 10, "wc_sot": 7, "role_change": "lone #9, on penalties; RESTED M61 (dead rubber)", "notes": "brace M18 + brace M43; 4 goals in 2 starts; xg 2.05 REAL (FOX, 2 games); xa est"},
+      {"name": "Martin Odegaard", "wc_minutes": 200, "wc_goals": 0, "wc_assists": 2, "wc_xg": 0.39, "wc_xa": 1.1, "wc_shots": 4, "wc_sot": 1, "role_change": "captain, FK taker, creative hub; rested M61", "notes": "2 WC assists; xg 0.39 REAL (FOX); xa est"},
+      {"name": "Oscar Bobb", "wc_minutes": 160, "wc_goals": 0, "wc_assists": 0, "wc_xg": 0.48, "wc_xa": 0.4, "wc_shots": 3, "wc_sot": 2, "notes": "rotation winger; xg 0.48 REAL (FOX); xa est"}
     ],
     "Spain": [
-      {"name": "Mikel Oyarzabal", "wc_minutes": 120, "wc_goals": 2, "wc_assists": 1, "wc_xg": 1.6, "wc_xa": 0.5, "wc_shots": 6, "wc_sot": 4, "role_change": "nailed #9 + Spain 1st-choice penalty taker; owned", "notes": "brace+assist M37 (off HT); 0-0 vs Cape Verde M13; xg est"},
-      {"name": "Lamine Yamal", "wc_minutes": 130, "wc_goals": 0, "wc_assists": 1, "wc_xg": 1.0, "wc_xa": 1.2, "wc_shots": 6, "wc_sot": 2, "notes": "assist M37; minutes managed (hamstring); xg est"},
-      {"name": "Marc Cucurella", "wc_minutes": 180, "wc_goals": 0, "wc_assists": 0, "wc_xg": 0.2, "wc_xa": 0.4, "wc_shots": 2, "wc_sot": 0, "role_change": "nailed LB; owned", "notes": "full 90 M37 + Spain clean sheet (DEF CS); also CS M13; owned"}
+      {"name": "Mikel Oyarzabal", "wc_minutes": 200, "wc_goals": 2, "wc_assists": 1, "wc_xg": 1.21, "wc_xa": 0.5, "wc_shots": 9, "wc_sot": 4, "role_change": "nailed #9 + Spain 1st-choice penalty taker; owned", "notes": "brace+assist M37 (off HT); 0-0 vs Cape Verde M13; off ~75' M64; xg 1.21 REAL (FOX); xa est"},
+      {"name": "Lamine Yamal", "wc_minutes": 200, "wc_goals": 1, "wc_assists": 1, "wc_xg": 0.9, "wc_xa": 1.0, "wc_shots": 6, "wc_sot": 2, "role_change": "nailed RW (hamstring cleared, minutes-managed)", "notes": "goal+assist around M37; xg/xa est (not isolated in FOX top list); FK taker"},
+      {"name": "Nico Williams", "wc_minutes": 220, "wc_goals": 0, "wc_assists": 1, "wc_xg": 0.6, "wc_xa": 0.6, "wc_shots": 5, "wc_sot": 2, "role_change": "nailed LW", "notes": "xg/xa est"},
+      {"name": "Marc Cucurella", "wc_minutes": 270, "wc_goals": 0, "wc_assists": 0, "wc_xg": 0.2, "wc_xa": 0.4, "wc_shots": 2, "wc_sot": 0, "role_change": "nailed LB; owned", "notes": "full 90 + Spain CS M37, M13, M64 (3 clean sheets -> big DEF CS hauls); owned"},
+      {"name": "Unai Simon", "wc_minutes": 270, "wc_goals": 0, "wc_assists": 0, "wc_xg": 0.0, "wc_xa": 0.0, "wc_shots": 0, "wc_sot": 0, "role_change": "nailed No.1 GK", "notes": "Spain conceded ~0-1 all group (xGA ~0.4, the meanest defence) -> repeat-CS engine for GK/DEF picks"}
     ],
     "Brazil": [
-      {"name": "Vinicius Junior", "wc_minutes": 270, "wc_goals": 3, "wc_assists": 1, "wc_xg": 2.4, "wc_xa": 0.9, "wc_shots": 11, "wc_sot": 6, "role_change": "main man LW, goals+assists", "notes": "1G+1A M31 (Haiti) + brace M51 (Scotland, 7'+45+3'); golden-boot trackers (NBC+FOX) list 4 total, itemizable = 3 -> recorded 3 conservatively; xg est"},
-      {"name": "Matheus Cunha", "wc_minutes": 200, "wc_goals": 3, "wc_assists": 0, "wc_xg": 1.9, "wc_xa": 0.3, "wc_shots": 8, "wc_sot": 5, "role_change": "started CF ahead of Igor Thiago", "notes": "brace M31 (Haiti) + 1 M51 (Scotland 60'); xg est"},
-      {"name": "Danilo", "wc_minutes": 270, "wc_goals": 0, "wc_assists": 0, "wc_xg": 0.1, "wc_xa": 0.3, "wc_shots": 2, "wc_sot": 0, "role_change": "nailed RB; owned", "notes": "CS M31 + CS M51 (DEF CS pts x2); owned"}
+      {"name": "Vinicius Junior", "wc_minutes": 270, "wc_goals": 4, "wc_assists": 1, "wc_xg": 2.33, "wc_xa": 0.9, "wc_shots": 13, "wc_sot": 8, "role_change": "main man LW (classified MID in fantasy); goals+assists; owned CAPTAIN", "notes": "1G+1A M31 + brace M51 (Scotland); 4 goals; xg 2.33 REAL (FOX); xa est"},
+      {"name": "Matheus Cunha", "wc_minutes": 230, "wc_goals": 3, "wc_assists": 0, "wc_xg": 1.09, "wc_xa": 0.3, "wc_shots": 7, "wc_sot": 3, "role_change": "started CF ahead of Igor Thiago", "notes": "brace M31 + 1 M51 (60'); 3 goals on 1.09 xG; xg 1.09 REAL (FOX); xa est"},
+      {"name": "Raphinha", "wc_minutes": 110, "wc_goals": 0, "wc_assists": 0, "wc_xg": 0.6, "wc_xa": 0.4, "wc_shots": 4, "wc_sot": 1, "role_change": "nailed RW when fit; owned", "notes": "OFF INJURED 40' M31 (right hamstring), missed M51; availability watch for R32; owned; xg/xa est"},
+      {"name": "Danilo", "wc_minutes": 270, "wc_goals": 0, "wc_assists": 0, "wc_xg": 0.1, "wc_xa": 0.3, "wc_shots": 2, "wc_sot": 0, "role_change": "nailed RB; owned", "notes": "CS M31 + CS M51 (DEF CS x2); single yellow M51; owned"},
+      {"name": "Marquinhos", "wc_minutes": 270, "wc_goals": 0, "wc_assists": 0, "wc_xg": 0.2, "wc_xa": 0.1, "wc_shots": 2, "wc_sot": 1, "role_change": "nailed CB + captain at the back", "notes": "Brazil xGA ~1.0 (2nd-meanest) -> strong CS source for DEF picks; xg est"}
     ],
     "Portugal": [
-      {"name": "Cristiano Ronaldo", "wc_minutes": 160, "wc_goals": 2, "wc_assists": 0, "wc_xg": 1.8, "wc_xa": 0.2, "wc_shots": 9, "wc_sot": 5, "role_change": "leads line at 41, on/near penalties", "notes": "brace M45 (Uzbekistan); first to score at 6 different WCs; minutes managed; xg est"},
-      {"name": "Bruno Fernandes", "wc_minutes": 170, "wc_goals": 0, "wc_assists": 1, "wc_xg": 0.7, "wc_xa": 1.1, "wc_shots": 6, "wc_sot": 2, "role_change": "captain, advanced mid, pens + FKs; owned", "notes": "active/assist M45; nailed; owned"}
+      {"name": "Cristiano Ronaldo", "wc_minutes": 220, "wc_goals": 2, "wc_assists": 0, "wc_xg": 1.52, "wc_xa": 0.2, "wc_shots": 12, "wc_sot": 7, "role_change": "leads line at 41, on/near penalties", "notes": "brace M45 (Uzbekistan); minutes managed (rotated M69 0-0 Colombia); xg 1.52 REAL (FOX); xa est"},
+      {"name": "Bruno Fernandes", "wc_minutes": 240, "wc_goals": 0, "wc_assists": 1, "wc_xg": 0.55, "wc_xa": 0.8, "wc_shots": 7, "wc_sot": 2, "role_change": "captain, advanced mid, pens + FKs; owned", "notes": "assist around M45; started M69 (Portugal CS in 0-0) -> MID CS; xg 0.55 REAL (FOX); xa est; owned"},
+      {"name": "Rafael Leao", "wc_minutes": 150, "wc_goals": 1, "wc_assists": 0, "wc_xg": 0.5, "wc_xa": 0.4, "wc_shots": 4, "wc_sot": 2, "role_change": "rotation LW", "notes": "goal M45; xg/xa est"},
+      {"name": "Nuno Mendes", "wc_minutes": 230, "wc_goals": 1, "wc_assists": 0, "wc_xg": 0.3, "wc_xa": 0.4, "wc_shots": 3, "wc_sot": 2, "role_change": "nailed attacking LB", "notes": "goal M45; CS M69; attacking FB; xg/xa est"}
     ],
     "England": [
-      {"name": "Harry Kane", "wc_minutes": 180, "wc_goals": 2, "wc_assists": 0, "wc_xg": 1.7, "wc_xa": 0.4, "wc_shots": 8, "wc_sot": 4, "role_change": "on penalties", "notes": "pen + goal M22 (Croatia); 0-0 vs Ghana M46; xg est"},
-      {"name": "Jude Bellingham", "wc_minutes": 175, "wc_goals": 1, "wc_assists": 0, "wc_xg": 1.0, "wc_xa": 0.7, "wc_shots": 6, "wc_sot": 3, "notes": "goal M22; xg est"},
-      {"name": "Jordan Pickford", "wc_minutes": 180, "wc_goals": 0, "wc_assists": 0, "wc_xg": 0.0, "wc_xa": 0.0, "wc_shots": 0, "wc_sot": 0, "role_change": "nailed No.1 GK; owned", "notes": "clean sheet M46 (0-0 Ghana) -> GK CS pts; owned"}
+      {"name": "Harry Kane", "wc_minutes": 270, "wc_goals": 3, "wc_assists": 0, "wc_xg": 1.66, "wc_xa": 0.4, "wc_shots": 12, "wc_sot": 7, "role_change": "nailed #9, on penalties", "notes": "pen+goal M22 + goal M67 (Panama); 0-0 vs Ghana M46; xg 1.66 REAL (FOX); xa est"},
+      {"name": "Jude Bellingham", "wc_minutes": 250, "wc_goals": 2, "wc_assists": 1, "wc_xg": 0.49, "wc_xa": 0.6, "wc_shots": 6, "wc_sot": 3, "role_change": "advanced/box-crashing #10", "notes": "goal M22 + goal M67 (Panama); xg 0.49 REAL (FOX); xa est"},
+      {"name": "Marcus Rashford", "wc_minutes": 170, "wc_goals": 1, "wc_assists": 0, "wc_xg": 0.41, "wc_xa": 0.4, "wc_shots": 6, "wc_sot": 2, "role_change": "rotation LW", "notes": "goal M22; xg 0.41 REAL (FOX); xa est"},
+      {"name": "Bukayo Saka", "wc_minutes": 230, "wc_goals": 0, "wc_assists": 2, "wc_xg": 0.37, "wc_xa": 1.0, "wc_shots": 5, "wc_sot": 2, "role_change": "nailed RW", "notes": "2 WC assists; xg 0.37 REAL (FOX); xa est"},
+      {"name": "Jordan Pickford", "wc_minutes": 270, "wc_goals": 0, "wc_assists": 0, "wc_xg": 0.0, "wc_xa": 0.0, "wc_shots": 0, "wc_sot": 0, "role_change": "nailed No.1 GK; owned", "notes": "CS M46 (0-0 Ghana); England xGA ~2 (good); owned (benched in current XI)"}
     ],
     "Germany": [
-      {"name": "Deniz Undav", "wc_minutes": 120, "wc_goals": 3, "wc_assists": 1, "wc_xg": 1.7, "wc_xa": 0.4, "wc_shots": 6, "wc_sot": 4, "notes": "brace M34 as a 60' sub + 1 more; impact role, watch starts; xg est"},
-      {"name": "Kai Havertz", "wc_minutes": 150, "wc_goals": 2, "wc_assists": 0, "wc_xg": 1.4, "wc_xa": 0.3, "wc_shots": 6, "wc_sot": 3, "notes": "2 WC goals; xg est"},
-      {"name": "Joshua Kimmich", "wc_minutes": 239, "wc_goals": 0, "wc_assists": 2, "wc_xg": 0.3, "wc_xa": 1.2, "wc_shots": 3, "wc_sot": 1, "role_change": "RB/mid, set-pieces", "notes": "2 WC assists; M55 (Ecuador 2-1 Germany) STARTED RB but subbed off 60' (Germany conceded 2, no CS) -> banked ~2; owned; xg est"}
+      {"name": "Deniz Undav", "wc_minutes": 160, "wc_goals": 3, "wc_assists": 2, "wc_xg": 1.41, "wc_xa": 0.7, "wc_shots": 5, "wc_sot": 4, "role_change": "super-sub turned scorer; watch for starts (rotates w/ Havertz)", "notes": "brace M34 as a 60' sub + more; 3G+2A; xg 1.41 REAL (FOX); xa est"},
+      {"name": "Kai Havertz", "wc_minutes": 200, "wc_goals": 2, "wc_assists": 0, "wc_xg": 1.75, "wc_xa": 0.3, "wc_shots": 7, "wc_sot": 4, "role_change": "nailed CF (rotates w/ Undav)", "notes": "2 goals; xg 1.75 REAL (FOX, leads Germany xG); xa est"},
+      {"name": "Leroy Sane", "wc_minutes": 200, "wc_goals": 1, "wc_assists": 0, "wc_xg": 0.71, "wc_xa": 0.6, "wc_shots": 5, "wc_sot": 2, "notes": "goal M55 (assist Wirtz); xg 0.71 REAL (FOX); xa est"},
+      {"name": "Jamal Musiala", "wc_minutes": 220, "wc_goals": 1, "wc_assists": 0, "wc_xg": 0.65, "wc_xa": 0.7, "wc_shots": 6, "wc_sot": 1, "role_change": "nailed #10", "notes": "1 goal; xg 0.65 REAL (FOX); xa est"},
+      {"name": "Florian Wirtz", "wc_minutes": 230, "wc_goals": 0, "wc_assists": 2, "wc_xg": 0.44, "wc_xa": 1.1, "wc_shots": 8, "wc_sot": 1, "role_change": "nailed creator", "notes": "2 WC assists; xg 0.44 REAL (FOX); xa est"},
+      {"name": "Joshua Kimmich", "wc_minutes": 240, "wc_goals": 0, "wc_assists": 2, "wc_xg": 0.3, "wc_xa": 0.9, "wc_shots": 3, "wc_sot": 1, "role_change": "RB/mid, set-pieces", "notes": "2 WC assists; subbed ~60' M55 (no CS); owned (benched in current XI); xg/xa est"}
     ],
     "Netherlands": [
-      {"name": "Brian Brobbey", "wc_minutes": 215, "wc_goals": 3, "wc_assists": 0, "wc_xg": 2.0, "wc_xa": 0.2, "wc_shots": 8, "wc_sot": 4, "notes": "brace M33 (Sweden) + 1 M58 (Tunisia 7', assist Van Dijk); 3 WC goals; xg est"},
-      {"name": "Cody Gakpo", "wc_minutes": 260, "wc_goals": 2, "wc_assists": 0, "wc_xg": 1.7, "wc_xa": 0.8, "wc_shots": 9, "wc_sot": 4, "role_change": "on penalties", "notes": "brace M33; started M58 (no goal); xg est"},
-      {"name": "Crysencio Summerville", "wc_minutes": 110, "wc_goals": 2, "wc_assists": 0, "wc_xg": 1.0, "wc_xa": 0.4, "wc_shots": 5, "wc_sot": 3, "notes": "goal M33 (89') + 1 more; impact sub; xg est"},
-      {"name": "Denzel Dumfries", "wc_minutes": 200, "wc_goals": 0, "wc_assists": 2, "wc_xg": 0.4, "wc_xa": 1.0, "wc_shots": 4, "wc_sot": 1, "role_change": "attacking RB/RWB", "notes": "2 WC assists; xg est"},
-      {"name": "Ryan Gravenberch", "wc_minutes": 190, "wc_goals": 0, "wc_assists": 2, "wc_xg": 0.4, "wc_xa": 0.9, "wc_shots": 4, "wc_sot": 1, "notes": "2 WC assists; xg est"},
-      {"name": "Jan Paul van Hecke", "wc_minutes": 270, "wc_goals": 1, "wc_assists": 0, "wc_xg": 0.4, "wc_xa": 0.1, "wc_shots": 2, "wc_sot": 1, "role_change": "nailed CB", "notes": "1st WC goal M58 (Tunisia 62', header from corner); CB so goal is a rarity; xg est"}
+      {"name": "Brian Brobbey", "wc_minutes": 230, "wc_goals": 3, "wc_assists": 0, "wc_xg": 1.41, "wc_xa": 0.2, "wc_shots": 4, "wc_sot": 3, "role_change": "nailed #9", "notes": "brace M33 + 1 M58 (assist Van Dijk); 3 goals on only 4 shots; xg 1.41 REAL (FOX); xa est"},
+      {"name": "Cody Gakpo", "wc_minutes": 260, "wc_goals": 2, "wc_assists": 1, "wc_xg": 1.05, "wc_xa": 0.7, "wc_shots": 9, "wc_sot": 4, "role_change": "nailed LW, on penalties", "notes": "brace M33; xg 1.05 REAL (FOX); xa est"},
+      {"name": "Crysencio Summerville", "wc_minutes": 110, "wc_goals": 2, "wc_assists": 1, "wc_xg": 0.13, "wc_xa": 0.4, "wc_shots": 2, "wc_sot": 1, "role_change": "impact sub", "notes": "2 goals on 0.13 xG = extreme over-perf -> regress hard; xg 0.13 REAL (FOX); xa est"},
+      {"name": "Denzel Dumfries", "wc_minutes": 230, "wc_goals": 0, "wc_assists": 2, "wc_xg": 0.38, "wc_xa": 1.0, "wc_shots": 4, "wc_sot": 1, "role_change": "attacking RB/RWB", "notes": "2 WC assists; xg 0.38 REAL (FOX); xa est"},
+      {"name": "Ryan Gravenberch", "wc_minutes": 230, "wc_goals": 0, "wc_assists": 2, "wc_xg": 0.4, "wc_xa": 0.8, "wc_shots": 4, "wc_sot": 1, "notes": "2 WC assists; xg/xa est"},
+      {"name": "Donyell Malen", "wc_minutes": 150, "wc_goals": 0, "wc_assists": 0, "wc_xg": 0.48, "wc_xa": 0.4, "wc_shots": 6, "wc_sot": 3, "role_change": "rotation winger", "notes": "xg 0.48 REAL (FOX); xa est"},
+      {"name": "Jan-Paul van Hecke", "wc_minutes": 270, "wc_goals": 1, "wc_assists": 0, "wc_xg": 0.34, "wc_xa": 0.1, "wc_shots": 3, "wc_sot": 2, "role_change": "nailed CB", "notes": "1st WC goal M58 (header, Reijnders corner); xg 0.34 REAL (FOX); xa est"}
     ],
-    "Canada": [
-      {"name": "Jonathan David", "wc_minutes": 240, "wc_goals": 3, "wc_assists": 0, "wc_xg": 2.37, "wc_xa": 0.3, "wc_shots": 9, "wc_sot": 5, "role_change": "lone #9", "notes": "hat-trick M27 (vs 9-man Qatar); 0 vs Switzerland M49 (1-2 loss); xg 2.37 tracker-published, discount opposition"},
-      {"name": "Cyle Larin", "wc_minutes": 160, "wc_goals": 2, "wc_assists": 0, "wc_xg": 1.1, "wc_xa": 0.2, "wc_shots": 5, "wc_sot": 3, "notes": "goal M27 (16') + 1 more; xg est"}
-    ],
-    "Egypt": [
-      {"name": "Mohamed Salah", "wc_minutes": 180, "wc_goals": 1, "wc_assists": 2, "wc_xg": 1.5, "wc_xa": 1.1, "wc_shots": 10, "wc_sot": 5, "role_change": "captain, on penalties", "notes": "1 WC goal (M40 vs NZ 67'); M14 Egypt goal was a Hany OG (not Salah); 68 intl goals (1 shy of Hossam Hassan); 2 WC assists per trackers; 2 games (M14, M40); xg est"}
+    "Belgium": [
+      {"name": "Kevin De Bruyne", "wc_minutes": 250, "wc_goals": 1, "wc_assists": 0, "wc_xg": 1.20, "wc_xa": 1.3, "wc_shots": 15, "wc_sot": 4, "role_change": "captain, on penalties/FKs, creative hub; owned", "notes": "goal+assist M66 (NZ); MID CS M38 (Iran); 15 shots; xg 1.20 REAL (FOX); xa est; owned"},
+      {"name": "Leandro Trossard", "wc_minutes": 230, "wc_goals": 2, "wc_assists": 1, "wc_xg": 0.66, "wc_xa": 1.2, "wc_shots": 11, "wc_sot": 2, "role_change": "nailed LW", "notes": "brace M66 (NZ); tournament chances-created LEAD (13); xg 0.66 REAL (FOX); xa est"},
+      {"name": "Romelu Lukaku", "wc_minutes": 180, "wc_goals": 1, "wc_assists": 1, "wc_xg": 0.63, "wc_xa": 0.4, "wc_shots": 4, "wc_sot": 1, "role_change": "nailed #9", "notes": "goal M66; xg 0.63 REAL (FOX); xa est"},
+      {"name": "Jeremy Doku", "wc_minutes": 90, "wc_goals": 0, "wc_assists": 0, "wc_xg": 0.4, "wc_xa": 0.5, "wc_shots": 3, "wc_sot": 1, "role_change": "nailed RW when fit; owned", "notes": "missed M38 (illness, locked 0); availability watch; owned; xg/xa est"}
     ],
     "Morocco": [
-      {"name": "Ismael Saibari", "wc_minutes": 240, "wc_goals": 3, "wc_assists": 1, "wc_xg": 1.9, "wc_xa": 0.8, "wc_shots": 7, "wc_sot": 4, "notes": "goal M30 (Scotland, assist Brahim) + goal M52 (Haiti 45+1'); 3 WC goals; xg est"},
-      {"name": "Achraf Hakimi", "wc_minutes": 270, "wc_goals": 2, "wc_assists": 1, "wc_xg": 1.0, "wc_xa": 0.9, "wc_shots": 6, "wc_sot": 3, "role_change": "attacking RB/RWB, set-pieces", "notes": "goal M52 (Haiti 39'); 2 WC goals + a created chance; xg est"},
-      {"name": "Brahim Diaz", "wc_minutes": 230, "wc_goals": 0, "wc_assists": 2, "wc_xg": 0.6, "wc_xa": 1.1, "wc_shots": 5, "wc_sot": 2, "notes": "assist M30 (Saibari); 2 WC assists; xg est"},
-      {"name": "Soufiane Rahimi", "wc_minutes": 90, "wc_goals": 1, "wc_assists": 0, "wc_xg": 0.7, "wc_xa": 0.2, "wc_shots": 3, "wc_sot": 2, "notes": "goal M52 (Haiti 78'); xg est"}
-    ],
-    "Switzerland": [
-      {"name": "Johan Manzambi", "wc_minutes": 170, "wc_goals": 3, "wc_assists": 0, "wc_xg": 1.6, "wc_xa": 0.3, "wc_shots": 6, "wc_sot": 4, "role_change": "breakout attacker", "notes": "brace M26 (Bosnia 74'+90') + goal M49 (Canada 57'); 3 WC goals; xg est"},
-      {"name": "Ruben Vargas", "wc_minutes": 200, "wc_goals": 2, "wc_assists": 1, "wc_xg": 1.2, "wc_xa": 0.7, "wc_shots": 6, "wc_sot": 3, "notes": "goal M26 (84') + goal M49 (Canada 46'); xg est"}
-    ],
-    "Mexico": [
-      {"name": "Julian Quinones", "wc_minutes": 150, "wc_goals": 1, "wc_assists": 0, "wc_xg": 0.9, "wc_xa": 0.2, "wc_shots": 4, "wc_sot": 2, "notes": "goal M53 (Czechia 61'); xg est"},
-      {"name": "Mateo Chavez", "wc_minutes": 160, "wc_goals": 1, "wc_assists": 0, "wc_xg": 0.5, "wc_xa": 0.3, "wc_shots": 3, "wc_sot": 1, "role_change": "attacking LB", "notes": "goal M53 (Czechia 55'); xg est"},
-      {"name": "Alvaro Fidalgo", "wc_minutes": 120, "wc_goals": 1, "wc_assists": 0, "wc_xg": 0.4, "wc_xa": 0.4, "wc_shots": 3, "wc_sot": 1, "notes": "goal M53 (Czechia 90+4'); xg est"},
-      {"name": "Raul Jimenez", "wc_minutes": 230, "wc_goals": 1, "wc_assists": 1, "wc_xg": 1.1, "wc_xa": 0.5, "wc_shots": 6, "wc_sot": 3, "role_change": "lone CF", "notes": "scored M1 (opener); Mexico won all 3 group games; xg est"}
-    ],
-    "USA": [
-      {"name": "Folarin Balogun", "wc_minutes": 200, "wc_goals": 2, "wc_assists": 0, "wc_xg": 1.5, "wc_xa": 0.3, "wc_shots": 7, "wc_sot": 4, "notes": "forced the Burgess OG M29; 2 WC goals; RESTED M59 (dead rubber, sitting on a yellow) - DNP so minutes unchanged; xg est"},
-      {"name": "Sebastian Berhalter", "wc_minutes": 310, "wc_goals": 1, "wc_assists": 3, "wc_xg": 0.6, "wc_xa": 1.3, "wc_shots": 5, "wc_sot": 2, "role_change": "corner taker", "notes": "set-piece creator; goal M59 (49') + assist M59 (Trusty); xg est"},
-      {"name": "Auston Trusty", "wc_minutes": 130, "wc_goals": 1, "wc_assists": 0, "wc_xg": 0.4, "wc_xa": 0.0, "wc_shots": 2, "wc_sot": 1, "role_change": "backup CB", "notes": "1st intl goal M59 (vs Turkiye, 3', from a Berhalter corner) in the dead rubber; xg est"}
-    ],
-    "Algeria": [
-      {"name": "Amine Gouiri", "wc_minutes": 200, "wc_goals": 2, "wc_assists": 0, "wc_xg": 1.3, "wc_xa": 0.3, "wc_shots": 6, "wc_sot": 3, "notes": "goal M44 (Jordan 82', winner) + 1 more; xg est"},
-      {"name": "Mohamed Amoura", "wc_minutes": 200, "wc_goals": 1, "wc_assists": 1, "wc_xg": 1.0, "wc_xa": 0.6, "wc_shots": 5, "wc_sot": 3, "notes": "starts alongside Mahrez+Gouiri; xg est"}
-    ],
-    "Croatia": [
-      {"name": "Ante Budimir", "wc_minutes": 130, "wc_goals": 1, "wc_assists": 0, "wc_xg": 0.8, "wc_xa": 0.1, "wc_shots": 4, "wc_sot": 2, "notes": "goal M47 (Panama, winner); No.9 rotates w/ Kramaric/Musa; xg est"},
-      {"name": "Luka Modric", "wc_minutes": 180, "wc_goals": 0, "wc_assists": 1, "wc_xg": 0.4, "wc_xa": 0.8, "wc_shots": 4, "wc_sot": 1, "role_change": "captain, pens + FKs, 200th cap", "notes": "creator; wears mask (cheekbone); may be rotated at 40; xg est"}
+      {"name": "Ismael Saibari", "wc_minutes": 250, "wc_goals": 3, "wc_assists": 0, "wc_xg": 1.44, "wc_xa": 0.6, "wc_shots": 10, "wc_sot": 4, "role_change": "breakout #8/#10, scoring from midfield", "notes": "goal M30 + goal M52; 3 WC goals; xg 1.44 REAL (FOX); xa est"},
+      {"name": "Achraf Hakimi", "wc_minutes": 270, "wc_goals": 1, "wc_assists": 1, "wc_xg": 0.5, "wc_xa": 1.4, "wc_shots": 6, "wc_sot": 3, "role_change": "attacking RB/RWB, set-pieces; elite creator", "notes": "goal M52 (Haiti, open play) + 1 assist; tournament chances-created #2 (12); not in FOX top-xG list so xg ~0.5 EST; xa est (high creator)"},
+      {"name": "Brahim Diaz", "wc_minutes": 230, "wc_goals": 0, "wc_assists": 2, "wc_xg": 0.46, "wc_xa": 1.1, "wc_shots": 5, "wc_sot": 1, "role_change": "nailed #10 creator", "notes": "2 WC assists; xg 0.46 REAL (FOX); xa est"},
+      {"name": "Soufiane Rahimi", "wc_minutes": 120, "wc_goals": 1, "wc_assists": 0, "wc_xg": 0.5, "wc_xa": 0.2, "wc_shots": 3, "wc_sot": 2, "role_change": "rotation forward", "notes": "goal M52 (Haiti 78'); xg/xa est"},
+      {"name": "Bilal El Khannouss", "wc_minutes": 200, "wc_goals": 0, "wc_assists": 0, "wc_xg": 0.42, "wc_xa": 0.6, "wc_shots": 5, "wc_sot": 3, "role_change": "creative mid", "notes": "xg 0.42 REAL (FOX); xa est"}
     ],
     "Colombia": [
-      {"name": "Luis Diaz", "wc_minutes": 180, "wc_goals": 1, "wc_assists": 0, "wc_xg": 1.1, "wc_xa": 0.6, "wc_shots": 6, "wc_sot": 3, "role_change": "classified MID in fantasy; nailed", "notes": "goal M24 (Uzbekistan 65'); xg est"},
-      {"name": "Daniel Munoz", "wc_minutes": 180, "wc_goals": 1, "wc_assists": 0, "wc_xg": 0.6, "wc_xa": 0.5, "wc_shots": 4, "wc_sot": 2, "role_change": "attacking RB", "notes": "goal M48 (DR Congo, winner that clinched qualification); xg est"},
-      {"name": "James Rodriguez", "wc_minutes": 180, "wc_goals": 0, "wc_assists": 1, "wc_xg": 0.4, "wc_xa": 1.0, "wc_shots": 4, "wc_sot": 1, "role_change": "captain, pens + FKs, creative hub", "notes": "creator; xg est"}
+      {"name": "Luis Diaz", "wc_minutes": 270, "wc_goals": 1, "wc_assists": 1, "wc_xg": 0.57, "wc_xa": 0.8, "wc_shots": 11, "wc_sot": 4, "role_change": "classified MID in fantasy; nailed LW", "notes": "goal M24 (Uzbekistan); 11 shots; CS M69 (0-0 Portugal); xg 0.57 REAL (FOX); xa est"},
+      {"name": "Daniel Munoz", "wc_minutes": 270, "wc_goals": 2, "wc_assists": 0, "wc_xg": 0.15, "wc_xa": 0.5, "wc_shots": 4, "wc_sot": 2, "role_change": "attacking RB", "notes": "goal M24 + goal M48; 2 goals on 0.15 xG = extreme defender over-perf -> regress; CS M69; xg 0.15 REAL (FOX); xa est"},
+      {"name": "James Rodriguez", "wc_minutes": 250, "wc_goals": 0, "wc_assists": 1, "wc_xg": 0.4, "wc_xa": 1.0, "wc_shots": 4, "wc_sot": 1, "role_change": "captain, pens + FKs, creative hub", "notes": "creator; not in FOX top-xG list so xg ~0.4 EST; xa est"},
+      {"name": "Jhon Arias", "wc_minutes": 230, "wc_goals": 0, "wc_assists": 0, "wc_xg": 0.66, "wc_xa": 0.7, "wc_shots": 8, "wc_sot": 3, "role_change": "nailed RW/AM", "notes": "8 shots; xg 0.66 REAL (FOX); xa est"}
     ],
-    "Senegal": [
-      {"name": "Ismaila Sarr", "wc_minutes": 180, "wc_goals": 2, "wc_assists": 0, "wc_xg": 1.2, "wc_xa": 0.4, "wc_shots": 6, "wc_sot": 3, "notes": "brace M43 (Norway 53'+90+3'); xg est"},
-      {"name": "Sadio Mane", "wc_minutes": 180, "wc_goals": 0, "wc_assists": 1, "wc_xg": 0.8, "wc_xa": 0.7, "wc_shots": 5, "wc_sot": 2, "role_change": "talisman, on penalties", "notes": "set up a goal vs Norway; yet to fully ignite; xg est"}
+    "Croatia": [
+      {"name": "Luka Modric", "wc_minutes": 230, "wc_goals": 0, "wc_assists": 2, "wc_xg": 0.3, "wc_xa": 1.0, "wc_shots": 4, "wc_sot": 1, "role_change": "captain, pens + FKs/corners, 200+ caps", "notes": "assist M68 (Vlasic header off his corner) + 1 more; creator/set-piece engine; xg/xa est"},
+      {"name": "Ante Budimir", "wc_minutes": 170, "wc_goals": 1, "wc_assists": 0, "wc_xg": 0.8, "wc_xa": 0.1, "wc_shots": 4, "wc_sot": 2, "role_change": "rotates at #9 w/ Kramaric/Musa", "notes": "goal M47 (Panama, winner); xg/xa est"},
+      {"name": "Petar Musa", "wc_minutes": 130, "wc_goals": 1, "wc_assists": 0, "wc_xg": 0.34, "wc_xa": 0.2, "wc_shots": 2, "wc_sot": 1, "role_change": "rotation #9", "notes": "1 goal; xg 0.34 REAL (FOX); xa est"},
+      {"name": "Nikola Vlasic", "wc_minutes": 180, "wc_goals": 1, "wc_assists": 0, "wc_xg": 0.4, "wc_xa": 0.4, "wc_shots": 4, "wc_sot": 2, "role_change": "attacking mid", "notes": "header goal M68 (83', Modric corner); xg/xa est"}
     ],
-    "Ivory Coast": [
-      {"name": "Nicolas Pepe", "wc_minutes": 240, "wc_goals": 2, "wc_assists": 0, "wc_xg": 1.4, "wc_xa": 0.4, "wc_shots": 7, "wc_sot": 4, "role_change": "main attacking threat", "notes": "BRACE M56 (Curacao 7' [assist Y.Diomande] + 64' [assist Sangare]); 2 WC goals; xg est"},
-      {"name": "Franck Kessie", "wc_minutes": 247, "wc_goals": 0, "wc_assists": 0, "wc_xg": 0.5, "wc_xa": 0.3, "wc_shots": 4, "wc_sot": 1, "role_change": "captain, central mid; owned", "notes": "scored M34 (Germany 30'); M56 started+~77' (subbed for Seri), Ivory Coast CLEAN SHEET -> ~3 (2 app + MID CS); owned; xg est"},
-      {"name": "Amad Diallo", "wc_minutes": 230, "wc_goals": 1, "wc_assists": 1, "wc_xg": 0.8, "wc_xa": 0.7, "wc_shots": 5, "wc_sot": 2, "notes": "winner M11 (Ecuador 90'); started M56; xg est"}
+    "Mexico": [
+      {"name": "Raul Jimenez", "wc_minutes": 240, "wc_goals": 1, "wc_assists": 1, "wc_xg": 0.6, "wc_xa": 0.5, "wc_shots": 6, "wc_sot": 3, "role_change": "lone CF", "notes": "scored M1 (opener); Mexico won all 3 (9 pts, Group A); not in FOX top-xG list so xg ~0.6 EST; xa est"},
+      {"name": "Julian Quinones", "wc_minutes": 180, "wc_goals": 1, "wc_assists": 0, "wc_xg": 0.6, "wc_xa": 0.3, "wc_shots": 4, "wc_sot": 2, "role_change": "rotation forward", "notes": "goal M53 (Czechia 61'); xg/xa est"},
+      {"name": "Mateo Chavez", "wc_minutes": 160, "wc_goals": 1, "wc_assists": 0, "wc_xg": 0.40, "wc_xa": 0.3, "wc_shots": 1, "wc_sot": 1, "role_change": "attacking LB", "notes": "goal M53 (Czechia 55'); xg 0.40 REAL (FOX, 1 game listed); xa est"},
+      {"name": "Edson Alvarez", "wc_minutes": 270, "wc_goals": 0, "wc_assists": 0, "wc_xg": 0.2, "wc_xa": 0.2, "wc_shots": 2, "wc_sot": 0, "role_change": "captain, holding mid", "notes": "Mexico kept clean sheets M28, M53 (xGA ~0.5, very mean) -> strong DEF/GK CS source; xg est"}
+    ],
+    "Switzerland": [
+      {"name": "Breel Embolo", "wc_minutes": 230, "wc_goals": 1, "wc_assists": 2, "wc_xg": 1.44, "wc_xa": 0.9, "wc_shots": 7, "wc_sot": 5, "role_change": "nailed #9", "notes": "1G+2A; xg 1.44 REAL (FOX, leads SUI xG); xa est"},
+      {"name": "Johan Manzambi", "wc_minutes": 200, "wc_goals": 3, "wc_assists": 1, "wc_xg": 0.81, "wc_xa": 0.6, "wc_shots": 6, "wc_sot": 4, "role_change": "breakout attacker", "notes": "brace M26 + goal M49 (Canada); 3 goals on 0.81 xG -> regress; xg 0.81 REAL (FOX); xa est"},
+      {"name": "Ruben Vargas", "wc_minutes": 230, "wc_goals": 2, "wc_assists": 1, "wc_xg": 1.14, "wc_xa": 0.7, "wc_shots": 7, "wc_sot": 5, "role_change": "nailed LW", "notes": "goal M26 + goal M49 (Canada 46'); xg 1.14 REAL (FOX); xa est"},
+      {"name": "Michel Aebischer", "wc_minutes": 230, "wc_goals": 0, "wc_assists": 0, "wc_xg": 0.47, "wc_xa": 0.5, "wc_shots": 3, "wc_sot": 2, "role_change": "nailed central mid", "notes": "xg 0.47 REAL (FOX); xa est"}
     ],
     "Japan": [
-      {"name": "Daizen Maeda", "wc_minutes": 200, "wc_goals": 1, "wc_assists": 0, "wc_xg": 0.7, "wc_xa": 0.3, "wc_shots": 4, "wc_sot": 2, "notes": "goal M57 (Sweden 56', assist Doan); xg est"},
-      {"name": "Ayase Ueda", "wc_minutes": 200, "wc_goals": 2, "wc_assists": 0, "wc_xg": 1.4, "wc_xa": 0.2, "wc_shots": 6, "wc_sot": 3, "role_change": "lone CF", "notes": "brace M36 (Tunisia 31'+82'); 2 WC goals; xg est"},
-      {"name": "Ritsu Doan", "wc_minutes": 230, "wc_goals": 0, "wc_assists": 1, "wc_xg": 0.5, "wc_xa": 0.8, "wc_shots": 5, "wc_sot": 2, "notes": "assist M57 (Maeda); creator; xg est"}
+      {"name": "Ayase Ueda", "wc_minutes": 220, "wc_goals": 2, "wc_assists": 1, "wc_xg": 0.54, "wc_xa": 0.5, "wc_shots": 6, "wc_sot": 2, "role_change": "nailed lone CF", "notes": "brace M36 (Tunisia); xg 0.54 REAL (FOX); xa est"},
+      {"name": "Daichi Kamada", "wc_minutes": 230, "wc_goals": 2, "wc_assists": 0, "wc_xg": 0.88, "wc_xa": 0.5, "wc_shots": 2, "wc_sot": 1, "role_change": "nailed AM", "notes": "goal M36 + 1 more; 2 goals on 2 shots; xg 0.88 REAL (FOX); xa est"},
+      {"name": "Daizen Maeda", "wc_minutes": 200, "wc_goals": 1, "wc_assists": 0, "wc_xg": 0.52, "wc_xa": 0.3, "wc_shots": 2, "wc_sot": 1, "role_change": "nailed LW", "notes": "goal M57 (Sweden, assist Doan); xg 0.52 REAL (FOX); xa est"},
+      {"name": "Ritsu Doan", "wc_minutes": 230, "wc_goals": 0, "wc_assists": 1, "wc_xg": 0.3, "wc_xa": 0.8, "wc_shots": 5, "wc_sot": 2, "role_change": "nailed RW creator", "notes": "assist M57 (Maeda); xg/xa est"},
+      {"name": "Junya Ito", "wc_minutes": 200, "wc_goals": 1, "wc_assists": 0, "wc_xg": 0.43, "wc_xa": 0.5, "wc_shots": 2, "wc_sot": 1, "role_change": "rotation/nailed RW", "notes": "goal M36; xg 0.43 REAL (FOX); xa est"}
     ],
-    "Sweden": [
-      {"name": "Anthony Elanga", "wc_minutes": 200, "wc_goals": 1, "wc_assists": 0, "wc_xg": 0.6, "wc_xa": 0.4, "wc_shots": 5, "wc_sot": 2, "notes": "goal M57 (Japan 62'); also scored vs Netherlands M33; xg est"},
-      {"name": "Alexander Isak", "wc_minutes": 230, "wc_goals": 0, "wc_assists": 0, "wc_xg": 1.2, "wc_xa": 0.3, "wc_shots": 7, "wc_sot": 3, "role_change": "lone #9, on penalties", "notes": "did NOT score M57; quiet WC so far; xg est"},
-      {"name": "Viktor Gyokeres", "wc_minutes": 210, "wc_goals": 1, "wc_assists": 0, "wc_xg": 1.3, "wc_xa": 0.2, "wc_shots": 7, "wc_sot": 3, "notes": "did NOT score M57; struggled vs Netherlands/Japan; xg est"}
+    "Senegal": [
+      {"name": "Ismaila Sarr", "wc_minutes": 270, "wc_goals": 3, "wc_assists": 1, "wc_xg": 1.94, "wc_xa": 0.6, "wc_shots": 13, "wc_sot": 6, "role_change": "nailed RW, main threat", "notes": "brace M43 (Norway) + goal M62 (Iraq); 3 goals; xg 1.94 REAL (FOX, 4th overall); xa est"},
+      {"name": "Pape Gueye", "wc_minutes": 230, "wc_goals": 2, "wc_assists": 1, "wc_xg": 0.35, "wc_xa": 0.5, "wc_shots": 6, "wc_sot": 3, "role_change": "central mid", "notes": "brace M62 (Iraq 59'+71'); xg 0.35 REAL (FOX); xa est"},
+      {"name": "Nicolas Jackson", "wc_minutes": 200, "wc_goals": 0, "wc_assists": 1, "wc_xg": 0.51, "wc_xa": 0.5, "wc_shots": 7, "wc_sot": 3, "role_change": "rotates at #9", "notes": "xg 0.51 REAL (FOX); xa est"},
+      {"name": "Sadio Mane", "wc_minutes": 230, "wc_goals": 0, "wc_assists": 1, "wc_xg": 0.48, "wc_xa": 0.7, "wc_shots": 6, "wc_sot": 2, "role_change": "talisman, on penalties", "notes": "1 assist; yet to score; xg 0.48 REAL (FOX); xa est"}
+    ],
+    "Ecuador": [
+      {"name": "Gonzalo Plata", "wc_minutes": 230, "wc_goals": 1, "wc_assists": 0, "wc_xg": 1.40, "wc_xa": 0.5, "wc_shots": 7, "wc_sot": 4, "role_change": "nailed RW, main threat", "notes": "goal M55 (Germany 77', assist K.Rodriguez); xg 1.40 REAL (FOX, leads ECU xG); xa est"},
+      {"name": "Kendry Paez", "wc_minutes": 180, "wc_goals": 0, "wc_assists": 1, "wc_xg": 0.4, "wc_xa": 0.6, "wc_shots": 3, "wc_sot": 1, "role_change": "young creative mid", "notes": "xg/xa est"},
+      {"name": "Enner Valencia", "wc_minutes": 170, "wc_goals": 0, "wc_assists": 0, "wc_xg": 0.5, "wc_xa": 0.3, "wc_shots": 4, "wc_sot": 2, "role_change": "veteran #9, on penalties", "notes": "Ecuador only 2 goals all group (xG 4.2 but finishing cold); xg/xa est"},
+      {"name": "Moises Caicedo", "wc_minutes": 270, "wc_goals": 0, "wc_assists": 0, "wc_xg": 0.2, "wc_xa": 0.3, "wc_shots": 2, "wc_sot": 0, "role_change": "nailed holding mid", "notes": "Ecuador xGA ~1.0 (mean defence) -> CS source for DEF picks; xg est"}
+    ],
+    "Egypt": [
+      {"name": "Mohamed Salah", "wc_minutes": 270, "wc_goals": 1, "wc_assists": 2, "wc_xg": 0.44, "wc_xa": 1.3, "wc_shots": 7, "wc_sot": 3, "role_change": "captain, on penalties; main creator", "notes": "goal M40 + 2 assists; chances-created #3 (11); xg 0.44 REAL (FOX); xa est (high creator)"},
+      {"name": "Omar Marmoush", "wc_minutes": 250, "wc_goals": 0, "wc_assists": 0, "wc_xg": 0.67, "wc_xa": 0.5, "wc_shots": 9, "wc_sot": 2, "role_change": "nailed #9/second striker", "notes": "9 shots, no goal yet (due); xg 0.67 REAL (FOX); xa est"},
+      {"name": "Trezeguet", "wc_minutes": 160, "wc_goals": 1, "wc_assists": 0, "wc_xg": 0.64, "wc_xa": 0.4, "wc_shots": 5, "wc_sot": 3, "role_change": "rotation winger", "notes": "goal M40 (NZ 82'); xg 0.64 REAL (FOX, 2 games); xa est"},
+      {"name": "Mostafa Mohamed Zico", "wc_minutes": 200, "wc_goals": 1, "wc_assists": 1, "wc_xg": 0.68, "wc_xa": 0.5, "wc_shots": 7, "wc_sot": 2, "role_change": "rotation forward", "notes": "goal M40; xg 0.68 REAL (FOX); xa est"}
+    ],
+    "Australia": [
+      {"name": "Nestory Irankunda", "wc_minutes": 160, "wc_goals": 1, "wc_assists": 0, "wc_xg": 0.5, "wc_xa": 0.3, "wc_shots": 4, "wc_sot": 2, "role_change": "breakout LW", "notes": "goal vs Turkiye (M8, 27'); Australia only 2 goals all group (xG 2.1, low ceiling); xg/xa est"},
+      {"name": "Connor Metcalfe", "wc_minutes": 200, "wc_goals": 1, "wc_assists": 0, "wc_xg": 0.4, "wc_xa": 0.3, "wc_shots": 3, "wc_sot": 1, "role_change": "central/attacking mid", "notes": "goal vs Turkiye (M8, 75'); xg/xa est"},
+      {"name": "Jordan Bos", "wc_minutes": 270, "wc_goals": 0, "wc_assists": 0, "wc_xg": 0.32, "wc_xa": 0.3, "wc_shots": 5, "wc_sot": 2, "role_change": "attacking LB", "notes": "CS M60 (0-0 Paraguay); xg 0.32 REAL (FOX); xa est"},
+      {"name": "Mathew Ryan", "wc_minutes": 270, "wc_goals": 0, "wc_assists": 0, "wc_xg": 0.0, "wc_xa": 0.0, "wc_shots": 0, "wc_sot": 0, "role_change": "nailed No.1 GK + captain", "notes": "CS M60; budget GK option but Australia leaky vs USA; low-priced"}
     ]
   },
   "teams": {
-    "_note": "U2 opponent-adjusted team form: per nation {wc_xg_for, wc_xg_against, matches, opponents} — tournament TOTALS (not per-game). FACTUAL goals-for/against drive the seed; xG values are goal-difference-consistent estimates (only a few players have tracker xG). The model credits xG-difference vs the strength of opponents faced (beating Curacao != beating France), shrunk by matches, as a SMALL post-calibration strength offset. Updated 2026-06-25: contenders now have 2-3 games; MD3-day-1 sides (Switzerland/Brazil/Morocco/Mexico/Bosnia + their opponents) include their 3rd game.",
-    "Spain": {"wc_xg_for": 4.6, "wc_xg_against": 1.2, "matches": 2, "opponents": ["Cape Verde", "Saudi Arabia"]},
-    "France": {"wc_xg_for": 4.9, "wc_xg_against": 1.5, "matches": 2, "opponents": ["Senegal", "Iraq"]},
-    "Argentina": {"wc_xg_for": 4.2, "wc_xg_against": 1.3, "matches": 2, "opponents": ["Algeria", "Austria"]},
-    "Norway": {"wc_xg_for": 4.6, "wc_xg_against": 3.0, "matches": 2, "opponents": ["Iraq", "Senegal"]},
-    "Germany": {"wc_xg_for": 6.2, "wc_xg_against": 3.5, "matches": 3, "opponents": ["Curacao", "Ivory Coast", "Ecuador"]},
-    "Netherlands": {"wc_xg_for": 6.5, "wc_xg_against": 3.0, "matches": 3, "opponents": ["Japan", "Sweden", "Tunisia"]},
-    "Portugal": {"wc_xg_for": 4.0, "wc_xg_against": 1.0, "matches": 2, "opponents": ["DR Congo", "Uzbekistan"]},
-    "England": {"wc_xg_for": 3.4, "wc_xg_against": 1.8, "matches": 2, "opponents": ["Croatia", "Ghana"]},
-    "Brazil": {"wc_xg_for": 7.5, "wc_xg_against": 1.3, "matches": 3, "opponents": ["Morocco", "Haiti", "Scotland"]},
-    "Belgium": {"wc_xg_for": 2.4, "wc_xg_against": 1.6, "matches": 2, "opponents": ["Egypt", "Iran"]},
-    "Mexico": {"wc_xg_for": 4.2, "wc_xg_against": 1.0, "matches": 3, "opponents": ["South Africa", "South Korea", "Czechia"]},
-    "Morocco": {"wc_xg_for": 5.0, "wc_xg_against": 2.3, "matches": 3, "opponents": ["Brazil", "Scotland", "Haiti"]},
-    "Switzerland": {"wc_xg_for": 6.0, "wc_xg_against": 2.6, "matches": 3, "opponents": ["Qatar", "Bosnia", "Canada"]},
-    "Colombia": {"wc_xg_for": 3.0, "wc_xg_against": 0.9, "matches": 2, "opponents": ["Uzbekistan", "DR Congo"]},
-    "Uruguay": {"wc_xg_for": 3.2, "wc_xg_against": 2.8, "matches": 2, "opponents": ["Saudi Arabia", "Cape Verde"]},
-    "Egypt": {"wc_xg_for": 3.6, "wc_xg_against": 2.0, "matches": 2, "opponents": ["Belgium", "New Zealand"]},
-    "Croatia": {"wc_xg_for": 4.5, "wc_xg_against": 2.6, "matches": 2, "opponents": ["England", "Panama"]},
-    "Ivory Coast": {"wc_xg_for": 3.8, "wc_xg_against": 2.2, "matches": 3, "opponents": ["Ecuador", "Germany", "Curacao"]},
-    "Japan": {"wc_xg_for": 6.0, "wc_xg_against": 3.0, "matches": 3, "opponents": ["Netherlands", "Tunisia", "Sweden"]},
-    "Sweden": {"wc_xg_for": 5.0, "wc_xg_against": 5.5, "matches": 3, "opponents": ["Tunisia", "Netherlands", "Japan"]}
+    "_note": "U2 opponent-adjusted team form: per nation {wc_xg_for, wc_xg_against, matches, opponents} = REAL FOX/Opta tournament TOTALS across the FULL 3-game group stage (not per-game). FOX rounds team xGA to integers and displays sub-0.5 as 0; those (Spain/Mexico/Argentina/Czechia/SouthKorea) are stored here as small positives to stay goal-difference/process-consistent. The model credits xG-difference vs the strength of opponents faced (beating Curacao != beating France), shrunk by matches, as a SMALL post-calibration strength offset. Updated 2026-06-28: all 20 R32 priority sides now have their complete 3-game totals. Argentina's M72 was added by hand (FOX still showed 2 games at fetch).",
+    "Spain": {"wc_xg_for": 4.4, "wc_xg_against": 0.6, "matches": 3, "opponents": ["Cape Verde", "Saudi Arabia", "Uruguay"]},
+    "France": {"wc_xg_for": 5.1, "wc_xg_against": 2.0, "matches": 3, "opponents": ["Senegal", "Iraq", "Norway"]},
+    "Argentina": {"wc_xg_for": 4.0, "wc_xg_against": 0.5, "matches": 3, "opponents": ["Algeria", "Austria", "Jordan"]},
+    "Norway": {"wc_xg_for": 5.5, "wc_xg_against": 7.0, "matches": 3, "opponents": ["Iraq", "Senegal", "France"]},
+    "Germany": {"wc_xg_for": 6.7, "wc_xg_against": 4.0, "matches": 3, "opponents": ["Curacao", "Ivory Coast", "Ecuador"]},
+    "Netherlands": {"wc_xg_for": 5.0, "wc_xg_against": 4.0, "matches": 3, "opponents": ["Japan", "Sweden", "Tunisia"]},
+    "Portugal": {"wc_xg_for": 3.2, "wc_xg_against": 1.0, "matches": 3, "opponents": ["DR Congo", "Uzbekistan", "Colombia"]},
+    "England": {"wc_xg_for": 5.5, "wc_xg_against": 2.0, "matches": 3, "opponents": ["Croatia", "Ghana", "Panama"]},
+    "Brazil": {"wc_xg_for": 5.3, "wc_xg_against": 1.0, "matches": 3, "opponents": ["Morocco", "Haiti", "Scotland"]},
+    "Belgium": {"wc_xg_for": 5.8, "wc_xg_against": 2.0, "matches": 3, "opponents": ["Egypt", "Iran", "New Zealand"]},
+    "Mexico": {"wc_xg_for": 3.6, "wc_xg_against": 0.5, "matches": 3, "opponents": ["South Africa", "South Korea", "Czechia"]},
+    "Morocco": {"wc_xg_for": 4.6, "wc_xg_against": 3.0, "matches": 3, "opponents": ["Brazil", "Scotland", "Haiti"]},
+    "Switzerland": {"wc_xg_for": 6.2, "wc_xg_against": 3.0, "matches": 3, "opponents": ["Qatar", "Bosnia", "Canada"]},
+    "Colombia": {"wc_xg_for": 3.6, "wc_xg_against": 1.0, "matches": 3, "opponents": ["Uzbekistan", "DR Congo", "Portugal"]},
+    "Egypt": {"wc_xg_for": 4.1, "wc_xg_against": 2.0, "matches": 3, "opponents": ["Belgium", "New Zealand", "Iran"]},
+    "Croatia": {"wc_xg_for": 2.4, "wc_xg_against": 2.0, "matches": 3, "opponents": ["England", "Panama", "Ghana"]},
+    "Japan": {"wc_xg_for": 3.4, "wc_xg_against": 3.0, "matches": 3, "opponents": ["Netherlands", "Tunisia", "Sweden"]},
+    "Senegal": {"wc_xg_for": 4.6, "wc_xg_against": 6.0, "matches": 3, "opponents": ["France", "Norway", "Iraq"]},
+    "Ecuador": {"wc_xg_for": 4.2, "wc_xg_against": 1.0, "matches": 3, "opponents": ["Ivory Coast", "Curacao", "Germany"]},
+    "Australia": {"wc_xg_for": 2.1, "wc_xg_against": 2.0, "matches": 3, "opponents": ["Turkiye", "United States", "Paraguay"]}
   }
 }

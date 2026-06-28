@@ -1,21 +1,76 @@
 {
-  "fetched_at": "2026-06-27",
-  "note": "MD3 day-4 (Jun 27) PREDICTED XIs for tonight's owned-relevant fixtures (the FINAL group night, M67-72). Run time ~20:20 CEST; first KO M67 Panama-England 23:00 CEST (~2.75h away), official sheets drop ~1h pre-KO -> confirmed:false everywhere (listed players carry the 0.90 predicted-start weight). Only the three teams with owned players are listed; the other six tonight-teams fall back to squads.json likely_xi (no owned players). KO TIMES (CET=per-match deadline): M67 Panama-England (MetLife) + M68 Croatia-Ghana (Philadelphia) 23:00 CEST Jun27 (17:00 ET); M69 Colombia-Portugal (Miami) + M70 DRCongo-Uzbekistan (Atlanta) 01:30 CEST Jun28 (19:30 ET); M71 Algeria-Austria + M72 Jordan-Argentina (both KC/Arlington) 04:00 CEST Jun28 (21:00 CT). ALL of tonight's KOs are AFTER the 22:00-Ljubljana cutoff -> the user must set ALL line-up edits + predictions BEFORE going to sleep tonight; no live relay is possible (each owned player still locks at his OWN KO, but those KOs are overnight). OWNED VERDICTS: PICKFORD (ENG, M67) START - nailed No.1 (RotoWire 'undisputed starter', SI/Flashscore/ESPN; no Ramsdale in squad). England ALREADY QUALIFIED, top Group L on GD; rotation is in the OUTFIELD/attack only (Reece James injured-out), keeper untouched; Panama eliminated (0 goals all tournament) => HIGH clean-sheet chance for Pickford. BRUNO FERNANDES (POR, M69) START - nailed in the AM trio (RotoWire/SportsMole/ESPN); Ronaldo also starts CF. Portugal already through; this is a straight shootout with Colombia for TOP of Group K => near-full-strength, LOW rotation; but Colombia (Diaz/James/L.Suarez) are a real attack => Portugal CS only ~38-45% (tight game). OTAMENDI (ARG, M72) START - nailed for THIS match (consensus replacement: SI 'first start of the tournament', RotoWire, SportsMole, MundoAlbiceleste); Cristian Romero (knee, not owned) is OUT/rested, which is exactly why Otamendi plays; Argentina already Group J winners => HIGH CS chance vs eliminated Jordan even with a rotated backline. MESSI (ARG, M72) ROTATION/CAMEO DOUBT (genuine 50-50): Scaloni signalled wholesale changes in a dead rubber; beIN says staff deciding start vs 2nd-half cameo to manage load, RotoWire & SI rest him, SportsMole starts him -> kept IN the predicted XI here (he is still the best available owned forward and even a cameo banks something) but FLAGGED: not a safe nailed start, and the armband is NOT on him anyway (captain Vinicius already banked his MD3 haul). No suspensions/injuries affect any owned player tonight. Sources: ESPN/SI/RotoWire/SportsMole/Al Jazeera/MundoAlbiceleste predicted-XI + preview pages Jun 26-27; raw log data/raw/2026-06-27/lineups_M67-72_research.md.",
+  "fetched_at": "2026-06-28",
+  "note": "R32 reset (Jun 28). Old MD3 (group) predicted XIs cleared - now stale. These are PREDICTED XIs (confirmed:false) for the Round of 32 ties on Jun 28-30 (M73-79) that carry fantasy-relevant players; official confirmed sheets only drop ~1h pre-KO so EVERYTHING here is confirmed:false (listed players carry the predicted-start weight, NOT a confirmed lock). Yellow cards were WIPED after the group stage (FIFA reset) - so the ONLY R32 suspensions are MD3 reds or MD3 2nd-yellows; among teams here that is just Diego Gomez (Paraguay, 2nd yellow vs Australia - OUT). All group-stage yellow-card-ban risks (Pedri etc.) are void. KEY R32 INJURY/AVAILABILITY notes baked into these XIs: Brazil RAPHINHA OUT (hamstring, targets R16) -> Rayan RW + Cunha CF; Japan KO ITAKURA a real DOUBT (came off injured vs Sweden MD3, Taniguchi the deputy) - kept in the predicted XI as the lean but flag; Germany SCHLOTTERBECK OUT (tournament, ankle) -> Rudiger CB, Nathaniel Brown (adductor) expected fit at LB; France SALIBA was rested vs Norway for back-management but expected available vs Sweden (in the XI); Norway RYERSON (thigh) should return at RB (Pedersen the cover), Haaland+Nusa fresh after being rested vs France; Morocco MAZRAOUI not injured, returns (4 changes back to first-choice: Mazraoui/Diop/Bouaddi/Ounahi). Mexico & Ecuador (Jun 30) have no R32 preview published yet -> their XIs are the squads.json likely_xi basis (no new injuries/suspensions reported; Edson Alvarez fit for Mexico). Sources: bulinews R32 predicted-lineups + ESPN/Sports Mole/SI/Al Jazeera/Racing Post/beIN previews Jun 26-28; raw log data/raw/2026-06-28/availability_R32_research.md.",
   "teams": {
-    "England": {
+    "South Africa": {
       "confirmed": false,
-      "xi": ["GK Jordan Pickford", "Djed Spence", "Ezri Konsa", "Marc Guehi", "Lewis Hall", "Elliot Anderson", "Jude Bellingham", "Bukayo Saka", "Morgan Rogers", "Marcus Rashford", "Harry Kane"],
-      "out": ["Reece James"]
+      "xi": ["GK Ronwen Williams", "Khuliso Mudau", "Ime Okon", "Mbekezeli Mbokazi", "Aubrey Modiba", "Teboho Mokoena", "Sphephelo Sithole", "Oswin Appollis", "Relebohile Mofokeng", "Thabang Maseko", "Evidence Makgopa"],
+      "out": ["Themba Zwane (suspended - red card, 3-match ban)"]
     },
-    "Portugal": {
+    "Canada": {
       "confirmed": false,
-      "xi": ["GK Diogo Costa", "Joao Cancelo", "Ruben Dias", "Antonio Silva", "Nuno Mendes", "Joao Neves", "Vitinha", "Pedro Neto", "Bruno Fernandes", "Joao Felix", "Cristiano Ronaldo"],
-      "out": ["Tomas Araujo"]
+      "xi": ["GK Maxime Crepeau", "Alistair Johnston", "Luc de Fougerolles", "Derek Cornelius", "Richie Laryea", "Nathan Saliba", "Stephen Eustaquio", "Tajon Buchanan", "Ali Ahmed", "Cyle Larin", "Jonathan David"],
+      "out": ["Ismael Kone (broken leg - out for tournament)"]
     },
-    "Argentina": {
+    "Germany": {
       "confirmed": false,
-      "xi": ["GK Emiliano Martinez", "Gonzalo Montiel", "Nicolas Otamendi", "Nicolas Tagliafico", "Lisandro Martinez", "Exequiel Palacios", "Leandro Paredes", "Thiago Almada", "Lionel Messi", "Julian Alvarez", "Nico Gonzalez"],
-      "out": ["Cristian Romero"]
+      "xi": ["GK Manuel Neuer", "Joshua Kimmich", "Antonio Rudiger", "Jonathan Tah", "Nathaniel Brown", "Aleksandar Pavlovic", "Felix Nmecha", "Leroy Sane", "Jamal Musiala", "Florian Wirtz", "Kai Havertz"],
+      "out": ["Nico Schlotterbeck (ankle - out for tournament)"]
+    },
+    "Paraguay": {
+      "confirmed": false,
+      "xi": ["GK Orlando Gill", "Juan Caceres", "Gustavo Gomez", "Omar Alderete", "Junior Alonso", "Matias Galarza", "Andres Cubas", "Damian Bobadilla", "Miguel Almiron", "Julio Enciso", "Antonio Sanabria"],
+      "out": ["Diego Gomez (SUSPENDED - 2nd yellow vs Australia)", "Omar Alderete (knee - doubt)", "Ramon Sosa (muscle - doubt)"]
+    },
+    "Netherlands": {
+      "confirmed": false,
+      "xi": ["GK Bart Verbruggen", "Denzel Dumfries", "Kees van Hecke", "Virgil van Dijk", "Micky van de Ven", "Frenkie de Jong", "Ryan Gravenberch", "Tijjani Reijnders", "Donyell Malen", "Brian Brobbey", "Cody Gakpo"],
+      "out": ["Jurrien Timber (groin - out for tournament)", "Xavi Simons (ACL - out for tournament)"]
+    },
+    "Morocco": {
+      "confirmed": false,
+      "xi": ["GK Yassine Bono", "Achraf Hakimi", "Issa Diop", "Chadi Riad", "Noussair Mazraoui", "Ayyoub Bouaddi", "Nabil El Aynaoui", "Brahim Diaz", "Azzedine Ounahi", "Bilal El Khannouss", "Ismael Saibari"],
+      "out": ["Nayef Aguerd (groin surgery - out for tournament)", "Abde Ezzalzouli (knee - out for group stage)"]
+    },
+    "Brazil": {
+      "confirmed": false,
+      "xi": ["GK Alisson", "Danilo", "Marquinhos", "Gabriel Magalhaes", "Douglas Santos", "Casemiro", "Bruno Guimaraes", "Lucas Paqueta", "Rayan", "Matheus Cunha", "Vinicius Junior"],
+      "out": ["Raphinha (hamstring - out, targets R16)", "Neymar (calf - bench/impact only)"]
+    },
+    "Japan": {
+      "confirmed": false,
+      "xi": ["GK Zion Suzuki", "Ko Itakura", "Takehiro Tomiyasu", "Hiroki Ito", "Ritsu Doan", "Kaishu Sano", "Keito Nakamura", "Daichi Kamada", "Ao Tanaka", "Ayase Ueda", "Daizen Maeda"],
+      "out": ["Kaoru Mitoma (hamstring - out for tournament)", "Takumi Minamino (ACL - out)", "Takefusa Kubo (knee - DOUBT, missed whole group stage, back in training, R32 the target)", "Ko Itakura - DOUBT (came off injured vs Sweden; Shogo Taniguchi the deputy in the back three)"]
+    },
+    "France": {
+      "confirmed": false,
+      "xi": ["GK Mike Maignan", "Jules Kounde", "Dayot Upamecano", "William Saliba", "Theo Hernandez", "Aurelien Tchouameni", "Manu Kone", "Ousmane Dembele", "Michael Olise", "Desire Doue", "Kylian Mbappe"],
+      "out": ["Hugo Ekitike (Achilles - out)", "William Saliba - soft doubt (back; rested vs Norway but expected available)"]
+    },
+    "Sweden": {
+      "confirmed": false,
+      "xi": ["GK Viktor Zetterstrom", "Gabriel Gudmundsson", "Victor Lindelof", "Hjalmar Lagerbielke", "Samuel Dahl", "Lucas Bergvall", "Yasin Ayari", "Anthony Elanga", "Jesper Stroud", "Viktor Gyokeres", "Alexander Isak"],
+      "out": []
+    },
+    "Ivory Coast": {
+      "confirmed": false,
+      "xi": ["GK Yahia Fofana", "Guela Doue", "Ousmane Diomande", "Odilon Kossounou", "Ghislain Konan", "Ibrahim Sangare", "Franck Kessie", "Oumar Diakite", "Nicolas Pepe", "Evann Guessand", "Amad Diallo"],
+      "out": ["Evan Ndicka (thigh - group-stage doubt, recheck)"]
+    },
+    "Norway": {
+      "confirmed": false,
+      "xi": ["GK Orjan Nyland", "Julian Ryerson", "Kristoffer Ajer", "Torbjorn Heggem", "David Moller Wolfe", "Sander Berge", "Martin Odegaard", "Fredrik Aursnes", "Alexander Sorloth", "Erling Haaland", "Antonio Nusa"],
+      "out": ["Julian Ryerson - soft doubt (thigh; rested vs France, Marcus Pedersen the cover at RB)"]
+    },
+    "Mexico": {
+      "confirmed": false,
+      "xi": ["GK Raul Rangel", "Jorge Sanchez", "Cesar Montes", "Johan Vasquez", "Jesus Gallardo", "Edson Alvarez", "Erik Lira", "Alvaro Fidalgo", "Roberto Alvarado", "Julian Quinones", "Raul Jimenez"],
+      "out": []
+    },
+    "Ecuador": {
+      "confirmed": false,
+      "xi": ["GK Hernan Galindez", "Angelo Preciado", "Willian Pacho", "Piero Hincapie", "Pervis Estupinan", "Moises Caicedo", "Alan Franco", "Jordy Alcivar", "Gonzalo Plata", "Enner Valencia", "Kendry Paez"],
+      "out": []
     }
   }
 }
