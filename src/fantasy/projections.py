@@ -314,7 +314,14 @@ def build_projections(players: list[dict], squads_map: dict, forecast, advanceme
     by_nation: dict[str, list[dict]] = {}
     nation_out: dict[str, bool] = {}
     for p in players:
-        if p.get("status") != "playing":
+        status = p.get("status")
+        # Keep ELIMINATED players in the pool (forced to zero future EP via nation_out
+        # below) so a LOCKED squad that still holds one — a knocked-out team's player who
+        # already banked this round's points — can still be assembled and his banked
+        # round-points counted in the live tally. They have exp_next 0 so the optimiser
+        # never picks them. Genuinely unavailable players (transferred/injured/suspended)
+        # stay filtered out.
+        if status not in ("playing", "eliminated"):
             continue
         nation = squads_map.get(p["squadId"], {}).get("nation")
         if not nation:
@@ -322,7 +329,8 @@ def build_projections(players: list[dict], squads_map: dict, forecast, advanceme
         p = dict(p)
         p["_nation"] = normalize_team(nation)
         p["_group"] = squads_map.get(p["squadId"], {}).get("group", "")
-        nation_out[p["_nation"]] = bool(squads_map.get(p["squadId"], {}).get("eliminated"))
+        elim = bool(squads_map.get(p["squadId"], {}).get("eliminated")) or status == "eliminated"
+        nation_out[p["_nation"]] = nation_out.get(p["_nation"], False) or elim
         by_nation.setdefault(p["_nation"], []).append(p)
 
     gk_first: dict[str, int] = {}
