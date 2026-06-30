@@ -1,45 +1,45 @@
 {
   "schema": "wc2026-state-v1",
-  "last_run": "2026-06-29",
+  "last_run": "2026-06-30",
   "recommended_squad": {
     "player_ids": [
       38,
       45,
       1318,
-      491,
+      471,
       270,
       468,
       477,
       501,
       517,
-      1086,
+      492,
       1088,
       1094,
-      34,
-      486,
+      496,
+      50,
       1089
     ],
     "captain": "Ousmane Dembélé",
     "formation": "3-5-2",
-    "as_of": "2026-06-29",
+    "as_of": "2026-06-30",
     "for_round": "R16",
     "lineup": {
       "starters": [
         38,
         45,
         1318,
-        491,
+        471,
         270,
         468,
         501,
         517,
-        1088,
-        34,
-        486
+        492,
+        496,
+        50
       ],
       "bench": [
         1094,
-        1086,
+        1088,
         1089,
         477
       ],
@@ -64,7 +64,7 @@
       1274,
       1089
     ],
-    "captain": "Joshua Kimmich",
+    "captain": "Ousmane Dembélé",
     "formation": "3-5-2",
     "bank": 0.3,
     "lineup": {
@@ -87,17 +87,17 @@
         1094,
         477
       ],
-      "captain": 542
+      "captain": 501
     },
-    "note": "R32 LOCKED (burner build; Qualification Booster ACTIVE). 9 free transfers made in the unlimited window. CAPTAIN = KIMMICH for Jun 29 (user-set 2026-06-29): the relay's FREE first leg. Kimmich (Germany, M74, 22:30 CEST) is Germany's primary corner/FK taker (penalties actually lean Havertz, who is fit + starting) with clean-sheet upside (1.35 fav), and ZERO downside because the armband can still relay forward after Germany's match: Kimmich(Jun29) -> Dembele(Jun30) -> Pulisic(Jul1) -> Messi(Jul3). After M74 ends (~00:15 CEST Jun30), if Kimmich banked < ~6 move the armband to Dembele before France-Sweden (M77, Jun30 23:00 CEST). Wildcard committed to R16, so this is a one-round burner squad. Bank 0.3."
+    "note": "R32 LOCKED (burner build; Qualification Booster ACTIVE). 9 free transfers made in the unlimited window. CAPTAIN RELAY RESOLVED 2026-06-30: Kimmich (the Jun-29 free first leg) STARTED RB and played the FULL 120', but Germany LOST to Paraguay on penalties (1-1, no clean sheet, no G/A/card) -> banked only ~2, far below the switch_if=5 threshold -> ARMBAND MOVED to DEMBELE for Jun 30 (M77 France-Sweden, KO 23:00 CEST). Dembele is nailed (hat-trick vs Norway), France the day's biggest fav (1.29), highest exp in the XI playing now -> captain him; set the move before his 23:00 KO. Relay continues: if Dembele ends <=5, move the armband to PULISIC before USA-Bosnia (M81, Jul 1, ~02:00 CEST -> set pre-sleep) -> then Messi (M86, Jul 3). Germany ELIMINATED ends Kimmich's tournament -> he is the OUT in the R16 transfer plan (Kimmich->Laporte, A.Robinson->Tagliafico, Pulisic->Anderson, Luis Diaz->Bellingham; 4 free, 0 hits). CHIP PLAN: 12th Man @ R16, Wildcard held to QF (favourites squad survives R32; R16's 4 free transfers cover it), Clean Sheet Shield(=Mystery) @ SF, Max Captain @ Final. HOLD all R16 moves until the lock-eve run. Bank 0.3."
   },
   "chips_used": [
     "Qualification Booster"
   ],
   "cumulative": {
-    "nostradamus_points": 86,
-    "gopicks_points": 190,
-    "gopicks_exact_goals": 49,
+    "nostradamus_points": 90,
+    "gopicks_points": 194,
+    "gopicks_exact_goals": 50,
     "fantasy_points": 0
   },
   "predictions_entered": {
