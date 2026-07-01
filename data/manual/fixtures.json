@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-06-28",
+  "fetched_at": "2026-07-01",
   "sources": [
     "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup",
     "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_draw",
@@ -1200,8 +1200,8 @@
       "tz": "America/New_York",
       "venue": "Lincoln Financial Field",
       "city": "Philadelphia",
-      "home": "W74",
-      "away": "W77"
+      "home": "Paraguay",
+      "away": "France"
     },
     {
       "num": 90,
@@ -1212,8 +1212,8 @@
       "tz": "America/Chicago",
       "venue": "NRG Stadium",
       "city": "Houston",
-      "home": "W73",
-      "away": "W75"
+      "home": "Canada",
+      "away": "Morocco"
     },
     {
       "num": 91,
@@ -1224,8 +1224,8 @@
       "tz": "America/New_York",
       "venue": "MetLife Stadium",
       "city": "East Rutherford",
-      "home": "W76",
-      "away": "W78"
+      "home": "Brazil",
+      "away": "Norway"
     },
     {
       "num": 92,

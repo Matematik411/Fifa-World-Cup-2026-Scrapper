@@ -1,46 +1,46 @@
 {
   "schema": "wc2026-state-v1",
-  "last_run": "2026-06-30",
+  "last_run": "2026-07-01",
   "recommended_squad": {
     "player_ids": [
       38,
       45,
       1318,
-      471,
+      516,
       270,
       468,
       477,
       501,
       517,
-      492,
+      34,
       1088,
       1094,
-      496,
-      50,
+      492,
+      1997,
       1089
     ],
     "captain": "Ousmane Dembélé",
     "formation": "3-5-2",
-    "as_of": "2026-06-30",
+    "as_of": "2026-07-01",
     "for_round": "R16",
     "lineup": {
       "starters": [
         38,
         45,
         1318,
-        471,
+        516,
         270,
         468,
         501,
         517,
-        492,
-        496,
-        50
+        34,
+        1088,
+        1997
       ],
       "bench": [
-        1094,
-        1088,
         1089,
+        492,
+        1094,
         477
       ],
       "captain": 501
@@ -89,15 +89,15 @@
       ],
       "captain": 501
     },
-    "note": "R32 LOCKED (burner build; Qualification Booster ACTIVE). 9 free transfers made in the unlimited window. CAPTAIN RELAY RESOLVED 2026-06-30: Kimmich (the Jun-29 free first leg) STARTED RB and played the FULL 120', but Germany LOST to Paraguay on penalties (1-1, no clean sheet, no G/A/card) -> banked only ~2, far below the switch_if=5 threshold -> ARMBAND MOVED to DEMBELE for Jun 30 (M77 France-Sweden, KO 23:00 CEST). Dembele is nailed (hat-trick vs Norway), France the day's biggest fav (1.29), highest exp in the XI playing now -> captain him; set the move before his 23:00 KO. Relay continues: if Dembele ends <=5, move the armband to PULISIC before USA-Bosnia (M81, Jul 1, ~02:00 CEST -> set pre-sleep) -> then Messi (M86, Jul 3). Germany ELIMINATED ends Kimmich's tournament -> he is the OUT in the R16 transfer plan (Kimmich->Laporte, A.Robinson->Tagliafico, Pulisic->Anderson, Luis Diaz->Bellingham; 4 free, 0 hits). CHIP PLAN: 12th Man @ R16, Wildcard held to QF (favourites squad survives R32; R16's 4 free transfers cover it), Clean Sheet Shield(=Mystery) @ SF, Max Captain @ Final. HOLD all R16 moves until the lock-eve run. Bank 0.3."
+    "note": "R32 LOCKED (burner build; Qualification Booster ACTIVE). Bank 0.3. lineup here = R32 DEADLINE-FROZEN XI; live-round moves are tracked in this note, not baked into lineup. CAPTAIN: HOLD DEMBELE - do NOT move the armband. He played M77, banked 6 (assist on Mbappe's opener + France CS vs Sweden), doubled to ~12. Moving the armband forfeits only the DOUBLING (6), not 12 (his base 6 stays either way); best remaining option is Pulisic +5.6 (Messi +4.9, Kane +4.2), all below the locked 6 -> relay CLOSED. XI live ~24 (Kimmich 2 + Dembele 12 + Olise 10). SUBSTITUTION RULE (VERIFIED fantasy_rules.json - do NOT get this wrong again): you can sub a player OUT anytime, even after his match (it just drops his score); you can only sub a player IN if his match HASN'T kicked off yet. So an ALREADY-PLAYED man (e.g. Kimmich, M74 done) can NEVER re-enter the XI - benching him is ONE-WAY/PERMANENT and he is NOT 'pullable-back-in insurance'. Only not-yet-played bench players can rescue a blank. (Pre-kickoff moves of unplayed players = free line-up edits; replacing an already-locked starter needs his match ENDED + incoming unplayed + incoming plays LATER + you score only the incoming man. ANY manual change or captain change cancels that round's auto-subs - already off this round.) USER STRATEGY (stated 2026-07-01): maximize the LIVE total AT ALL TIMES (mid-round leaderboard optics), not just the end total. So for free-roll activations, PARK A NOT-YET-PLAYED starter (0 live now -> nothing drops) instead of dropping a played dead-slot early; defer benching the dead Kimmich (2) until the FINAL XI must be set (Jul 3), then drop him (or the true-lowest) for a restored premium. Same end XI, higher running total throughout. TONIGHT (Jul 1) MOVES (user executing): (1) ANTONEE ROBINSON (1258) IN / LUIS DIAZ (256) OUT - park Diaz (plays M87 Jul 3); free line-up edit (both unplayed); 3-5-2 -> 4-4-2; Antonee banks tonight (USA 1.40 favs, M81 02:00 CEST). (2) PICKFORD (477) IN / E.MARTINEZ (45) OUT - GK free-roll (England 1.30 favs, M80 18:00 CEST; Emi plays M86 Jul 3). KIMMICH (542) KEPT in the XI for now (his 2 stays in the live total). Make each swap before the INCOMING man's KO. UPCOMING: Jul 2 (M84 Spain 21:00 CEST) start CUBARSI (1089)+OYARZABAL (1094) by parking more Jul-3 starters (Messi/Lisandro/James). Jul 3 = RESTORE day: before each Jul-3 kickoff bring the parked starters back by subbing OUT the true-lowest (Kimmich 2 first, then any free-roll piece that blanked); decide GK (keep Pickford if he kept a CS tonight, else restore Emi for M86). DON'T leave any not-yet-played starter benched past his own kickoff (forfeits his points). Lisandro Martinez (1318) CB rotation risk M86 - reconfirm ~1h pre-KO. R16 TRANSFER PLAN (target R16, 4 free, HOLD until the Jul 3/4 lock-eve): Kimmich->Tagliafico(34), A.Robinson->Theo Hernandez(492), Luis Diaz->Rayan Cherki(516), Pulisic->Merino(1997); 0 hits, net +28. CHIPS: 12th Man @ R16 (best external Yamal ~5.8), Wildcard @ QF, Clean Sheet Shield(=Mystery) @ SF, Max Captain @ Final. CAPTAIN GAMBLE (PENDING - user deciding on the NEXT run, 2026-07-01): today = HOLD Dembele (locked 12). User is CONSIDERING a deliberate switch of the armband to MESSI for M86 (Thu Jul 3, KO ~00:00 CEST Jul 4) - a high-variance, ~-2 EV rank-chasing play (forfeits Dembele's certain 12 for Messi's ceiling ~24 / mean ~10). Contradicts his usual pure-EV stance, so default stays HOLD, BUT the armband can move any time before Messi's KO -> SURFACE this choice on the Jul 2/3 run (with tonight+Wed results in) and let him decide; do NOT silently default to HOLD without re-offering it."
   },
   "chips_used": [
     "Qualification Booster"
   ],
   "cumulative": {
-    "nostradamus_points": 90,
-    "gopicks_points": 194,
-    "gopicks_exact_goals": 50,
+    "nostradamus_points": 104,
+    "gopicks_points": 205,
+    "gopicks_exact_goals": 52,
     "fantasy_points": 0
   },
   "predictions_entered": {
