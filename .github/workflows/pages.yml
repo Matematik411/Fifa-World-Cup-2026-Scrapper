@@ -42,3 +42,10 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+        with:
+          # GitHub's Pages build worker intermittently runs long (a healthy deploy is
+          # ~4 min, but it occasionally wedges past the 10-min default and the step
+          # aborts with "Timeout reached"). 20 min gives a slow-but-live deploy room to
+          # finish. NOTE: this is resilience only — a truly-stuck worker still needs a
+          # re-run (which reliably succeeds in ~4 min); the root cause is GitHub-side.
+          timeout: 1200000
