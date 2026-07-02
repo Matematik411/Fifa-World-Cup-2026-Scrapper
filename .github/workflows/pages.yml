@@ -3,6 +3,10 @@ name: Deploy reports to GitHub Pages
 # Publishes the rendered HTML in output/ to GitHub Pages on every push that
 # changes it. Requires (one-time): Settings -> Pages -> Build and deployment ->
 # Source: "GitHub Actions" (and the repo must be public, or Pages-enabled on a paid plan).
+# Action majors pinned to their Node-24 runtimes (bumped 2026-07-02: checkout@v5,
+# configure-pages@v6, upload-pages-artifact@v5, deploy-pages@v5) to clear the Node-20
+# deprecation warning. output/ has no dotfiles, so upload-pages-artifact@v5's dotfile
+# exclusion is a no-op here.
 on:
   push:
     branches: [main]
@@ -28,13 +32,13 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Configure Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
       - name: Upload reports (output/) as the Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: output
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
