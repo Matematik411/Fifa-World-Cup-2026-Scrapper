@@ -1,45 +1,45 @@
 {
   "schema": "wc2026-state-v1",
-  "last_run": "2026-07-01",
+  "last_run": "2026-07-02",
   "recommended_squad": {
     "player_ids": [
       38,
       45,
       1318,
-      516,
-      270,
+      1106,
+      55,
       468,
       477,
       501,
       517,
-      34,
+      492,
       1088,
       1094,
-      492,
-      1997,
+      496,
+      1274,
       1089
     ],
     "captain": "Ousmane Dembélé",
     "formation": "3-5-2",
-    "as_of": "2026-07-01",
+    "as_of": "2026-07-02",
     "for_round": "R16",
     "lineup": {
       "starters": [
         38,
         45,
         1318,
-        516,
-        270,
+        1106,
+        55,
         468,
         501,
         517,
-        34,
+        492,
         1088,
-        1997
+        1274
       ],
       "bench": [
+        496,
         1089,
-        492,
         1094,
         477
       ],
@@ -89,15 +89,15 @@
       ],
       "captain": 501
     },
-    "note": "R32 LOCKED (burner build; Qualification Booster ACTIVE). Bank 0.3. lineup here = R32 DEADLINE-FROZEN XI; live-round moves are tracked in this note, not baked into lineup. CAPTAIN: HOLD DEMBELE - do NOT move the armband. He played M77, banked 6 (assist on Mbappe's opener + France CS vs Sweden), doubled to ~12. Moving the armband forfeits only the DOUBLING (6), not 12 (his base 6 stays either way); best remaining option is Pulisic +5.6 (Messi +4.9, Kane +4.2), all below the locked 6 -> relay CLOSED. XI live ~24 (Kimmich 2 + Dembele 12 + Olise 10). SUBSTITUTION RULE (VERIFIED fantasy_rules.json - do NOT get this wrong again): you can sub a player OUT anytime, even after his match (it just drops his score); you can only sub a player IN if his match HASN'T kicked off yet. So an ALREADY-PLAYED man (e.g. Kimmich, M74 done) can NEVER re-enter the XI - benching him is ONE-WAY/PERMANENT and he is NOT 'pullable-back-in insurance'. Only not-yet-played bench players can rescue a blank. (Pre-kickoff moves of unplayed players = free line-up edits; replacing an already-locked starter needs his match ENDED + incoming unplayed + incoming plays LATER + you score only the incoming man. ANY manual change or captain change cancels that round's auto-subs - already off this round.) USER STRATEGY (stated 2026-07-01): maximize the LIVE total AT ALL TIMES (mid-round leaderboard optics), not just the end total. So for free-roll activations, PARK A NOT-YET-PLAYED starter (0 live now -> nothing drops) instead of dropping a played dead-slot early; defer benching the dead Kimmich (2) until the FINAL XI must be set (Jul 3), then drop him (or the true-lowest) for a restored premium. Same end XI, higher running total throughout. TONIGHT (Jul 1) MOVES (user executing): (1) ANTONEE ROBINSON (1258) IN / LUIS DIAZ (256) OUT - park Diaz (plays M87 Jul 3); free line-up edit (both unplayed); 3-5-2 -> 4-4-2; Antonee banks tonight (USA 1.40 favs, M81 02:00 CEST). (2) PICKFORD (477) IN / E.MARTINEZ (45) OUT - GK free-roll (England 1.30 favs, M80 18:00 CEST; Emi plays M86 Jul 3). KIMMICH (542) KEPT in the XI for now (his 2 stays in the live total). Make each swap before the INCOMING man's KO. UPCOMING: Jul 2 (M84 Spain 21:00 CEST) start CUBARSI (1089)+OYARZABAL (1094) by parking more Jul-3 starters (Messi/Lisandro/James). Jul 3 = RESTORE day: before each Jul-3 kickoff bring the parked starters back by subbing OUT the true-lowest (Kimmich 2 first, then any free-roll piece that blanked); decide GK (keep Pickford if he kept a CS tonight, else restore Emi for M86). DON'T leave any not-yet-played starter benched past his own kickoff (forfeits his points). Lisandro Martinez (1318) CB rotation risk M86 - reconfirm ~1h pre-KO. R16 TRANSFER PLAN (target R16, 4 free, HOLD until the Jul 3/4 lock-eve): Kimmich->Tagliafico(34), A.Robinson->Theo Hernandez(492), Luis Diaz->Rayan Cherki(516), Pulisic->Merino(1997); 0 hits, net +28. CHIPS: 12th Man @ R16 (best external Yamal ~5.8), Wildcard @ QF, Clean Sheet Shield(=Mystery) @ SF, Max Captain @ Final. CAPTAIN GAMBLE (PENDING - user deciding on the NEXT run, 2026-07-01): today = HOLD Dembele (locked 12). User is CONSIDERING a deliberate switch of the armband to MESSI for M86 (Thu Jul 3, KO ~00:00 CEST Jul 4) - a high-variance, ~-2 EV rank-chasing play (forfeits Dembele's certain 12 for Messi's ceiling ~24 / mean ~10). Contradicts his usual pure-EV stance, so default stays HOLD, BUT the armband can move any time before Messi's KO -> SURFACE this choice on the Jul 2/3 run (with tonight+Wed results in) and let him decide; do NOT silently default to HOLD without re-offering it."
+    "note": "R32 LOCKED (burner build; Qualification Booster USED). Bank 0.3. lineup here = R32 DEADLINE-FROZEN XI (3-5-2); live-round moves are tracked in THIS note, not baked into lineup, so the pipeline's xi_live (40) is the frozen XI and UNDERCOUNTS the real live total.\n\nLIVE R32 TOTAL ~51 (7 XI players played, feed roundPoints r4): Kane 13 (brace vs DRC), Dembele 6 x2(C)=12, Olise 10, Antonee Robinson 9 (USA CS), Pulisic 3, Kimmich 2 (dead/eliminated), Pickford 2 (Eng conceded). Still to score: 3 Spaniards tonight (M84) + Messi/Lisandro (M86) + James (M87) after restores.\n\nJUL 1 MOVES DONE (confirmed, results in): Antonee Robinson (1258) IN / L.Diaz (256) parked; Pickford (477) IN / E.Martinez (45) parked. Antonee free-roll PAID (9 in a CS); Pickford only 2 (Eng conceded) but was the safe GK. Diaz plays M87 Jul3, Emi plays M86 Jul3 - both still parked, restore Jul 3.\n\nSUB RULE (do NOT get wrong): sub OUT anytime (even post-match - just drops his score); sub IN only if his match hasn't kicked off. A PLAYED man can NEVER re-enter (benching him is ONE-WAY). Only not-yet-played bench players rescue a blank. Any manual change cancels that round's auto-subs -> set every slot by hand.\n\nCAPTAIN = USER RELAY OVERRIDE 2026-07-02 (model's pure-EV verdict was HOLD Dembele). His 12 (6 x2) is BANKED/locked. Moving the armband now forfeits ONLY the +6 double (base 6 stays) and doubles the new man -> +EV only if E[new] > 6. Remaining not-yet-played XI captain options: Messi E 4.9 (M86), Oyarzabal E 3.5 (M84 if started) - BOTH below 6 -> HOLD. Kane already played 13 -> cannot be re-captained (hindsight Kane-C = 26, but E[Kane] was 4.2 at decision time, so HOLD was the correct EV call - variance, not error). USER DECISION 2026-07-02 (OVERRIDE the pure-EV HOLD): run a 2-leg captain RELAY for upside - CAPTAIN OYARZABAL tonight (M84); after M84 KEEP him if he returns (goal/assist, >=5) else RELAY the armband to MESSI before M86 (~00:00 CEST Jul 4). Deliberate +variance: expected captain bonus ~5.5-5.9 vs HOLD's locked 6 (only ~0.2-0.5 EV cost, NOT the -1.1 of a one-shot switch - the relay banks Oyarzabal's haul if it comes and only falls back to Messi otherwise); MAX downside = -6 (only if the FINAL captain scores 0; tiny extra tail only on a red card), upside tail large (a captained goal = +1..+18). Endorsed given capped downside + his strong preference (fantasy is NOT his EV-only league; GoPicks is). Needs Oyarzabal in the XI tonight (the free-roll does this) + Messi restored to the XI Jul 3; any manual captain change cancels auto-subs (already off); reconfirm Oyarzabal starts (~20:00 CEST) before setting the armband. NEXT RUN (Jul 3): read M84 result -> if Oyarzabal returned, captain stays him (resolve/keep); else confirm Messi armband for M86.\n\nTONIGHT (Jul 2, before M84 Spain 21:00 CEST): free-roll START all 3 Spaniards - Cucurella (1088) already in; bring in CUBARSI (1089, E 3.5) + OYARZABAL (1094, E 3.5) by parking MESSI (38, M86) + LISANDRO (1318, M86) (both play Jul 3 -> 0 cost tonight). Real live XI is 4-4-2 (post-Jul1); parking Messi+Lisandro & adding Cubarsi+Oyarzabal stays 4-4-2 legal.\n\nJUL 3 = RESTORE day: before Argentina M86 (~00:00 CEST Jul 4) restore MESSI + LISANDRO into the XI; before Colombia M87 (~03:30 CEST) handle James/Diaz; decide GK (keep Pickford or restore Emi for M86). Restore by subbing OUT the TRUE lowest banked (Kimmich 2 & Pickford 2 first) - never a not-yet-played man past his KO.\n\nLISANDRO (1318) rotation RESOLVED IN HIS FAVOUR (2026-07-02): Romero's return displaces OTAMENDI, not Lisandro; R32 CB = Romero + Lisandro. Reconfirm ~1h pre-M86.\n\nR16 TRANSFER PLAN (target R16, 4 free, HOLD until the Jul 3/4 lock-eve - re-optimizes each run): Kimmich->Theo Hernandez, Antonee Robinson->Lucas Hernandez, James->Thiago Almada, L.Diaz->Pedri; 0 hits, net +27.6. RECONFIRM Lucas Hernandez is a nailed France starter at lock-eve (role/name check).\n\nCHIPS remaining: 12th Man @ R16 (best external Yamal E 5.9 - play only if a standout >6 emerges), Wildcard @ QF (held past R16 - favourites squad survives R32), Clean Sheet Shield @ SF (MYSTERY BOOSTER now REVEALED = Clean Sheet Shield: GK/DEF/MID keep the CS bonus until the team concedes a 2nd goal), Max Captain @ Final (~+5 vs a fixed armband)."
   },
   "chips_used": [
     "Qualification Booster"
   ],
   "cumulative": {
-    "nostradamus_points": 104,
-    "gopicks_points": 205,
-    "gopicks_exact_goals": 52,
+    "nostradamus_points": 114,
+    "gopicks_points": 213,
+    "gopicks_exact_goals": 54,
     "fantasy_points": 0
   },
   "predictions_entered": {
@@ -109,9 +109,9 @@
       "1": "missed",
       "2": "missed"
     },
-    "points_official": null,
-    "rank": null,
-    "note": "Sentora partners league on gopicks.app, joined 2026-06-12 (matches 1-2 already played -> missed, 0 pts). predictions_entered: '<num>': 'H-A' for a stated deviation, 'missed' for a match not entered; absent = followed the recommendation."
+    "points_official": 213,
+    "rank": 10,
+    "note": "Sentora partners league on gopicks.app, joined 2026-06-12 (matches 1-2 missed, 0 pts). predictions_entered: '<num>':'H-A' = stated deviation, 'missed' = not entered, absent = followed the pick. USER-PROVIDED STANDING 2026-07-02 (for the prize-league strategy talk; the model's EV-optimal total = 213, which MATCHES his official, i.e. he's followed the picks exactly): points_official 213, rank 10/100. Leaderboard top: 237, 226, 223, 222, 219, 219, 217, 215, 214, [213=him]. ~22 matches / ~110 pts still available. This is the ONLY league where he wants rank-aware strategy (real prizes); Nostradamus + Fantasy remain pure best-EV."
   },
   "assume_followed": true
 }

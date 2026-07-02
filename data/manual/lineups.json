@@ -1,51 +1,66 @@
 {
-  "fetched_at": "2026-07-01",
-  "note": "R32 in progress. Jun 30 ties done (France beat Sweden 3-0; Norway beat Ivory Coast 2-1; Mexico beat Ecuador 2-0) -> those teams cleared from lineups. These are PREDICTED XIs (confirmed:false) for tonight's R32 ties on Jul 1 (M80 England-DRC 18:00 CEST, M81 USA-Bosnia 02:00 CEST Jul 2, M82 Belgium-Senegal 22:00 CEST) and the upcoming Jul 2-3 ties with owned players (M84 Spain-Austria Jul 2 21:00 CEST; M86 Argentina-Cape Verde Jul 3; M87 Colombia-Ghana Jul 3). Official confirmed sheets drop ~1h pre-KO so EVERYTHING here is confirmed:false. OWNED-PLAYER relevance: England=Kane(468)+Pickford(477) M80 -> both nailed; USA=Pulisic(1274)+A.Robinson(1258) M81 -> Pulisic CONFIRMED FIT (calf recovered, self-declared ready Jul 1), both start; Spain=Cucurella(1088)+Oyarzabal(1094 bench) M84 -> Cucurella nailed LB, Oyarzabal nailed CF (Nico Williams+Pino out); Argentina=Messi(38)+E.Martinez(45)+Lisandro(1318) M86 -> Messi+Emi nailed, LISANDRO MARTINEZ a genuine CB ROTATION RISK (Cristian Romero is back and starts; one source benches Lisandro for Otamendi) -> kept in predicted XI (majority) but RECONFIRM ~1h pre-KO Jul 3; Colombia=L.Diaz(256)+James(270) M87 -> both nailed, James on pens/FKs+captain. Sources: ESPN/Sky/SportsMole/RotoWire/beIN/FotMob previews Jun 30-Jul 1; raw data/raw/2026-07-01/teamnews_jul1_R32.md.",
+  "fetched_at": "2026-07-02",
+  "note": "R32 in progress; pulled ~16:05 CEST Jul 2. Jul 1 ties (M80 England-DRC, M81 USA-Bosnia, M82 Belgium-Senegal) are DONE -> those teams cleared. All XIs below are PREDICTED (confirmed:false): the earliest KO is M84 Spain-Austria 21:00 CEST Jul 2, so confirmed sheets (~1h pre-KO, ~20:00 CEST) are NOT out yet at pull time; an evening run after ~20:00 CEST could catch M84 confirmed. Covers remaining R32: M83 Portugal-Croatia (01:00 CEST Jul 3, Toronto), M84 Spain-Austria (21:00 CEST Jul 2, SoFi/LA), M85 Switzerland-Algeria (05:00 CEST Jul 3, Vancouver), M86 Argentina-Cape Verde (00:00 CEST Jul 4, Miami), M87 Colombia-Ghana (03:30 CEST Jul 4, Kansas City), M88 Australia-Egypt (20:00 CEST Jul 3, Arlington). OWNED-PLAYER verdicts: SPAIN M84 -> Cucurella (nailed LB, START), Cubarsi (nailed CB, START, w/ Laporte), Oyarzabal (nailed lone striker, START, on pens); SI says de la Fuente picks an UNCHANGED/stable XI despite ~1.33 fav -> NO rotation risk; Nico Williams(adductor)+Yeremy Pino(shoulder) out. ARGENTINA M86 -> Messi (START, returns after Jordan rest, chasing 8th consec WC-match goal), E.Martinez (nailed GK, START), LISANDRO MARTINEZ = START at CB (ROTATION RISK RESOLVED: Sports Mole AND ESPN both start Lisandro alongside Cristian Romero; Romero's return from a minor knee knock displaces OTAMENDI, not Lisandro) -> residual only-if-Romero-not-100% (then Otamendi in), RECONFIRM ~1h pre-KO Jul 4. COLOMBIA M87 -> James Rodriguez (START, captain/pens/FKs, fit) + Luis Diaz (START, front line) both nailed. CONFIDENCE: Spain owned trio HIGH; Argentina Messi/Emi HIGH, Lisandro MEDIUM-HIGH (predicted start, minor Romero-knee/Otamendi caveat); Colombia both HIGH. ODDS SANITY-CHECK (secondary): cross-checked DraftKings vs odds_extra.json Jul 1 Pinnacle -> M83 POR 1.81 (~DK 1.77), M84 SPA 1.33 (~DK 1.31), M87 COL 1.53 (~DK 1.50) all within ~3%; M85 Swi 2.05 / M86 Arg 1.17 / M88 Aus-Egy 3.44/2.91/2.51 no fresh line but favourite direction narrative-consistent; NO material (>10%) moves, all fav directions hold, odds_extra.json NOT edited. Sources: ESPN, SI, Sports Mole, RotoWire, Squawka, DraftKings, Barca Blaugranes previews Jul 1-2; raw data/raw/2026-07-02/lineups_teamnews_jul2.md.",
   "teams": {
-    "England": {
+    "Portugal": {
       "confirmed": false,
-      "xi": ["GK Jordan Pickford", "Djed Spence", "Ezri Konsa", "Marc Guehi", "Lewis O'Reilly", "Elliot Anderson", "Declan Rice", "Bukayo Saka", "Jude Bellingham", "Marcus Rashford", "Harry Kane"],
-      "out": ["Reece James (out)", "Jarell Quansah (ankle - out)"]
-    },
-    "DR Congo": {
-      "confirmed": false,
-      "xi": ["GK Lionel Mpasi", "Arthur Masuaku", "Chancel Mbemba", "Gedeon Kalulu", "Rocky Bushiri", "Samuel Moutoussamy", "Charles Pickel", "Theo Bongonda", "Cedric Bakambu", "Yoane Wissa", "Silas Katompa"],
+      "xi": ["GK Diogo Costa", "Joao Cancelo", "Ruben Dias", "Renato Veiga", "Nuno Mendes", "Joao Neves", "Vitinha", "Pedro Neto", "Bruno Fernandes", "Joao Felix", "Cristiano Ronaldo"],
       "out": []
     },
-    "USA": {
+    "Croatia": {
       "confirmed": false,
-      "xi": ["GK Matt Freese", "Alex Freeman", "Chris Richards", "Tim Ream", "Antonee Robinson", "Tyler Adams", "Weston McKennie", "Sergino Dest", "Malik Tillman", "Christian Pulisic", "Folarin Balogun"],
+      "xi": ["GK Dominik Livakovic", "Josip Stanisic", "Josip Sutalo", "Marin Pongracic", "Ivan Perisic", "Mateo Kovacic", "Luka Modric", "Petar Sucic", "Nikola Vlasic", "Martin Baturina", "Ante Budimir"],
       "out": []
-    },
-    "Bosnia and Herzegovina": {
-      "confirmed": false,
-      "xi": ["GK Nikola Vasilj", "Sead Kolasinac", "Dennis Hadzikadunic", "Adrian Leon Barisic", "Amar Dedic", "Tarik Muharemovic", "Gojko Cimirot", "Edin Dzeko", "Benjamin Tahirovic", "Armin Gigovic", "Ermedin Demirovic"],
-      "out": []
-    },
-    "Belgium": {
-      "confirmed": false,
-      "xi": ["GK Thibaut Courtois", "Timothy Castagne", "Brandon Mechele", "Arthur Theate", "Maxim De Cuyper", "Amadou Onana", "Youri Tielemans", "Alexis Saelemaekers", "Kevin De Bruyne", "Leandro Trossard", "Romelu Lukaku"],
-      "out": []
-    },
-    "Senegal": {
-      "confirmed": false,
-      "xi": ["GK Mory Diaw", "Krepin Diatta", "Kalidou Koulibaly", "Moussa Niakhate", "Ismail Jakobs", "Pape Matar Sarr", "Idrissa Gana Gueye", "Lamine Camara", "Ismaila Sarr", "Nicolas Jackson", "Habib Diarra"],
-      "out": ["Edouard Mendy (knee - out)", "Pape Gueye (bench - impact sub)"]
     },
     "Spain": {
       "confirmed": false,
       "xi": ["GK Unai Simon", "Marcos Llorente", "Pau Cubarsi", "Aymeric Laporte", "Marc Cucurella", "Mikel Merino", "Rodri", "Pedri", "Lamine Yamal", "Mikel Oyarzabal", "Alex Baena"],
       "out": ["Nico Williams (adductor)", "Yeremy Pino (shoulder)"]
     },
+    "Austria": {
+      "confirmed": false,
+      "xi": ["GK Alexander Schlager", "Stefan Posch", "Philipp Lienhart", "David Alaba", "Phillipp Mwene", "Nicolas Seiwald", "Konrad Laimer", "Christoph Baumgartner", "Marcel Sabitzer", "Patrick Wimmer", "Marko Arnautovic"],
+      "out": []
+    },
+    "Switzerland": {
+      "confirmed": false,
+      "xi": ["GK Gregor Kobel", "Luca Jaquez", "Nico Elvedi", "Manuel Akanji", "Ricardo Rodriguez", "Remo Freuler", "Granit Xhaka", "Djibril Sow", "Christian Manzambi", "Ruben Vargas", "Breel Embolo"],
+      "out": ["Silvan Widmer (hip - doubt)"]
+    },
+    "Algeria": {
+      "confirmed": false,
+      "xi": ["GK Alexis Guendouz", "Rafik Belghali", "Aissa Mandi", "Ramy Bensebaini", "Rayan Ait-Nouri", "Hicham Boudaoui", "Nabil Bentaleb", "Riyad Mahrez", "Ibrahim Maza", "Fares Chaibi", "Amine Gouiri"],
+      "out": ["Mohamed El Amine Amoura (fitness - doubt/likely out)"]
+    },
     "Argentina": {
       "confirmed": false,
-      "xi": ["GK Emiliano Martinez", "Nahuel Molina", "Cristian Romero", "Lisandro Martinez", "Nicolas Tagliafico", "Rodrigo De Paul", "Alexis Mac Allister", "Enzo Fernandez", "Lionel Messi", "Lautaro Martinez", "Julian Alvarez"],
+      "xi": ["GK Emiliano Martinez", "Nahuel Molina", "Cristian Romero", "Lisandro Martinez", "Facundo Medina", "Rodrigo De Paul", "Alexis Mac Allister", "Enzo Fernandez", "Thiago Almada", "Lionel Messi", "Lautaro Martinez"],
       "out": []
+    },
+    "Cape Verde": {
+      "confirmed": false,
+      "xi": ["GK Vozinha", "Steven Moreira", "Roberto Lopes", "Diney Borges", "Sidny Lopes Cabral", "Laros Duarte", "Kevin Pina", "Jamiro Monteiro", "Ryan Mendes", "Dailon Livramento", "Jovane Cabral"],
+      "out": ["Telmo Arcanjo (muscle - out)"]
     },
     "Colombia": {
       "confirmed": false,
-      "xi": ["GK Camilo Vargas", "Daniel Munoz", "Davinson Sanchez", "Jhon Lucumi", "Johan Mojica", "Jefferson Lerma", "Richard Rios", "Jhon Arias", "James Rodriguez", "Luis Diaz", "Cucho Hernandez"],
+      "xi": ["GK Camilo Vargas", "Daniel Munoz", "Davinson Sanchez", "Jhon Lucumi", "Johan Mojica", "Jefferson Lerma", "Kevin Castano", "Jhon Arias", "James Rodriguez", "Luis Diaz", "Luis Suarez"],
       "out": []
+    },
+    "Ghana": {
+      "confirmed": false,
+      "xi": ["GK Benjamin Asare", "Alidu Seidu", "Alexander Djiku", "Jerome Opoku", "Gideon Mensah", "Thomas Partey", "Elisha Owusu", "Kamaldeen Sulemana", "Abdul Fatawu Issahaku", "Antoine Semenyo", "Jordan Ayew"],
+      "out": ["Lawrence Ati-Zigi (fitness - doubt)"]
+    },
+    "Australia": {
+      "confirmed": false,
+      "xi": ["GK Mathew Ryan", "Jason Geria", "Harry Souttar", "Milos Degenek", "Aziz Behich", "Aiden O'Neill", "Jackson Irvine", "Connor Metcalfe", "Awer Mabil", "Nestory Irankunda", "Mathew Leckie"],
+      "out": ["Jacob Italiano (tournament-ending injury)"]
+    },
+    "Egypt": {
+      "confirmed": false,
+      "xi": ["GK Mohamed El Shenawy", "Ahmed Fatouh", "Mohamed Abdelmonem", "Yasser Ibrahim", "Mohamed Hany", "Hamdy Fathy", "Emam Ashour", "Ibrahim Adel", "Mahmoud Saber", "Trezeguet", "Mohamed Salah"],
+      "out": ["Mohamed Salah (hamstring - MAJOR DOUBT, off after 57min vs Iran, assessed pre-KO)", "Mohamed Abdelmonem (ankle - doubt)", "Ahmed Abou El Fattouh (hamstring tear - out)"]
     }
   }
 }

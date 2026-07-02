@@ -1236,8 +1236,8 @@
       "tz": "America/Mexico_City",
       "venue": "Estadio Azteca",
       "city": "Mexico City",
-      "home": "W79",
-      "away": "W80"
+      "home": "Mexico",
+      "away": "England"
     },
     {
       "num": 93,
@@ -1260,8 +1260,8 @@
       "tz": "America/Los_Angeles",
       "venue": "Lumen Field",
       "city": "Seattle",
-      "home": "W81",
-      "away": "W82"
+      "home": "USA",
+      "away": "Belgium"
     },
     {
       "num": 95,
