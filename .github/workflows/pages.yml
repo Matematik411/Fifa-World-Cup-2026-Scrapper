@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url || steps.deployment-retry.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -39,13 +39,15 @@ jobs:
         uses: actions/upload-pages-artifact@v5
         with:
           path: output
+      # The Pages build worker intermittently wedges ("Timeout reached, aborting!").
+      # deploy-pages CAPS its `timeout` input at 600000 ms, so raising it past 10 min
+      # is a silent no-op — resilience instead comes from one automatic in-job retry:
+      # a fresh attempt against the already-uploaded artifact reliably succeeds.
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
-        with:
-          # GitHub's Pages build worker intermittently runs long (a healthy deploy is
-          # ~4 min, but it occasionally wedges past the 10-min default and the step
-          # aborts with "Timeout reached"). 20 min gives a slow-but-live deploy room to
-          # finish. NOTE: this is resilience only — a truly-stuck worker still needs a
-          # re-run (which reliably succeeds in ~4 min); the root cause is GitHub-side.
-          timeout: 1200000
+        continue-on-error: true
+      - name: Retry deploy (first attempt wedged)
+        id: deployment-retry
+        if: steps.deployment.outcome == 'failure'
+        uses: actions/deploy-pages@v5
