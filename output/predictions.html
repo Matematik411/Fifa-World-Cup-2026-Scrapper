@@ -165,15 +165,15 @@ footer.foot a { word-break: break-all; }
 </header>
 <div class="wrap">
   <div class="meta-bar">
-    <span class="stage-pill">Round of 32 — transfers apply to Round of 16</span>
-    <span>Generated Fri 03 Jul 2026, 17:20 CEST</span>
-    <span>Run 2026-07-03</span>
+    <span class="stage-pill">Round of 16 — transfers apply to Round of 16</span>
+    <span>Generated Sat 04 Jul 2026, 12:11 CEST</span>
+    <span>Run 2026-07-04</span>
     <span>200,000 simulations</span>
   </div>
 
   
   <div class="warn"><strong>Notes:</strong>
-    Merged odds_extra: match_odds 24 -&gt; 94. · Stale input: ratings_odds is 15d old (as of 2026-06-18) — refresh it before relying on this run.
+    Merged odds_extra: match_odds 24 -&gt; 96. · Stale input: ratings_odds is 16d old (as of 2026-06-18) — refresh it before relying on this run.
   </div>
   
 
@@ -194,120 +194,100 @@ you can edit until then.</p>
 
 
 
-<h2>2026-07-03</h2>
+<h2>GoPicks podium strategy (rank-aware — prizes are top-3 only)</h2>
 <div class="card">
-
-
-<div class="mrow">
-  <div class="mhead">
-    <span>Match 88 · R32 · Arlington</span>
-    <span>⏱ 13:00 (Chicago) · <b>Fri 03 Jul 20:00 CEST</b></span>
-  </div>
-  <div class="match">
-    <div class="team">Australia</div>
-    <div class="sc">
+  <p class="small">You: <b>230 pts</b> · podium at
+    259 / 244 / 242 · 8 known + 8 later matches remain
+    · 20,000 sims × rival-overlap grid 0.4 / 0.55 / 0.7.
+    Unknown ranks interpolated; nearest chasers assumed just behind — treat P(top-3) as a comparison
+    between strategies, not gospel.</p>
+  <table class="sortable">
+    <thead><tr><th>Strategy</th><th>EV cost (this round)</th><th>E[final pts]</th><th>σ</th>
+      <th>P(top-3)</th><th>P(top-1)</th><th>E[rank]</th></tr></thead>
+    <tbody>
+    
       
-      <span class="scoreline">0–2</span><span class="small muted"> Nostr</span>
-      <span class="muted">·</span>
-      <span class="scoreline">0–1</span><span class="small muted"> GoPicks</span>
+      <tr >
+        <td><b>best-ev</b></td>
+        <td>0.0</td>
+        <td>264.2</td>
+        <td>6.8</td>
+        <td><b>0.0%</b> <span class="small muted">(0.0% / 0.0% / 0.0%)</span></td>
+        <td>0.0%</td>
+        <td>8.6</td>
+      </tr>
+    
       
-    </div>
-    <div class="team away">Egypt</div>
+      <tr >
+        <td><b>goal-tilt</b></td>
+        <td>0.5</td>
+        <td>263.2</td>
+        <td>7.2</td>
+        <td><b>0.1%</b> <span class="small muted">(0.1% / 0.1% / 0.0%)</span></td>
+        <td>0.0%</td>
+        <td>9.2</td>
+      </tr>
+    
+      
+      <tr style="background:rgba(80,200,120,.12)">
+        <td><b>tilt2-45</b></td>
+        <td>0.6</td>
+        <td>262.4</td>
+        <td>6.7</td>
+        <td><b>6.5%</b> <span class="small muted">(7.0% / 6.4% / 6.3%)</span></td>
+        <td>0.0%</td>
+        <td>9.4</td>
+      </tr>
+    
+      
+      <tr >
+        <td><b>tilt2-55</b></td>
+        <td>2.9</td>
+        <td>258.8</td>
+        <td>6.6</td>
+        <td><b>5.7%</b> <span class="small muted">(5.9% / 5.7% / 5.6%)</span></td>
+        <td>0.1%</td>
+        <td>10.5</td>
+      </tr>
+    
+      
+      <tr >
+        <td><b>tilt2-65</b></td>
+        <td>2.9</td>
+        <td>258.8</td>
+        <td>6.6</td>
+        <td><b>5.7%</b> <span class="small muted">(5.9% / 5.7% / 5.6%)</span></td>
+        <td>0.1%</td>
+        <td>10.5</td>
+      </tr>
+    
+      
+      <tr >
+        <td><b>tilt2-all</b></td>
+        <td>6.7</td>
+        <td>254.9</td>
+        <td>6.5</td>
+        <td><b>3.2%</b> <span class="small muted">(3.3% / 3.3% / 3.2%)</span></td>
+        <td>0.1%</td>
+        <td>11.6</td>
+      </tr>
+    
+    </tbody>
+  </table>
+  <div class="note small" style="margin-top:8px">
+    <b>Verdict: switch to tilt2-45.</b>
+    P(top-3) 0.0% → 6.5% across the rival-overlap grid for 0.6 EV pts this round.
+    
+    
+    <br>This round that means:
+    <b>Mexico–England: 1-1</b> (EV pick 0-1, −0.2 EV) · <b>USA–Belgium: 1-0</b> (EV pick 0-1, −0.1 EV) · <b>Switzerland–Colombia: 1-1</b> (EV pick 0-1, −0.3 EV)
+    — all other matches keep the EV pick.
+    
   </div>
-  <div style="display:flex; flex-wrap:wrap; gap:8px 22px; align-items:center; margin-top:10px">
-    <div style="min-width:170px; flex:1"><div>
-  <div class="tribar" title="Home 25.8% / Draw 33.5% / Away 40.7%">
-    <i class="h" style="width:25.8%"></i>
-    <i class="d" style="width:33.5%"></i>
-    <i class="a" style="width:40.7%"></i>
-  </div>
-  <div class="trilabel"><span>26%</span><span>34%</span><span>41%</span></div>
-</div></div>
-    <div class="small muted">xG 0.9–1.1</div>
-    <div class="small">Nostr EV <b>0.84</b> <span class="muted">(×2 KO → 1.69)</span></div>
-    <div class="small">GoPicks EV <b>2.01</b> <span class="muted">(exact-goal 0.79)</span></div>
-    <div class="small muted">runner-up 0–1</div>
-    <div><span class="conf Med">Med</span></div>
-  </div>
-  <div class="small muted" style="margin-top:6px">Model: Australia 26% / draw 34% / Egypt 41%, xG 0.9–1.1. Modal score is 0–0, but 0–2 maximizes expected points by hedging toward the Egypt outcome&#39;s partial credit. Knockout: 90-min result only — a draw is a valid pick and points are doubled.</div>
-  
-  <div class="small muted" style="margin-top:4px"><b>GoPicks differs:</b> GoPicks pays 3 for the result + 1 per exact goal count (no cross-outcome partial credit): 0–1 backs the Egypt with the most likely goal counts inside it. (Modal scoreline is 0–0.) Knockout: 90-min result only — a draw is a valid pick; values are NOT doubled here.</div>
-  
 </div>
 
 
-<div class="mrow">
-  <div class="mhead">
-    <span>Match 86 · R32 · Miami Gardens</span>
-    <span>⏱ 18:00 (New York) · <b>Sat 04 Jul 00:00 CEST</b></span>
-  </div>
-  <div class="match">
-    <div class="team">Argentina</div>
-    <div class="sc">
-      
-      <span class="scoreline">2–0</span><span class="small muted"> both leagues</span>
-      
-    </div>
-    <div class="team away">Cape Verde</div>
-  </div>
-  <div style="display:flex; flex-wrap:wrap; gap:8px 22px; align-items:center; margin-top:10px">
-    <div style="min-width:170px; flex:1"><div>
-  <div class="tribar" title="Home 84.5% / Draw 12.5% / Away 3.0%">
-    <i class="h" style="width:84.5%"></i>
-    <i class="d" style="width:12.5%"></i>
-    <i class="a" style="width:3.0%"></i>
-  </div>
-  <div class="trilabel"><span>85%</span><span>12%</span><span>3%</span></div>
-</div></div>
-    <div class="small muted">xG 2.6–0.4</div>
-    <div class="small">Nostr EV <b>1.70</b> <span class="muted">(×2 KO → 3.40)</span></div>
-    <div class="small">GoPicks EV <b>3.46</b> <span class="muted">(exact-goal 0.92)</span></div>
-    <div class="small muted">runner-up 3–0</div>
-    <div><span class="conf High">High</span></div>
-  </div>
-  <div class="small muted" style="margin-top:6px">Model: Argentina 85% / draw 12% / Cape Verde 3%, xG 2.6–0.4. 2–0 is both the modal and EV-optimal scoreline. Knockout: 90-min result only — a draw is a valid pick and points are doubled.</div>
-  
-</div>
 
-
-<div class="mrow">
-  <div class="mhead">
-    <span>Match 87 · R32 · Kansas City</span>
-    <span>⏱ 20:30 (Chicago) · <b>Sat 04 Jul 03:30 CEST</b></span>
-  </div>
-  <div class="match">
-    <div class="team">Colombia</div>
-    <div class="sc">
-      
-      <span class="scoreline">2–0</span><span class="small muted"> Nostr</span>
-      <span class="muted">·</span>
-      <span class="scoreline">1–0</span><span class="small muted"> GoPicks</span>
-      
-    </div>
-    <div class="team away">Ghana</div>
-  </div>
-  <div style="display:flex; flex-wrap:wrap; gap:8px 22px; align-items:center; margin-top:10px">
-    <div style="min-width:170px; flex:1"><div>
-  <div class="tribar" title="Home 67.2% / Draw 23.8% / Away 9.1%">
-    <i class="h" style="width:67.2%"></i>
-    <i class="d" style="width:23.8%"></i>
-    <i class="a" style="width:9.1%"></i>
-  </div>
-  <div class="trilabel"><span>67%</span><span>24%</span><span>9%</span></div>
-</div></div>
-    <div class="small muted">xG 1.8–0.5</div>
-    <div class="small">Nostr EV <b>1.40</b> <span class="muted">(×2 KO → 2.79)</span></div>
-    <div class="small">GoPicks EV <b>2.91</b> <span class="muted">(exact-goal 0.89)</span></div>
-    <div class="small muted">runner-up 1–0</div>
-    <div><span class="conf High">High</span></div>
-  </div>
-  <div class="small muted" style="margin-top:6px">Model: Colombia 67% / draw 24% / Ghana 9%, xG 1.8–0.5. Modal score is 1–0, but 2–0 maximizes expected points by hedging toward the Colombia outcome&#39;s partial credit. Knockout: 90-min result only — a draw is a valid pick and points are doubled.</div>
-  
-  <div class="small muted" style="margin-top:4px"><b>GoPicks differs:</b> GoPicks pays 3 for the result + 1 per exact goal count (no cross-outcome partial credit): 1–0 backs the Colombia with the most likely goal counts inside it. Knockout: 90-min result only — a draw is a valid pick; values are NOT doubled here.</div>
-  
-</div>
-
-</div>
 
 <h2>2026-07-04</h2>
 <div class="card">
@@ -331,16 +311,16 @@ you can edit until then.</p>
   </div>
   <div style="display:flex; flex-wrap:wrap; gap:8px 22px; align-items:center; margin-top:10px">
     <div style="min-width:170px; flex:1"><div>
-  <div class="tribar" title="Home 17.5% / Draw 28.6% / Away 53.9%">
-    <i class="h" style="width:17.5%"></i>
-    <i class="d" style="width:28.6%"></i>
-    <i class="a" style="width:53.9%"></i>
+  <div class="tribar" title="Home 17.0% / Draw 28.7% / Away 54.3%">
+    <i class="h" style="width:17.0%"></i>
+    <i class="d" style="width:28.7%"></i>
+    <i class="a" style="width:54.3%"></i>
   </div>
   <div class="trilabel"><span>17%</span><span>29%</span><span>54%</span></div>
 </div></div>
     <div class="small muted">xG 0.8–1.5</div>
-    <div class="small">Nostr EV <b>1.09</b> <span class="muted">(×2 KO → 2.19)</span></div>
-    <div class="small">GoPicks EV <b>2.41</b> <span class="muted">(exact-goal 0.79)</span></div>
+    <div class="small">Nostr EV <b>1.11</b> <span class="muted">(×2 KO → 2.21)</span></div>
+    <div class="small">GoPicks EV <b>2.43</b> <span class="muted">(exact-goal 0.80)</span></div>
     <div class="small muted">runner-up 0–1</div>
     <div><span class="conf Med">Med</span></div>
   </div>
@@ -367,20 +347,20 @@ you can edit until then.</p>
   </div>
   <div style="display:flex; flex-wrap:wrap; gap:8px 22px; align-items:center; margin-top:10px">
     <div style="min-width:170px; flex:1"><div>
-  <div class="tribar" title="Home 4.3% / Draw 15.6% / Away 80.1%">
-    <i class="h" style="width:4.3%"></i>
-    <i class="d" style="width:15.6%"></i>
-    <i class="a" style="width:80.1%"></i>
+  <div class="tribar" title="Home 4.0% / Draw 14.0% / Away 82.0%">
+    <i class="h" style="width:4.0%"></i>
+    <i class="d" style="width:14.0%"></i>
+    <i class="a" style="width:82.0%"></i>
   </div>
-  <div class="trilabel"><span>4%</span><span>16%</span><span>80%</span></div>
+  <div class="trilabel"><span>4%</span><span>14%</span><span>82%</span></div>
 </div></div>
-    <div class="small muted">xG 0.4–2.4</div>
+    <div class="small muted">xG 0.5–2.6</div>
     <div class="small">Nostr EV <b>1.63</b> <span class="muted">(×2 KO → 3.26)</span></div>
-    <div class="small">GoPicks EV <b>3.32</b> <span class="muted">(exact-goal 0.92)</span></div>
+    <div class="small">GoPicks EV <b>3.34</b> <span class="muted">(exact-goal 0.88)</span></div>
     <div class="small muted">runner-up 0–3</div>
     <div><span class="conf High">High</span></div>
   </div>
-  <div class="small muted" style="margin-top:6px">Model: Paraguay 4% / draw 16% / France 80%, xG 0.4–2.4. 0–2 is both the modal and EV-optimal scoreline. Knockout: 90-min result only — a draw is a valid pick and points are doubled.</div>
+  <div class="small muted" style="margin-top:6px">Model: Paraguay 4% / draw 14% / France 82%, xG 0.5–2.6. 0–2 is both the modal and EV-optimal scoreline. Knockout: 90-min result only — a draw is a valid pick and points are doubled.</div>
   
 </div>
 
@@ -408,15 +388,15 @@ you can edit until then.</p>
   </div>
   <div style="display:flex; flex-wrap:wrap; gap:8px 22px; align-items:center; margin-top:10px">
     <div style="min-width:170px; flex:1"><div>
-  <div class="tribar" title="Home 52.8% / Draw 26.2% / Away 21.0%">
-    <i class="h" style="width:52.8%"></i>
-    <i class="d" style="width:26.2%"></i>
-    <i class="a" style="width:21.0%"></i>
+  <div class="tribar" title="Home 52.6% / Draw 26.3% / Away 21.1%">
+    <i class="h" style="width:52.6%"></i>
+    <i class="d" style="width:26.3%"></i>
+    <i class="a" style="width:21.1%"></i>
   </div>
   <div class="trilabel"><span>53%</span><span>26%</span><span>21%</span></div>
 </div></div>
     <div class="small muted">xG 1.7–1.0</div>
-    <div class="small">Nostr EV <b>1.00</b> <span class="muted">(×2 KO → 2.00)</span></div>
+    <div class="small">Nostr EV <b>1.00</b> <span class="muted">(×2 KO → 1.99)</span></div>
     <div class="small">GoPicks EV <b>2.24</b> <span class="muted">(exact-goal 0.66)</span></div>
     <div class="small muted">runner-up 3–0</div>
     <div><span class="conf Med">Med</span></div>
@@ -446,20 +426,20 @@ you can edit until then.</p>
   </div>
   <div style="display:flex; flex-wrap:wrap; gap:8px 22px; align-items:center; margin-top:10px">
     <div style="min-width:170px; flex:1"><div>
-  <div class="tribar" title="Home 28.8% / Draw 32.6% / Away 38.6%">
-    <i class="h" style="width:28.8%"></i>
-    <i class="d" style="width:32.6%"></i>
-    <i class="a" style="width:38.6%"></i>
+  <div class="tribar" title="Home 29.7% / Draw 31.1% / Away 39.2%">
+    <i class="h" style="width:29.7%"></i>
+    <i class="d" style="width:31.1%"></i>
+    <i class="a" style="width:39.2%"></i>
   </div>
-  <div class="trilabel"><span>29%</span><span>33%</span><span>39%</span></div>
+  <div class="trilabel"><span>30%</span><span>31%</span><span>39%</span></div>
 </div></div>
-    <div class="small muted">xG 1.0–1.2</div>
-    <div class="small">Nostr EV <b>0.79</b> <span class="muted">(×2 KO → 1.58)</span></div>
-    <div class="small">GoPicks EV <b>1.90</b> <span class="muted">(exact-goal 0.74)</span></div>
+    <div class="small muted">xG 1.1–1.3</div>
+    <div class="small">Nostr EV <b>0.78</b> <span class="muted">(×2 KO → 1.56)</span></div>
+    <div class="small">GoPicks EV <b>1.88</b> <span class="muted">(exact-goal 0.70)</span></div>
     <div class="small muted">runner-up 0–1</div>
     <div><span class="conf Low">Low</span></div>
   </div>
-  <div class="small muted" style="margin-top:6px">Model: Mexico 29% / draw 33% / England 39%, xG 1.0–1.2. Modal score is 1–1, but 0–2 maximizes expected points by hedging toward the England outcome&#39;s partial credit. Knockout: 90-min result only — a draw is a valid pick and points are doubled.</div>
+  <div class="small muted" style="margin-top:6px">Model: Mexico 30% / draw 31% / England 39%, xG 1.1–1.3. Modal score is 1–1, but 0–2 maximizes expected points by hedging toward the England outcome&#39;s partial credit. Knockout: 90-min result only — a draw is a valid pick and points are doubled.</div>
   
   <div class="small muted" style="margin-top:4px"><b>GoPicks differs:</b> GoPicks pays 3 for the result + 1 per exact goal count (no cross-outcome partial credit): 0–1 backs the England with the most likely goal counts inside it. (Modal scoreline is 1–1.) Knockout: 90-min result only — a draw is a valid pick; values are NOT doubled here.</div>
   
@@ -489,16 +469,16 @@ you can edit until then.</p>
   </div>
   <div style="display:flex; flex-wrap:wrap; gap:8px 22px; align-items:center; margin-top:10px">
     <div style="min-width:170px; flex:1"><div>
-  <div class="tribar" title="Home 22.1% / Draw 28.0% / Away 49.8%">
-    <i class="h" style="width:22.1%"></i>
+  <div class="tribar" title="Home 22.4% / Draw 28.0% / Away 49.5%">
+    <i class="h" style="width:22.4%"></i>
     <i class="d" style="width:28.0%"></i>
-    <i class="a" style="width:49.8%"></i>
+    <i class="a" style="width:49.5%"></i>
   </div>
   <div class="trilabel"><span>22%</span><span>28%</span><span>50%</span></div>
 </div></div>
     <div class="small muted">xG 1.0–1.6</div>
-    <div class="small">Nostr EV <b>0.97</b> <span class="muted">(×2 KO → 1.94)</span></div>
-    <div class="small">GoPicks EV <b>2.19</b> <span class="muted">(exact-goal 0.70)</span></div>
+    <div class="small">Nostr EV <b>0.96</b> <span class="muted">(×2 KO → 1.93)</span></div>
+    <div class="small">GoPicks EV <b>2.18</b> <span class="muted">(exact-goal 0.69)</span></div>
     <div class="small muted">runner-up 0–3</div>
     <div><span class="conf Med">Med</span></div>
   </div>
@@ -518,31 +498,112 @@ you can edit until then.</p>
     <div class="team">USA</div>
     <div class="sc">
       
-      <span class="scoreline">2–0</span><span class="small muted"> Nostr</span>
+      <span class="scoreline">0–2</span><span class="small muted"> Nostr</span>
       <span class="muted">·</span>
-      <span class="scoreline">1–0</span><span class="small muted"> GoPicks</span>
+      <span class="scoreline">0–1</span><span class="small muted"> GoPicks</span>
       
     </div>
     <div class="team away">Belgium</div>
   </div>
   <div style="display:flex; flex-wrap:wrap; gap:8px 22px; align-items:center; margin-top:10px">
     <div style="min-width:170px; flex:1"><div>
-  <div class="tribar" title="Home 36.1% / Draw 28.4% / Away 35.5%">
-    <i class="h" style="width:36.1%"></i>
+  <div class="tribar" title="Home 34.9% / Draw 28.4% / Away 36.7%">
+    <i class="h" style="width:34.9%"></i>
     <i class="d" style="width:28.4%"></i>
-    <i class="a" style="width:35.5%"></i>
+    <i class="a" style="width:36.7%"></i>
   </div>
-  <div class="trilabel"><span>36%</span><span>28%</span><span>36%</span></div>
+  <div class="trilabel"><span>35%</span><span>28%</span><span>37%</span></div>
 </div></div>
     <div class="small muted">xG 1.4–1.4</div>
-    <div class="small">Nostr EV <b>0.68</b> <span class="muted">(×2 KO → 1.36)</span></div>
-    <div class="small">GoPicks EV <b>1.68</b> <span class="muted">(exact-goal 0.60)</span></div>
-    <div class="small muted">runner-up 0–2</div>
+    <div class="small">Nostr EV <b>0.69</b> <span class="muted">(×2 KO → 1.39)</span></div>
+    <div class="small">GoPicks EV <b>1.70</b> <span class="muted">(exact-goal 0.60)</span></div>
+    <div class="small muted">runner-up 2–0</div>
     <div><span class="conf Low">Low</span></div>
   </div>
-  <div class="small muted" style="margin-top:6px">Model: USA 36% / draw 28% / Belgium 36%, xG 1.4–1.4. Modal score is 1–1, but 2–0 maximizes expected points by hedging toward the USA outcome&#39;s partial credit. Knockout: 90-min result only — a draw is a valid pick and points are doubled.</div>
+  <div class="small muted" style="margin-top:6px">Model: USA 35% / draw 28% / Belgium 37%, xG 1.4–1.4. Modal score is 1–1, but 0–2 maximizes expected points by hedging toward the Belgium outcome&#39;s partial credit. Knockout: 90-min result only — a draw is a valid pick and points are doubled.</div>
   
-  <div class="small muted" style="margin-top:4px"><b>GoPicks differs:</b> GoPicks pays 3 for the result + 1 per exact goal count (no cross-outcome partial credit): 1–0 backs the USA with the most likely goal counts inside it. (Modal scoreline is 1–1.) Knockout: 90-min result only — a draw is a valid pick; values are NOT doubled here.</div>
+  <div class="small muted" style="margin-top:4px"><b>GoPicks differs:</b> GoPicks pays 3 for the result + 1 per exact goal count (no cross-outcome partial credit): 0–1 backs the Belgium with the most likely goal counts inside it. (Modal scoreline is 1–1.) Knockout: 90-min result only — a draw is a valid pick; values are NOT doubled here.</div>
+  
+</div>
+
+</div>
+
+<h2>2026-07-07</h2>
+<div class="card">
+
+
+<div class="mrow">
+  <div class="mhead">
+    <span>Match 95 · R16 · Atlanta</span>
+    <span>⏱ 12:00 (New York) · <b>Tue 07 Jul 18:00 CEST</b></span>
+  </div>
+  <div class="match">
+    <div class="team">Argentina</div>
+    <div class="sc">
+      
+      <span class="scoreline">2–0</span><span class="small muted"> Nostr</span>
+      <span class="muted">·</span>
+      <span class="scoreline">1–0</span><span class="small muted"> GoPicks</span>
+      
+    </div>
+    <div class="team away">Egypt</div>
+  </div>
+  <div style="display:flex; flex-wrap:wrap; gap:8px 22px; align-items:center; margin-top:10px">
+    <div style="min-width:170px; flex:1"><div>
+  <div class="tribar" title="Home 70.2% / Draw 21.4% / Away 8.5%">
+    <i class="h" style="width:70.2%"></i>
+    <i class="d" style="width:21.4%"></i>
+    <i class="a" style="width:8.5%"></i>
+  </div>
+  <div class="trilabel"><span>70%</span><span>21%</span><span>8%</span></div>
+</div></div>
+    <div class="small muted">xG 2.0–0.6</div>
+    <div class="small">Nostr EV <b>1.42</b> <span class="muted">(×2 KO → 2.84)</span></div>
+    <div class="small">GoPicks EV <b>2.94</b> <span class="muted">(exact-goal 0.84)</span></div>
+    <div class="small muted">runner-up 3–0</div>
+    <div><span class="conf High">High</span></div>
+  </div>
+  <div class="small muted" style="margin-top:6px">Model: Argentina 70% / draw 21% / Egypt 8%, xG 2.0–0.6. 2–0 is both the modal and EV-optimal scoreline. Knockout: 90-min result only — a draw is a valid pick and points are doubled.</div>
+  
+  <div class="small muted" style="margin-top:4px"><b>GoPicks differs:</b> GoPicks pays 3 for the result + 1 per exact goal count (no cross-outcome partial credit): 1–0 backs the Argentina with the most likely goal counts inside it. (Modal scoreline is 2–0.) Knockout: 90-min result only — a draw is a valid pick; values are NOT doubled here.</div>
+  
+</div>
+
+
+<div class="mrow">
+  <div class="mhead">
+    <span>Match 96 · R16 · Vancouver</span>
+    <span>⏱ 13:00 (Vancouver) · <b>Tue 07 Jul 22:00 CEST</b></span>
+  </div>
+  <div class="match">
+    <div class="team">Switzerland</div>
+    <div class="sc">
+      
+      <span class="scoreline">0–2</span><span class="small muted"> Nostr</span>
+      <span class="muted">·</span>
+      <span class="scoreline">0–1</span><span class="small muted"> GoPicks</span>
+      
+    </div>
+    <div class="team away">Colombia</div>
+  </div>
+  <div style="display:flex; flex-wrap:wrap; gap:8px 22px; align-items:center; margin-top:10px">
+    <div style="min-width:170px; flex:1"><div>
+  <div class="tribar" title="Home 26.7% / Draw 31.1% / Away 42.1%">
+    <i class="h" style="width:26.7%"></i>
+    <i class="d" style="width:31.1%"></i>
+    <i class="a" style="width:42.1%"></i>
+  </div>
+  <div class="trilabel"><span>27%</span><span>31%</span><span>42%</span></div>
+</div></div>
+    <div class="small muted">xG 1.0–1.3</div>
+    <div class="small">Nostr EV <b>0.85</b> <span class="muted">(×2 KO → 1.69)</span></div>
+    <div class="small">GoPicks EV <b>1.99</b> <span class="muted">(exact-goal 0.73)</span></div>
+    <div class="small muted">runner-up 0–1</div>
+    <div><span class="conf Med">Med</span></div>
+  </div>
+  <div class="small muted" style="margin-top:6px">Model: Switzerland 27% / draw 31% / Colombia 42%, xG 1.0–1.3. Modal score is 1–1, but 0–2 maximizes expected points by hedging toward the Colombia outcome&#39;s partial credit. Knockout: 90-min result only — a draw is a valid pick and points are doubled.</div>
+  
+  <div class="small muted" style="margin-top:4px"><b>GoPicks differs:</b> GoPicks pays 3 for the result + 1 per exact goal count (no cross-outcome partial credit): 0–1 backs the Colombia with the most likely goal counts inside it. (Modal scoreline is 1–1.) Knockout: 90-min result only — a draw is a valid pick; values are NOT doubled here.</div>
   
 </div>
 

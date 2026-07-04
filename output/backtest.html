@@ -168,8 +168,8 @@ footer.foot a { word-break: break-all; }
 <div class="wrap">
   <div class="meta-bar">
     <span class="stage-pill">Backtest &amp; calibration</span>
-    <span>Generated 2026-06-24 11:28 UTC</span>
-    <span>Run 2026-06-22</span>
+    <span>Generated 2026-07-04 09:57 UTC</span>
+    <span>Run 2026-07-03</span>
     
   </div>
 
@@ -177,9 +177,9 @@ footer.foot a { word-break: break-all; }
 
   
 <h1>Backtest &amp; calibration</h1>
-<p class="lede">How the model has actually done on the 44 played match(es), scored
-out-of-sample. 44/44 matches have a leak-free pre-match pick-of-record across
-18 persisted daily runs (2026-06-05 → 2026-06-22).</p>
+<p class="lede">How the model has actually done on the 88 played match(es), scored
+out-of-sample. 88/88 matches have a leak-free pre-match pick-of-record across
+28 persisted daily runs (2026-06-05 → 2026-07-03).</p>
 
 
 
@@ -187,15 +187,15 @@ out-of-sample. 44/44 matches have a leak-free pre-match pick-of-record across
 <div class="grid cols-3">
   <div class="card">
     <h3>Nostradamus</h3>
-    <p class="big">48 <span class="muted small">pts</span></p>
-    <p class="small muted">44 matches · 1.09/match
-    · pipeline re-score 48</p>
+    <p class="big">132 <span class="muted small">pts</span></p>
+    <p class="small muted">88 matches · 1.5/match
+    · pipeline re-score 128</p>
   </div>
   <div class="card">
     <h3>GoPicks</h3>
-    <p class="big">103 <span class="muted small">pts</span></p>
-    <p class="small muted">42 scored · 25 exact goals ·
-    2 missed · pipeline 103</p>
+    <p class="big">230 <span class="muted small">pts</span></p>
+    <p class="small muted">86 scored · 59 exact goals ·
+    2 missed · pipeline 224</p>
   </div>
   <div class="card">
     <h3>Per stage</h3>
@@ -205,7 +205,11 @@ out-of-sample. 44/44 matches have a leak-free pre-match pick-of-record across
       
         <tr><td>MD1</td><td class="num">24</td><td class="num">18</td><td class="num">42</td></tr>
       
-        <tr><td>MD2</td><td class="num">20</td><td class="num">30</td><td class="num">61</td></tr>
+        <tr><td>MD2</td><td class="num">24</td><td class="num">36</td><td class="num">76</td></tr>
+      
+        <tr><td>MD3</td><td class="num">24</td><td class="num">28</td><td class="num">67</td></tr>
+      
+        <tr><td>R32</td><td class="num">16</td><td class="num">50</td><td class="num">45</td></tr>
       
       </tbody>
     </table>
@@ -219,16 +223,16 @@ a gap means the model would now pick differently than we did pre-match.</p>
 
 <h2>Calibration of the pre-match forecasts (as shipped)</h2>
 <div class="grid cols-4">
-  <div class="card"><h3>RPS</h3><p class="big">0.1543</p><p class="small muted">1X2, lower better</p></div>
-  <div class="card"><h3>Log-loss</h3><p class="big">0.8668</p><p class="small muted">lower better</p></div>
-  <div class="card"><h3>Brier</h3><p class="big">0.5303</p><p class="small muted">lower better</p></div>
-  <div class="card"><h3>Goals MAE</h3><p class="big">0.905</p><p class="small muted">per team, lower better</p></div>
+  <div class="card"><h3>RPS</h3><p class="big">0.1427</p><p class="small muted">1X2, lower better</p></div>
+  <div class="card"><h3>Log-loss</h3><p class="big">0.8200</p><p class="small muted">lower better</p></div>
+  <div class="card"><h3>Brier</h3><p class="big">0.4885</p><p class="small muted">lower better</p></div>
+  <div class="card"><h3>Goals MAE</h3><p class="big">0.859</p><p class="small muted">per team, lower better</p></div>
 </div>
 
 <div class="card">
   <h3>Clean-sheet calibration <span class="tag rotation-risk">over-predicting</span></h3>
-  <p>Expected <b>29.6</b> clean sheets vs <b>22</b> actual over 88
-  team-innings — ratio <b>1.34×</b>. A ratio above ~1 means the model expects
+  <p>Expected <b>59.3</b> clean sheets vs <b>47</b> actual over 176
+  team-innings — ratio <b>1.26×</b>. A ratio above ~1 means the model expects
   more shut-outs than happen (the known MD1 issue — track per stage as U6/U3 land).</p>
   <table class="small">
     <thead><tr><th>Stage</th><th class="num">Team-innings</th><th class="num">Expected CS</th><th class="num">Actual CS</th><th class="num">Ratio</th></tr></thead>
@@ -237,8 +241,14 @@ a gap means the model would now pick differently than we did pre-match.</p>
       <tr><td>MD1</td><td class="num">48</td><td class="num">16.3</td><td class="num">8</td>
         <td class="num">2.04</td></tr>
     
-      <tr><td>MD2</td><td class="num">40</td><td class="num">13.3</td><td class="num">14</td>
-        <td class="num">0.95</td></tr>
+      <tr><td>MD2</td><td class="num">48</td><td class="num">16.0</td><td class="num">19</td>
+        <td class="num">0.84</td></tr>
+    
+      <tr><td>MD3</td><td class="num">48</td><td class="num">16.0</td><td class="num">13</td>
+        <td class="num">1.23</td></tr>
+    
+      <tr><td>R32</td><td class="num">32</td><td class="num">11.1</td><td class="num">7</td>
+        <td class="num">1.59</td></tr>
     
     </tbody>
   </table>
@@ -252,42 +262,42 @@ a gap means the model would now pick differently than we did pre-match.</p>
     
       <tr>
         <td>0–20%</td>
-        <td class="num">45</td>
-        <td class="num">10.9%</td>
-        <td class="num">11.1%</td>
-        <td class="num">0.2 pp</td>
+        <td class="num">86</td>
+        <td class="num">11.7%</td>
+        <td class="num">10.5%</td>
+        <td class="num">-1.2 pp</td>
       </tr>
     
       <tr>
         <td>20–40%</td>
-        <td class="num">45</td>
-        <td class="num">26.9%</td>
-        <td class="num">26.7%</td>
-        <td class="num">-0.2 pp</td>
+        <td class="num">94</td>
+        <td class="num">27.2%</td>
+        <td class="num">23.4%</td>
+        <td class="num">-3.8 pp</td>
       </tr>
     
       <tr>
         <td>40–60%</td>
-        <td class="num">18</td>
-        <td class="num">51.9%</td>
-        <td class="num">55.6%</td>
-        <td class="num">3.7 pp</td>
+        <td class="num">41</td>
+        <td class="num">50.7%</td>
+        <td class="num">58.5%</td>
+        <td class="num">7.8 pp</td>
       </tr>
     
       <tr>
         <td>60–80%</td>
-        <td class="num">16</td>
-        <td class="num">66.9%</td>
-        <td class="num">75.0%</td>
-        <td class="num">8.1 pp</td>
+        <td class="num">32</td>
+        <td class="num">69.1%</td>
+        <td class="num">81.2%</td>
+        <td class="num">12.1 pp</td>
       </tr>
     
       <tr>
         <td>80–100%</td>
-        <td class="num">8</td>
-        <td class="num">86.9%</td>
-        <td class="num">62.5%</td>
-        <td class="num">-24.4 pp</td>
+        <td class="num">11</td>
+        <td class="num">85.9%</td>
+        <td class="num">63.6%</td>
+        <td class="num">-22.3 pp</td>
       </tr>
     
     </tbody>
@@ -309,17 +319,17 @@ slow-moving base ratings (uses current inputs), so read it as relative signal is
   
     
     <tr>
-      <td>As-shipped (market where available)</td><td class="num">44</td>
-      <td class="num">0.1552</td><td class="num">0.8752</td><td class="num">0.5333</td>
-      <td class="num">0.907</td><td class="num">29.6</td><td class="num">22</td>
+      <td>As-shipped (market where available)</td><td class="num">88</td>
+      <td class="num">0.1430</td><td class="num">0.8232</td><td class="num">0.4894</td>
+      <td class="num">0.856</td><td class="num">59.2</td><td class="num">47</td>
     </tr>
     
   
     
     <tr>
-      <td>Ratings-only (strength)</td><td class="num">44</td>
-      <td class="num">0.1571</td><td class="num">0.8934</td><td class="num">0.5394</td>
-      <td class="num">0.902</td><td class="num">24.7</td><td class="num">22</td>
+      <td>Ratings-only (strength)</td><td class="num">88</td>
+      <td class="num">0.1446</td><td class="num">0.8455</td><td class="num">0.4970</td>
+      <td class="num">0.878</td><td class="num">49.1</td><td class="num">47</td>
     </tr>
     
   
@@ -687,6 +697,358 @@ strength for the next match). The gap is the headroom team-form (U2) can claw ba
       <td>0-2</td><td>0-1</td><td><b>1-2</b></td>
       <td class="num" data-sort="2">2</td>
       <td class="num" data-sort="3">3</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">45</td><td class="muted">MD2</td>
+      <td>Portugal v Uzbekistan</td><td class="muted small">2026-06-22</td>
+      <td>2-0</td><td>2-0</td><td><b>5-0</b></td>
+      <td class="num" data-sort="2">2</td>
+      <td class="num" data-sort="4">4 <span class="muted small">(1e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">46</td><td class="muted">MD2</td>
+      <td>England v Ghana</td><td class="muted small">2026-06-22</td>
+      <td>2-0</td><td>2-0</td><td><b>0-0</b></td>
+      <td class="num" data-sort="0">0</td>
+      <td class="num" data-sort="1">1 <span class="muted small">(1e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">47</td><td class="muted">MD2</td>
+      <td>Panama v Croatia</td><td class="muted small">2026-06-22</td>
+      <td>0-2</td><td>0-1</td><td><b>0-1</b></td>
+      <td class="num" data-sort="2">2</td>
+      <td class="num" data-sort="5">5 <span class="muted small">(2e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">48</td><td class="muted">MD2</td>
+      <td>Colombia v DR Congo</td><td class="muted small">2026-06-22</td>
+      <td>2-0</td><td>1-0</td><td><b>1-0</b></td>
+      <td class="num" data-sort="2">2</td>
+      <td class="num" data-sort="5">5 <span class="muted small">(2e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">49</td><td class="muted">MD3</td>
+      <td>Switzerland v Canada</td><td class="muted small">2026-06-24</td>
+      <td>2-0</td><td>1-0</td><td><b>2-1</b></td>
+      <td class="num" data-sort="2">2</td>
+      <td class="num" data-sort="3">3</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">50</td><td class="muted">MD3</td>
+      <td>Bosnia and Herzegovina v Qatar</td><td class="muted small">2026-06-24</td>
+      <td>2-0</td><td>1-0</td><td><b>3-1</b></td>
+      <td class="num" data-sort="1">1</td>
+      <td class="num" data-sort="3">3</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">51</td><td class="muted">MD3</td>
+      <td>Scotland v Brazil</td><td class="muted small">2026-06-24</td>
+      <td>0-2</td><td>0-1</td><td><b>0-3</b></td>
+      <td class="num" data-sort="2">2</td>
+      <td class="num" data-sort="4">4 <span class="muted small">(1e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">52</td><td class="muted">MD3</td>
+      <td>Morocco v Haiti</td><td class="muted small">2026-06-24</td>
+      <td>2-0</td><td>2-0</td><td><b>4-2</b></td>
+      <td class="num" data-sort="1">1</td>
+      <td class="num" data-sort="3">3</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">53</td><td class="muted">MD3</td>
+      <td>Czechia v Mexico</td><td class="muted small">2026-06-24</td>
+      <td>0-2</td><td>0-1</td><td><b>0-3</b></td>
+      <td class="num" data-sort="2">2</td>
+      <td class="num" data-sort="4">4 <span class="muted small">(1e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">54</td><td class="muted">MD3</td>
+      <td>South Africa v South Korea</td><td class="muted small">2026-06-24</td>
+      <td>0-2</td><td>0-1</td><td><b>1-0</b></td>
+      <td class="num" data-sort="0">0</td>
+      <td class="num" data-sort="0">0</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">55</td><td class="muted">MD3</td>
+      <td>Ecuador v Germany</td><td class="muted small">2026-06-25</td>
+      <td>0-2</td><td>0-1</td><td><b>2-1</b></td>
+      <td class="num" data-sort="0">0</td>
+      <td class="num" data-sort="1">1 <span class="muted small">(1e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">56</td><td class="muted">MD3</td>
+      <td>Curacao v Ivory Coast</td><td class="muted small">2026-06-25</td>
+      <td>0-3</td><td>0-2</td><td><b>0-2</b></td>
+      <td class="num" data-sort="2">2</td>
+      <td class="num" data-sort="5">5 <span class="muted small">(2e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">57</td><td class="muted">MD3</td>
+      <td>Japan v Sweden</td><td class="muted small">2026-06-25</td>
+      <td>2-0</td><td>1-0</td><td><b>1-1</b></td>
+      <td class="num" data-sort="0">0</td>
+      <td class="num" data-sort="1">1 <span class="muted small">(1e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">58</td><td class="muted">MD3</td>
+      <td>Tunisia v Netherlands</td><td class="muted small">2026-06-25</td>
+      <td>0-2</td><td>0-2</td><td><b>1-3</b></td>
+      <td class="num" data-sort="1">1</td>
+      <td class="num" data-sort="3">3</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">59</td><td class="muted">MD3</td>
+      <td>Turkey v USA</td><td class="muted small">2026-06-25</td>
+      <td>0-2</td><td>0-1</td><td><b>3-2</b></td>
+      <td class="num" data-sort="0">0</td>
+      <td class="num" data-sort="0">0</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">60</td><td class="muted">MD3</td>
+      <td>Paraguay v Australia</td><td class="muted small">2026-06-25</td>
+      <td>0-0</td><td>0-0</td><td><b>0-0</b></td>
+      <td class="num" data-sort="3">3</td>
+      <td class="num" data-sort="5">5 <span class="muted small">(2e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">61</td><td class="muted">MD3</td>
+      <td>Norway v France</td><td class="muted small">2026-06-26</td>
+      <td>0-2</td><td>0-1</td><td><b>1-4</b></td>
+      <td class="num" data-sort="1">1</td>
+      <td class="num" data-sort="3">3</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">62</td><td class="muted">MD3</td>
+      <td>Senegal v Iraq</td><td class="muted small">2026-06-26</td>
+      <td>2-0</td><td>1-0</td><td><b>5-0</b></td>
+      <td class="num" data-sort="2">2</td>
+      <td class="num" data-sort="4">4 <span class="muted small">(1e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">63</td><td class="muted">MD3</td>
+      <td>Cape Verde v Saudi Arabia</td><td class="muted small">2026-06-26</td>
+      <td>0-2</td><td>0-1</td><td><b>0-0</b></td>
+      <td class="num" data-sort="0">0</td>
+      <td class="num" data-sort="1">1 <span class="muted small">(1e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">64</td><td class="muted">MD3</td>
+      <td>Uruguay v Spain</td><td class="muted small">2026-06-26</td>
+      <td>0-2</td><td>0-1</td><td><b>0-1</b></td>
+      <td class="num" data-sort="2">2</td>
+      <td class="num" data-sort="5">5 <span class="muted small">(2e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">65</td><td class="muted">MD3</td>
+      <td>Egypt v Iran</td><td class="muted small">2026-06-26</td>
+      <td>2-0</td><td>1-0</td><td><b>1-1</b></td>
+      <td class="num" data-sort="0">0</td>
+      <td class="num" data-sort="1">1 <span class="muted small">(1e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">66</td><td class="muted">MD3</td>
+      <td>New Zealand v Belgium</td><td class="muted small">2026-06-26</td>
+      <td>0-2</td><td>0-2</td><td><b>1-5</b></td>
+      <td class="num" data-sort="1">1</td>
+      <td class="num" data-sort="3">3</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">67</td><td class="muted">MD3</td>
+      <td>Panama v England</td><td class="muted small">2026-06-27</td>
+      <td>0-2</td><td>0-2</td><td><b>0-2</b></td>
+      <td class="num" data-sort="3">3</td>
+      <td class="num" data-sort="5">5 <span class="muted small">(2e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">68</td><td class="muted">MD3</td>
+      <td>Croatia v Ghana</td><td class="muted small">2026-06-27</td>
+      <td>2-0</td><td>1-0</td><td><b>2-1</b></td>
+      <td class="num" data-sort="2">2</td>
+      <td class="num" data-sort="3">3</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">69</td><td class="muted">MD3</td>
+      <td>Colombia v Portugal</td><td class="muted small">2026-06-27</td>
+      <td>0-2</td><td>0-1</td><td><b>0-0</b></td>
+      <td class="num" data-sort="0">0</td>
+      <td class="num" data-sort="1">1 <span class="muted small">(1e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">70</td><td class="muted">MD3</td>
+      <td>DR Congo v Uzbekistan</td><td class="muted small">2026-06-27</td>
+      <td>2-0</td><td>1-0</td><td><b>3-1</b></td>
+      <td class="num" data-sort="1">1</td>
+      <td class="num" data-sort="3">3</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">71</td><td class="muted">MD3</td>
+      <td>Algeria v Austria</td><td class="muted small">2026-06-27</td>
+      <td>0-0</td><td>0-0</td><td><b>3-3</b></td>
+      <td class="num" data-sort="1">1</td>
+      <td class="num" data-sort="3">3</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">72</td><td class="muted">MD3</td>
+      <td>Jordan v Argentina</td><td class="muted small">2026-06-27</td>
+      <td>0-2</td><td>0-2</td><td><b>1-3</b></td>
+      <td class="num" data-sort="1">1</td>
+      <td class="num" data-sort="3">3</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">73</td><td class="muted">R32</td>
+      <td>South Africa v Canada</td><td class="muted small">2026-06-28</td>
+      <td>0-2</td><td>0-1</td><td><b>0-1</b></td>
+      <td class="num" data-sort="4">4</td>
+      <td class="num" data-sort="5">5 <span class="muted small">(2e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">74</td><td class="muted">R32</td>
+      <td>Germany v Paraguay</td><td class="muted small">2026-06-29</td>
+      <td>2-0</td><td>2-0</td><td><b>1-1</b></td>
+      <td class="num" data-sort="0">0</td>
+      <td class="num" data-sort="0">0</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">75</td><td class="muted">R32</td>
+      <td>Netherlands v Morocco</td><td class="muted small">2026-06-29</td>
+      <td>2-0</td><td>1-0</td><td><b>1-1</b></td>
+      <td class="num" data-sort="0">0</td>
+      <td class="num" data-sort="1">1 <span class="muted small">(1e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">76</td><td class="muted">R32</td>
+      <td>Brazil v Japan</td><td class="muted small">2026-06-29</td>
+      <td>2-0</td><td>1-0</td><td><b>2-1</b></td>
+      <td class="num" data-sort="4">4</td>
+      <td class="num" data-sort="3">3</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">77</td><td class="muted">R32</td>
+      <td>France v Sweden</td><td class="muted small">2026-06-30</td>
+      <td>2-0</td><td>2-0</td><td><b>3-0</b></td>
+      <td class="num" data-sort="4">4</td>
+      <td class="num" data-sort="4">4 <span class="muted small">(1e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">78</td><td class="muted">R32</td>
+      <td>Ivory Coast v Norway</td><td class="muted small">2026-06-30</td>
+      <td>0-2</td><td>0-1</td><td><b>1-2</b></td>
+      <td class="num" data-sort="4">4</td>
+      <td class="num" data-sort="3">3</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">79</td><td class="muted">R32</td>
+      <td>Mexico v Ecuador</td><td class="muted small">2026-06-30</td>
+      <td>2-0</td><td>1-0</td><td><b>2-0</b></td>
+      <td class="num" data-sort="6">6</td>
+      <td class="num" data-sort="4">4 <span class="muted small">(1e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">80</td><td class="muted">R32</td>
+      <td>England v DR Congo</td><td class="muted small">2026-07-01</td>
+      <td>2-0</td><td>1-0</td><td><b>2-1</b></td>
+      <td class="num" data-sort="4">4</td>
+      <td class="num" data-sort="3">3</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">81</td><td class="muted">R32</td>
+      <td>USA v Bosnia and Herzegovina</td><td class="muted small">2026-07-01</td>
+      <td>2-0</td><td>2-0</td><td><b>2-0</b></td>
+      <td class="num" data-sort="6">6</td>
+      <td class="num" data-sort="5">5 <span class="muted small">(2e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">82</td><td class="muted">R32</td>
+      <td>Belgium v Senegal</td><td class="muted small">2026-07-01</td>
+      <td>2-0</td><td>1-0</td><td><b>2-2</b></td>
+      <td class="num" data-sort="0">0</td>
+      <td class="num" data-sort="0">0</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">83</td><td class="muted">R32</td>
+      <td>Portugal v Croatia</td><td class="muted small">2026-07-02</td>
+      <td>2-0</td><td>1-0</td><td><b>2-1</b></td>
+      <td class="num" data-sort="4">4</td>
+      <td class="num" data-sort="3">3</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">84</td><td class="muted">R32</td>
+      <td>Spain v Austria</td><td class="muted small">2026-07-02</td>
+      <td>2-0</td><td>2-0</td><td><b>3-0</b></td>
+      <td class="num" data-sort="4">4</td>
+      <td class="num" data-sort="4">4 <span class="muted small">(1e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">85</td><td class="muted">R32</td>
+      <td>Switzerland v Algeria</td><td class="muted small">2026-07-02</td>
+      <td>2-0</td><td>1-0</td><td><b>2-0</b></td>
+      <td class="num" data-sort="6">6</td>
+      <td class="num" data-sort="4">4 <span class="muted small">(1e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">86</td><td class="muted">R32</td>
+      <td>Argentina v Cape Verde</td><td class="muted small">2026-07-03</td>
+      <td>2-0</td><td>2-0</td><td><b>1-1</b></td>
+      <td class="num" data-sort="0">0</td>
+      <td class="num" data-sort="0">0</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">87</td><td class="muted">R32</td>
+      <td>Colombia v Ghana</td><td class="muted small">2026-07-03</td>
+      <td>2-0</td><td>1-0</td><td><b>1-0</b></td>
+      <td class="num" data-sort="4">4</td>
+      <td class="num" data-sort="5">5 <span class="muted small">(2e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">88</td><td class="muted">R32</td>
+      <td>Australia v Egypt</td><td class="muted small">2026-07-03</td>
+      <td>0-2</td><td>0-1</td><td><b>1-1</b></td>
+      <td class="num" data-sort="0">0</td>
+      <td class="num" data-sort="1">1 <span class="muted small">(1e)</span></td>
     </tr>
   
   </tbody>
