@@ -107,7 +107,10 @@
     "joined": "2026-06-12",
     "predictions_entered": {
       "1": "missed",
-      "2": "missed"
+      "2": "missed",
+      "92": "1-1",
+      "94": "1-0",
+      "96": "1-1"
     },
     "points_official": 230,
     "rank": 9,
@@ -116,7 +119,12 @@
       244,
       242
     ],
-    "note": "Sentora partners league on gopicks.app, joined 2026-06-12 (matches 1-2 missed, 0 pts). predictions_entered: '<num>':'H-A' = stated deviation, 'missed' = not entered, absent = followed the pick. USER-PROVIDED STANDING 2026-07-04 (end of R32): points_official 230, rank 9/100; top-3 = 259 / 244 / 242 (ranks 4-8 not given -> U9 podium sim interpolates 240/238/236/234/232). Model EV-optimal walk-forward total = 230 = his official EXACTLY -> he has followed every pick; deficit to podium = 12 with 16 matches (~80 pts max) left. Prior standing 2026-07-02: 213, rank 10 (top: 237,226,223,222,219,219,217,215,214). This is the ONLY league where rank-aware strategy is sanctioned (real prizes, top-3 pay) - the U9 podium simulator (src/gopicks/podium.py, card on predictions.html) decides EV-vs-variance each run; Nostradamus + Fantasy remain pure best-EV."
+    "note": "Sentora partners league on gopicks.app, joined 2026-06-12 (matches 1-2 missed, 0 pts). predictions_entered: '<num>':'H-A' = stated deviation, 'missed' = not entered, absent = followed the pick. USER-PROVIDED STANDING 2026-07-04 (end of R32): points_official 230, rank 9/100; top-3 = 259 / 244 / 242 (ranks 4-8 not given -> U9 podium sim interpolates 240/238/236/234/232). Model EV-optimal walk-forward total = 230 = his official EXACTLY -> he has followed every pick; deficit to podium = 12 with 16 matches (~80 pts max) left. Prior standing 2026-07-02: 213, rank 10 (top: 237,226,223,222,219,219,217,215,214). This is the ONLY league where rank-aware strategy is sanctioned (real prizes, top-3 pay) - the U9 podium simulator (src/gopicks/podium.py, card on predictions.html) decides EV-vs-variance each run; Nostradamus + Fantasy remain pure best-EV.",
+    "auto_flips": {
+      "92": "1-1",
+      "94": "1-0",
+      "96": "1-1"
+    }
   },
   "assume_followed": true
 }
