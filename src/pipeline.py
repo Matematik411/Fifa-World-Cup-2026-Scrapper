@@ -185,6 +185,66 @@ def _score_gopicks(results: dict, pred_records: list, state: dict, scoring: dict
     return {"total": total, "exact": exact_total, "rows": rows, "n": len(rows), "missed": missed}
 
 
+def _apply_podium_flips(state: dict, pred_records: list, podium: dict | None,
+                        results: dict, log=print) -> None:
+    """U9: when the podium verdict says decorrelate, the strategy's flipped
+    scorelines BECOME the official GoPicks picks (the user follows the page).
+
+    Consistency across runs: each applied flip is auto-recorded in
+    state.gopicks.predictions_entered (that's literally what he enters on the
+    site under assume_followed), with bookkeeping in gopicks.auto_flips so a
+    later verdict change can retire a stale auto-entry while the match is
+    still unplayed — but never stomp a USER-stated deviation, and never touch
+    a played match (its entered pick is frozen history that scoring uses)."""
+    gp_state = state.setdefault("gopicks", {})
+    entered = gp_state.setdefault("predictions_entered", {})
+    auto = gp_state.setdefault("auto_flips", {})
+
+    flips = {}
+    if podium and podium.get("verdict", {}).get("switch"):
+        strat = podium["verdict"]["to"]
+        flips = {str(p["num"]): p for p in podium["strategies"][strat]["picks"]
+                 if p["flipped"] and int(p["num"]) not in results}
+
+    # retire bookkeeping for played matches; withdraw stale unplayed auto-entries
+    for num, pick in list(auto.items()):
+        if int(num) in results:
+            auto.pop(num)                       # frozen — entered stays as history
+            continue
+        if num not in flips and entered.get(num) == pick:
+            entered.pop(num)
+            auto.pop(num)
+            log(f"  [podium] verdict no longer flips match {num} — auto-entry withdrawn.")
+
+    if not flips:
+        return
+    strat = podium["verdict"]["to"]
+    by_num = {r["num"]: r for r in pred_records}
+    n = 0
+    for num, p in flips.items():
+        r = by_num.get(int(num))
+        if r is None or "gp_home" not in r:
+            continue
+        if entered.get(num) not in (None, auto.get(num)):
+            log(f"  [podium] match {num}: user-stated entry {entered[num]} kept over the {strat} flip.")
+            continue
+        ph, pa = (int(x) for x in p["pick"].split("-"))
+        r["gp_ev_pick"] = p["ev_pick"]
+        r["gp_home"], r["gp_away"] = ph, pa
+        r["gp_ev"] = p.get("pick_ev", r.get("gp_ev"))
+        r["gp_exact_ev"] = p.get("pick_exact_ev", r.get("gp_exact_ev"))
+        r["gp_tilted"] = strat
+        r["gp_rationale"] = (f"PODIUM TILT ({strat}): favorite < 45% here, so the rank-aware pick "
+                             f"{p['pick']} replaces the EV pick {p['ev_pick']} (−{p['ev_cost']:.1f} EV) "
+                             f"to decorrelate from the leaders — see the podium card above.")
+        entered[num] = f"{ph}-{pa}"
+        auto[num] = f"{ph}-{pa}"
+        n += 1
+    if n:
+        log(f"  [podium] applied {n} {strat} flip(s) to the GoPicks picks-of-record "
+            f"(auto-recorded as entered predictions).")
+
+
 def run_pipeline(run_date: str | None = None, fetch: bool = True, sim: bool = True,
                  render: bool = True, log=print) -> dict:
     ensure_dirs()
@@ -288,6 +348,8 @@ def run_pipeline(run_date: str | None = None, fetch: bool = True, sim: bool = Tr
         gopicks_podium = gpod.podium_analysis(forecast, bundle.fixtures, results,
                                               gp_scoring, state.get("gopicks") or {},
                                               cfg=cfg, log=log)
+        # the verdict's flips become the official GoPicks picks (records + state)
+        _apply_podium_flips(state, pred_records, gopicks_podium, results, log)
 
     # ---- Fantasy ----
     fantasy_out = None

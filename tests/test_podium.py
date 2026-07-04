@@ -124,3 +124,48 @@ def test_podium_analysis_skips_without_standing():
                           {"points_official": 230}, log=msgs.append)
     assert out is None
     assert any("skipped" in m for m in msgs)
+
+
+def _podium_result(flips):
+    """Minimal podium dict: flips = {num: (pick, ev_pick)}."""
+    picks = [{"num": n, "home": f"H{n}", "away": f"A{n}", "pick": p, "ev_pick": e,
+              "flipped": True, "ev_cost": 0.2, "pick_ev": 1.5, "pick_exact_ev": 0.6,
+              "fav_prob": 0.4} for n, (p, e) in flips.items()]
+    return {"verdict": {"switch": True, "to": "tilt2-45"},
+            "strategies": {"tilt2-45": {"picks": picks}}}
+
+
+def test_apply_podium_flips_records_and_state():
+    from src.pipeline import _apply_podium_flips
+    state = {"gopicks": {}}
+    recs = [{"num": 92, "gp_home": 0, "gp_away": 1, "gp_ev": 1.9, "gp_exact_ev": 0.8},
+            {"num": 93, "gp_home": 0, "gp_away": 1, "gp_ev": 2.2, "gp_exact_ev": 0.8}]
+    pod = _podium_result({92: ("1-1", "0-1")})
+    _apply_podium_flips(state, recs, pod, results={}, log=lambda *_: None)
+    assert (recs[0]["gp_home"], recs[0]["gp_away"]) == (1, 1)
+    assert recs[0]["gp_tilted"] == "tilt2-45"
+    assert recs[0]["gp_ev"] == 1.5 and recs[0]["gp_exact_ev"] == 0.6
+    assert recs[1]["gp_home"] == 0                       # non-flipped untouched
+    assert state["gopicks"]["predictions_entered"]["92"] == "1-1"
+    assert state["gopicks"]["auto_flips"]["92"] == "1-1"
+
+
+def test_apply_podium_flips_respects_user_and_retires_stale():
+    from src.pipeline import _apply_podium_flips
+    # user-stated deviation is never stomped
+    state = {"gopicks": {"predictions_entered": {"92": "2-2"}}}
+    recs = [{"num": 92, "gp_home": 0, "gp_away": 1, "gp_ev": 1.9, "gp_exact_ev": 0.8}]
+    _apply_podium_flips(state, recs, _podium_result({92: ("1-1", "0-1")}), {}, log=lambda *_: None)
+    assert state["gopicks"]["predictions_entered"]["92"] == "2-2"
+    assert recs[0]["gp_home"] == 0
+
+    # a stale unplayed auto-entry is withdrawn when the verdict stops flipping it
+    state = {"gopicks": {"predictions_entered": {"96": "1-1"}, "auto_flips": {"96": "1-1"}}}
+    _apply_podium_flips(state, [], {"verdict": {"switch": False}}, {}, log=lambda *_: None)
+    assert "96" not in state["gopicks"]["predictions_entered"]
+
+    # ...but a PLAYED match's auto-entry is frozen as history
+    state = {"gopicks": {"predictions_entered": {"96": "1-1"}, "auto_flips": {"96": "1-1"}}}
+    _apply_podium_flips(state, [], {"verdict": {"switch": False}}, {96: (1, 1)}, log=lambda *_: None)
+    assert state["gopicks"]["predictions_entered"]["96"] == "1-1"
+    assert "96" not in state["gopicks"]["auto_flips"]

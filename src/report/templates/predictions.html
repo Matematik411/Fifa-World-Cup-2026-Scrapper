@@ -44,13 +44,14 @@ you can edit until then.</p>
     </tbody>
   </table>
   <div class="note small" style="margin-top:8px">
-    <b>Verdict: {% if pod.verdict.switch %}switch to {{ pod.verdict.to }}{% else %}stay best-EV{% endif %}.</b>
+    <b>Verdict: {% if pod.verdict.switch %}playing {{ pod.verdict.to }}{% else %}stay best-EV{% endif %}.</b>
     {{ pod.verdict.reason }}.
     {% if pod.verdict.switch %}
     {% set win = pod.strategies[pod.verdict.to] %}
-    <br>This round that means:
-    {% for p in win.picks %}{% if p.flipped %}<b>{{ p.home }}–{{ p.away }}: {{ p.pick }}</b> (EV pick {{ p.ev_pick }}, −{{ p.ev_cost|r(1) }} EV){% if not loop.last %} · {% endif %}{% endif %}{% endfor %}
-    — all other matches keep the EV pick.
+    <br><b>The match list below already carries these picks</b> — flipped this round:
+    {% for p in win.picks %}{% if p.flipped %}<b>{{ p.home }}–{{ p.away }}: {{ p.pick }}</b> (EV pick was {{ p.ev_pick }}, −{{ p.ev_cost|r(1) }} EV){% if not loop.last %} · {% endif %}{% endif %}{% endfor %}
+    — every other match keeps its EV pick. Flipped rows wear a <span class="conf Med">podium tilt</span> badge.
+    Enter what the rows say; the tracker records the same.
     {% endif %}
   </div>
 </div>
@@ -73,7 +74,7 @@ you can edit until then.</p>
       {% if gp_differs %}
       <span class="scoreline">{{ r.pred_home }}–{{ r.pred_away }}</span><span class="small muted"> Nostr</span>
       <span class="muted">·</span>
-      <span class="scoreline">{{ r.gp_home }}–{{ r.gp_away }}</span><span class="small muted"> GoPicks</span>
+      <span class="scoreline">{{ r.gp_home }}–{{ r.gp_away }}</span><span class="small muted"> GoPicks{% if r.gp_tilted is defined %} <span class="conf Med">podium tilt</span>{% endif %}</span>
       {% else %}
       <span class="scoreline">{{ r.pred_home }}–{{ r.pred_away }}</span><span class="small muted"> both leagues</span>
       {% endif %}

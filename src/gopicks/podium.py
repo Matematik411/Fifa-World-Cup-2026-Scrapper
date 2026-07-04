@@ -90,6 +90,7 @@ def candidate_picks(P: np.ndarray, scoring: dict, max_candidate: int = 6) -> dic
     out["second_outcome"] = best_in(sign == order[1])
     out["p_out"] = p_out
     out["grid"] = grid
+    out["exact"] = exact
     return out
 
 
@@ -259,6 +260,8 @@ def simulate_podium(match_models: list[dict], standing: dict, scoring: dict,
                     "num": mm["num"], "home": mm["home"], "away": mm["away"],
                     "pick": f"{pick[0]}-{pick[1]}", "ev_pick": f"{ev_pick[0]}-{ev_pick[1]}",
                     "flipped": pick != ev_pick, "ev_cost": round(cost, 3),
+                    "pick_ev": round(float(g[pick]), 3),
+                    "pick_exact_ev": round(float(mm["cands"]["exact"][pick]), 3),
                     "fav_prob": round(_fav_prob(mm["cands"]["p_out"]), 3),
                 })
                 srec["ev_cost_round"] += cost
