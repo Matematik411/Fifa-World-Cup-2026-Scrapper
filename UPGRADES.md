@@ -56,8 +56,11 @@ decisive and coherent.
 
 - **Gate everything on the backtest.** No model-affecting change ships without an out-of-sample number
   (item U1). Add signals **one at a time** so each one's effect is measurable. No big-bang.
-- **Pure best-EV only.** No rank-aware / differential / catch-up strategy (user declined, 2026-06-12).
-  Variance work is allowed *only* where EV is inherently distributional (captain ceiling, exact-score mode).
+- **Pure best-EV only — with ONE sanctioned exception.** No rank-aware / differential / catch-up strategy
+  (user declined, 2026-06-12) in Nostradamus or Fantasy. **GoPicks is the exception** (user decision
+  2026-07-02, activated 2026-07-04): real prizes, top-3 only → the U9 podium simulator may recommend
+  EV-sacrificing decorrelation there, gated on simulated P(top-3), never vibes. Elsewhere variance work
+  is allowed *only* where EV is inherently distributional (captain ceiling, exact-score mode).
 - **Verified rules override config.** `data/manual/{fantasy_rules,nostradamus,gopicks}.json` are the source
   of truth for game rules; `config.yaml` is overridden by them. Read rules from there; never hardcode.
 - **Keep the daily run working.** `./run.sh run` must stay green and idempotent; `uv run pytest` must pass.
@@ -74,7 +77,7 @@ decisive and coherent.
 |---|---|---|
 | **After MD2** (now; this is also "before MD3") | **U1** (backtest, FIRST) → **U6+U3** (per-match minutes incl. light dead-rubber detector) → **U5** (player form, manual WC xG) → **U8** (freshness tags) → **U2** (team form — mechanism + small weight) | R1, R2 |
 | **Before R32** (group stage finished, ties known) | **U4** (booster engine + R32-burner + lookahead), **U7** (correlation) | R1, R2, R3 |
-| **Before R16** | — (catch up any deferred item) | R1, R2, R3 |
+| **Before R16** | **U9** (GoPicks podium sim — user re-opened the prize-league question) + **U10** (KO extra-time fantasy adjustment) — both scoped & shipped 2026-07-04 | R1, R2, R3 |
 | **Before QF / SF / Final** | — | R1, R2, R3 |
 
 Rationale for the ordering (decided 2026-06-24 — so future sessions don't re-litigate it):
@@ -117,6 +120,8 @@ Rationale for the ordering (decided 2026-06-24 — so future sessions don't re-l
 | U6 | Minutes as a distribution | After MD2 | DONE | — |
 | U7 | Player-level correlation (CS stacking, captain ceiling) | Before R32 | DONE | — |
 | U8 | Data freshness / confidence tags | Anytime | DONE | — |
+| U9 | GoPicks podium simulator (rank-aware endgame) | Before R16 | DONE | — |
+| U10 | KO extra-time adjustment for fantasy projections | Before R16 | DONE | — |
 
 Statuses: `TODO` · `IN-PROGRESS` (leave a resume note in §7) · `DONE` · `DEFERRED` (say why in §7).
 
@@ -296,12 +301,70 @@ contend with QB for the R32 slot — re-evaluate then.
 - **Where:** `src/report/`, the loaders in `src/sources/`.
 - **Done-when:** each report shows input freshness; stale/low-confidence inputs are visibly flagged.
 
+### U9 — GoPicks podium simulator  *(before R16; the sanctioned rank-aware exception)*
+- **Goal:** answer "when do I stop playing best-EV in the prize league?" with numbers.
+- **Why:** GoPicks pays top-3 only; trailing + correlated picks = frozen gap. Decorrelation costs EV but
+  buys gap variance; whether that trade is +P(top-3) depends on deficit, matches left and rival behavior.
+- **Where:** `src/gopicks/podium.py`; pipeline hook after the GoPicks optimize step; card on
+  `predictions.html`. Reads `state.gopicks.{points_official, rank, leaderboard_ahead}`.
+- **How:** MC over remaining matches (real matrices for known ties; tightest-known proxies for later
+  rounds). Rivals = q·EV-picker + (1−q)·(public favorite-modal + scatter), q sensitivity-gridded.
+  Strategies are per-match rules: best-ev / goal-tilt / tilt2-45/55/65 (flip to 2nd-likely outcome when
+  favorite < threshold) / tilt2-all (ceiling). Paired sampling (same worlds per strategy). Verdict rule:
+  switch only if P(top-3) gains ≥1.3× AND ≥+1.5pp vs best-ev.
+- **Approximations (stated):** unknown ranks 4–8 interpolated; ~5 chasers just behind; far field ignored;
+  final-total ties split (real tiebreaker = exact-goal count, unknowable for rivals).
+
+### U10 — KO extra-time adjustment for fantasy projections  *(before R16)*
+- **Goal:** stop projecting KO fantasy off a 90'-only window. FIFA Fantasy scores ET (verbatim "not
+  including shootouts"); Nostradamus/GoPicks resolve at 90' and stay untouched.
+- **Where:** `src/fantasy/projections.py` `_et_adjust` inside `_team_match_env`; knob
+  `model.ko_et_goal_factor` (default 0.28 ≈ 30' × ~0.85 pace).
+- **How:** attack λ ×(1 + P(draw@90)·f); clean sheet −= P(0-0@90)·P(opp scores in ET); opponent-goals
+  marginal mixed one-goal-up with the same conditional weight (drives GK/DEF concession malus + GK saves).
+  Effect scales with tie tightness — exactly the matches where the 90' CS was optimistic (memory:
+  wc2026-fantasy-extra-time). Scoreline metrics untouched by construction; validated by unit tests
+  (`tests/test_et.py`) + face validity, like U5/U6.
+
 ---
 
 ## 7. Run log (append-only — newest at top)
 
 > Template: `### <date> — <stage> — <agent>` then bullets: items touched, status changes, **backtest delta**,
 > follow-ups / resume-notes.
+
+### 2026-07-04 — before R16 (R32 complete) — U9 + U10 DONE, R1/R2/R3 run
+- **U9 (GoPicks podium simulator) DONE** — new `src/gopicks/podium.py` (see §6), pipeline hook, card on
+  `predictions.html`, `state.gopicks.{points_official,rank,leaderboard_ahead}` inputs, 8 tests. Golden rule
+  §2 amended: GoPicks is the ONE sanctioned rank-aware league (user re-opened 2026-07-04: 230 pts, 9th,
+  podium at 259/244/242, 16 matches left). **Real-run verdict: best-EV P(top-3) ≈ 0.0%** (frozen-gap: rivals'
+  correlated picks + 12-pt deficit past ~6 people) **→ SWITCH to tilt2-45** (flip to the 2nd-likely outcome
+  where the favorite < 45%): **P(top-3) 6.5%** (7.0/6.4/6.3% across rival-overlap 0.4/0.55/0.7 — robust) for
+  **−0.6 EV pts** this round (E[final] 264.2 → 262.4). R16 flips: M92 Mex–Eng 1-1, M94 USA–Bel 1-0,
+  M96 Sui–Col 1-1; all other picks stay EV. tilt2-55/65 (−2.9 EV → 5.7%) and tilt2-all (−6.7 → 3.2%) are
+  dominated — mild, cheap decorrelation is the sweet spot. Re-run each round as standings update.
+- **U10 (KO extra-time fantasy adjustment) DONE** — `_et_adjust` in `projections._team_match_env`
+  (`model.ko_et_goal_factor`=0.28), 5 tests. FIFA Fantasy scores ET (not shootouts); Lisandro Martínez's
+  92' ET goal+assist vs Cape Verde (+~9 real pts the 90'-model called ~0) was same-day proof. Effect scales
+  with P(draw@90') — tight ties (M92/M94) get the biggest attacker uplift + CS discount.
+- **R1 (re-backtest, all 88):** RPS **0.1453 → 0.1427**, log-loss **0.8214 → 0.82**, goals-MAE
+  **0.927 → 0.859** — all better/flat, **no re-tune**. Walk-forward realized **132 Nost / 230 GoPicks /
+  59 exact = state.cumulative exactly** (and GoPicks 230 = the user's OFFICIAL score — assume-followed is
+  drift-free). CS calibration 59.3 exp vs 47 actual (1.26×, up from 1.21×): driven by FIVE R32 90'-draws
+  (M74/75/82/86/88); KO scorelines are market-priced, so no goals tilt — U10 is the targeted fantasy-side fix.
+- **R2 (form):** `wc_form.json` — 13 matches folded (M73-88 now complete at team level), real ESPN/FOX/RealGM
+  xG, all 16 R16 teams have full 4-game blocks. Movers: Messi 3.72 xG/7G, Mbappé 2.89/6G, Haaland 3.38/5G;
+  Paraguay 1.9 xG-for (weakest R16 attack), Mexico 0 conceded in 4. Team-form offsets: BRA/FRA/ARG +0.07.
+- **R3 (chips+transfers R16):** 4 free transfers → Díaz→Barcola, Kimmich→Digne (NOT Theo Hernandez — the
+  Jul-4 team-news sweep found Digne won France's LB job; the Jul-2 draft's Theo+Lucas buys were both dodged),
+  James→De Paul, A.Robinson→Guéhi; 0 hits, +44.1 horizon. Chip schedule: **12th Man @ R16 = PLAY on
+  Vinícius Jr (E5.0, best external — edges Mbappé 4.9)** · Wildcard @ QF (breakage argmax) · Clean Sheet
+  Shield @ SF · Max Captain @ Final (ceiling gain 4.7). Captain Dembélé (E6.1 tonight) → relay Pulisic → Messi.
+- **Deferred (again):** wiring `_lineup_fixes`/`_freeroll` to per-match `next_minutes` — in KO every team
+  plays once per round so the global scalar ≈ per-match; revisit only if a concrete mid-round case bites.
+- **pytest 77 → 90 green.** Follow-ups: (a) podium sim assumes rival behavior — refresh
+  `leaderboard_ahead` whenever the user reports standings and re-run; (b) after the R16 locks tonight,
+  `chips_used` should gain "12th Man" (next session: verify assume-followed did it).
 
 ### 2026-06-28 (later, user review) — U4 chip-timing revision: Wildcard by squad-breakage, not fixed R16
 - **The R16-Wildcard default was wrong for a burner.** The user caught it: a favourites-heavy R32 squad
