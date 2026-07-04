@@ -13,6 +13,7 @@ line-ups (data/manual/lineups.json) and squad-news status when available.
 """
 from __future__ import annotations
 
+import math
 import unicodedata
 from dataclasses import dataclass, field
 
@@ -75,27 +76,58 @@ BASE_GOAL_RATE = {"GK": 0.0, "DEF": 0.06, "MID": 0.17, "FWD": 0.42}
 BASE_CRE_RATE = {"GK": 0.0, "DEF": 0.08, "MID": 0.22, "FWD": 0.18}
 
 
+KO_ROUNDS = {"R32", "R16", "QF", "SF", "final", "third-place"}
+
+
+def _et_adjust(entry: dict, p00: float, p_draw: float, lam_opp: float, et_factor: float) -> None:
+    """U10 — FIFA Fantasy scores EXTRA TIME (verbatim rule: "not including
+    shootouts"), but every match env above is built from the 90' scoreline
+    matrix. In a KO tie the scored window stretches ~30' with prob P(draw@90):
+
+      * attacking volume: E[team goals in scored window] = λ90·(1 + p_draw·f)
+      * clean sheet: a 90' CS dies if the opponent scores in ET, which needs
+        the tie level at 90' → cs = cs90 − P(0-0@90)·P(opp scores in ET)
+      * concessions (GK/DEF malus + GK saves): mix the opponent-goals marginal
+        toward one-more-goal with the same conditional weight
+
+    Nostradamus/GoPicks stay pure 90' — their scoring resolves at 90'."""
+    p_et_concede = 1.0 - math.exp(-lam_opp * et_factor)
+    entry["lam_for"] = entry["lam_for"] * (1.0 + p_draw * et_factor)
+    entry["cs_prob"] = max(0.0, entry["cs_prob"] - p00 * p_et_concede)
+    w = p_draw * p_et_concede
+    marg = entry["opp_goal_marg"]
+    shifted = np.concatenate(([0.0], marg[:-1]))
+    shifted[-1] += marg[-1]                       # keep the tail mass — stay a distribution
+    entry["opp_goal_marg"] = (1.0 - w) * marg + w * shifted
+
+
 def _team_match_env(forecast, fixtures: dict, stakes: dict | None = None) -> dict:
     """Per-team list of forecast match environments — group games plus any
     knockout tie whose teams are already known (those are certain to happen).
     Each entry carries the team's dead-rubber `team_state` for that match
     (clinched/eliminated/live, from src/model/standings) so minutes can be
-    rested per-fixture."""
+    rested per-fixture. Knockout entries get the U10 extra-time adjustment."""
     stakes = stakes or {}
+    _cfg = getattr(forecast, "cfg", None)
+    et_factor = float(_cfg.get("model.ko_et_goal_factor", 0.28)) if _cfg is not None else 0.0
     env: dict[str, list] = {}
     for num, mf in forecast.match_forecasts.items():
         P = mf.P
         home_goal_marg = P.sum(axis=1)
         away_goal_marg = P.sum(axis=0)
         sk = stakes.get(num, {})
-        env.setdefault(mf.home, []).append({
-            "num": num, "round": mf.round, "lam_for": mf.lam_home, "cs_prob": float(P[:, 0].sum()),
-            "opp_goal_marg": away_goal_marg, "opp": mf.away, "is_home": True, "date": mf.date,
-            "team_state": sk.get("home_state", "live")})
-        env.setdefault(mf.away, []).append({
-            "num": num, "round": mf.round, "lam_for": mf.lam_away, "cs_prob": float(P[0, :].sum()),
-            "opp_goal_marg": home_goal_marg, "opp": mf.home, "is_home": False, "date": mf.date,
-            "team_state": sk.get("away_state", "live")})
+        he = {"num": num, "round": mf.round, "lam_for": mf.lam_home, "cs_prob": float(P[:, 0].sum()),
+              "opp_goal_marg": away_goal_marg, "opp": mf.away, "is_home": True, "date": mf.date,
+              "team_state": sk.get("home_state", "live")}
+        ae = {"num": num, "round": mf.round, "lam_for": mf.lam_away, "cs_prob": float(P[0, :].sum()),
+              "opp_goal_marg": home_goal_marg, "opp": mf.home, "is_home": False, "date": mf.date,
+              "team_state": sk.get("away_state", "live")}
+        if mf.round in KO_ROUNDS and et_factor > 0:
+            p00 = float(P[0, 0])
+            _et_adjust(he, p00, mf.p_draw, mf.lam_away, et_factor)
+            _et_adjust(ae, p00, mf.p_draw, mf.lam_home, et_factor)
+        env.setdefault(mf.home, []).append(he)
+        env.setdefault(mf.away, []).append(ae)
     for t in env:
         env[t].sort(key=lambda x: (x["date"] or "9999-99-99", x["num"]))
     return env
