@@ -20,6 +20,7 @@ from .model.ensemble import apply_team_form, build_strengths
 from .model.forecast import Forecast
 from .model.standings import dead_rubber_flags
 from .gopicks import optimizer as gopt
+from .gopicks import podium as gpod
 from .nostradamus import optimizer as nopt
 from .sources.loader import load_bundle
 from .timeutil import countdown_str, fmt_cet, fmt_local, kickoff_datetimes, now_cet
@@ -277,6 +278,17 @@ def run_pipeline(run_date: str | None = None, fetch: bool = True, sim: bool = Tr
         if g:
             row.update({"gp_pred": g["pred"], "gp_points": g["points"], "gp_missed": g["missed"]})
 
+    # ---- GoPicks podium simulator (U9) — the ONE rank-aware analysis (real prizes,
+    # top-3 only; user-sanctioned exception to the pure-best-EV rule, 2026-07-04).
+    # Endgame tool: runs once the remaining-match count is small and the user's
+    # official standing (points/rank/leaderboard_ahead) is in state.gopicks.
+    gopicks_podium = None
+    if cfg.get("gopicks.podium_enabled", True):
+        log("GoPicks podium simulator (rank-aware endgame)...")
+        gopicks_podium = gpod.podium_analysis(forecast, bundle.fixtures, results,
+                                              gp_scoring, state.get("gopicks") or {},
+                                              cfg=cfg, log=log)
+
     # ---- Fantasy ----
     fantasy_out = None
     if bundle.players and bundle.squads_map:
@@ -290,6 +302,7 @@ def run_pipeline(run_date: str | None = None, fetch: bool = True, sim: bool = Tr
     result = _assemble(cfg, run_date, gen_cet, stage, stage_label, bundle, strengths,
                        forecast, simr, pred_records, fantasy_out, scoring_summary, gp_summary)
     result["target_round"] = target_round
+    result["gopicks_podium"] = gopicks_podium
 
     # cumulative Nostradamus/GoPicks points = idempotent recompute from results;
     # fantasy from state (user-entered)
