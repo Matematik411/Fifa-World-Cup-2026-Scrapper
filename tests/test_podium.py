@@ -169,3 +169,31 @@ def test_apply_podium_flips_respects_user_and_retires_stale():
     _apply_podium_flips(state, [], {"verdict": {"switch": False}}, {96: (1, 1)}, log=lambda *_: None)
     assert state["gopicks"]["predictions_entered"]["96"] == "1-1"
     assert "96" not in state["gopicks"]["auto_flips"]
+
+
+def test_verdict_prizes_first_at_zero_boundary():
+    """Prizes-first verdict (2026-07-05): when best-ev's P(top-3) is ~0 and a
+    cheap tilt buys a small-but-real ticket (> SWITCH_MIN), SWITCH — the league
+    pays top-3 only, so expected points must not veto a positive-P(podium) move
+    (the old absolute ≥1.5pp bar did exactly that). Among near-tied alternatives
+    the cheapest (highest E[final]) must be chosen."""
+    models = _models(14, tight=True)
+    res = simulate_podium(models, standing={"points": 230, "rank": 11,
+                                            "leaderboard_ahead": [267, 250, 249]},
+                          scoring=SCORING, n_sims=1500, overlap_grid=(0.55,))
+    v = res["verdict"]
+    base_p3 = res["strategies"]["best-ev"]["p_top3_mean"]
+    if v["switch"]:
+        picked = res["strategies"][v["to"]]
+        assert picked["p_top3_mean"] - base_p3 > 0.005
+        # cheapest of the near-best: no other alt within the tie band retains more EV
+        near = [r for k, r in res["strategies"].items()
+                if k not in ("best-ev", "tilt2-all")
+                and r["p_top3_mean"] >= max(r2["p_top3_mean"]
+                                            for k2, r2 in res["strategies"].items()
+                                            if k2 not in ("best-ev", "tilt2-all")) - 0.010]
+        assert picked["ev_final"] == max(r["ev_final"] for r in near)
+    else:
+        # legitimate only when nothing clears the minimum real lift
+        alts = {k: r for k, r in res["strategies"].items() if k not in ("best-ev", "tilt2-all")}
+        assert max(r["p_top3_mean"] for r in alts.values()) - base_p3 <= 0.005

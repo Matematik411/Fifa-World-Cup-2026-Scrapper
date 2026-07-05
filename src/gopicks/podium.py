@@ -284,21 +284,36 @@ def simulate_podium(match_models: list[dict], standing: dict, scoring: dict,
         srec["p_top3_mean"] = float(np.mean([v["p_top3"] for v in srec["per_overlap"].values()]))
         out["strategies"][strat] = srec
 
-    # data-driven verdict: does the best decorrelation rule beat pure EV by
-    # enough to be worth the points it burns?
+    # data-driven verdict — PRIZES-FIRST utility (fixed 2026-07-05, user call):
+    # this league pays top-3 and nothing else, so expected points have no prize
+    # value of their own. Rank strategies by P(top-3); alternatives within
+    # TIE_BAND of the best count as equivalent (MC noise ~0.1pp at 20k sims,
+    # leaderboard-estimate slop dominates) and the CHEAPEST of them (highest
+    # retained E[final pts]) is chosen — so we never pay extra EV for the same
+    # podium odds. Switch off pure EV only for a lift that clears SWITCH_MIN —
+    # below that the ticket is illusory and best-ev keeps points/rank/tiebreak.
+    # (The pre-fix rule demanded an ABSOLUTE ≥1.5pp lift, which wrongly kept
+    # pure EV at the zero boundary where any structurally-positive P(top-3) is
+    # worth a trivial EV burn. tilt2-all stays excluded: variance ceiling.)
+    TIE_BAND = 0.010
+    SWITCH_MIN = 0.005
     base = out["strategies"].get("best-ev")
     alts = {k: v for k, v in out["strategies"].items() if k not in ("best-ev", "tilt2-all")}
-    best_alt = max(alts, key=lambda k: alts[k]["p_top3_mean"]) if alts else None
     verdict = {"switch": False, "to": None, "reason": ""}
-    if base and best_alt:
-        b, a = base["p_top3_mean"], alts[best_alt]["p_top3_mean"]
-        if a > b * 1.3 and (a - b) > 0.015:
-            verdict = {"switch": True, "to": best_alt,
+    if base and alts:
+        p3_max = max(v["p_top3_mean"] for v in alts.values())
+        cands = {k: v for k, v in alts.items() if v["p_top3_mean"] >= p3_max - TIE_BAND}
+        pick = max(cands, key=lambda k: cands[k]["ev_final"])
+        b, a = base["p_top3_mean"], alts[pick]["p_top3_mean"]
+        if a - b > SWITCH_MIN:
+            verdict = {"switch": True, "to": pick,
                        "reason": (f"P(top-3) {b:.1%} → {a:.1%} across the rival-overlap grid for "
-                                  f"{out['strategies'][best_alt]['ev_cost_round']:.1f} EV pts this round")}
+                                  f"{alts[pick]['ev_cost_round']:.1f} EV pts this round — "
+                                  f"points pay nothing here, the podium does (prizes-first)")}
         else:
-            verdict["reason"] = (f"best alternative ({best_alt}) lifts P(top-3) only "
-                                 f"{b:.1%} → {a:.1%} — not worth decorrelating yet")
+            verdict["reason"] = (f"best alternative ({pick}) lifts P(top-3) only {b:.1%} → {a:.1%} "
+                                 f"— inside the noise band even under prizes-first utility; "
+                                 f"best-ev keeps the points and the exact-goals tiebreak")
     out["verdict"] = verdict
     return out
 
