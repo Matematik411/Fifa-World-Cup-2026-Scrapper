@@ -1,6 +1,6 @@
 {
- "fetched_at": "2026-07-05",
- "note": "R16 day-2 refresh 2026-07-05: predicted XIs for M91/M92 (tonight) + M93/M94 (Jul 6) + M95/M96 (Jul 7), consensus of SI/Sports Mole/Rotowire/Sky/Squawka/ESPN/Terra/CNN-Brasil (see data/raw/2026-07-05/teamnews_jul5.md). None confirmed yet (team sheets ~1h pre-KO). France/Morocco re-added for the M97 QF with their actual Jul-4 XIs as the predictor. Names aligned to squads.json spellings (Danilo Luiz RB vs Danilo Oliveira MID - see collision note there).",
+ "fetched_at": "2026-07-06",
+ "note": "R16 day-3 refresh 2026-07-06: M91/M92 now PLAYED (see results.json); predicted XIs below for M93/M94 (TODAY: POR-ESP 21:00 CEST, USA-BEL 02:00 CEST Jul 7) + M95/M96 (Jul 7), 2+-source consensus (SI/Sports Mole/Rotowire/Sky/Squawka/ESPN/FFScout; see data/raw/2026-07-06/teamnews_odds_jul6.md). NONE confirmed yet at run time - official sheets drop ~1h pre-KO (~20:00 CEST for M93); all owned players (Cucurella/Oyarzabal/Cubarsi ESP, Pulisic USA, Messi/E.Martinez/Lisandro/De Paul ARG) project to START, HIGH confidence, no fitness/rotation doubt. Change vs Jul-5: Belgium now consensus DE KETELAERE false-9 (Lukaku benched); USA Balogun's red-card ban SUSPENDED (Art.27 probation) so he is eligible but Pepi still the likelier starter (ESPN/FOX). France/Morocco kept for the M97 QF (their Jul-4 XIs as predictor). Names aligned to squads.json spellings.",
  "teams": {
   "Brazil": {
    "confirmed": false,
@@ -155,12 +155,12 @@
     "Leandro Trossard",
     "Kevin De Bruyne",
     "Jeremy Doku",
-    "Romelu Lukaku"
+    "Charles De Ketelaere"
    ],
    "out": [
     "Zeno Debast"
    ],
-   "notes": "Lukaku start ~50/50 (SM has De Ketelaere, Squawka starts Lukaku); KDB + Doku confirmed; Trossard fit."
+   "notes": "Jul-6 consensus flipped to De Ketelaere as false-9 (Lukaku BENCHED, impact sub); KDB + Doku + Trossard confirmed starters. One variant still starts Lukaku with Onana in the pivot."
   },
   "Argentina": {
    "confirmed": false,

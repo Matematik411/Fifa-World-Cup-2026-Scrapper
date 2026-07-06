@@ -1,6 +1,6 @@
 {
   "schema": "wc2026-state-v1",
-  "last_run": "2026-07-05",
+  "last_run": "2026-07-06",
   "recommended_squad": {
     "player_ids": [
       38,
@@ -8,20 +8,20 @@
       1318,
       1431,
       50,
-      500,
-      1099,
+      468,
+      477,
       501,
       517,
       498,
-      1088,
+      463,
       1094,
-      28,
-      1082,
-      1089
+      461,
+      510,
+      28
     ],
     "captain": "Ousmane Dembélé",
     "formation": "3-5-2",
-    "as_of": "2026-07-05",
+    "as_of": "2026-07-06",
     "for_round": "QF",
     "lineup": {
       "starters": [
@@ -30,18 +30,18 @@
         1318,
         1431,
         50,
-        500,
+        468,
         501,
         517,
-        498,
-        28,
-        1082
+        461,
+        510,
+        28
       ],
       "bench": [
         1094,
-        1088,
-        1089,
-        1099
+        463,
+        498,
+        477
       ],
       "captain": 501
     }
@@ -64,41 +64,41 @@
       1274,
       1089
     ],
-    "captain": "Ousmane Dembélé",
-    "formation": "3-5-2",
+    "captain": "Harry Kane",
+    "formation": "4-4-2",
     "bank": 0.3,
     "lineup": {
       "starters": [
-        38,
-        45,
-        1318,
-        1431,
-        50,
-        501,
-        517,
+        477,
         498,
         1088,
-        1094,
-        1274
-      ],
-      "bench": [
-        468,
         1089,
         461,
-        477
+        1431,
+        501,
+        517,
+        1274,
+        468,
+        1094
       ],
-      "captain": 501
+      "bench": [
+        45,
+        1318,
+        50,
+        38
+      ],
+      "captain": 468
     },
-    "note": "R16 LIVE (locked 2026-07-04 19:00 CEST; matches 89-96). Squad = the R16 plan EXECUTED at the deadline (4 free transfers Diaz->Barcola, Kimmich->Digne, James->De Paul, A.Robinson->Guehi; 0 hits) + 12TH MAN chip PLAYED on MBAPPE (user decision 2026-07-04 on a model coin-flip vs Vinicius) -> Mbappe banked ~7 as the chip bonus (90', pen goal 70', M89). lineup = the deadline-frozen XI (3-5-2, Dembele C): Emi Martinez; Lisandro, Digne, Cucurella; Barcola, De Paul, Dembele(C), Olise, Pulisic; Messi, Oyarzabal. Bench: Pickford, Kane, Guehi, Cubarsi. JUL-4 LEGS BANKED (feed r5, captain-double counted): XI 19 = Dembele 3x2=6 (84', CS, 0G/0A - relay fires) + Digne 7 (90' CS) + Barcola 3 (61' CS) + Olise 2 (90' CS, yellow) + 1 elsewhere per feed rounding; + Mbappe 12th-man ~7 outside the XI tally. JUL-5 PLAYBOOK (set before 02:00 CEST tonight): free-roll Kane IN for Messi + Guehi IN for Lisandro (both ARG, play Jul 7 - free, restore later by dropping the true lowest); captaincy relay Dembele(3) -> KANE tonight if free-rolled in (E3.4 > 3 banked, haul upside, keeps the ladder open) -> Pulisic (E4.8, before M94 KO 02:00 CEST Jul 7) -> Messi (E4.3, before 18:00 CEST Jul 7). QF transfer plan (HOLD until the Jul-8/9 lock-eve run; Wildcard decision then): Kane->Mbappe, Guehi->Romero, Pulisic->Baena, Pickford->Unai Simon (+10.2, 4 free, 0 hits).\n\nPRE-R16 HISTORY (condensed): R32 final tally 112 + QB +22; season total 385 through R32 (user-confirmed 2026-07-04). Pre-R32: durable build locked, Jul-1/Jul-2 free-rolls + relay all paid; armband Dembele -> Oyarzabal (kept)."
+    "note": "R16 LIVE (locked 2026-07-04 19:00 CEST; matches 89-96). Squad = the R16 plan EXECUTED at the deadline (4 free transfers Diaz->Barcola, Kimmich->Digne, James->De Paul, A.Robinson->Guehi; 0 hits) + 12TH MAN chip PLAYED on MBAPPE (2026-07-04) -> Mbappe 12th-man bonus (90', 70' pen goal, M89). Deadline-frozen XI was 3-5-2 (Dembele C): Emi; Lisandro, Digne, Cucurella; Barcola, De Paul, Dembele(C), Olise, Pulisic; Messi, Oyarzabal (bench Pickford, Kane, Guehi, Cubarsi) - lineup below is the LIVE XI after in-round edits. JUL-4 LEGS BANKED (feed r5, exact): Dembele 3 (84', CS) + Digne 9 (90' CS) + Barcola 2 (61') + Olise 2 (90', yellow). JUL-5 EXECUTED (as agreed): FREE-ROLL Kane IN for Messi + Guehi IN for Lisandro (both ARG, play M95 Jul 7), AND CAPTAIN RELAYED Dembele->KANE. KANE HAULED AS CAPTAIN: banked 9 (M92 90' + 60' pen goal) x2 = 18. Guehi 0 (M92 90', England conceded 2 = no CS, + yellow). Pickford (bench->now started) played M92 = 2. Dembele's leg now counts SINGLE 3 (double forfeited when the armband moved - by design). => RELAY CLOSED for R16: Kane's banked 9 beats E of every remaining starter (Oyarzabal 3.4, Pulisic 4.9, Messi 4.3) -> HOLD the armband on KANE for the rest of the round; do NOT switch. JUL-6 LIVE XI (user-set): fielding ALL BUT THE 4 ARGENTINIANS -> 4-4-2: Pickford; Digne, Cucurella, Cubarsi, Guehi; Barcola, Dembele, Olise, Pulisic; Kane(C), Oyarzabal. Bench: Emi Martinez, Lisandro, De Paul, Messi. Banks today's Cucurella+Cubarsi+Oyarzabal (M93 21:00 CEST) + Pulisic (M94 02:00 CEST) at zero cost (the benched ARG quartet plays M95 tomorrow). JUL-7 RESTORE (before M95 18:00 CEST): start all 4 Argentinians - Emi IN for Pickford (GK-for-GK), and Lisandro/De Paul/Messi IN for the 3 lowest-banked outfielders (Guehi 0 + the two lowest after tonight) -> ~3-4-3, Kane stays C. Exact swaps computed on the Jul-7 run. Don't leave any ARG benched past 18:00 CEST. QF TRANSFER PLAN (mode=transfers/upcoming, HOLD until the Jul-8/9 lock-eve run; W91-92 = Norway-England known, W93/94/95/96 resolve Jul 6-7): this-run optimum Cubarsi->C.Romero (+3.8), Pulisic->Rabiot (+3.3), Cucurella->Konsa (+1.4) = +8.5, 4 free, 0 hits - re-derive at lock-eve; chip call then (Wildcard held past R16 vs Clean-Sheet-Shield/Mystery; MaxCap parked, edge +4.9).\n\nPRE-R16 HISTORY (condensed): R32 final tally 112 + QB +22; season total 385 through R32 (user-confirmed 2026-07-04). Pre-R32: durable build locked, Jul-1/Jul-2 free-rolls + relay all paid; armband Dembele -> Oyarzabal (kept)."
   },
   "chips_used": [
     "Qualification Booster",
     "12th Man"
   ],
   "cumulative": {
-    "nostradamus_points": 140,
-    "gopicks_points": 230,
-    "gopicks_exact_goals": 59,
+    "nostradamus_points": 142,
+    "gopicks_points": 231,
+    "gopicks_exact_goals": 60,
     "fantasy_points": 385
   },
   "predictions_entered": {
@@ -111,9 +111,7 @@
       "2": "missed",
       "89": "2-0",
       "90": "2-0",
-      "92": "1-1",
-      "94": "1-0",
-      "96": "1-1"
+      "92": "1-1"
     },
     "points_official": 230,
     "rank": 11,
@@ -122,12 +120,8 @@
       250,
       249
     ],
-    "note": "Sentora partners league on gopicks.app, joined 2026-06-12 (matches 1-2 missed, 0 pts). predictions_entered: '<num>':'H-A' = stated deviation, 'missed' = not entered, absent = followed the pick. USER DEVIATION 2026-07-05: he entered the Jul-4 picks SWAPPED home<->away (89: '2-0' vs pick 0-2, 90: '2-0' vs pick 0-2) -> 0 pts both (correct entries were worth 4+4); frozen history above; he commits to accurate entry from now on - ALWAYS restate 'home team first' in the brief. STANDING: REAL, USER-PROVIDED 2026-07-05 (after M89-90): 230 pts, rank 11/100, top-3 = 267/250/249 (the 2026-07-05 morning estimate 267/252/250 rank~12.6 was computed from end-of-R32 reals +7.6 E[rival Jul-4 gain] and validated almost exactly). Ranks 4-10 interpolate automatically; chasers = code default rivals_behind 229-225 (correct again with him at 11th on 230). Deficit to podium 19 with 14 matches (~70 GoPicks pts max) left. STRATEGY: tilt2-45 decorrelation REINSTATED 2026-07-05 (user call; podium.py verdict rule rewritten PRIZES-FIRST - see the module docstring/comment): points pay nothing, so any >0.5pp P(top-3) lift at trivial EV cost switches; cheapest near-best tilt wins the tie. Prior standings: 2026-07-04 R32-end 230/rank 9 (259/244/242); 2026-07-02 213/rank 10. This is the ONLY league where rank-aware strategy is sanctioned (real prizes, top-3 pay); Nostradamus + Fantasy remain pure best-EV.",
-    "auto_flips": {
-      "92": "1-1",
-      "94": "1-0",
-      "96": "1-1"
-    }
+    "note": "Sentora partners league on gopicks.app, joined 2026-06-12 (matches 1-2 missed, 0 pts). predictions_entered: '<num>':'H-A' = stated deviation, 'missed' = not entered, absent = followed the pick. USER DEVIATION 2026-07-05: he entered the Jul-4 picks SWAPPED home<->away (89: '2-0' vs pick 0-2, 90: '2-0' vs pick 0-2) -> 0 pts both (correct entries were worth 4+4); frozen history above; he commits to accurate entry from now on - ALWAYS restate 'home team first' in the brief. STANDING: REAL, USER-PROVIDED 2026-07-05 (after M89-90): 230 pts, rank 11/100, top-3 = 267/250/249 (the 2026-07-05 morning estimate 267/252/250 rank~12.6 was computed from end-of-R32 reals +7.6 E[rival Jul-4 gain] and validated almost exactly). Ranks 4-10 interpolate automatically; chasers = code default rivals_behind 229-225 (correct again with him at 11th on 230). Deficit to podium 19 with 14 matches (~70 GoPicks pts max) left. STRATEGY: tilt2-45 decorrelation REINSTATED 2026-07-05 (user call; podium.py verdict rule rewritten PRIZES-FIRST - see the module docstring/comment): points pay nothing, so any >0.5pp P(top-3) lift at trivial EV cost switches; cheapest near-best tilt wins the tie. Prior standings: 2026-07-04 R32-end 230/rank 9 (259/244/242); 2026-07-02 213/rank 10. This is the ONLY league where rank-aware strategy is sanctioned (real prizes, top-3 pay); Nostradamus + Fantasy remain pure best-EV. JUL-6 UPDATE (after M91/M92): computed GoPicks 231 / 60 exact goals (M91 Brazil 1-2 Norway: followed-pick banked +1 exact-home-goal; M92 Mexico 2-3 England: entered 1-1 vs actual 2-3 = 0). Podium sim P(top-3) now ~0.0% best-EV and NO tilt lifts it above the noise band -> stay BEST-EV (prizes-first rule still stands but nothing beats it now). Pipeline auto-WITHDREW the stale 94/96 home-first auto-flips (auto_flips now empty); the Jul-6/7 GoPicks picks are plain best-EV: M93 0-1, M94 1-0, M95 1-0, M96 0-1 (all home-team-first). REMINDER TO USER EVERY RUN: enter HOME TEAM'S goals FIRST. points_official 230 / rank 11 left as-is (Jul-5 user-provided; never asked).",
+    "auto_flips": {}
   },
   "assume_followed": true
 }
