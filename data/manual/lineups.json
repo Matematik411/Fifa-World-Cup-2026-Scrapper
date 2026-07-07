@@ -1,227 +1,70 @@
 {
- "fetched_at": "2026-07-06",
- "note": "R16 day-3 refresh 2026-07-06: M91/M92 now PLAYED (see results.json); predicted XIs below for M93/M94 (TODAY: POR-ESP 21:00 CEST, USA-BEL 02:00 CEST Jul 7) + M95/M96 (Jul 7), 2+-source consensus (SI/Sports Mole/Rotowire/Sky/Squawka/ESPN/FFScout; see data/raw/2026-07-06/teamnews_odds_jul6.md). NONE confirmed yet at run time - official sheets drop ~1h pre-KO (~20:00 CEST for M93); all owned players (Cucurella/Oyarzabal/Cubarsi ESP, Pulisic USA, Messi/E.Martinez/Lisandro/De Paul ARG) project to START, HIGH confidence, no fitness/rotation doubt. Change vs Jul-5: Belgium now consensus DE KETELAERE false-9 (Lukaku benched); USA Balogun's red-card ban SUSPENDED (Art.27 probation) so he is eligible but Pepi still the likelier starter (ESPN/FOX). France/Morocco kept for the M97 QF (their Jul-4 XIs as predictor). Names aligned to squads.json spellings.",
+ "fetched_at": "2026-07-07",
+ "note": "R16 day-4 refresh 2026-07-07 ~17:00 CEST: M93/M94 PLAYED overnight (POR 0-1 ESP, USA 1-4 BEL - see results.json). Today M95 ARG-EGY 18:00 CEST (XIs CONFIRMED - official sheets out ~1h pre-KO; World Soccer Talk confirmed page + OneFootball Paredes headline + RotoWire Marmoush-bench) and M96 SUI-COL 22:00 CEST (predicted, 2-source SM+RotoWire consensus; confirmed sheets ~21:00 CEST). Owned/QF-target verdicts: E.Martinez/Lisandro/De Paul/Messi ALL START for Argentina, zero fitness doubt; Romero STARTS (knee fine after 120'); THIAGO ALMADA BENCHED (tactical - Paredes in for structure; no injury). Egypt: Salah STARTS (fully fit); MARMOUSH BENCHED (form). Switzerland: MANZAMBI OUT (knee, training injury Jul 6/7 - MRI clean, possible QF return) -> Rieder at 10; Kobel in goal + Zakaria RB per BOTH sources (Jul-6 Sommer/Widmer/Schar block was off-consensus - corrected). Colombia: Cordoba OUT OF TOURNAMENT (hamstring) -> Suarez CF; James starts but Rios pushing. Raw quotes: data/raw/2026-07-07/teamnews_jul7.md. Names aligned to squads.json spellings.",
  "teams": {
-  "Brazil": {
-   "confirmed": false,
-   "xi": [
-    "GK Alisson",
-    "Danilo Luiz",
-    "Marquinhos",
-    "Gabriel Magalhaes",
-    "Douglas Santos",
-    "Casemiro",
-    "Bruno Guimaraes",
-    "Danilo Oliveira",
-    "Rayan",
-    "Matheus Cunha",
-    "Vinicius Junior"
-   ],
-   "out": [
-    "Raphinha",
-    "Lucas Paqueta",
-    "Wesley"
-   ],
-   "notes": "Ancelotti keeps the Japan-win base; Paqueta Grade-II thigh ~3wk; Raphinha hamstring still out (Jul-4 training confirms); Neymar bench; Casemiro knock but plays."
-  },
-  "Norway": {
-   "confirmed": false,
-   "xi": [
-    "GK Orjan Nyland",
-    "Marcus Holmgren Pedersen",
-    "Kristoffer Ajer",
-    "Torbjorn Heggem",
-    "David Moller Wolfe",
-    "Patrick Berg",
-    "Sander Berge",
-    "Martin Odegaard",
-    "Alexander Sorloth",
-    "Erling Haaland",
-    "Antonio Nusa"
-   ],
-   "out": [
-    "Julian Ryerson"
-   ],
-   "notes": "Unanimous XI across sources; Haaland fully fit (5 goals, takes pens); minimal rotation."
-  },
-  "Mexico": {
-   "confirmed": false,
-   "xi": [
-    "GK Raul Rangel",
-    "Jorge Sanchez",
-    "Cesar Montes",
-    "Johan Vasquez",
-    "Jesus Gallardo",
-    "Erik Lira",
-    "Luis Romo",
-    "Gilberto Mora",
-    "Roberto Alvarado",
-    "Raul Jimenez",
-    "Julian Quinones"
-   ],
-   "out": [],
-   "notes": "Aguirre repeats the Ecuador XI; clean bill of health; Azteca altitude + 13-yr home unbeaten run."
-  },
-  "England": {
-   "confirmed": false,
-   "xi": [
-    "GK Jordan Pickford",
-    "Djed Spence",
-    "Ezri Konsa",
-    "Marc Guehi",
-    "Nico O'Reilly",
-    "Declan Rice",
-    "Elliot Anderson",
-    "Bukayo Saka",
-    "Jude Bellingham",
-    "Anthony Gordon",
-    "Harry Kane"
-   ],
-   "out": [
-    "Jarell Quansah",
-    "Reece James"
-   ],
-   "notes": "Guehi NAILED (every outlet); Rice hamstring tightness but expected to start; Saka trained fully, returns; Gordon over Rashford (3/5 Sky votes); James not risked from start at altitude."
-  },
-  "Portugal": {
-   "confirmed": false,
-   "xi": [
-    "GK Diogo Costa",
-    "Joao Cancelo",
-    "Ruben Dias",
-    "Renato Veiga",
-    "Nuno Mendes",
-    "Joao Neves",
-    "Vitinha",
-    "Pedro Neto",
-    "Bruno Fernandes",
-    "Rafael Leao",
-    "Cristiano Ronaldo"
-   ],
-   "out": [],
-   "notes": "SM+ESPN identical; Ronaldo starts; only debate RW (Neto vs Bernardo vs Conceicao)."
-  },
-  "Spain": {
-   "confirmed": false,
-   "xi": [
-    "GK Unai Simon",
-    "Pedro Porro",
-    "Pau Cubarsi",
-    "Aymeric Laporte",
-    "Marc Cucurella",
-    "Rodri",
-    "Pedri",
-    "Dani Olmo",
-    "Lamine Yamal",
-    "Alex Baena",
-    "Mikel Oyarzabal"
-   ],
-   "out": [
-    "Nico Williams",
-    "Yeremy Pino"
-   ],
-   "notes": "Oyarzabal/Cucurella/Cubarsi nailed, no rotation after 3-0 vs Austria; Friday absences were load management; ESPN variant Llorente/Merino for Porro/Olmo only."
-  },
-  "USA": {
-   "confirmed": false,
-   "xi": [
-    "GK Matt Freese",
-    "Alex Freeman",
-    "Chris Richards",
-    "Tim Ream",
-    "Antonee Robinson",
-    "Tyler Adams",
-    "Weston McKennie",
-    "Sergino Dest",
-    "Malik Tillman",
-    "Christian Pulisic",
-    "Ricardo Pepi"
-   ],
-   "out": [
-    "Folarin Balogun"
-   ],
-   "notes": "Balogun SUSPENDED (M81 red) -> Pepi like-for-like in the unchanged 4-2-3-1; Pulisic/Dest/Antonee confirmed starters; McKenzie (foot)/Roldan (muscle) under assessment."
-  },
-  "Belgium": {
-   "confirmed": false,
-   "xi": [
-    "GK Thibaut Courtois",
-    "Timothy Castagne",
-    "Brandon Mechele",
-    "Arthur Theate",
-    "Maxim De Cuyper",
-    "Youri Tielemans",
-    "Hans Vanaken",
-    "Leandro Trossard",
-    "Kevin De Bruyne",
-    "Jeremy Doku",
-    "Charles De Ketelaere"
-   ],
-   "out": [
-    "Zeno Debast"
-   ],
-   "notes": "Jul-6 consensus flipped to De Ketelaere as false-9 (Lukaku BENCHED, impact sub); KDB + Doku + Trossard confirmed starters. One variant still starts Lukaku with Onana in the pivot."
-  },
   "Argentina": {
-   "confirmed": false,
+   "confirmed": true,
    "xi": [
     "GK Emiliano Martinez",
     "Nahuel Molina",
     "Cristian Romero",
     "Lisandro Martinez",
-    "Facundo Medina",
+    "Nicolas Tagliafico",
     "Rodrigo De Paul",
-    "Enzo Fernandez",
+    "Leandro Paredes",
     "Alexis Mac Allister",
-    "Thiago Almada",
+    "Enzo Fernandez",
     "Lionel Messi",
-    "Lautaro Martinez"
+    "Julian Alvarez"
    ],
    "out": [
     "Nico Gonzalez"
    ],
-   "notes": "Messi FINE after 120' (goal + set up the winner); Dibu in goal; De Paul starts; LAUTARO over Julian Alvarez (ankle-disrupted buildup -> bench); Medina cramp (Tagliafico ready); Molina/Enzo fatigue-managed."
+   "notes": "CONFIRMED sheet (4-4-2): 3 changes from the R32 - Tagliafico for Medina (LB), PAREDES for Almada (midfield structure vs the low block), Julian Alvarez for Lautaro. BENCH fit/tactical: Almada, Lautaro, Medina (cramp resolved). Messi (c), Dibu, Lisandro, De Paul, Romero all start - no fitness doubt. Nico Gonzalez ankle sprain = the only knock."
   },
   "Egypt": {
-   "confirmed": false,
+   "confirmed": true,
    "xi": [
-    "GK Shobeir",
+    "GK Mostafa Shobeir",
     "Mohamed Hany",
-    "Fathy",
-    "Ibrahim",
-    "Rabia",
-    "Ashour",
-    "Mohanad Lasheen",
-    "Ateya",
-    "Ziko",
-    "Mohamed Salah",
-    "Omar Marmoush"
+    "Yasser Ibrahim",
+    "Ramy Rabia",
+    "Karim Hafez",
+    "Hamdy Fathy",
+    "Marwan Attia",
+    "Emam Ashour",
+    "Zizo",
+    "Haissem Hassan",
+    "Mohamed Salah"
    ],
    "out": [
-    "Ahmed Fatouh"
+    "Ahmed Fatouh",
+    "Mohamed Abdelmonem"
    ],
-   "notes": "Salah RECOVERED (played full 120' + shootout) and starts; Hafez + Abdelmonem doubts; Lasheen back from ban; conceded in 6 straight."
+   "notes": "CONFIRMED sheet (4-2-3-1): Salah (c) STARTS, fully fit. MARMOUSH BENCHED for form (0 G/A in 4 apps) - Haissem Hassan in. Fatouh (thigh) 'virtually ruled out' -> HAFEZ at LB (recovered, trained); Abdelmonem (ankle) touch-and-go, not in the XI -> Rabia+Ibrahim CBs. Lasheen ban served but benched (Fathy+Attia pivot)."
   },
   "Switzerland": {
    "confirmed": false,
    "xi": [
-    "GK Yann Sommer",
-    "Silvan Widmer",
+    "GK Gregor Kobel",
+    "Denis Zakaria",
+    "Nico Elvedi",
     "Manuel Akanji",
-    "Fabian Schar",
     "Ricardo Rodriguez",
     "Granit Xhaka",
     "Remo Freuler",
     "Dan Ndoye",
-    "Michel Aebischer",
-    "Johan Manzambi",
+    "Fabian Rieder",
+    "Ruben Vargas",
     "Breel Embolo"
    ],
    "out": [
-    "Denis Zakaria",
-    "Luca Jacquez"
+    "Johan Manzambi",
+    "Luca Jaquez",
+    "Michel Aebischer",
+    "Fabian Schar"
    ],
-   "notes": "Continuity XI from the Algeria win; only debate Aebischer vs Vargas."
+   "notes": "SM+RotoWire consensus 4-2-3-1; confirmed sheet ~21:00 CEST. MANZAMBI OUT (non-contact knee in the final training 5v5; MRI clean, possible QF return) -> RIEDER at 10. Jaquez (muscle) out; Aebischer (muscle, individual training) doubt; Sow discomfort. Zakaria fit, starts RB; Kobel in goal per BOTH sources. Vargas starts despite a mild discomfort note."
   },
   "Colombia": {
    "confirmed": false,
@@ -232,7 +75,7 @@
     "Jhon Lucumi",
     "Johan Mojica",
     "Jefferson Lerma",
-    "Richard Rios",
+    "Gustavo Puerta",
     "Jhon Arias",
     "James Rodriguez",
     "Luis Diaz",
@@ -241,45 +84,7 @@
    "out": [
     "Jhon Cordoba"
    ],
-   "notes": "Cordoba OUT OF TOURNAMENT (adductor tear) -> Luis Suarez starts; James' HT hook vs Ghana was FLU, expected to start; Diaz fit."
-  },
-  "France": {
-   "confirmed": false,
-   "xi": [
-    "GK Mike Maignan",
-    "Jules Kounde",
-    "Dayot Upamecano",
-    "William Saliba",
-    "Lucas Digne",
-    "Manu Kone",
-    "Adrien Rabiot",
-    "Michael Olise",
-    "Ousmane Dembele",
-    "Bradley Barcola",
-    "Kylian Mbappe"
-   ],
-   "out": [],
-   "notes": "QF M97 predictor = actual Jul-4 XI vs Paraguay (Digne LB confirmed again, Kone started for the resting Tchouameni). Tchouameni (minor adductor) expected BACK for the QF - may displace Kone/Rabiot; Doue pushing Barcola after winning the pen off the bench. Deschamps: 'a few little knocks' - re-verify on Jul 8/9 run."
-  },
-  "Morocco": {
-   "confirmed": false,
-   "xi": [
-    "GK Yassine Bounou",
-    "Achraf Hakimi",
-    "Nayef Aguerd",
-    "Issa Diop",
-    "Noussair Mazraoui",
-    "Azzedine Ounahi",
-    "Sofyan Amrabat",
-    "Ismael El Khannouss",
-    "Brahim Diaz",
-    "Soufiane Rahimi",
-    "Ayoub El Aynaoui"
-   ],
-   "out": [
-    "Ismael Saibari"
-   ],
-   "notes": "QF M97 predictor from the Jul-4 XI vs Canada with Saibari (off 22', right-thigh strain, scans pending - QF doubtful) replaced by Rahimi (scored, likely starts per FFScout). Chadi Riad rested/not fully fit. Diop late cramps only. Yellow slate wiped at QF."
+   "notes": "SM+RotoWire identical 11; confirmed sheet ~21:00 CEST. CORDOBA OUT OF THE TOURNAMENT (hamstring, 8' vs Ghana) -> Luis SUAREZ starts CF (assisted the winner as his sub). JAMES expected to start (c) but under real pressure - HT hook vs Ghana was tactical, Richard Rios 'a legitimate case' (RotoWire); re-check the sheet. Diaz fit; 3 straight clean sheets."
   }
  }
 }

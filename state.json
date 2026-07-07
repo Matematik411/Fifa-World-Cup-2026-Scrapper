@@ -1,49 +1,49 @@
 {
   "schema": "wc2026-state-v1",
-  "last_run": "2026-07-06",
+  "last_run": "2026-07-07",
   "recommended_squad": {
     "player_ids": [
       38,
       45,
       1318,
-      1431,
+      1105,
       50,
-      468,
+      500,
       477,
       501,
       517,
       498,
-      463,
+      1088,
       1094,
-      461,
-      510,
-      28
+      34,
+      1082,
+      1089
     ],
-    "captain": "Ousmane Dembélé",
-    "formation": "3-5-2",
-    "as_of": "2026-07-06",
+    "captain": "Lionel Messi",
+    "formation": "3-4-3",
+    "as_of": "2026-07-07",
     "for_round": "QF",
     "lineup": {
       "starters": [
         38,
         45,
         1318,
-        1431,
+        1105,
         50,
-        468,
+        500,
         501,
         517,
-        461,
-        510,
-        28
+        1088,
+        1094,
+        34
       ],
       "bench": [
-        1094,
-        463,
+        1082,
         498,
+        1089,
         477
       ],
-      "captain": 501
+      "captain": 38
     }
   },
   "owned": {
@@ -69,40 +69,42 @@
     "bank": 0.3,
     "lineup": {
       "starters": [
-        477,
+        45,
         498,
         1088,
         1089,
-        461,
+        1318,
         1431,
         501,
         517,
-        1274,
+        50,
         468,
-        1094
+        38
       ],
       "bench": [
-        45,
-        1318,
-        50,
-        38
+        477,
+        461,
+        1274,
+        1094
       ],
       "captain": 468
     },
-    "note": "R16 LIVE (locked 2026-07-04 19:00 CEST; matches 89-96). Squad = the R16 plan EXECUTED at the deadline (4 free transfers Diaz->Barcola, Kimmich->Digne, James->De Paul, A.Robinson->Guehi; 0 hits) + 12TH MAN chip PLAYED on MBAPPE (2026-07-04) -> Mbappe 12th-man bonus (90', 70' pen goal, M89). Deadline-frozen XI was 3-5-2 (Dembele C): Emi; Lisandro, Digne, Cucurella; Barcola, De Paul, Dembele(C), Olise, Pulisic; Messi, Oyarzabal (bench Pickford, Kane, Guehi, Cubarsi) - lineup below is the LIVE XI after in-round edits. JUL-4 LEGS BANKED (feed r5, exact): Dembele 3 (84', CS) + Digne 9 (90' CS) + Barcola 2 (61') + Olise 2 (90', yellow). JUL-5 EXECUTED (as agreed): FREE-ROLL Kane IN for Messi + Guehi IN for Lisandro (both ARG, play M95 Jul 7), AND CAPTAIN RELAYED Dembele->KANE. KANE HAULED AS CAPTAIN: banked 9 (M92 90' + 60' pen goal) x2 = 18. Guehi 0 (M92 90', England conceded 2 = no CS, + yellow). Pickford (bench->now started) played M92 = 2. Dembele's leg now counts SINGLE 3 (double forfeited when the armband moved - by design). => RELAY CLOSED for R16: Kane's banked 9 beats E of every remaining starter (Oyarzabal 3.4, Pulisic 4.9, Messi 4.3) -> HOLD the armband on KANE for the rest of the round; do NOT switch. JUL-6 LIVE XI (user-set): fielding ALL BUT THE 4 ARGENTINIANS -> 4-4-2: Pickford; Digne, Cucurella, Cubarsi, Guehi; Barcola, Dembele, Olise, Pulisic; Kane(C), Oyarzabal. Bench: Emi Martinez, Lisandro, De Paul, Messi. Banks today's Cucurella+Cubarsi+Oyarzabal (M93 21:00 CEST) + Pulisic (M94 02:00 CEST) at zero cost (the benched ARG quartet plays M95 tomorrow). JUL-7 RESTORE (before M95 18:00 CEST): start all 4 Argentinians - Emi IN for Pickford (GK-for-GK), and Lisandro/De Paul/Messi IN for the 3 lowest-banked outfielders (Guehi 0 + the two lowest after tonight) -> ~3-4-3, Kane stays C. Exact swaps computed on the Jul-7 run. Don't leave any ARG benched past 18:00 CEST. QF TRANSFER PLAN (mode=transfers/upcoming, HOLD until the Jul-8/9 lock-eve run; W91-92 = Norway-England known, W93/94/95/96 resolve Jul 6-7): this-run optimum Cubarsi->C.Romero (+3.8), Pulisic->Rabiot (+3.3), Cucurella->Konsa (+1.4) = +8.5, 4 free, 0 hits - re-derive at lock-eve; chip call then (Wildcard held past R16 vs Clean-Sheet-Shield/Mystery; MaxCap parked, edge +4.9).\n\nPRE-R16 HISTORY (condensed): R32 final tally 112 + QB +22; season total 385 through R32 (user-confirmed 2026-07-04). Pre-R32: durable build locked, Jul-1/Jul-2 free-rolls + relay all paid; armband Dembele -> Oyarzabal (kept)."
+    "note": "R16 LIVE (locked 2026-07-04 19:00 CEST; matches 89-96). Squad = the R16 plan EXECUTED at the deadline (4 free transfers Diaz->Barcola, Kimmich->Digne, James->De Paul, A.Robinson->Guehi; 0 hits) + 12TH MAN chip PLAYED on MBAPPE (2026-07-04) -> Mbappe 12th-man bonus (90', 70' pen goal, M89). Deadline-frozen XI was 3-5-2 (Dembele C): Emi; Lisandro, Digne, Cucurella; Barcola, De Paul, Dembele(C), Olise, Pulisic; Messi, Oyarzabal (bench Pickford, Kane, Guehi, Cubarsi) - lineup below is the LIVE XI after in-round edits. JUL-4 LEGS BANKED (feed r5, exact): Dembele 3 (84', CS) + Digne 9 (90' CS) + Barcola 2 (61') + Olise 2 (90', yellow). JUL-5 EXECUTED (as agreed): FREE-ROLL Kane IN for Messi + Guehi IN for Lisandro (both ARG, play M95 Jul 7), AND CAPTAIN RELAYED Dembele->KANE. KANE HAULED AS CAPTAIN: banked 9 (M92 90' + 60' pen goal) x2 = 18. Guehi 0 (M92 90', England conceded 2 = no CS, + yellow). Pickford (bench->now started) played M92 = 2. Dembele's leg now counts SINGLE 3 (double forfeited when the armband moved - by design). => RELAY CLOSED for R16: Kane's banked 9 beats E of every remaining starter (Oyarzabal 3.4, Pulisic 4.9, Messi 4.3) -> HOLD the armband on KANE for the rest of the round; do NOT switch. JUL-6 LIVE XI (user-set): fielding ALL BUT THE 4 ARGENTINIANS -> 4-4-2: Pickford; Digne, Cucurella, Cubarsi, Guehi; Barcola, Dembele, Olise, Pulisic; Kane(C), Oyarzabal. Bench: Emi Martinez, Lisandro, De Paul, Messi. Banks today's Cucurella+Cubarsi+Oyarzabal (M93 21:00 CEST) + Pulisic (M94 02:00 CEST) at zero cost (the benched ARG quartet plays M95 tomorrow). JUL-6 LEGS BANKED (feed r5, all 11 starters' matches now finished; XI banked 53 incl. captain double): Cucurella 7 (90', Spain CS in M93 0-1) + Cubarsi 7 (90', CS) + Oyarzabal 2 (90+7', 0G/0A) + Pulisic 1 (off 59', USA 1-4 = no CS; USA ELIMINATED). JUL-7 RESTORE EXECUTED (user follows; before M95 18:00 CEST, all like-for-like so formation stays 4-4-2): Emi Martinez IN for Pickford (GK-for-GK, forfeits 2, E 3.9), Lisandro IN for Guehi (DEF, forfeits 0, E 4.4), De Paul IN for Pulisic (MID, forfeits 1, E 3.5), Messi IN for Oyarzabal (FWD, forfeits 2 - tied at 2 with Barcola/Olise, FWD-for-FWD chosen for like-for-like execution; EV identical, all matches ended), total forfeit 5 banked for E 16.1 = ~+11 net. XI now: Emi; Digne, Cucurella, Cubarsi, Lisandro; Barcola, Dembele, Olise, De Paul; Kane(C), Messi. KANE STAYS CAPTAIN (banked 9x2=18; every other starter's match ended or E < 9 - relay CLOSED). Restored XI banked 48 + the ARG quartet live tonight. Don't leave any ARG benched past 18:00 CEST. QF BOARD: M97 France-Morocco (Jul 9), M98 SPAIN-BELGIUM (Jul 10, W93/94 resolved Jul 6), M99 Norway-England (Jul 11), M100 = W95(Arg/Egy)-W96(Sui/Col) (Jul 11, resolves tonight). QF TRANSFER PLAN (mode=transfers/upcoming, HOLD until the Jul-8/9 lock-eve run; QF locks at M97 KO Thu Jul 9 22:00 CEST): Jul-7 run re-derived it with fresh QF odds (M98 Spain-Belgium known) and it CHANGED WHOLESALE from Jul-6's Romero/Rabiot/Konsa version -> now Pulisic->Baena (+16.4), Guehi->Tagliafico (+3.7), Kane->MBAPPE (+2.1), Barcola->Dani Olmo (+1.1) = +23.3, 4 free, 0 hits; QF captain MESSI (3-4-3), Spain block kept (Cucurella/Cubarsi survive - Spain 1.63 to beat Belgium). CAVEATS for lock-eve: Tagliafico only if Argentina beat Egypt tonight (and note Scaloni benched Almada fit in a big KO game - 'nailed' tags on ARG mids need the confirmed-sheet check); Onana (Belgium) OUT of the QF (knee, M94) already in squads.json. CHIP SCHEDULE RE-PLANNED by this run: MaxCap@QF (=+5, was parked for the final), Clean-Sheet-Shield@SF, WILDCARD pushed to FINAL (4 free transfers already reach the QF optimum, hits saved 0.0; unconstrained optimum +31 horizon away) - decide at lock-eve.\n\nPRE-R16 HISTORY (condensed): R32 final tally 112 + QB +22; season total 385 through R32 (user-confirmed 2026-07-04). Pre-R32: durable build locked, Jul-1/Jul-2 free-rolls + relay all paid; armband Dembele -> Oyarzabal (kept)."
   },
   "chips_used": [
     "Qualification Booster",
     "12th Man"
   ],
   "cumulative": {
-    "nostradamus_points": 142,
-    "gopicks_points": 231,
-    "gopicks_exact_goals": 60,
+    "nostradamus_points": 146,
+    "gopicks_points": 237,
+    "gopicks_exact_goals": 63,
     "fantasy_points": 385
   },
   "predictions_entered": {
-    "12": "0-2"
+    "12": "0-2",
+    "95": "2-0",
+    "96": "0-2"
   },
   "gopicks": {
     "joined": "2026-06-12",
@@ -111,7 +113,9 @@
       "2": "missed",
       "89": "2-0",
       "90": "2-0",
-      "92": "1-1"
+      "92": "1-1",
+      "95": "2-0",
+      "96": "0-1"
     },
     "points_official": 230,
     "rank": 11,
@@ -120,7 +124,7 @@
       250,
       249
     ],
-    "note": "Sentora partners league on gopicks.app, joined 2026-06-12 (matches 1-2 missed, 0 pts). predictions_entered: '<num>':'H-A' = stated deviation, 'missed' = not entered, absent = followed the pick. USER DEVIATION 2026-07-05: he entered the Jul-4 picks SWAPPED home<->away (89: '2-0' vs pick 0-2, 90: '2-0' vs pick 0-2) -> 0 pts both (correct entries were worth 4+4); frozen history above; he commits to accurate entry from now on - ALWAYS restate 'home team first' in the brief. STANDING: REAL, USER-PROVIDED 2026-07-05 (after M89-90): 230 pts, rank 11/100, top-3 = 267/250/249 (the 2026-07-05 morning estimate 267/252/250 rank~12.6 was computed from end-of-R32 reals +7.6 E[rival Jul-4 gain] and validated almost exactly). Ranks 4-10 interpolate automatically; chasers = code default rivals_behind 229-225 (correct again with him at 11th on 230). Deficit to podium 19 with 14 matches (~70 GoPicks pts max) left. STRATEGY: tilt2-45 decorrelation REINSTATED 2026-07-05 (user call; podium.py verdict rule rewritten PRIZES-FIRST - see the module docstring/comment): points pay nothing, so any >0.5pp P(top-3) lift at trivial EV cost switches; cheapest near-best tilt wins the tie. Prior standings: 2026-07-04 R32-end 230/rank 9 (259/244/242); 2026-07-02 213/rank 10. This is the ONLY league where rank-aware strategy is sanctioned (real prizes, top-3 pay); Nostradamus + Fantasy remain pure best-EV. JUL-6 UPDATE (after M91/M92): computed GoPicks 231 / 60 exact goals (M91 Brazil 1-2 Norway: followed-pick banked +1 exact-home-goal; M92 Mexico 2-3 England: entered 1-1 vs actual 2-3 = 0). Podium sim P(top-3) now ~0.0% best-EV and NO tilt lifts it above the noise band -> stay BEST-EV (prizes-first rule still stands but nothing beats it now). Pipeline auto-WITHDREW the stale 94/96 home-first auto-flips (auto_flips now empty); the Jul-6/7 GoPicks picks are plain best-EV: M93 0-1, M94 1-0, M95 1-0, M96 0-1 (all home-team-first). REMINDER TO USER EVERY RUN: enter HOME TEAM'S goals FIRST. points_official 230 / rank 11 left as-is (Jul-5 user-provided; never asked).",
+    "note": "Sentora partners league on gopicks.app, joined 2026-06-12 (matches 1-2 missed, 0 pts). predictions_entered: '<num>':'H-A' = stated deviation, 'missed' = not entered, absent = followed the pick. USER DEVIATION 2026-07-05: he entered the Jul-4 picks SWAPPED home<->away (89: '2-0' vs pick 0-2, 90: '2-0' vs pick 0-2) -> 0 pts both (correct entries were worth 4+4); frozen history above; he commits to accurate entry from now on - ALWAYS restate 'home team first' in the brief. STANDING: REAL, USER-PROVIDED 2026-07-05 (after M89-90): 230 pts, rank 11/100, top-3 = 267/250/249 (the 2026-07-05 morning estimate 267/252/250 rank~12.6 was computed from end-of-R32 reals +7.6 E[rival Jul-4 gain] and validated almost exactly). Ranks 4-10 interpolate automatically; chasers = code default rivals_behind 229-225 (correct again with him at 11th on 230). Deficit to podium 19 with 14 matches (~70 GoPicks pts max) left. STRATEGY: tilt2-45 decorrelation REINSTATED 2026-07-05 (user call; podium.py verdict rule rewritten PRIZES-FIRST - see the module docstring/comment): points pay nothing, so any >0.5pp P(top-3) lift at trivial EV cost switches; cheapest near-best tilt wins the tie. Prior standings: 2026-07-04 R32-end 230/rank 9 (259/244/242); 2026-07-02 213/rank 10. This is the ONLY league where rank-aware strategy is sanctioned (real prizes, top-3 pay); Nostradamus + Fantasy remain pure best-EV. JUL-6 UPDATE (after M91/M92): computed GoPicks 231 / 60 exact goals (M91 Brazil 1-2 Norway: followed-pick banked +1 exact-home-goal; M92 Mexico 2-3 England: entered 1-1 vs actual 2-3 = 0). Podium sim P(top-3) now ~0.0% best-EV and NO tilt lifts it above the noise band -> stay BEST-EV (prizes-first rule still stands but nothing beats it now). Pipeline auto-WITHDREW the stale 94/96 home-first auto-flips (auto_flips now empty). JUL-7 UPDATE (after M93/M94): computed GoPicks 237 / 63 exact (M93 Por 0-1 Spa: followed pick 0-1 = EXACT +5; M94 USA 1-4 Bel: pick 1-0 = +1 exact-home-goal). Jul-7 picks (frozen as explicit entries in predictions_entered - the M95 GoPicks pick flipped 1-0->2-0 intra-day on a 0.01 EV edge once Pinnacle firmed Argentina to 1.36, and the followed-pick scorer replays the CURRENT run's re-derived pick, so knife-edge picks get frozen at brief time from now on): M95 Argentina 2-0 Egypt (both leagues agree), M96 Switzerland 0-1 Colombia (GoPicks; Nostradamus differs 0-2). Podium sim still P(top-3) ~0.0%, no tilt above noise -> BEST-EV (user re-confirmed best-EV this session). REMINDER TO USER EVERY RUN: enter HOME TEAM'S goals FIRST. points_official 230 / rank 11 left as-is (Jul-5 user-provided; never asked).",
     "auto_flips": {}
   },
   "assume_followed": true
