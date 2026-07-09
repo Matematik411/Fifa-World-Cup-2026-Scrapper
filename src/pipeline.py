@@ -6,7 +6,7 @@ start, regenerates everything, writes a timestamped processed run, updates the
 """
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 from . import io_utils
 from .config import MANUAL, OUTPUT, ROOT, ensure_dirs, load_config
@@ -20,7 +20,6 @@ from .model.ensemble import apply_team_form, build_strengths
 from .model.forecast import Forecast
 from .model.standings import dead_rubber_flags
 from .gopicks import optimizer as gopt
-from .gopicks import podium as gpod
 from .nostradamus import optimizer as nopt
 from .sources.loader import load_bundle
 from .timeutil import countdown_str, fmt_cet, fmt_local, kickoff_datetimes, now_cet
@@ -185,64 +184,45 @@ def _score_gopicks(results: dict, pred_records: list, state: dict, scoring: dict
     return {"total": total, "exact": exact_total, "rows": rows, "n": len(rows), "missed": missed}
 
 
-def _apply_podium_flips(state: dict, pred_records: list, podium: dict | None,
-                        results: dict, log=print) -> None:
-    """U9: when the podium verdict says decorrelate, the strategy's flipped
-    scorelines BECOME the official GoPicks picks (the user follows the page).
+def _freeze_imminent_picks(state: dict, pred_records: list, results: dict,
+                           forecast, gen_cet, log=print) -> int:
+    """Auto-freeze tonight's picks-of-record (U11, 2026-07-09 — automates the
+    manual practice started 2026-07-07).
 
-    Consistency across runs: each applied flip is auto-recorded in
-    state.gopicks.predictions_entered (that's literally what he enters on the
-    site under assume_followed), with bookkeeping in gopicks.auto_flips so a
-    later verdict change can retire a stale auto-entry while the match is
-    still unplayed — but never stomp a USER-stated deviation, and never touch
-    a played match (its entered pick is frozen history that scoring uses)."""
-    gp_state = state.setdefault("gopicks", {})
-    entered = gp_state.setdefault("predictions_entered", {})
-    auto = gp_state.setdefault("auto_flips", {})
-
-    flips = {}
-    if podium and podium.get("verdict", {}).get("switch"):
-        strat = podium["verdict"]["to"]
-        flips = {str(p["num"]): p for p in podium["strategies"][strat]["picks"]
-                 if p["flipped"] and int(p["num"]) not in results}
-
-    # retire bookkeeping for played matches; withdraw stale unplayed auto-entries
-    for num, pick in list(auto.items()):
-        if int(num) in results:
-            auto.pop(num)                       # frozen — entered stays as history
-            continue
-        if num not in flips and entered.get(num) == pick:
-            entered.pop(num)
-            auto.pop(num)
-            log(f"  [podium] verdict no longer flips match {num} — auto-entry withdrawn.")
-
-    if not flips:
-        return
-    strat = podium["verdict"]["to"]
-    by_num = {r["num"]: r for r in pred_records}
+    Played-match scoring replays the CURRENT run's recommendation unless an
+    explicit entry exists, so a same-day re-run with fresh odds can silently
+    rewrite what the user already entered on the sites (M95's intra-day
+    1-0 -> 2-0 flip). The user enters every briefed pick right after a run, so
+    at the end of each run the recommended scoreline of every unplayed match
+    kicking off before tomorrow 06:00 CET becomes an explicit entry in BOTH
+    leagues. setdefault semantics: a user-stated deviation, a "missed", or an
+    earlier same-day freeze always beats this run's pick; matches that already
+    kicked off are never frozen post-hoc."""
+    cutoff = (gen_cet + timedelta(days=1)).replace(hour=6, minute=0, second=0, microsecond=0)
+    entered = state.setdefault("predictions_entered", {})
+    gp_entered = state.setdefault("gopicks", {}).setdefault("predictions_entered", {})
     n = 0
-    for num, p in flips.items():
-        r = by_num.get(int(num))
-        if r is None or "gp_home" not in r:
+    for r in pred_records:
+        num = r["num"]
+        if num in results:
             continue
-        if entered.get(num) not in (None, auto.get(num)):
-            log(f"  [podium] match {num}: user-stated entry {entered[num]} kept over the {strat} flip.")
+        mf = forecast.match_forecasts.get(num)
+        if mf is None:
             continue
-        ph, pa = (int(x) for x in p["pick"].split("-"))
-        r["gp_ev_pick"] = p["ev_pick"]
-        r["gp_home"], r["gp_away"] = ph, pa
-        r["gp_ev"] = p.get("pick_ev", r.get("gp_ev"))
-        r["gp_exact_ev"] = p.get("pick_exact_ev", r.get("gp_exact_ev"))
-        r["gp_tilted"] = strat
-        r["gp_rationale"] = (f"PODIUM TILT ({strat}): favorite < 45% here, so the rank-aware pick "
-                             f"{p['pick']} replaces the EV pick {p['ev_pick']} (−{p['ev_cost']:.1f} EV) "
-                             f"to decorrelate from the leaders — see the podium card above.")
-        entered[num] = f"{ph}-{pa}"
-        auto[num] = f"{ph}-{pa}"
-        n += 1
-    if n:
-        log(f"  [podium] applied {n} {strat} flip(s) to the GoPicks picks-of-record "
-            f"(auto-recorded as entered predictions).")
+        _, cet = kickoff_datetimes(mf.date, mf.kickoff_local, mf.tz)
+        if cet is None or not (gen_cet < cet < cutoff):
+            continue
+        key = str(num)
+        pick = f"{r['pred_home']}-{r['pred_away']}"
+        if entered.setdefault(key, pick) == pick:
+            n += 1
+            log(f"  [freeze] M{num} Nostradamus pick-of-record locked at {pick} "
+                f"(KO {fmt_cet(cet)}).")
+        if "gp_home" in r:
+            gp_pick = f"{r['gp_home']}-{r['gp_away']}"
+            if gp_entered.setdefault(key, gp_pick) == gp_pick:
+                log(f"  [freeze] M{num} GoPicks pick-of-record locked at {gp_pick}.")
+    return n
 
 
 def run_pipeline(run_date: str | None = None, fetch: bool = True, sim: bool = True,
@@ -306,6 +286,18 @@ def run_pipeline(run_date: str | None = None, fetch: bool = True, sim: bool = Tr
         log("Skipping simulation (reusing cached advancement).")
     advancement = simr["advancement"]
 
+    # Guard: a match with curated odds but no forecast means fixtures.json still
+    # has placeholder home/away slots — the forecast skips it SILENTLY, so the
+    # match gets no predictions and its players no market-priced projections
+    # (this bit the 2026-07-07 run: M99/M100 odds were in but W91/W95 never
+    # filled). Warn loudly; the fix is RUNBOOK §6 job 1.
+    for mo in (bundle.ratings_odds.get("match_odds") or []):
+        num = mo.get("num")
+        if num is None or num in results or num in forecast.match_forecasts:
+            continue
+        log(f"  [warn] M{num} ({mo.get('home')}–{mo.get('away')}) has curated odds but NO forecast "
+            f"— fixtures.json home/away is still a placeholder; fill the resolved teams and re-run.")
+
     # ---- Nostradamus ----
     log("Optimizing Nostradamus scorelines...")
     scoring = cfg.get("nostradamus", {})
@@ -338,18 +330,8 @@ def run_pipeline(run_date: str | None = None, fetch: bool = True, sim: bool = Tr
         if g:
             row.update({"gp_pred": g["pred"], "gp_points": g["points"], "gp_missed": g["missed"]})
 
-    # ---- GoPicks podium simulator (U9) — the ONE rank-aware analysis (real prizes,
-    # top-3 only; user-sanctioned exception to the pure-best-EV rule, 2026-07-04).
-    # Endgame tool: runs once the remaining-match count is small and the user's
-    # official standing (points/rank/leaderboard_ahead) is in state.gopicks.
-    gopicks_podium = None
-    if cfg.get("gopicks.podium_enabled", True):
-        log("GoPicks podium simulator (rank-aware endgame)...")
-        gopicks_podium = gpod.podium_analysis(forecast, bundle.fixtures, results,
-                                              gp_scoring, state.get("gopicks") or {},
-                                              cfg=cfg, log=log)
-        # the verdict's flips become the official GoPicks picks (records + state)
-        _apply_podium_flips(state, pred_records, gopicks_podium, results, log)
+    # ---- freeze tonight's picks-of-record (drift-proof scoring, U11) ----
+    _freeze_imminent_picks(state, pred_records, results, forecast, gen_cet, log)
 
     # ---- Fantasy ----
     fantasy_out = None
@@ -364,7 +346,6 @@ def run_pipeline(run_date: str | None = None, fetch: bool = True, sim: bool = Tr
     result = _assemble(cfg, run_date, gen_cet, stage, stage_label, bundle, strengths,
                        forecast, simr, pred_records, fantasy_out, scoring_summary, gp_summary)
     result["target_round"] = target_round
-    result["gopicks_podium"] = gopicks_podium
 
     # cumulative Nostradamus/GoPicks points = idempotent recompute from results;
     # fantasy from state (user-entered)

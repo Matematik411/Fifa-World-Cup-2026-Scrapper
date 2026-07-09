@@ -16,47 +16,6 @@ you can edit until then.</p>
   <br>Knockout predictions unlock here as the bracket fills — re-run each day.
 </div>
 
-{% if gopicks_podium %}
-{% set pod = gopicks_podium %}
-<h2>GoPicks podium strategy (rank-aware — prizes are top-3 only)</h2>
-<div class="card">
-  <p class="small">You: <b>{{ pod.my_points|int }} pts</b> · podium at
-    {{ pod.rival_starts[:3]|map('int')|join(' / ') }} · {{ pod.n_known }} known + {{ pod.n_later }} later matches remain
-    · {{ '{:,}'.format(pod.n_sims) }} sims × rival-overlap grid {{ pod.overlap_grid|join(' / ') }}.
-    Unknown ranks interpolated; nearest chasers assumed just behind — treat P(top-3) as a comparison
-    between strategies, not gospel.</p>
-  <table class="sortable">
-    <thead><tr><th>Strategy</th><th>EV cost (this round)</th><th>E[final pts]</th><th>σ</th>
-      <th>P(top-3)</th><th>P(top-1)</th><th>E[rank]</th></tr></thead>
-    <tbody>
-    {% for name, s in pod.strategies.items() %}
-      {% set mid = s.per_overlap.values()|list %}
-      <tr {% if pod.verdict.switch and pod.verdict.to == name %}style="background:rgba(80,200,120,.12)"{% elif name == 'best-ev' and not pod.verdict.switch %}style="background:rgba(80,200,120,.12)"{% endif %}>
-        <td><b>{{ name }}</b></td>
-        <td>{{ s.ev_cost_round|r(1) }}</td>
-        <td>{{ s.ev_final|r(1) }}</td>
-        <td>{{ s.sd_final|r(1) }}</td>
-        <td><b>{{ (s.p_top3_mean*100)|r(1) }}%</b> <span class="small muted">({% for q, v in s.per_overlap.items() %}{{ (v.p_top3*100)|r(1) }}%{% if not loop.last %} / {% endif %}{% endfor %})</span></td>
-        <td>{{ (mid[0].p_top1*100)|r(1) }}%</td>
-        <td>{{ mid[0].exp_rank|r(1) }}</td>
-      </tr>
-    {% endfor %}
-    </tbody>
-  </table>
-  <div class="note small" style="margin-top:8px">
-    <b>Verdict: {% if pod.verdict.switch %}playing {{ pod.verdict.to }}{% else %}stay best-EV{% endif %}.</b>
-    {{ pod.verdict.reason }}.
-    {% if pod.verdict.switch %}
-    {% set win = pod.strategies[pod.verdict.to] %}
-    <br><b>The match list below already carries these picks</b> — flipped this round:
-    {% for p in win.picks %}{% if p.flipped %}<b>{{ p.home }}–{{ p.away }}: {{ p.pick }}</b> (EV pick was {{ p.ev_pick }}, −{{ p.ev_cost|r(1) }} EV){% if not loop.last %} · {% endif %}{% endif %}{% endfor %}
-    — every other match keeps its EV pick. Flipped rows wear a <span class="conf Med">podium tilt</span> badge.
-    Enter what the rows say; the tracker records the same.
-    {% endif %}
-  </div>
-</div>
-{% endif %}
-
 {% set ko_rounds = ['R32','R16','QF','SF','final','third-place'] %}
 {% for date, rows in predictions|groupby('date') %}
 <h2>{{ date }}</h2>
@@ -74,7 +33,7 @@ you can edit until then.</p>
       {% if gp_differs %}
       <span class="scoreline">{{ r.pred_home }}–{{ r.pred_away }}</span><span class="small muted"> Nostr</span>
       <span class="muted">·</span>
-      <span class="scoreline">{{ r.gp_home }}–{{ r.gp_away }}</span><span class="small muted"> GoPicks{% if r.gp_tilted is defined %} <span class="conf Med">podium tilt</span>{% endif %}</span>
+      <span class="scoreline">{{ r.gp_home }}–{{ r.gp_away }}</span><span class="small muted"> GoPicks</span>
       {% else %}
       <span class="scoreline">{{ r.pred_home }}–{{ r.pred_away }}</span><span class="small muted"> both leagues</span>
       {% endif %}

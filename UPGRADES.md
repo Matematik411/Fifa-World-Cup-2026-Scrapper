@@ -56,11 +56,13 @@ decisive and coherent.
 
 - **Gate everything on the backtest.** No model-affecting change ships without an out-of-sample number
   (item U1). Add signals **one at a time** so each one's effect is measurable. No big-bang.
-- **Pure best-EV only — with ONE sanctioned exception.** No rank-aware / differential / catch-up strategy
-  (user declined, 2026-06-12) in Nostradamus or Fantasy. **GoPicks is the exception** (user decision
-  2026-07-02, activated 2026-07-04): real prizes, top-3 only → the U9 podium simulator may recommend
-  EV-sacrificing decorrelation there, gated on simulated P(top-3), never vibes. Elsewhere variance work
-  is allowed *only* where EV is inherently distributional (captain ceiling, exact-score mode).
+- **Pure best-EV only — everywhere (the one exception was revoked 2026-07-09).** No rank-aware /
+  differential / catch-up strategy in any league (user declined 2026-06-12). GoPicks was briefly the
+  sanctioned exception (2026-07-02 → 2026-07-09: real prizes, top-3 only → U9 podium simulator +
+  decorrelation tilts); at the QF the user closed it — podium out of realistic reach, goal is now best
+  final placement = pure best-EV — and the U9 machinery was **deleted** (podium.py, pipeline hook +
+  auto-flips, report card, tests). Do not rebuild it without an explicit user re-open. Variance work is
+  allowed *only* where EV is inherently distributional (captain ceiling, exact-score mode).
 - **Verified rules override config.** `data/manual/{fantasy_rules,nostradamus,gopicks}.json` are the source
   of truth for game rules; `config.yaml` is overridden by them. Read rules from there; never hardcode.
 - **Keep the daily run working.** `./run.sh run` must stay green and idempotent; `uv run pytest` must pass.
@@ -120,8 +122,9 @@ Rationale for the ordering (decided 2026-06-24 — so future sessions don't re-l
 | U6 | Minutes as a distribution | After MD2 | DONE | — |
 | U7 | Player-level correlation (CS stacking, captain ceiling) | Before R32 | DONE | — |
 | U8 | Data freshness / confidence tags | Anytime | DONE | — |
-| U9 | GoPicks podium simulator (rank-aware endgame) | Before R16 | DONE | — |
+| U9 | GoPicks podium simulator (rank-aware endgame) | Before R16 | REMOVED 2026-07-09 | — |
 | U10 | KO extra-time adjustment for fantasy projections | Before R16 | DONE | — |
+| U11 | Pick-of-record auto-freeze (drift-proof scoring) | Before QF | DONE | — |
 
 Statuses: `TODO` · `IN-PROGRESS` (leave a resume note in §7) · `DONE` · `DEFERRED` (say why in §7).
 
@@ -301,7 +304,7 @@ contend with QB for the R32 slot — re-evaluate then.
 - **Where:** `src/report/`, the loaders in `src/sources/`.
 - **Done-when:** each report shows input freshness; stale/low-confidence inputs are visibly flagged.
 
-### U9 — GoPicks podium simulator  *(before R16; the sanctioned rank-aware exception)*
+### U9 — GoPicks podium simulator  *(REMOVED 2026-07-09 — user reverted GoPicks to pure best-EV; kept for history)*
 - **Goal:** answer "when do I stop playing best-EV in the prize league?" with numbers.
 - **Why:** GoPicks pays top-3 only; trailing + correlated picks = frozen gap. Decorrelation costs EV but
   buys gap variance; whether that trade is +P(top-3) depends on deficit, matches left and rival behavior.
@@ -326,12 +329,57 @@ contend with QB for the R32 slot — re-evaluate then.
   wc2026-fantasy-extra-time). Scoreline metrics untouched by construction; validated by unit tests
   (`tests/test_et.py`) + face validity, like U5/U6.
 
+### U11 — Pick-of-record auto-freeze  *(before QF; bookkeeping, no model numbers)*
+- **Goal:** make the scored picks-of-record drift-proof without manual freezing.
+- **Why:** played-match scoring replays the CURRENT run's recommendation unless an explicit
+  `predictions_entered` entry exists — so a same-day re-run with fresh odds silently rewrites history
+  (M95's intra-day 1-0→2-0 flip, 2026-07-07; the manual counter-practice was "freeze knife-edge picks
+  at brief time", memory wc2026-freeze-knife-edge-picks).
+- **How:** `pipeline._freeze_imminent_picks` — at the end of every run, each unplayed match kicking off
+  before tomorrow 06:00 CET gets its recommended scoreline `setdefault`-ed into BOTH leagues'
+  `predictions_entered` (user deviations / "missed" / earlier freezes always win; already-kicked-off
+  matches are never frozen post-hoc). The user enters every briefed pick right after the run, so the
+  frozen entry = what's really on the sites under assume-followed.
+- **Done-when:** `tests/test_freeze.py` covers tonight-vs-tomorrow cutoff, deviation preservation,
+  no post-hoc freezing, and first-freeze-wins on same-day re-runs. DONE 2026-07-09.
+
 ---
 
 ## 7. Run log (append-only — newest at top)
 
 > Template: `### <date> — <stage> — <agent>` then bullets: items touched, status changes, **backtest delta**,
 > follow-ups / resume-notes.
+
+### 2026-07-09 — before QF (R16 complete) — U9 REMOVED, U11 shipped, R1/R2/R3 run
+- **U9 (GoPicks podium simulator) REMOVED on user order** — GoPicks is pure best-EV permanently (his call:
+  podium unrealistically far; goal = best final placement). Deleted `src/gopicks/podium.py`,
+  `_apply_podium_flips` + the `auto_flips`/`leaderboard_ahead` state fields, the predictions.html card and
+  its tests; §2 golden rule rewritten (NO sanctioned rank-aware league anymore). pytest 93 → 82.
+- **U11 (pick-of-record auto-freeze) DONE** — `pipeline._freeze_imminent_picks` + `tests/test_freeze.py`
+  (see §6). First live exercise: M97 frozen 2-0 (Nost) / 1-0 (GoPicks) at run time; survived two same-day
+  re-runs byte-identical (setdefault semantics). pytest 82 → 87.
+- **R1 (re-backtest = the "backwards propagation check", all 96 results):** walk-forward realized
+  **148 Nost / 241 GoPicks / 64 exact = state.cumulative EXACTLY** (hand-check of the frozen M95/M96
+  entries agrees: M95 2-0 vs 3-2 → +2/+3, M96 0-2 & 0-1 vs 0-0 → 0/+1). Calibration: RPS 0.1427 → 0.146,
+  log-loss 0.820 → 0.8215, goals-MAE 0.859 → 0.883 — flat-to-noise on the 8 new KO matches (two 90'-draws
+  incl. a 0-0); CS ratio 1.26× → 1.24×. KO scorelines are market-priced → **no re-tune** (calibration-watch).
+- **R2 (form + research):** `wc_form.json` R16-complete (M89–96 folded, real ESPN/Opta xG; Messi 8 WC goals,
+  ARG 9.5 xG-for). QF team news: Tchouaméni OUT, Saibari OUT, Quansah suspended (the only QF ban), Doku
+  benched again, Sørloth 55/45, Guéhi/Rice precautionary-flagged but expected to start. Fresh Pinnacle QF
+  odds incl. new M100 Argentina–Switzerland 1.71/3.59/5.77.
+- **BUG FOUND & FIXED (process + guard):** fixtures.json M99/M100 still had W91/W95 placeholders → the
+  forecast SILENTLY skipped them (both on Jul-7 and in this run's first pass), so England/Norway QF was
+  never market-priced and M99/M100 predictions weren't offered. Filled Norway–England / Argentina–Switzerland,
+  re-ran, and added a pipeline guard: any match with curated odds but no forecast now logs a loud
+  fill-the-fixture warning.
+- **R3 (chips + transfers, QF lock-eve):** 4 free, 0 hits, +23.2: Pulisic→Baena (+16.1), Guéhi→Tagliafico
+  (+3.0), Dembélé→Yamal (+2.2), Kane→Mbappé (+1.9). XI 3-4-3, captain Yamal (E 5.4). **Maximum Captain @ QF
+  CONFIRMED (EV +4.2)** — and since MaxCap auto-assigns the double to the XI's real top scorer, the QF
+  armband is self-resolving: NO captain relay needed this round (ladder kept as the no-chip fallback).
+  CSS @ SF, Wildcard @ Final (breakage argmax) unchanged. Free-rolls emitted: park Messi → start Cucurella,
+  park Lisandro → start Cubarsí (both restore before ARG's Sun 03:00 KO).
+- **Follow-ups:** (a) `ratings_odds.json` is 21d stale (U8 flags it) — full Elo/title-odds re-rate at the
+  SF-eve run; (b) R16 realized XI = 61 pts (feed r5, Kane C ×2; season ≈ 446 pending user confirmation).
 
 ### 2026-07-04 — before R16 (R32 complete) — U9 + U10 DONE, R1/R2/R3 run
 - **U9 (GoPicks podium simulator) DONE** — new `src/gopicks/podium.py` (see §6), pipeline hook, card on
