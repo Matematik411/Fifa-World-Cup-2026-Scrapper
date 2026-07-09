@@ -1,6 +1,6 @@
 {
- "fetched_at": "2026-07-07",
- "notes": "R16 day-3 game-day pull 2026-07-07 ~15:15 UTC via guest arcadia API (same method as 06-28..07-05 pulls: parent-matchup s;0;m 1X2 + most-balanced s;0;ou total in 1.0-4.5, primaryOnly=false): REFRESHED today's M95 Argentina-Egypt and M96 Switzerland-Colombia plus QF M97 France-Morocco, and APPENDED the two QFs now resolvable after last night's ties - M98 Spain-Belgium (Jul 10, SoFi; Por 0-1 Spa / USA 1-4 Bel web-verified AND independently confirmed by Pinnacle listing Spain-Belgium) and M99 Norway-England (Jul 11, Miami). Movement vs 07-05: M95 Argentina 1.39->1.36, Egypt 9.21->12.5, total 2.25->2.5; M96 near-flat (Col 2.31, Swi 3.59->3.75), total 2.0->2.25; M97 France 1.60->1.56 (Mor 6.81). New QF lines: M98 Spain 1.63/4.02/5.75 @2.75; M99 England 1.88 fav (Nor 4.26/draw 3.72) @2.75. Zero orientation flips (Pinnacle home == bracket home in all five). Overrounds 1.021-1.040. Cross-checks: DK Arg -270, FOX Spa -160/X+300/Bel+440 (matches within vig), BetMGM Nor+290/X+275/Eng-118. Raw: data/raw/2026-07-07/.",
+ "fetched_at": "2026-07-09",
+ "notes": "QF game-day pull 2026-07-09 ~14:10 UTC via guest arcadia API (same method as 06-28..07-07 pulls: parent-matchup s;0;m 1X2 + most-balanced s;0;ou total in 1.0-4.5, primaryOnly=false): REFRESHED tonight's M97 France-Morocco plus M98 Spain-Belgium and M99 Norway-England, and APPENDED the last QF now resolvable after last night's R16 - M100 Argentina-Switzerland (Jul 11 20:00 CDT Arrowhead KC / Jul 12 01:00 UTC; pairing set by M95 Argentina 3-2 Egypt (90-min stoppage-time comeback from 0-2) and M96 Switzerland 0-0 Colombia, 4-3 pens, web-verified via ESPN/FIFA/Al Jazeera AND independently confirmed by Pinnacle listing Argentina as home = bracket W95). Movement vs 07-07: M97 France DRIFTED 1.56->1.62 (Morocco flat 6.81->6.80, draw 3.97->3.90), total 2.5 held; M98 Spain 1.63->1.66, Belgium firmed 5.75->5.48, total 2.75 held; M99 near-flat (Nor 4.26->4.31, Eng 1.88->1.87), total 2.75 held. New: M100 Argentina 1.71/3.59/5.77 @2.25. Overrounds 1.021-1.037, zero orientation flips. Cross-checks: M97 DK Fra -175/X+285/Mor+500 (FanDuel -175/+550, Caesars -170); M98 FanDuel Spa -160/X+300/Bel+440, bet365 -163/+300/+425, DK -160/+290/+450; M99 consensus Eng ~even 3-way, Nor +250/+298; M100 DK/VegasInsider Arg -140/-145, X +260, Swi +425 (Pinnacle -141/+259/+477 near-exact). Raw: data/raw/2026-07-09/.",
  "sources": [
   "Pinnacle guest arcadia API (guest.api.arcadia.pinnacle.com/0.1) league 2686 'FIFA - World Cup' matchups + per-matchup markets/related/straight, pulled 2026-07-03 (M86-88 refresh + M89-94 first R16 pull); HTTP 200 with guest X-API-Key; American odds -> decimal",
   "Game-day web cross-checks Jul-2/3: FanDuel research Aus-Egy (Egy +140), DraftKings Network opening-odds articles (Par-Fra, Mex-Eng, Spa-Por), bet365 lines via covers.com (Can-Mor) + news.bet365.com (Bra-Nor), BetMGM + Kalshi (USA-Bel), racingpost/fifa.com Salah team news",
@@ -12,7 +12,12 @@
   "https://www.si.com/betting/argentina-vs-egypt-prediction-odds-best-prop-bet-for-world-cup-round-of-16 (DraftKings Arg -270 / Egy +800 cross-check, Jul-7)",
   "https://www.foxsports.com/stories/soccer/2026-world-cup-quarterfinal-odds-which-squads-will-face-off (FOX/DK Spain -160 / draw +300 / Belgium +440 cross-check)",
   "https://www.sportsbettingdime.com/news/soccer/norway-vs-england-odds-world-cup-quarterfinals/ (BetMGM Nor +290 / draw +275 / Eng -118 cross-check)",
-  "https://www.espn.com/soccer/match/_/gameId/760506/spain-portugal + https://www.fifa.com/en/match-centre/match/17/285023/289288/400021534 (M93 Por 0-1 Spa, M94 USA 1-4 Bel results for the M98 pairing)"
+  "https://www.espn.com/soccer/match/_/gameId/760506/spain-portugal + https://www.fifa.com/en/match-centre/match/17/285023/289288/400021534 (M93 Por 0-1 Spa, M94 USA 1-4 Bel results for the M98 pairing)",
+  "Pinnacle guest arcadia API (guest.api.arcadia.pinnacle.com/0.1) league 2686 'FIFA - World Cup' matchups + per-matchup markets/related/straight?primaryOnly=false, pulled 2026-07-09 (M97-99 QF game-day/eve refresh + M100 first pull after R16 completion); HTTP 200 with guest X-API-Key; American odds -> decimal",
+  "https://dknetwork.draftkings.com/2026/07/08/france-vs-morocco-prediction-pick-for-thursday-7-9-26/ + https://www.gamingtoday.com/news/france-vs-morocco-odds-prediction-picks-wc-quarter-final/ (DK Fra -175 / X +285 / Mor +500; FanDuel -175/+550, Caesars -170 cross-check, Jul-9)",
+  "https://www.sportsbettingdime.com/news/soccer/spain-vs-belgium-odds-for-world-cup-quarterfinals-3-way-moneyline-total-odds-to-advance/ (FanDuel Spa -160 / X +300 / Bel +440; bet365 -163/+300/+425; DK -160/+290/+450 cross-check)",
+  "https://www.vegasinsider.com/soccer/argentina-vs-switzerland-predictions-july-11-2026/ + https://dknetwork.draftkings.com/2026/07/07/opening-odds-for-argentina-vs-switzerland-in-the-fifa-world-cup-2026/ (Arg -140/-145 / X +260 / Swi +425 cross-check)",
+  "https://www.espn.com/soccer/match/_/gameId/760509/egypt-argentina + https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/switzerland-colombia-match-report-highlights (M95 Arg 3-2 Egy, M96 Swi 0-0 Col 4-3 pens results for the M100 pairing)"
  ],
  "confidence": "High",
  "title_odds_pinnacle": {
@@ -1424,14 +1429,14 @@
    "num": 97,
    "group": null,
    "round": "QF",
-   "home_dec": 1.56,
-   "draw_dec": 3.97,
-   "away_dec": 6.81,
+   "home_dec": 1.62,
+   "draw_dec": 3.9,
+   "away_dec": 6.8,
    "total_line": 2.5,
-   "over_dec": 2.0,
-   "under_dec": 1.88,
+   "over_dec": 2.06,
+   "under_dec": 1.85,
    "book": "Pinnacle",
-   "date": "2026-07-07"
+   "date": "2026-07-09"
   },
   {
    "home": "Spain",
@@ -1439,14 +1444,14 @@
    "num": 98,
    "group": null,
    "round": "QF",
-   "home_dec": 1.63,
-   "draw_dec": 4.02,
-   "away_dec": 5.75,
+   "home_dec": 1.66,
+   "draw_dec": 3.98,
+   "away_dec": 5.48,
    "total_line": 2.75,
-   "over_dec": 2.05,
-   "under_dec": 1.84,
+   "over_dec": 2.03,
+   "under_dec": 1.86,
    "book": "Pinnacle",
-   "date": "2026-07-07"
+   "date": "2026-07-09"
   },
   {
    "home": "Norway",
@@ -1454,14 +1459,29 @@
    "num": 99,
    "group": null,
    "round": "QF",
-   "home_dec": 4.26,
-   "draw_dec": 3.72,
-   "away_dec": 1.88,
+   "home_dec": 4.31,
+   "draw_dec": 3.73,
+   "away_dec": 1.87,
    "total_line": 2.75,
-   "over_dec": 1.98,
+   "over_dec": 1.96,
+   "under_dec": 1.93,
+   "book": "Pinnacle",
+   "date": "2026-07-09"
+  },
+  {
+   "home": "Argentina",
+   "away": "Switzerland",
+   "num": 100,
+   "group": null,
+   "round": "QF",
+   "home_dec": 1.71,
+   "draw_dec": 3.59,
+   "away_dec": 5.77,
+   "total_line": 2.25,
+   "over_dec": 1.99,
    "under_dec": 1.9,
    "book": "Pinnacle",
-   "date": "2026-07-07"
+   "date": "2026-07-09"
   }
  ],
  "refresh_log": [
@@ -1477,6 +1497,7 @@
   "2026-07-01 ~13:20 UTC: fresh Pinnacle guest-arcadia re-pull (league 2686) for the 9 remaining R32 ties M80-88. 1X2 = parent-matchup period-0 3-way moneyline (child half-result markets in the related/straight feed excluded by matchupId); total_line = most-balanced goal line in 1.0-4.5 band. Favourites HELD vs Jun-30 with only game-day drift (Eng 1.29->1.30, USA 1.38->1.40, Por 1.78->1.81, Swi 2.09->2.05; Arg/Col/Spa/Aus-Egy flat). Balanced-total shifts: M80 2.5->2.25, M81 2.5->2.75, M86 3.0->2.75. ESPN/DraftKings (Jul-1) cross-check agrees within vig on the 3 Jul-1 games. #1-79 record-only, unchanged. Raw: data/raw/2026-07-01/{pinnacle_matchups_2026-07-01.json, pinnacle_markets_m80-88_2026-07-01/, pin_extracted_2026-07-01.json, odds_R32.md}.",
   "2026-07-03: fresh Pinnacle guest-arcadia re-pull (league 2686). REFRESHED today's R32 M86-88: Arg 1.16/8.85/21.0 @3.0 (firmed, total 2.75->3.0), Col 1.45/4.4/9.25 @2.25 (Col firmed 1.53->1.45), Aus-Egy 3.79/2.93/2.40 @2.0 (Egypt firmed 2.51->2.40 DESPITE Salah hamstring game-time-decision; FanDuel Egy +140 confirms). APPENDED first R16 pull M89-94 (round=R16): Par-Fra 16.74/6.82/1.21 @2.75; Can-Mor 5.24/3.53/1.78 @2.25; Bra-Nor 1.82/3.79/4.49 @2.75; Mex-Eng 3.19/3.25/2.43 @2.0 (tight Azteca line); Por-Spa 4.17/3.65/1.92 @2.5; USA-Bel 2.68/3.43/2.72 @2.75 (pick'em-ish, Kalshi-consistent, Balogun suspension priced). All 9 = parent-matchup period-0 s;0;m + most-balanced 1.0-4.5 total; overrounds 1.022-1.036; zero orientation flips. M95/M96 not yet listed on Pinnacle (opponents TBD) - skipped. Cross-checked vs DK/bet365/FanDuel/BetMGM/Kalshi game-day articles - all sides+magnitudes agree within vig. Raw: data/raw/2026-07-03/{pinnacle_matchups_2026-07-03.json, pinnacle_markets_2026-07-03/, pin_extracted_2026-07-03.json, odds_jul3.md}.",
   "2026-07-04 ~morning UTC: fresh Pinnacle guest-arcadia re-pull (league 2686) - game-day refresh of all 8 R16 ties. REFRESHED M89-94 (dates ->2026-07-04): M89 Par-Fra 19.5/7.45/1.19 @3.0 (France firmed 1.21->1.19, total 2.75->3.0); M90 Can-Mor 5.6/3.47/1.79 @2.25 (Canada drifted 5.24->5.6); M91 Bra-Nor 1.83/3.77/4.47 @2.75 (flat); M92 Mex-Eng 3.17/3.27/2.43 @2.25 (1X2 flat, balanced total 2.0->2.25); M93 Por-Spa 4.1/3.68/1.93 @2.5 (flat); M94 USA-Bel 2.77/3.43/2.63 @2.75 (pick'em nudged to Belgium; was USA 2.68/Bel 2.72). APPENDED M95 Argentina-Egypt 1.37/4.87/9.65 @2.5 and M96 Switzerland-Colombia 3.56/3.18/2.28 @2.25 (R32 winners Arg 3-2 aet CV / Egy pens / Col 1-0 Gha; both matchups newly live on Pinnacle, home sides = bracket-designated Arg & Swi). All 8 = parent-matchup period-0 s;0;m + most-balanced 1.0-4.5 total; overrounds 1.025-1.039; zero orientation flips. Cross-checks: M95 = DK -270 exact, bet365 -300 same shape; M96 = bet365 Col +130 exact. Raw: data/raw/2026-07-04/{pinnacle_matchups_2026-07-04.json, pinnacle_markets_2026-07-04/, pin_extracted_2026-07-04.json, odds_jul4.md}.",
-  "2026-07-07 ~15:15 UTC: fresh Pinnacle guest-arcadia re-pull (league 2686). REFRESHED today's R16 games M95 Argentina-Egypt 1.36/4.85/12.5 @2.5 (Arg firmed, Egypt blew out 9.21->12.5, total 2.25->2.5) and M96 Switzerland-Colombia 3.75/3.10/2.31 @2.25 (near-flat, total 2.0->2.25), plus QF M97 France-Morocco 1.56/3.97/6.81 @2.5 (France firmed 1.60->1.56). APPENDED the two newly-resolvable QFs: M98 Spain-Belgium 1.63/4.02/5.75 @2.75 (Jul 10 19:00 UTC, SoFi; pairing set by M93 Por 0-1 Spa (Merino 90+1') and M94 USA 1-4 Bel, web-verified via ESPN/FIFA/NPR and independently confirmed by Pinnacle listing Spain as home) and M99 Norway-England 4.26/3.72/1.88 @2.75 (Jul 11 21:00 UTC, Miami). All 5 = parent-matchup period-0 s;0;m + most-balanced 1.0-4.5 total; overrounds 1.021-1.040; zero orientation flips. Cross-checks agree within vig: M95 DK Arg -270/Kalshi 72%; M98 FOX Spa -160/X +300/Bel +440; M99 BetMGM Nor +290/X +275/Eng -118, FOX Nor +296. Raw: data/raw/2026-07-07/{pinnacle_matchups_2026-07-07.json, pinnacle_markets_2026-07-07/, pin_extracted_2026-07-07.json, odds_jul7.md}."
+  "2026-07-07 ~15:15 UTC: fresh Pinnacle guest-arcadia re-pull (league 2686). REFRESHED today's R16 games M95 Argentina-Egypt 1.36/4.85/12.5 @2.5 (Arg firmed, Egypt blew out 9.21->12.5, total 2.25->2.5) and M96 Switzerland-Colombia 3.75/3.10/2.31 @2.25 (near-flat, total 2.0->2.25), plus QF M97 France-Morocco 1.56/3.97/6.81 @2.5 (France firmed 1.60->1.56). APPENDED the two newly-resolvable QFs: M98 Spain-Belgium 1.63/4.02/5.75 @2.75 (Jul 10 19:00 UTC, SoFi; pairing set by M93 Por 0-1 Spa (Merino 90+1') and M94 USA 1-4 Bel, web-verified via ESPN/FIFA/NPR and independently confirmed by Pinnacle listing Spain as home) and M99 Norway-England 4.26/3.72/1.88 @2.75 (Jul 11 21:00 UTC, Miami). All 5 = parent-matchup period-0 s;0;m + most-balanced 1.0-4.5 total; overrounds 1.021-1.040; zero orientation flips. Cross-checks agree within vig: M95 DK Arg -270/Kalshi 72%; M98 FOX Spa -160/X +300/Bel +440; M99 BetMGM Nor +290/X +275/Eng -118, FOX Nor +296. Raw: data/raw/2026-07-07/{pinnacle_matchups_2026-07-07.json, pinnacle_markets_2026-07-07/, pin_extracted_2026-07-07.json, odds_jul7.md}.",
+  "2026-07-09 ~14:10 UTC: fresh Pinnacle guest-arcadia re-pull (league 2686). REFRESHED the three stored QFs: tonight's M97 France-Morocco 1.62/3.90/6.80 @2.5 (France DRIFTED 1.56->1.62, Morocco flat 6.81->6.80, draw 3.97->3.90, total 2.5 held), M98 Spain-Belgium 1.66/3.98/5.48 @2.75 (Spain 1.63->1.66, Belgium firmed 5.75->5.48, total held) and M99 Norway-England 4.31/3.73/1.87 @2.75 (near-flat, total held). APPENDED the last QF, newly live after last night's R16: M100 Argentina-Switzerland 1.71/3.59/5.77 @2.25 (Jul 11 20:00 CDT Arrowhead KC / Jul 12 01:00 UTC; pairing set by M95 Argentina 3-2 Egypt (90-min stoppage-time comeback: Romero 79' Messi 83' E.Fernandez 90+') and M96 Switzerland 0-0 Colombia 4-3 pens (Vargas winning kick), web-verified via ESPN/FIFA/NPR/Al Jazeera AND independently confirmed by Pinnacle listing Argentina as home = bracket W95 designation). All 4 = parent-matchup period-0 s;0;m + most-balanced 1.0-4.5 total; overrounds 1.021-1.037; zero orientation flips (Pinnacle home == fixture home in all four). Cross-checks agree within vig: M97 DK Fra -175/X+285/Mor+500 (FanDuel -175/+550, Caesars -170, U2.5 -120 book-favoured matching Pinnacle U -117); M98 FanDuel Spa -160/X+300/Bel+440, bet365 -163/+300/+425, DK -160/+290/+450; M99 consensus Eng ~even 3-way / Nor +250 (2-way Nor +298/Eng -117) vs Pinnacle -115; M100 DK/VegasInsider Arg -140/-145 / X +260 / Swi +425 vs Pinnacle -141/+259/+477 near-exact (books' U2.5 -150/-155 consistent with Pinnacle balance point 2.25). Raw: data/raw/2026-07-09/{pinnacle_matchups_2026-07-09.json, pinnacle_markets_2026-07-09/, pin_extracted_2026-07-09.json, odds_jul9.md}."
  ]
 }

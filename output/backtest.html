@@ -168,8 +168,8 @@ footer.foot a { word-break: break-all; }
 <div class="wrap">
   <div class="meta-bar">
     <span class="stage-pill">Backtest &amp; calibration</span>
-    <span>Generated 2026-07-04 09:57 UTC</span>
-    <span>Run 2026-07-03</span>
+    <span>Generated 2026-07-09 14:26 UTC</span>
+    <span>Run 2026-07-07</span>
     
   </div>
 
@@ -177,9 +177,9 @@ footer.foot a { word-break: break-all; }
 
   
 <h1>Backtest &amp; calibration</h1>
-<p class="lede">How the model has actually done on the 88 played match(es), scored
-out-of-sample. 88/88 matches have a leak-free pre-match pick-of-record across
-28 persisted daily runs (2026-06-05 → 2026-07-03).</p>
+<p class="lede">How the model has actually done on the 96 played match(es), scored
+out-of-sample. 96/96 matches have a leak-free pre-match pick-of-record across
+32 persisted daily runs (2026-06-05 → 2026-07-07).</p>
 
 
 
@@ -187,15 +187,15 @@ out-of-sample. 88/88 matches have a leak-free pre-match pick-of-record across
 <div class="grid cols-3">
   <div class="card">
     <h3>Nostradamus</h3>
-    <p class="big">132 <span class="muted small">pts</span></p>
-    <p class="small muted">88 matches · 1.5/match
-    · pipeline re-score 128</p>
+    <p class="big">148 <span class="muted small">pts</span></p>
+    <p class="small muted">96 matches · 1.54/match
+    · pipeline re-score 146</p>
   </div>
   <div class="card">
     <h3>GoPicks</h3>
-    <p class="big">230 <span class="muted small">pts</span></p>
-    <p class="small muted">86 scored · 59 exact goals ·
-    2 missed · pipeline 224</p>
+    <p class="big">241 <span class="muted small">pts</span></p>
+    <p class="small muted">94 scored · 64 exact goals ·
+    2 missed · pipeline 237</p>
   </div>
   <div class="card">
     <h3>Per stage</h3>
@@ -211,6 +211,8 @@ out-of-sample. 88/88 matches have a leak-free pre-match pick-of-record across
       
         <tr><td>R32</td><td class="num">16</td><td class="num">50</td><td class="num">45</td></tr>
       
+        <tr><td>R16</td><td class="num">8</td><td class="num">16</td><td class="num">11</td></tr>
+      
       </tbody>
     </table>
   </div>
@@ -223,16 +225,16 @@ a gap means the model would now pick differently than we did pre-match.</p>
 
 <h2>Calibration of the pre-match forecasts (as shipped)</h2>
 <div class="grid cols-4">
-  <div class="card"><h3>RPS</h3><p class="big">0.1427</p><p class="small muted">1X2, lower better</p></div>
-  <div class="card"><h3>Log-loss</h3><p class="big">0.8200</p><p class="small muted">lower better</p></div>
-  <div class="card"><h3>Brier</h3><p class="big">0.4885</p><p class="small muted">lower better</p></div>
-  <div class="card"><h3>Goals MAE</h3><p class="big">0.859</p><p class="small muted">per team, lower better</p></div>
+  <div class="card"><h3>RPS</h3><p class="big">0.1460</p><p class="small muted">1X2, lower better</p></div>
+  <div class="card"><h3>Log-loss</h3><p class="big">0.8215</p><p class="small muted">lower better</p></div>
+  <div class="card"><h3>Brier</h3><p class="big">0.4880</p><p class="small muted">lower better</p></div>
+  <div class="card"><h3>Goals MAE</h3><p class="big">0.883</p><p class="small muted">per team, lower better</p></div>
 </div>
 
 <div class="card">
   <h3>Clean-sheet calibration <span class="tag rotation-risk">over-predicting</span></h3>
-  <p>Expected <b>59.3</b> clean sheets vs <b>47</b> actual over 176
-  team-innings — ratio <b>1.26×</b>. A ratio above ~1 means the model expects
+  <p>Expected <b>64.3</b> clean sheets vs <b>52</b> actual over 192
+  team-innings — ratio <b>1.24×</b>. A ratio above ~1 means the model expects
   more shut-outs than happen (the known MD1 issue — track per stage as U6/U3 land).</p>
   <table class="small">
     <thead><tr><th>Stage</th><th class="num">Team-innings</th><th class="num">Expected CS</th><th class="num">Actual CS</th><th class="num">Ratio</th></tr></thead>
@@ -250,6 +252,9 @@ a gap means the model would now pick differently than we did pre-match.</p>
       <tr><td>R32</td><td class="num">32</td><td class="num">11.1</td><td class="num">7</td>
         <td class="num">1.59</td></tr>
     
+      <tr><td>R16</td><td class="num">16</td><td class="num">5.0</td><td class="num">5</td>
+        <td class="num">1.00</td></tr>
+    
     </tbody>
   </table>
 </div>
@@ -262,42 +267,42 @@ a gap means the model would now pick differently than we did pre-match.</p>
     
       <tr>
         <td>0–20%</td>
-        <td class="num">86</td>
-        <td class="num">11.7%</td>
-        <td class="num">10.5%</td>
-        <td class="num">-1.2 pp</td>
+        <td class="num">91</td>
+        <td class="num">11.8%</td>
+        <td class="num">11.0%</td>
+        <td class="num">-0.8 pp</td>
       </tr>
     
       <tr>
         <td>20–40%</td>
-        <td class="num">94</td>
-        <td class="num">27.2%</td>
+        <td class="num">107</td>
+        <td class="num">27.5%</td>
         <td class="num">23.4%</td>
-        <td class="num">-3.8 pp</td>
+        <td class="num">-4.1 pp</td>
       </tr>
     
       <tr>
         <td>40–60%</td>
-        <td class="num">41</td>
-        <td class="num">50.7%</td>
-        <td class="num">58.5%</td>
-        <td class="num">7.8 pp</td>
+        <td class="num">45</td>
+        <td class="num">50.6%</td>
+        <td class="num">57.8%</td>
+        <td class="num">7.2 pp</td>
       </tr>
     
       <tr>
         <td>60–80%</td>
-        <td class="num">32</td>
-        <td class="num">69.1%</td>
-        <td class="num">81.2%</td>
-        <td class="num">12.1 pp</td>
+        <td class="num">33</td>
+        <td class="num">69.2%</td>
+        <td class="num">81.8%</td>
+        <td class="num">12.6 pp</td>
       </tr>
     
       <tr>
         <td>80–100%</td>
-        <td class="num">11</td>
-        <td class="num">85.9%</td>
-        <td class="num">63.6%</td>
-        <td class="num">-22.3 pp</td>
+        <td class="num">12</td>
+        <td class="num">85.6%</td>
+        <td class="num">66.7%</td>
+        <td class="num">-18.9 pp</td>
       </tr>
     
     </tbody>
@@ -319,17 +324,17 @@ slow-moving base ratings (uses current inputs), so read it as relative signal is
   
     
     <tr>
-      <td>As-shipped (market where available)</td><td class="num">88</td>
-      <td class="num">0.1430</td><td class="num">0.8232</td><td class="num">0.4894</td>
-      <td class="num">0.856</td><td class="num">59.2</td><td class="num">47</td>
+      <td>As-shipped (market where available)</td><td class="num">96</td>
+      <td class="num">0.1463</td><td class="num">0.8244</td><td class="num">0.4888</td>
+      <td class="num">0.880</td><td class="num">64.2</td><td class="num">52</td>
     </tr>
     
   
     
     <tr>
-      <td>Ratings-only (strength)</td><td class="num">88</td>
-      <td class="num">0.1446</td><td class="num">0.8455</td><td class="num">0.4970</td>
-      <td class="num">0.878</td><td class="num">49.1</td><td class="num">47</td>
+      <td>Ratings-only (strength)</td><td class="num">96</td>
+      <td class="num">0.1450</td><td class="num">0.8367</td><td class="num">0.4902</td>
+      <td class="num">0.894</td><td class="num">53.5</td><td class="num">52</td>
     </tr>
     
   
@@ -1047,6 +1052,70 @@ strength for the next match). The gap is the headroom team-form (U2) can claw ba
       <td class="muted">88</td><td class="muted">R32</td>
       <td>Australia v Egypt</td><td class="muted small">2026-07-03</td>
       <td>0-2</td><td>0-1</td><td><b>1-1</b></td>
+      <td class="num" data-sort="0">0</td>
+      <td class="num" data-sort="1">1 <span class="muted small">(1e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">89</td><td class="muted">R16</td>
+      <td>Paraguay v France</td><td class="muted small">2026-07-04</td>
+      <td>0-2</td><td>2-0</td><td><b>0-1</b></td>
+      <td class="num" data-sort="4">4</td>
+      <td class="num" data-sort="0">0</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">90</td><td class="muted">R16</td>
+      <td>Canada v Morocco</td><td class="muted small">2026-07-04</td>
+      <td>0-2</td><td>2-0</td><td><b>0-3</b></td>
+      <td class="num" data-sort="4">4</td>
+      <td class="num" data-sort="0">0</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">91</td><td class="muted">R16</td>
+      <td>Brazil v Norway</td><td class="muted small">2026-07-05</td>
+      <td>2-0</td><td>1-0</td><td><b>1-2</b></td>
+      <td class="num" data-sort="0">0</td>
+      <td class="num" data-sort="1">1 <span class="muted small">(1e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">92</td><td class="muted">R16</td>
+      <td>Mexico v England</td><td class="muted small">2026-07-05</td>
+      <td>0-2</td><td>1-1</td><td><b>2-3</b></td>
+      <td class="num" data-sort="2">2</td>
+      <td class="num" data-sort="0">0</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">93</td><td class="muted">R16</td>
+      <td>Portugal v Spain</td><td class="muted small">2026-07-06</td>
+      <td>0-2</td><td>0-1</td><td><b>0-1</b></td>
+      <td class="num" data-sort="4">4</td>
+      <td class="num" data-sort="5">5 <span class="muted small">(2e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">94</td><td class="muted">R16</td>
+      <td>USA v Belgium</td><td class="muted small">2026-07-06</td>
+      <td>2-0</td><td>1-0</td><td><b>1-4</b></td>
+      <td class="num" data-sort="0">0</td>
+      <td class="num" data-sort="1">1 <span class="muted small">(1e)</span></td>
+    </tr>
+  
+    <tr>
+      <td class="muted">95</td><td class="muted">R16</td>
+      <td>Argentina v Egypt</td><td class="muted small">2026-07-07</td>
+      <td>2-0</td><td>2-0</td><td><b>3-2</b></td>
+      <td class="num" data-sort="2">2</td>
+      <td class="num" data-sort="3">3</td>
+    </tr>
+  
+    <tr>
+      <td class="muted">96</td><td class="muted">R16</td>
+      <td>Switzerland v Colombia</td><td class="muted small">2026-07-07</td>
+      <td>0-2</td><td>0-1</td><td><b>0-0</b></td>
       <td class="num" data-sort="0">0</td>
       <td class="num" data-sort="1">1 <span class="muted small">(1e)</span></td>
     </tr>
