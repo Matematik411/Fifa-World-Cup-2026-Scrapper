@@ -372,14 +372,28 @@ contend with QB for the R32 slot — re-evaluate then.
   never market-priced and M99/M100 predictions weren't offered. Filled Norway–England / Argentina–Switzerland,
   re-ran, and added a pipeline guard: any match with curated odds but no forecast now logs a loud
   fill-the-fixture warning.
-- **R3 (chips + transfers, QF lock-eve):** 4 free, 0 hits, +23.2: Pulisic→Baena (+16.1), Guéhi→Tagliafico
-  (+3.0), Dembélé→Yamal (+2.2), Kane→Mbappé (+1.9). XI 3-4-3, captain Yamal (E 5.4). **Maximum Captain @ QF
-  CONFIRMED (EV +4.2)** — and since MaxCap auto-assigns the double to the XI's real top scorer, the QF
-  armband is self-resolving: NO captain relay needed this round (ladder kept as the no-chip fallback).
-  CSS @ SF, Wildcard @ Final (breakage argmax) unchanged. Free-rolls emitted: park Messi → start Cucurella,
-  park Lisandro → start Cubarsí (both restore before ARG's Sun 03:00 KO).
+- **R3 (chips + transfers, QF lock-eve) — USER OVERRODE to OPTION A:** the optimizer proposed selling
+  Dembélé→Yamal; the user kept Dembélé (form) and asked for alternatives. Hand-analysis found the strictly
+  better line: **sell the WEAKEST French mid Barcola→Yamal** (keep Dembélé), i.e. Pulisic→Baena, **Barcola→
+  Yamal**, Guéhi→Tagliafico, Kane→Mbappé (4 free, 0 hits, net +€0.2). XI 3-4-3 EV **42.90 vs the optimizer's
+  42.14 (+0.76)** — keeps Dembélé (4.91) over Barcola (4.15) in the XI *and* more horizon. **Maximum Captain
+  @ QF (EV +4.2)** — auto-doubles the XI's top scorer, so the armband self-resolves (no relay). CSS @ SF,
+  Wildcard @ Final unchanged; Wildcard confirmed unnecessary at QF (unconstrained optimum ≤ the free-transfer
+  XI here; hold for the Final). HTML re-rendered from Option A read-only (plan_transfers injected, `_save_state`
+  disabled) so state.json stayed hand-set — see [[wc2026-rerender-without-clobbering-override]].
+- **BUG FOUND (transfer planner, NOT fixed tonight — pre-lock, deferred):** `ftr.plan_transfers` pre-filters
+  candidate swaps with `if price_delta > bank` against the STATIC starting bank, so a swap that only becomes
+  affordable *as a package* (after cheaper freeing sales) is never generated. That's why it took the
+  price-neutral Dembélé→Yamal instead of the better Barcola→Yamal (+€2, unaffordable at the stale €0.3 bank —
+  and still > the real €1.4 alone, only affordable net of the Pulisic/Guéhi sales). ALSO the `owned.bank` in
+  state was stale (0.3 vs real 1.4 = 105 − 103.6). **Follow-up (next session, with tests):** compute bank
+  net-of-package (running-bank in candidate generation, or a small ILP), and recompute `owned.bank` from
+  budget − squad value each run instead of trusting the stored field.
 - **Follow-ups:** (a) `ratings_odds.json` is 21d stale (U8 flags it) — full Elo/title-odds re-rate at the
-  SF-eve run; (b) R16 realized XI = 61 pts (feed r5, Kane C ×2; season ≈ 446 pending user confirmation).
+  SF-eve run; (b) **standings user-confirmed 2026-07-09: fantasy 457, GoPicks 247/66 exact, Nostradamus 148**
+  (Nost recompute = 148 exact; GoPicks recompute 241/64, +6/+2 under his official — entries beat assumed
+  picks on some followed match, his number stands); (c) after tonight's QF lock, add **Maximum Captain** to
+  `chips_used` (12th-Man precedent — it's in the schedule as PLAY@QF until locked).
 
 ### 2026-07-04 — before R16 (R32 complete) — U9 + U10 DONE, R1/R2/R3 run
 - **U9 (GoPicks podium simulator) DONE** — new `src/gopicks/podium.py` (see §6), pipeline hook, card on
