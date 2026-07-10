@@ -1,7 +1,52 @@
 {
   "schema": "wc2026-state-v1",
-  "last_run": "2026-07-09",
+  "last_run": "2026-07-10",
   "recommended_squad": {
+    "player_ids": [
+      38,
+      45,
+      1318,
+      1082,
+      50,
+      500,
+      506,
+      501,
+      517,
+      498,
+      1085,
+      1094,
+      34,
+      1092,
+      1430
+    ],
+    "captain": "Lamine Yamal",
+    "formation": "3-4-3",
+    "as_of": "2026-07-10",
+    "for_round": "SF",
+    "lineup": {
+      "starters": [
+        38,
+        1318,
+        1082,
+        500,
+        506,
+        501,
+        517,
+        498,
+        1094,
+        1092,
+        1430
+      ],
+      "bench": [
+        50,
+        1085,
+        34,
+        45
+      ],
+      "captain": 1092
+    }
+  },
+  "owned": {
     "player_ids": [
       38,
       45,
@@ -21,8 +66,7 @@
     ],
     "captain": "Lamine Yamal",
     "formation": "3-4-3",
-    "as_of": "2026-07-09",
-    "for_round": "QF",
+    "bank": 1.2,
     "lineup": {
       "starters": [
         45,
@@ -45,68 +89,25 @@
       ],
       "captain": 1092
     },
-    "note": "OPTION A (hand-set 2026-07-09, overrides the optimizer's sell-Dembélé plan). Keep Dembélé, sell WEAKEST French mid Barcola->Yamal + dump elim Pulisic->Baena + Guéhi->Tagliafico + Kane->Mbappé (4 free, 0 hits, net +€0.2, bank €1.2 left). XI 3-4-3 EV 42.90 > optimizer plan 42.14 (+0.76: keeps Dembélé 4.91 over Barcola 4.15 in the XI, AND more horizon). MaxCap PLANNED@QF (activate at tonight's lock; add to chips_used AFTER lock) so captain auto-doubles top scorer (nominal Yamal). FOLLOW-UP: optimizer sold the higher-EV equal-slot player (Dembélé) instead of the cheaper weaker Barcola even though bank allowed Barcola->Yamal - investigate transfer OUT-selection post-lock."
-  },
-  "owned": {
-    "player_ids": [
-      38,
-      45,
-      1318,
-      1431,
-      50,
-      468,
-      477,
-      501,
-      517,
-      498,
-      1088,
-      1094,
-      461,
-      1274,
-      1089
-    ],
-    "captain": "Harry Kane",
-    "formation": "4-4-2",
-    "bank": 1.4,
-    "lineup": {
-      "starters": [
-        45,
-        498,
-        1088,
-        1089,
-        1318,
-        1431,
-        501,
-        517,
-        50,
-        468,
-        38
-      ],
-      "bench": [
-        477,
-        461,
-        1274,
-        1094
-      ],
-      "captain": 468
-    },
-    "note": "R16 LIVE (locked 2026-07-04 19:00 CEST; matches 89-96). Squad = the R16 plan EXECUTED at the deadline (4 free transfers Diaz->Barcola, Kimmich->Digne, James->De Paul, A.Robinson->Guehi; 0 hits) + 12TH MAN chip PLAYED on MBAPPE (2026-07-04) -> Mbappe 12th-man bonus (90', 70' pen goal, M89). Deadline-frozen XI was 3-5-2 (Dembele C): Emi; Lisandro, Digne, Cucurella; Barcola, De Paul, Dembele(C), Olise, Pulisic; Messi, Oyarzabal (bench Pickford, Kane, Guehi, Cubarsi) - lineup below is the LIVE XI after in-round edits. JUL-4 LEGS BANKED (feed r5, exact): Dembele 3 (84', CS) + Digne 9 (90' CS) + Barcola 2 (61') + Olise 2 (90', yellow). JUL-5 EXECUTED (as agreed): FREE-ROLL Kane IN for Messi + Guehi IN for Lisandro (both ARG, play M95 Jul 7), AND CAPTAIN RELAYED Dembele->KANE. KANE HAULED AS CAPTAIN: banked 9 (M92 90' + 60' pen goal) x2 = 18. Guehi 0 (M92 90', England conceded 2 = no CS, + yellow). Pickford (bench->now started) played M92 = 2. Dembele's leg now counts SINGLE 3 (double forfeited when the armband moved - by design). => RELAY CLOSED for R16: Kane's banked 9 beats E of every remaining starter (Oyarzabal 3.4, Pulisic 4.9, Messi 4.3) -> HOLD the armband on KANE for the rest of the round; do NOT switch. JUL-6 LIVE XI (user-set): fielding ALL BUT THE 4 ARGENTINIANS -> 4-4-2: Pickford; Digne, Cucurella, Cubarsi, Guehi; Barcola, Dembele, Olise, Pulisic; Kane(C), Oyarzabal. Bench: Emi Martinez, Lisandro, De Paul, Messi. Banks today's Cucurella+Cubarsi+Oyarzabal (M93 21:00 CEST) + Pulisic (M94 02:00 CEST) at zero cost (the benched ARG quartet plays M95 tomorrow). JUL-6 LEGS BANKED (feed r5, all 11 starters' matches now finished; XI banked 53 incl. captain double): Cucurella 7 (90', Spain CS in M93 0-1) + Cubarsi 7 (90', CS) + Oyarzabal 2 (90+7', 0G/0A) + Pulisic 1 (off 59', USA 1-4 = no CS; USA ELIMINATED). JUL-7 RESTORE EXECUTED (user follows; before M95 18:00 CEST, all like-for-like so formation stays 4-4-2): Emi Martinez IN for Pickford (GK-for-GK, forfeits 2, E 3.9), Lisandro IN for Guehi (DEF, forfeits 0, E 4.4), De Paul IN for Pulisic (MID, forfeits 1, E 3.5), Messi IN for Oyarzabal (FWD, forfeits 2 - tied at 2 with Barcola/Olise, FWD-for-FWD chosen for like-for-like execution; EV identical, all matches ended), total forfeit 5 banked for E 16.1 = ~+11 net. XI now: Emi; Digne, Cucurella, Cubarsi, Lisandro; Barcola, Dembele, Olise, De Paul; Kane(C), Messi. KANE STAYS CAPTAIN (banked 9x2=18; every other starter's match ended or E < 9 - relay CLOSED). Restored XI banked 48 + the ARG quartet live tonight. Don't leave any ARG benched past 18:00 CEST. QF BOARD: M97 France-Morocco (Jul 9), M98 SPAIN-BELGIUM (Jul 10, W93/94 resolved Jul 6), M99 Norway-England (Jul 11), M100 = W95(Arg/Egy)-W96(Sui/Col) (Jul 11, resolves tonight). QF TRANSFER PLAN (mode=transfers/upcoming, HOLD until the Jul-8/9 lock-eve run; QF locks at M97 KO Thu Jul 9 22:00 CEST): Jul-7 run re-derived it with fresh QF odds (M98 Spain-Belgium known) and it CHANGED WHOLESALE from Jul-6's Romero/Rabiot/Konsa version -> now Pulisic->Baena (+16.4), Guehi->Tagliafico (+3.7), Kane->MBAPPE (+2.1), Barcola->Dani Olmo (+1.1) = +23.3, 4 free, 0 hits; QF captain MESSI (3-4-3), Spain block kept (Cucurella/Cubarsi survive - Spain 1.63 to beat Belgium). CAVEATS for lock-eve: Tagliafico only if Argentina beat Egypt tonight (and note Scaloni benched Almada fit in a big KO game - 'nailed' tags on ARG mids need the confirmed-sheet check); Onana (Belgium) OUT of the QF (knee, M94) already in squads.json. CHIP SCHEDULE RE-PLANNED by this run: MaxCap@QF (=+5, was parked for the final), Clean-Sheet-Shield@SF, WILDCARD pushed to FINAL (4 free transfers already reach the QF optimum, hits saved 0.0; unconstrained optimum +31 horizon away) - decide at lock-eve.\n\nPRE-R16 HISTORY (condensed): R32 final tally 112 + QB +22; season total 385 through R32 (user-confirmed 2026-07-04). Pre-R32: durable build locked, Jul-1/Jul-2 free-rolls + relay all paid; armband Dembele -> Oyarzabal (kept).\n\nQF LOCK-EVE 2026-07-09 (BRIEFED; locks at M97 KO tonight 22:00 CEST — next session: hand-advance owned to this once the deadline passed, assume-followed): 4 free transfers EXECUTE TONIGHT: Pulisic->Baena, Guehi->Tagliafico, Dembele->Yamal, Kane->Mbappe (0 hits, +23.2). QF 15 = Emi Martinez, Pickford; Lisandro, Digne, Tagliafico, Cucurella, Cubarsi; Barcola, Yamal, Olise, Baena, De Paul; Messi, Mbappe, Oyarzabal. XI 3-4-3: Emi; Lisandro, Digne, Tagliafico; Barcola, Yamal(C nominal), Olise, Baena; Messi, Mbappe, Oyarzabal. Bench: De Paul, Cucurella, Cubarsi, Pickford. MAXIMUM CAPTAIN chip ACTIVATED for QF (EV +4.2; auto-doubles the XI's top scorer -> armband self-resolving, NO relay this round; added to chips_used this session per the same-session rule). Free-rolls available AFTER the lock (both restore before ARG Sun 03:00 CEST KO): park Messi -> start Cucurella and/or park Lisandro -> start Cubarsi (Spain plays Fri 21:00; 4-4-2 legal both steps). R16 FINAL: XI banked 61 (Messi 11, Kane C 9x2=18, Digne 9, Cucurella 7, Cubarsi 7; feed r5) -> season ~446 (385 + 61, user's app total authoritative).\n\n=== QF PLAN FINALIZED 2026-07-09 (user-confirmed) = OPTION A — supersedes all earlier QF drafts in this note ===\n4 free transfers, 0 hits, net +€0.2 (bank €1.2 left): (1) Pulisic->Baena [dump eliminated USA], (2) Barcola->Yamal [sell the WEAKEST French mid, NOT Dembélé — user kept Dembélé; enabled by the real €1.4 bank], (3) Guéhi->Tagliafico, (4) Kane->Mbappé. KEEP Dembélé + Olise + Messi + Oyarzabal. XI 3-4-3 EV 42.90 (>optimizer's sell-Dembélé plan 42.14 by +0.76): Emi; Lisandro, Tagliafico, Digne; Yamal, Dembélé, Olise, Baena; Mbappé, Messi, Oyarzabal. Bench: De Paul, Cucurella, Cubarsí, Pickford. MAXIMUM CAPTAIN = PLAY at tonight's QF lock (auto-doubles the XI's top scorer — no relay; nominal armband Yamal); ADD to chips_used AFTER the lock, next session (12th-Man precedent). Locks at M97 KO Thu 22:00 CEST. Wildcard NOT used (held for Final — its optimum was no better than the free transfers here). HTML reports still show the pre-override optimizer plan; this note + recommended_squad are authoritative. Live-round free-roll (Fri run will give exact swaps): park an Argentine starter (plays Sun M100) to start Cucurella/Cubarsí (Spain, Fri M98), then restore before Sun."
+    "note": "QF LIVE (locked at M97 KO 2026-07-09 22:00 CEST; QF matches 97-100). Advanced from the R16 team to OPTION A, executed at the QF deadline (assume-followed; hand-set 2026-07-10 per the Jul-9 lock-eve plan): 4 free transfers, 0 hits (Pulisic->Baena, Barcola->Yamal [sold the weakest French mid, KEPT Dembele], Guehi->Tagliafico, Kane->Mbappe); bank 1.2. MAXIMUM CAPTAIN chip PLAYED this round -> auto-doubles the XI's top scorer, so NO captaincy relay (nominal armband Yamal 1092). XI 3-4-3: Emi Martinez(45); Lisandro(1318), Tagliafico(34), Digne(498); Yamal(1092), Dembele(501), Olise(517), Baena(1082); Mbappe(500), Messi(38), Oyarzabal(1094). Bench: De Paul(50), Cucurella(1088), Cubarsi(1089), Pickford(477). MATCH WINDOWS: FRANCE M97 (Digne/Dembele/Olise/Mbappe) PLAYED Jul 9, France 2-0 Morocco -> all 4 banked (Mbappe G+A, Dembele G, Digne+Olise CS); SPAIN M98 (Yamal/Baena/Oyarzabal in XI; Cucurella/Cubarsi on bench) Jul 10 21:00 CEST; ENGLAND M99 (Pickford, bench) Jul 11 23:00 CEST; ARGENTINA M100 (Emi/Lisandro/Tagliafico/Messi in XI; De Paul bench) Jul 12 03:00 CEST. LIVE FREE-ROLL Jul-10 (zero cost, downside-protected): before M98 KO bench Lisandro(1318)+Tagliafico(34) [ARG, play M100 Sat] and start Cucurella(1088)+Cubarsi(1089) [ESP, play tonight] -> DEF-for-DEF x2, 3-4-3 kept, banks both Spanish defenders at zero cost. RESTORE at the Jul-11 evening run (before M100 03:00 CEST Jul 12) by subbing the 2 lowest-banked XI legs out for Lisandro+Tagliafico. CAVEAT: Argentina LB is Tagliafico-vs-Medina uncertain (sources split); if the confirmed M100 sheet benches Tagliafico, restore Lisandro only (or a different ARG starter) and keep the banked Spaniard. chips_used now = Qualification Booster + 12th Man + Maximum Captain; remaining = Wildcard (planned FINAL) + Mystery/Clean-Sheet-Shield (planned SF). SEASON ~457 through R16 (user app total authoritative). SF board: M101 France vs W98(Spain/Belgium) Jul 14 Arlington; M102 W99(Nor/Eng) vs W100(Arg/Sui) Jul 15 Atlanta. Prior history in git + earlier notes."
   },
   "chips_used": [
     "Qualification Booster",
-    "12th Man"
+    "12th Man",
+    "Maximum Captain"
   ],
   "cumulative": {
-    "nostradamus_points": 148,
-    "gopicks_points": 241,
-    "gopicks_exact_goals": 64,
+    "nostradamus_points": 154,
+    "gopicks_points": 245,
+    "gopicks_exact_goals": 65,
     "fantasy_points": 457
   },
   "predictions_entered": {
     "12": "0-2",
     "95": "2-0",
     "96": "0-2",
-    "97": "2-0"
+    "97": "2-0",
+    "98": "2-0"
   },
   "gopicks": {
     "joined": "2026-06-12",
@@ -118,7 +119,8 @@
       "92": "1-1",
       "95": "2-0",
       "96": "0-1",
-      "97": "1-0"
+      "97": "1-0",
+      "98": "1-0"
     },
     "points_official": 247,
     "rank": 11,

@@ -592,3 +592,13 @@ contend with QB for the R32 slot — re-evaluate then.
   QF/SF/Final); R32-burner synergy (U4); group-stakes is a closing-window feature (MD3 only, U3).
 - Next session (run **after MD2**): start with **U1**, then U2/U5/U6/U8 and the rotation half of U3, each
   gated by U1. Defer U4/U7 to the **before-R32** run.
+
+### 2026-07-10 — papercut found during the QF run (no code changes)
+- **Chips aren't tagged with the round they were played in.** `chips_used` is a flat list, so once
+  Maximum Captain moved to `chips_used` (played at the QF lock), the fantasy report still rendered a
+  normal **"Captaincy relay"** (Yamal→Messi) and line 542 called MaxCap "parked for a later round" —
+  both wrong for a round where MaxCap is live (it auto-doubles the XI's top scorer → no relay).
+  `chips_remaining` was correct (MaxCap excluded). **Fix idea:** store chips as `{name, round}` (or a
+  `chips_played_this_round` field) so the captaincy section switches to a "MaxCap active — top scorer
+  auto-doubled, no relay" note and the chip-plan text stops offering it. Low effort, recurring at every
+  MaxCap/12th-Man round. Briefed the user to disregard the relay section for the QF this run.
