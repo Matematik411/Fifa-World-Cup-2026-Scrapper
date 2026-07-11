@@ -1,49 +1,49 @@
 {
   "schema": "wc2026-state-v1",
-  "last_run": "2026-07-10",
+  "last_run": "2026-07-11",
   "recommended_squad": {
     "player_ids": [
       38,
       45,
       1318,
-      1082,
-      50,
+      512,
+      1998,
       500,
       506,
       501,
       517,
       498,
-      1085,
+      30,
       1094,
       34,
       1092,
-      1430
+      28
     ],
-    "captain": "Lamine Yamal",
-    "formation": "3-4-3",
-    "as_of": "2026-07-10",
+    "captain": "Lionel Messi",
+    "formation": "3-5-2",
+    "as_of": "2026-07-11",
     "for_round": "SF",
     "lineup": {
       "starters": [
         38,
+        45,
         1318,
-        1082,
+        512,
+        1998,
         500,
-        506,
         501,
         517,
-        498,
-        1094,
+        34,
         1092,
-        1430
+        28
       ],
       "bench": [
-        50,
-        1085,
-        34,
-        45
+        1094,
+        30,
+        498,
+        506
       ],
-      "captain": 1092
+      "captain": 38
     }
   },
   "owned": {
@@ -65,31 +65,31 @@
       1089
     ],
     "captain": "Lamine Yamal",
-    "formation": "3-4-3",
+    "formation": "4-4-2",
     "bank": 1.2,
     "lineup": {
       "starters": [
-        45,
-        1318,
+        477,
         34,
         498,
+        1089,
+        1318,
         1092,
         501,
         517,
-        1082,
+        50,
         500,
-        38,
-        1094
+        38
       ],
       "bench": [
-        50,
+        45,
         1088,
-        1089,
-        477
+        1094,
+        1082
       ],
       "captain": 1092
     },
-    "note": "QF LIVE (locked at M97 KO 2026-07-09 22:00 CEST; QF matches 97-100). Advanced from the R16 team to OPTION A, executed at the QF deadline (assume-followed; hand-set 2026-07-10 per the Jul-9 lock-eve plan): 4 free transfers, 0 hits (Pulisic->Baena, Barcola->Yamal [sold the weakest French mid, KEPT Dembele], Guehi->Tagliafico, Kane->Mbappe); bank 1.2. MAXIMUM CAPTAIN chip PLAYED this round -> auto-doubles the XI's top scorer, so NO captaincy relay (nominal armband Yamal 1092). XI 3-4-3: Emi Martinez(45); Lisandro(1318), Tagliafico(34), Digne(498); Yamal(1092), Dembele(501), Olise(517), Baena(1082); Mbappe(500), Messi(38), Oyarzabal(1094). Bench: De Paul(50), Cucurella(1088), Cubarsi(1089), Pickford(477). MATCH WINDOWS: FRANCE M97 (Digne/Dembele/Olise/Mbappe) PLAYED Jul 9, France 2-0 Morocco -> all 4 banked (Mbappe G+A, Dembele G, Digne+Olise CS); SPAIN M98 (Yamal/Baena/Oyarzabal in XI; Cucurella/Cubarsi on bench) Jul 10 21:00 CEST; ENGLAND M99 (Pickford, bench) Jul 11 23:00 CEST; ARGENTINA M100 (Emi/Lisandro/Tagliafico/Messi in XI; De Paul bench) Jul 12 03:00 CEST. LIVE FREE-ROLL Jul-10 (zero cost, downside-protected): before M98 KO bench Lisandro(1318)+Tagliafico(34) [ARG, play M100 Sat] and start Cucurella(1088)+Cubarsi(1089) [ESP, play tonight] -> DEF-for-DEF x2, 3-4-3 kept, banks both Spanish defenders at zero cost. RESTORE at the Jul-11 evening run (before M100 03:00 CEST Jul 12) by subbing the 2 lowest-banked XI legs out for Lisandro+Tagliafico. CAVEAT: Argentina LB is Tagliafico-vs-Medina uncertain (sources split); if the confirmed M100 sheet benches Tagliafico, restore Lisandro only (or a different ARG starter) and keep the banked Spaniard. chips_used now = Qualification Booster + 12th Man + Maximum Captain; remaining = Wildcard (planned FINAL) + Mystery/Clean-Sheet-Shield (planned SF). SEASON ~457 through R16 (user app total authoritative). SF board: M101 France vs W98(Spain/Belgium) Jul 14 Arlington; M102 W99(Nor/Eng) vs W100(Arg/Sui) Jul 15 Atlanta. Prior history in git + earlier notes."
+    "note": "QF LIVE (locked 2026-07-09 22:00 CEST at M97 KO; matches 97-100). Squad = OPTION A EXECUTED at the deadline (user-confirmed 2026-07-09): 4 free transfers Pulisic->Baena, Barcola->Yamal (kept Dembele), Guehi->Tagliafico, Kane->Mbappe; 0 hits, bank 1.2. QF 15: Emi Martinez, Pickford; Lisandro, Digne, Tagliafico, Cucurella, Cubarsi; Yamal, Dembele, Olise, Baena, De Paul; Messi, Mbappe, Oyarzabal. Deadline-frozen XI was 3-4-3 (Yamal C nominal): Emi; Lisandro, Tagliafico, Digne; Yamal, Dembele, Olise, Baena; Mbappe, Messi, Oyarzabal (bench De Paul, Cucurella, Cubarsi, Pickford). MAXIMUM CAPTAIN chip PLAYED for the QF (activated at the Jul-9 lock, added to chips_used 2026-07-11 per the same-session-after-lock rule) -> armband self-resolves to the XI's top scorer, NO relay this round; nominal armband Yamal. ASSUMED-FOLLOWED (Jul-9 brief; no Jul-10 run happened): BOTH free-rolls executed before Spain-Belgium M98 (Fri Jul 10 21:00 CEST) - park Messi -> start Cucurella AND park Lisandro -> start Cubarsi -> lineup above is the LIVE 4-4-2: Emi; Tagliafico, Digne, Cucurella, Cubarsi; Yamal, Dembele, Olise, Baena; Mbappe, Oyarzabal. Bench: Messi, Lisandro, De Paul, Pickford. JUL-11 RESTORE + GK FREE-ROLL SET (user-confirmed 'i'll do it, its the weekend', executes before M99 23:00 CEST): Messi IN for Baena (banked 1), Lisandro IN for Cucurella (2), De Paul IN for Oyarzabal (2) - forfeits 5 banked for E 10.7 = ~+5.7 net; AND PICKFORD IN for Emi Martinez (GK free-roll: Pickford plays M99 23:00 CEST, Emi M100 03:00 CEST). Live XI 4-4-2: Pickford; Tagliafico, Digne, Cubarsi, Lisandro; Yamal, Dembele, Olise, De Paul; Mbappe, Messi. Bench: Emi, Cucurella, Oyarzabal, Baena. LATE-NIGHT GK RULE (after England's final whistle ~00:50, before 03:00 CEST): if Pickford banked <= 3 -> sub EMI IN for him (E 3.26); if >= 4 (clean sheet = 6-8, or no-CS pen-save/save-fest) -> KEEP Pickford, Emi stays benched. In practice: CS = keep, no CS = switch unless pen save or ~6+ saves. If he sleeps through it, Pickford stays - accepted variance (-0.55 E), his call. NO other action: MaxCap self-resolves (currently Mbappe 13), all non-ARG/ENG XI members have banked.\n\nPRE-QF HISTORY (condensed): R16 final XI banked 61 (Kane C 9x2; 12th Man on Mbappe paid ~7) -> fantasy 457 through R16 (user app total authoritative). R32 112 + QB +22; season 385 through R32. Chips used: QB@R32, 12thMan@R16, MaxCap@QF (live). Remaining: Clean-Sheet-Shield(=Mystery)@SF planned, Wildcard@FINAL planned."
   },
   "chips_used": [
     "Qualification Booster",
@@ -97,8 +97,8 @@
     "Maximum Captain"
   ],
   "cumulative": {
-    "nostradamus_points": 154,
-    "gopicks_points": 245,
+    "nostradamus_points": 158,
+    "gopicks_points": 248,
     "gopicks_exact_goals": 65,
     "fantasy_points": 457
   },
@@ -107,7 +107,9 @@
     "95": "2-0",
     "96": "0-2",
     "97": "2-0",
-    "98": "2-0"
+    "98": "2-0",
+    "99": "0-2",
+    "100": "2-0"
   },
   "gopicks": {
     "joined": "2026-06-12",
@@ -120,7 +122,9 @@
       "95": "2-0",
       "96": "0-1",
       "97": "1-0",
-      "98": "1-0"
+      "98": "1-0",
+      "99": "0-1",
+      "100": "1-0"
     },
     "points_official": 247,
     "rank": 11,

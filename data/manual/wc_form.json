@@ -1,8 +1,8 @@
 {
- "updated_at": "2026-07-09",
- "fetched_at": "2026-07-09",
- "confidence": "Med-real-R16-complete-M89-M96-folded",
- "method": "UPDATE 2026-07-09: R16 now FULLY FOLDED (all 8 ties M89-M96). Added the two Jul-7 matches (M95 Argentina 3-2 Egypt, decided in 90'; M96 Switzerland 0-0 Colombia aet, SUI 4-3 pens) with REAL ESPN player-stats xG/xA (gameIds 760509/760508). REAL team xG this update: ARG 2.84 / EGY 0.89 (ESPN; Opta cross-check 2.90/0.97), SUI 0.35-0.47 / COL 1.03 over 120' (ESPN team quote 0.35 vs per-player sum 0.47 -> teams block adds SUI +0.4; Opta 90'-only split 0.3-0.4 = LOWEST normal-time xG total of this WC). Headline facts: MESSI 83' goal + assist (Romero 79' header) on 1.01 xg / 0.97 xa / 10 shots REAL, but his 21' PEN was SAVED by Shobeir (first player with 2 missed pens at one WC edition) - 8 goals = Golden Boot lead, 21 career, 9 straight WC games scoring; ENZO FERNANDEZ 90+2' header WINNER (NEW entry; 0.25 xg / 0.56 xa REAL; assist LAUTARO, who was BENCHED for JULIAN ALVAREZ's first KO start - Alvarez 0.31 xg REAL over 90'); ROMERO goal (NEW entry, 0.35 xg REAL); Egypt ELIMINATED: ZICO started over MARMOUSH (dropped, on 80', 0 shots - ends the WC goalless on 1.09 xG) and scored 67' (0.64 REAL); SALAH invisible AGAIN (0 shots, 0.00 xg, full 90+). M96: Swiss rotation shock - MANZAMBI + AEBISCHER both UNUSED (0'), RIEDER started over R.VARGAS (Vargas on 90+2' for ET only but struck the WINNING shootout pen; Kobel saved Cucho + D.Sanchez crossbar, Akanji missed for SUI); EMBOLO blanked (0 shots / 0.00 xg over 87'); NDOYE the liveliest Swiss (1 SOT, 0.05 xg) in a 0.35-xG team display; Colombia ELIMINATED despite outcreating SUI (Diaz team-high 0.22 xg over 120'; Lucumi ET crossbar header; Campaz 115' sitter over; James hooked 66' for the 2nd straight game; Cordoba injured DNP). ESTIMATED (flagged 'est' in notes): total-shot increments for J.Alvarez/Lautaro/Ndoye/Diaz (SOG + xG REAL, attempt counts not itemised on the fetched pages), and the group/R32 splits inside the two NEW entries (Enzo Fernandez, Romero - only their M95 lines individually verified). teams block: ARG/EGY/SUI/COL all extended to matches:5 (xg_for/against += opponent-match REAL xG, 90'+ET totals NOT prorated, ET ties flagged); Egypt + Colombia now ELIMINATED (no further projections needed). QF board FINAL: M97 FRA-MAR, M98 ESP-BEL, M99 NOR-ENG, M100 ARG-SUI (Jul 11, Arrowhead). PRIOR: UPDATE 2026-07-07: folded the four Jul 5-6 R16 matches (M91 Brazil 1-2 Norway, M92 Mexico 2-3 England, M93 Portugal 0-1 Spain, M94 USA 1-4 Belgium) with REAL ESPN match-centre xG (gameIds 760504-760507) + a fresh FOX cumulative pull (players sorted by xG, team stats). M89/M90 were already folded on 2026-07-05. REAL team xG this update: BRA 2.61 / NOR 1.05, MEX 1.88 / ENG 1.61, POR 0.63 / ESP 1.69, USA 0.63 / BEL 2.01. Headline player facts: HAALAND brace 79'+90' on just 0.47 R16 xg REAL (FOX cum 3.70 / 7 goals in 4 games - joint Golden Boot lead w/ Messi+Mbappe); BELLINGHAM brace 36'+38' (0.73 REAL, FOX cum 2.55/4G); KANE 60' pen (FOX cum 3.22/6G); SAKA assist on the opener then SACRIFICED 57' after the Quansah 54' red (Quansah suspended for QF M99); MERINO 90+1 winner (0.55 REAL) + FERRAN TORRES assist - both subs 85'/75'; Spain 5 CS in 5, STILL 0 conceded (Cucurella/Cubarsi/Simon/Porro all 90); DE KETELAERE brace as the false 9 (NEW entry, FOX cum 1.49); VANAKEN on 21' for the injured Onana (knee, OUT of QF) + goal 57' (NEW entry); Lukaku sub goal 90+3 on 0.04 xg; DE BRUYNE UNUSED SUB M94 (fitness management - QF bench risk flagged); USA: Freese started over Turner, Balogun's M81 red LIFTED by FIFA pre-match (started, 0.43 REAL), Tillman 2nd deflected-FK goal (0.07 REAL); Jimenez pen (FOX cum 3.13) + Quinones goal ended by England - Mexico's 4-CS run over, ELIMINATED; Vinicius quiet 0.17 REAL, Brazil ELIMINATED (Bruno Guimaraes pen SAVED at 0.79, Neymar consolation pen 90+10 then int'l retirement; Raphinha never returned); Ronaldo 0.29 REAL over 4 shots in his likely last WC game, Portugal ELIMINATED. NEW entries added: Nusa + Schjelderup (Norway - Nusa started M91 but hooked at HT for Schjelderup who assisted Haaland), Merino + Ferran Torres (Spain), De Ketelaere + Vanaken (Belgium), Digne + Rabiot (France back-fill from cached XIs: Digne ~270' w/ 3 CS incl M77+M89 documented starts, Rabiot nailed pivot ~430' est). Player cumulative xg RE-BASED to the fresh FOX pull where listed (Mbappe 3.86 - replaces the Jul-5 ESPN-sum 4.04, Haaland 3.70, Kane 3.22, Jimenez 3.13, Oyarzabal 2.75, Ronaldo 2.75, Vinicius 2.69, Bellingham 2.55, De Ketelaere 1.49); FOX shot/SOG cums adopted for the same players (can sit BELOW old ESPN-sums, e.g. Kane 17 vs 21 - divergence noted, FOX canonical). ESTIMATED (flagged 'est' in notes): group-stage splits of all NEW entries (Nusa/Schjelderup/Merino/Ferran/CDK/Vanaken/Digne/Rabiot - group G/A NOT separately tracked for them, only R16 lines factual), M94 shot counts (extraction garbled - SOT%-implied), Jimenez/Quinones M92 exit minutes, Danilo's M91 cameo. Quinones tracked at 3 goals (M53/M79/M92) vs FOX table '4' - possible untracked group goal, eliminated so not re-verified. teams block: all 8 R16 participants from M91-94 extended to matches:5 (xg_for = fresh FOX cum; xg_against = prior + R16 opponent ESPN match xG); France 8.9->8.8 + Morocco 6.7->6.8 + Paraguay 2.0->2.1 trued to the fresh FOX pull; Brazil/Mexico/Portugal/USA flagged ELIMINATED. PRIOR: UPDATE 2026-07-02: folded in the three Jul-1 R32 matches (M80 England 2-1 DR Congo, M81 USA 2-0 Bosnia, M82 Belgium 3-2 Senegal AET) using REAL ESPN match-centre player+team xG/shots (and RealGM xG tracker for the BEL-SEN team total). Kane +brace (now 5 WC goals, 2.20 xg REAL, 360'); Pickford +90' (conceded, no CS); NEW United States block added (Pulisic 6.5-quiet 0.09 xg REAL / Antonee Robinson full-90 CS owned / Balogun goal-then-red 0.57 xg REAL, SUSPENDED R16 / Tillman FK goal+assist-on-both / Turner CS); Belgium Lukaku(+goal) & NEW Tielemans(brace inc record 124:44 pen); Senegal Sarr(+goal, 1.60 R32 xg over 120') & NEW Habib Diarra(+goal) [Senegal ELIMINATED]; NEW owned still-to-play players added fresh: Cubarsi (Spain, 270' 3CS), Emiliano Martinez (ARG GK, 2CS), Lisandro Martinez (ARG CB). teams block: England/Belgium/Senegal xg totals extended +Jul-1 opponent; USA/DR Congo/Bosnia ADDED as matches:1 R32-only entries (group totals not previously tracked). REAL xG this update: ENG 2.16, DRC 0.77, Kane 0.54; USA 0.89, BIH 0.25, Balogun 0.57, Pulisic 0.09; BEL 1.80, SEN 3.22, Tielemans 0.98, Sarr 1.60 (BEL-SEN xG are 120' AET aggregates -> ET-inflated, NOT prorated, flagged in notes). ESTIMATED (flagged 'est' in notes): Lukaku R32 shot xg (~0.4, only xGOT 0.37 published), Diarra R32 shot xg, Tillman deflected-FK xg (~0.25), defenders' attacking xg (A.Robinson/Cubarsi/L.Martinez), Lisandro Martinez minutes (~220). NB: DR Congo's 7' scorer was Brian CIPENGA (not Wissa). PRIOR (2026-06-28): FULL group stage complete (72 matches, through Jun 27 M67-72). wc_goals/wc_assists are FACTUAL from data/manual/results.json match notes + golden-boot/assist trackers (planetfootball + ESPN/CBS/NBC live blogs for M67-72) and the fantasy feed roundPoints. wc_minutes are best-estimate from start/sub timing. wc_xg are now REAL Opta-based numbers from the FOX Sports WC2026 player stats table (sorted by xG, pages 1-6), the canonical per-player xG source available without a login; a few players not in FOX's published xG list (Hakimi, Raul Jimenez, James Rodriguez) keep a small role-based estimate, flagged 'xg est' in notes. wc_xa are SHAPED ESTIMATES (FOX/Sofascore/FotMob did not expose a per-player xA decimal via fetch): anchored to actual assists + planetfootball chances-created rank + role; flagged 'xa est'. wc_shots/wc_sot are REAL from the FOX table where the player appears there. teams block (wc_xg_for/against) is REAL FOX team xG (FOX rounds team xGA to integers; sub-0.5 values stored as small positives to stay process-consistent). The model shrinks the club-season per-90 toward these, minutes-weighted, leaning on xG over goals so finishing heat (e.g. Dembele 4 goals on 0.81 xG, Munoz 2 on 0.15, Summerville 2 on 0.13) regresses. Eliminated nations dropped/not refreshed; focus is the 20 R32 sides that supply fantasy picks. | 2026-07-03: added M83-85 (Spain/Portugal/Switzerland only - Croatia/Austria/Algeria eliminated, no future projections); Jul-2 xG values are ESTIMATES pending an fbref pull. | 2026-07-04: R32 now FULLY folded (all 16 ties M73-88). NEW Jul-3 games w/ REAL ESPN match-centre xG: M86 Argentina 3-2 Cape Verde AET (ARG 2.16 / CPV 0.45 over 120'; Messi 29' goal, full 120, 1.33 R32 xg REAL -> FOX cum 3.72 / 7 goals / Golden Boot lead, 8 straight WC games scoring; Lisandro Martinez 92' ET header off a Messi corner - ET counts in fantasy; the 111' winner was an OG, Romero header in off Diney Borges; E.Martinez 5 saves REAL, no CS; NEW Julian Alvarez + Thiago Almada entries with EST group splits), M87 Colombia 1-0 Ghana (COL 2.04 / GHA 0.27, Ghana 0 SOT; Arias 14' 0.46 xg REAL, assist Luis Suarez; Diaz 0.63 REAL over 5 attempts; James SUBBED AT HT; NEW Camilo Vargas GK entry, 2 CS), M88 Australia 1-1 Egypt AET, Egypt 4-2 pens (EGY 1.36 / AUS 0.87 over 120'; NEW Emam Ashour entry - 13' header, 0.29 R32 xg REAL; Salah full-120 QUIET 0.03 xg REAL 0 SOT, scored only in the shootout which counts for nothing; Marmoush 0.42 REAL off 105', still goalless). ALSO BACK-FOLDED the previously-skipped M73-79 (team level + file players who featured): Canada 1-0 RSA (RealGM 1.38/0.14), Paraguay 1-1 (4-3p) Germany (GER 1.49 / PAR 0.42, RealGM, 120'), Morocco 1-1 (3-2p) Netherlands (MAR 1.38 / NED 0.24, RealGM, 120'; Hakimi full 120 + 0.23 xg REAL; Saibari scored the shootout winner - not a goal for scoring purposes), Brazil 2-1 Japan (ESPN 2.07/0.33; Vinicius full-90 quiet -> FOX cum 2.50; Cunha off 66'; NO CS; Raphinha still out, targets R16), France 3-0 Sweden (ESPN 3.17/0.67; Mbappe BRACE -> FOX cum 2.89/6 goals; Olise +2 assists = 5, tournament LEAD; Barcola sub goal 0.62 REAL; Maignan 2nd CS), Norway 2-1 Ivory Coast (ESPN 1.90/1.49; Haaland 86' winner 1.17 REAL -> FOX cum 3.38/5 goals; 1st Norwegian WC KO win), Mexico 2-0 Ecuador (ESPN 1.05/0.75; Quinones goal+assist, Jimenez goal 0.45 R32 REAL; Mexico now 0 conceded in ALL FOUR games). Jul-2 M83-85 ESTIMATES REPLACED WITH REAL (ESPN): POR 2.20 / CRO 1.34 (Ronaldo pen 0.79 REAL -> FOX cum 2.33, off 81'; Bruno 0.63 REAL; Ramos winner header only 0.07 xg), ESP 2.80 / AUT 0.32 (Oyarzabal 1.09 REAL -> FOX cum 2.37; Porro 0.53 REAL), SUI 2.45 / ALG 0.73 (Embolo 0.97 REAL -> FOX cum 2.36; Ndoye 0.09 REAL; Kobel CS). teams block: every R16-alive side now carries full 4-game totals - xg_for = FOX cumulative (REAL, single provider), xg_against = prior + R32 opponent per-match xG (ESPN/RealGM REAL for ARG/COL/EGY/AUS/FRA/BRA/NOR/MEX/MAR/ESP/POR/SUI; Jul-1 England convention); NEW blocks ADDED: Canada (xg_for 8.3 REAL, xga 3.2 EST - group legs unpublished) and Paraguay (1.9 REAL, xga 4.3 half-REAL: USA 1.35 + GER 1.49 real, TUR/AUS est); United States UPGRADED from R32-only matches:1 to full-tournament (4.9 REAL / xga 3.4 mix). ET ties (M74/75/82/86/88) keep 120' totals, NOT prorated, flagged. REAL-vs-EST split this update: all 13 newly-folded/upgraded matches have REAL team xG on both sides except the Canada/Paraguay/USA group-stage xGA legs (EST, flagged in _note); player xg REAL: FOX cumulative for Messi/Mbappe/Haaland/Vinicius/Oyarzabal/Embolo/Ronaldo + ESPN per-match for Diaz/Arias/Salah/Marmoush/Ashour/Barcola/Olise/Dembele/Hakimi/Rahimi/Porro/Bruno/Jimenez/Quinones/Lisandro-goal-context; EST (flagged 'est' in notes): new-entry group splits (J.Alvarez/Almada/Ashour), Lautaro/Cunha/Saibari/Edson-Alvarez R32 increments, Lisandro/defender attacking xg.",
+ "updated_at": "2026-07-11",
+ "fetched_at": "2026-07-11",
+ "confidence": "Med-real-QF-M97-M98-folded",
+ "method": "UPDATE 2026-07-11: QF matches M97 (Jul 9: France 2-0 Morocco) + M98 (Jul 10: Spain 2-1 Belgium) FOLDED with REAL ESPN per-shot xG/xGOT logs (gameIds 760510/760511 - the M97 per-shot sum reproduces the team 3.69 EXACTLY) + a fresh FOX cumulative pull (players sorted by xG, team stats). REAL team xG this update: FRA 3.69 / MAR 0.14, ESP 1.96 / BEL 0.34 (ESPN). Headline facts: MBAPPE goal 60' + assist (Dembele 66') but his 25' PENALTY SAVED by Bounou (0.79 xg; Bounou joint-record 4 WC pen saves) - 8G+3A = Golden Boot co-lead w/ Messi, match xg 1.34 REAL over 4 attempts, off ~77' with a MINOR ANKLE KNOCK (iced, 'completely fine', L'Equipe Jul 10: FIT for the SF); DEMBELE goal 66' (0.12 xg/0.53 xGOT); France 3rd CS (Maignan 1 save; DIGNE full 90+7 + 35-yd crossbar; DOUE started LW over Barcola; TCHOUAMENI unused - L'Equipe: fit for SF, could start); M98: FABIAN RUIZ (NEW entry) STARTED OVER PEDRI and scored 30' (0.45 xg/0.80 xGOT rebound off Courtois' save of Olmo's shot, no assist credited); DE KETELAERE 41' header (assist Castagne) = the FIRST goal Spain conceded ALL TOURNAMENT (CS streak dead at 5 - Simon/Cucurella/Cubarsi/Porro all full-90 no-CS); MERINO on 86' scored the 88' WINNER (0.69 xg/0.96 xGOT, Lammens spilled Cubarsi's 0.03-xg drive, no assist) = his 2ND straight KO winner off the bench; YAMAL busy again blank (6 attempts / 2 SOT / 0.25 xg REAL); NICO WILLIAMS RETURNED (sub 79', first minutes since the adductor); Belgium: COURTOIS off 71' (quadriceps) + TIELEMANS hurt in the WARM-UP (DNP); Morocco + Belgium ELIMINATED (kept for record, don't project). Player cumulative xg RE-BASED to the fresh FOX Jul-11 pull where listed (Mbappe 5.07/30sh/20SOG, Oyarzabal 2.81, Yamal 1.53/23sh/10SOG - replaces the old 13-shot est, De Ketelaere 1.71/7sh, De Bruyne 1.46, Olise 1.41/17sh/5SOG); teams block xg_for re-trued to fresh FOX cum (FRA 11.7 - NB ESPN-sum alt 12.5, divergence above the usual band, FOX kept canonical; ESP 10.4; BEL 10.3; MAR 7.1), xg_against += QF opponent ESPN match xG; FRA/ESP/MAR/BEL all at matches:6. NEW entries: Fabian Ruiz + Alex Baena (Spain - only their M98 lines individually verified, group/KO splits EST flagged). ESTIMATED (flagged 'est' in notes): Baena/F.Ruiz/Merino/Ferran/Pedri/Nico-Williams group splits and sub-cameo minutes, Barcola/Doku cameo minutes, eliminated-side (MAR/BEL) M97/M98 minutes advances. Norway/England/Argentina/Switzerland UNTOUCHED (their QFs M99/M100 play tonight Jul 11). SF board: M101 FRA-ESP Jul 14 Arlington, M102 winner M99 - winner M100. PRIOR: UPDATE 2026-07-09: R16 now FULLY FOLDED (all 8 ties M89-M96). Added the two Jul-7 matches (M95 Argentina 3-2 Egypt, decided in 90'; M96 Switzerland 0-0 Colombia aet, SUI 4-3 pens) with REAL ESPN player-stats xG/xA (gameIds 760509/760508). REAL team xG this update: ARG 2.84 / EGY 0.89 (ESPN; Opta cross-check 2.90/0.97), SUI 0.35-0.47 / COL 1.03 over 120' (ESPN team quote 0.35 vs per-player sum 0.47 -> teams block adds SUI +0.4; Opta 90'-only split 0.3-0.4 = LOWEST normal-time xG total of this WC). Headline facts: MESSI 83' goal + assist (Romero 79' header) on 1.01 xg / 0.97 xa / 10 shots REAL, but his 21' PEN was SAVED by Shobeir (first player with 2 missed pens at one WC edition) - 8 goals = Golden Boot lead, 21 career, 9 straight WC games scoring; ENZO FERNANDEZ 90+2' header WINNER (NEW entry; 0.25 xg / 0.56 xa REAL; assist LAUTARO, who was BENCHED for JULIAN ALVAREZ's first KO start - Alvarez 0.31 xg REAL over 90'); ROMERO goal (NEW entry, 0.35 xg REAL); Egypt ELIMINATED: ZICO started over MARMOUSH (dropped, on 80', 0 shots - ends the WC goalless on 1.09 xG) and scored 67' (0.64 REAL); SALAH invisible AGAIN (0 shots, 0.00 xg, full 90+). M96: Swiss rotation shock - MANZAMBI + AEBISCHER both UNUSED (0'), RIEDER started over R.VARGAS (Vargas on 90+2' for ET only but struck the WINNING shootout pen; Kobel saved Cucho + D.Sanchez crossbar, Akanji missed for SUI); EMBOLO blanked (0 shots / 0.00 xg over 87'); NDOYE the liveliest Swiss (1 SOT, 0.05 xg) in a 0.35-xG team display; Colombia ELIMINATED despite outcreating SUI (Diaz team-high 0.22 xg over 120'; Lucumi ET crossbar header; Campaz 115' sitter over; James hooked 66' for the 2nd straight game; Cordoba injured DNP). ESTIMATED (flagged 'est' in notes): total-shot increments for J.Alvarez/Lautaro/Ndoye/Diaz (SOG + xG REAL, attempt counts not itemised on the fetched pages), and the group/R32 splits inside the two NEW entries (Enzo Fernandez, Romero - only their M95 lines individually verified). teams block: ARG/EGY/SUI/COL all extended to matches:5 (xg_for/against += opponent-match REAL xG, 90'+ET totals NOT prorated, ET ties flagged); Egypt + Colombia now ELIMINATED (no further projections needed). QF board FINAL: M97 FRA-MAR, M98 ESP-BEL, M99 NOR-ENG, M100 ARG-SUI (Jul 11, Arrowhead). PRIOR: UPDATE 2026-07-07: folded the four Jul 5-6 R16 matches (M91 Brazil 1-2 Norway, M92 Mexico 2-3 England, M93 Portugal 0-1 Spain, M94 USA 1-4 Belgium) with REAL ESPN match-centre xG (gameIds 760504-760507) + a fresh FOX cumulative pull (players sorted by xG, team stats). M89/M90 were already folded on 2026-07-05. REAL team xG this update: BRA 2.61 / NOR 1.05, MEX 1.88 / ENG 1.61, POR 0.63 / ESP 1.69, USA 0.63 / BEL 2.01. Headline player facts: HAALAND brace 79'+90' on just 0.47 R16 xg REAL (FOX cum 3.70 / 7 goals in 4 games - joint Golden Boot lead w/ Messi+Mbappe); BELLINGHAM brace 36'+38' (0.73 REAL, FOX cum 2.55/4G); KANE 60' pen (FOX cum 3.22/6G); SAKA assist on the opener then SACRIFICED 57' after the Quansah 54' red (Quansah suspended for QF M99); MERINO 90+1 winner (0.55 REAL) + FERRAN TORRES assist - both subs 85'/75'; Spain 5 CS in 5, STILL 0 conceded (Cucurella/Cubarsi/Simon/Porro all 90); DE KETELAERE brace as the false 9 (NEW entry, FOX cum 1.49); VANAKEN on 21' for the injured Onana (knee, OUT of QF) + goal 57' (NEW entry); Lukaku sub goal 90+3 on 0.04 xg; DE BRUYNE UNUSED SUB M94 (fitness management - QF bench risk flagged); USA: Freese started over Turner, Balogun's M81 red LIFTED by FIFA pre-match (started, 0.43 REAL), Tillman 2nd deflected-FK goal (0.07 REAL); Jimenez pen (FOX cum 3.13) + Quinones goal ended by England - Mexico's 4-CS run over, ELIMINATED; Vinicius quiet 0.17 REAL, Brazil ELIMINATED (Bruno Guimaraes pen SAVED at 0.79, Neymar consolation pen 90+10 then int'l retirement; Raphinha never returned); Ronaldo 0.29 REAL over 4 shots in his likely last WC game, Portugal ELIMINATED. NEW entries added: Nusa + Schjelderup (Norway - Nusa started M91 but hooked at HT for Schjelderup who assisted Haaland), Merino + Ferran Torres (Spain), De Ketelaere + Vanaken (Belgium), Digne + Rabiot (France back-fill from cached XIs: Digne ~270' w/ 3 CS incl M77+M89 documented starts, Rabiot nailed pivot ~430' est). Player cumulative xg RE-BASED to the fresh FOX pull where listed (Mbappe 3.86 - replaces the Jul-5 ESPN-sum 4.04, Haaland 3.70, Kane 3.22, Jimenez 3.13, Oyarzabal 2.75, Ronaldo 2.75, Vinicius 2.69, Bellingham 2.55, De Ketelaere 1.49); FOX shot/SOG cums adopted for the same players (can sit BELOW old ESPN-sums, e.g. Kane 17 vs 21 - divergence noted, FOX canonical). ESTIMATED (flagged 'est' in notes): group-stage splits of all NEW entries (Nusa/Schjelderup/Merino/Ferran/CDK/Vanaken/Digne/Rabiot - group G/A NOT separately tracked for them, only R16 lines factual), M94 shot counts (extraction garbled - SOT%-implied), Jimenez/Quinones M92 exit minutes, Danilo's M91 cameo. Quinones tracked at 3 goals (M53/M79/M92) vs FOX table '4' - possible untracked group goal, eliminated so not re-verified. teams block: all 8 R16 participants from M91-94 extended to matches:5 (xg_for = fresh FOX cum; xg_against = prior + R16 opponent ESPN match xG); France 8.9->8.8 + Morocco 6.7->6.8 + Paraguay 2.0->2.1 trued to the fresh FOX pull; Brazil/Mexico/Portugal/USA flagged ELIMINATED. PRIOR: UPDATE 2026-07-02: folded in the three Jul-1 R32 matches (M80 England 2-1 DR Congo, M81 USA 2-0 Bosnia, M82 Belgium 3-2 Senegal AET) using REAL ESPN match-centre player+team xG/shots (and RealGM xG tracker for the BEL-SEN team total). Kane +brace (now 5 WC goals, 2.20 xg REAL, 360'); Pickford +90' (conceded, no CS); NEW United States block added (Pulisic 6.5-quiet 0.09 xg REAL / Antonee Robinson full-90 CS owned / Balogun goal-then-red 0.57 xg REAL, SUSPENDED R16 / Tillman FK goal+assist-on-both / Turner CS); Belgium Lukaku(+goal) & NEW Tielemans(brace inc record 124:44 pen); Senegal Sarr(+goal, 1.60 R32 xg over 120') & NEW Habib Diarra(+goal) [Senegal ELIMINATED]; NEW owned still-to-play players added fresh: Cubarsi (Spain, 270' 3CS), Emiliano Martinez (ARG GK, 2CS), Lisandro Martinez (ARG CB). teams block: England/Belgium/Senegal xg totals extended +Jul-1 opponent; USA/DR Congo/Bosnia ADDED as matches:1 R32-only entries (group totals not previously tracked). REAL xG this update: ENG 2.16, DRC 0.77, Kane 0.54; USA 0.89, BIH 0.25, Balogun 0.57, Pulisic 0.09; BEL 1.80, SEN 3.22, Tielemans 0.98, Sarr 1.60 (BEL-SEN xG are 120' AET aggregates -> ET-inflated, NOT prorated, flagged in notes). ESTIMATED (flagged 'est' in notes): Lukaku R32 shot xg (~0.4, only xGOT 0.37 published), Diarra R32 shot xg, Tillman deflected-FK xg (~0.25), defenders' attacking xg (A.Robinson/Cubarsi/L.Martinez), Lisandro Martinez minutes (~220). NB: DR Congo's 7' scorer was Brian CIPENGA (not Wissa). PRIOR (2026-06-28): FULL group stage complete (72 matches, through Jun 27 M67-72). wc_goals/wc_assists are FACTUAL from data/manual/results.json match notes + golden-boot/assist trackers (planetfootball + ESPN/CBS/NBC live blogs for M67-72) and the fantasy feed roundPoints. wc_minutes are best-estimate from start/sub timing. wc_xg are now REAL Opta-based numbers from the FOX Sports WC2026 player stats table (sorted by xG, pages 1-6), the canonical per-player xG source available without a login; a few players not in FOX's published xG list (Hakimi, Raul Jimenez, James Rodriguez) keep a small role-based estimate, flagged 'xg est' in notes. wc_xa are SHAPED ESTIMATES (FOX/Sofascore/FotMob did not expose a per-player xA decimal via fetch): anchored to actual assists + planetfootball chances-created rank + role; flagged 'xa est'. wc_shots/wc_sot are REAL from the FOX table where the player appears there. teams block (wc_xg_for/against) is REAL FOX team xG (FOX rounds team xGA to integers; sub-0.5 values stored as small positives to stay process-consistent). The model shrinks the club-season per-90 toward these, minutes-weighted, leaning on xG over goals so finishing heat (e.g. Dembele 4 goals on 0.81 xG, Munoz 2 on 0.15, Summerville 2 on 0.13) regresses. Eliminated nations dropped/not refreshed; focus is the 20 R32 sides that supply fantasy picks. | 2026-07-03: added M83-85 (Spain/Portugal/Switzerland only - Croatia/Austria/Algeria eliminated, no future projections); Jul-2 xG values are ESTIMATES pending an fbref pull. | 2026-07-04: R32 now FULLY folded (all 16 ties M73-88). NEW Jul-3 games w/ REAL ESPN match-centre xG: M86 Argentina 3-2 Cape Verde AET (ARG 2.16 / CPV 0.45 over 120'; Messi 29' goal, full 120, 1.33 R32 xg REAL -> FOX cum 3.72 / 7 goals / Golden Boot lead, 8 straight WC games scoring; Lisandro Martinez 92' ET header off a Messi corner - ET counts in fantasy; the 111' winner was an OG, Romero header in off Diney Borges; E.Martinez 5 saves REAL, no CS; NEW Julian Alvarez + Thiago Almada entries with EST group splits), M87 Colombia 1-0 Ghana (COL 2.04 / GHA 0.27, Ghana 0 SOT; Arias 14' 0.46 xg REAL, assist Luis Suarez; Diaz 0.63 REAL over 5 attempts; James SUBBED AT HT; NEW Camilo Vargas GK entry, 2 CS), M88 Australia 1-1 Egypt AET, Egypt 4-2 pens (EGY 1.36 / AUS 0.87 over 120'; NEW Emam Ashour entry - 13' header, 0.29 R32 xg REAL; Salah full-120 QUIET 0.03 xg REAL 0 SOT, scored only in the shootout which counts for nothing; Marmoush 0.42 REAL off 105', still goalless). ALSO BACK-FOLDED the previously-skipped M73-79 (team level + file players who featured): Canada 1-0 RSA (RealGM 1.38/0.14), Paraguay 1-1 (4-3p) Germany (GER 1.49 / PAR 0.42, RealGM, 120'), Morocco 1-1 (3-2p) Netherlands (MAR 1.38 / NED 0.24, RealGM, 120'; Hakimi full 120 + 0.23 xg REAL; Saibari scored the shootout winner - not a goal for scoring purposes), Brazil 2-1 Japan (ESPN 2.07/0.33; Vinicius full-90 quiet -> FOX cum 2.50; Cunha off 66'; NO CS; Raphinha still out, targets R16), France 3-0 Sweden (ESPN 3.17/0.67; Mbappe BRACE -> FOX cum 2.89/6 goals; Olise +2 assists = 5, tournament LEAD; Barcola sub goal 0.62 REAL; Maignan 2nd CS), Norway 2-1 Ivory Coast (ESPN 1.90/1.49; Haaland 86' winner 1.17 REAL -> FOX cum 3.38/5 goals; 1st Norwegian WC KO win), Mexico 2-0 Ecuador (ESPN 1.05/0.75; Quinones goal+assist, Jimenez goal 0.45 R32 REAL; Mexico now 0 conceded in ALL FOUR games). Jul-2 M83-85 ESTIMATES REPLACED WITH REAL (ESPN): POR 2.20 / CRO 1.34 (Ronaldo pen 0.79 REAL -> FOX cum 2.33, off 81'; Bruno 0.63 REAL; Ramos winner header only 0.07 xg), ESP 2.80 / AUT 0.32 (Oyarzabal 1.09 REAL -> FOX cum 2.37; Porro 0.53 REAL), SUI 2.45 / ALG 0.73 (Embolo 0.97 REAL -> FOX cum 2.36; Ndoye 0.09 REAL; Kobel CS). teams block: every R16-alive side now carries full 4-game totals - xg_for = FOX cumulative (REAL, single provider), xg_against = prior + R32 opponent per-match xG (ESPN/RealGM REAL for ARG/COL/EGY/AUS/FRA/BRA/NOR/MEX/MAR/ESP/POR/SUI; Jul-1 England convention); NEW blocks ADDED: Canada (xg_for 8.3 REAL, xga 3.2 EST - group legs unpublished) and Paraguay (1.9 REAL, xga 4.3 half-REAL: USA 1.35 + GER 1.49 real, TUR/AUS est); United States UPGRADED from R32-only matches:1 to full-tournament (4.9 REAL / xga 3.4 mix). ET ties (M74/75/82/86/88) keep 120' totals, NOT prorated, flagged. REAL-vs-EST split this update: all 13 newly-folded/upgraded matches have REAL team xG on both sides except the Canada/Paraguay/USA group-stage xGA legs (EST, flagged in _note); player xg REAL: FOX cumulative for Messi/Mbappe/Haaland/Vinicius/Oyarzabal/Embolo/Ronaldo + ESPN per-match for Diaz/Arias/Salah/Marmoush/Ashour/Barcola/Olise/Dembele/Hakimi/Rahimi/Porro/Bruno/Jimenez/Quinones/Lisandro-goal-context; EST (flagged 'est' in notes): new-entry group splits (J.Alvarez/Almada/Ashour), Lautaro/Cunha/Saibari/Edson-Alvarez R32 increments, Lisandro/defender attacking xg.",
  "sources": [
   "Jul-1 R32 REAL xG/shots: ESPN match centres (gameId 760495 ENG-DRC, 760494 USA-BIH, 760493 SEN-BEL) — team + per-player xG/shots/sot",
   "RealGM 2026 WC xG Tracker (BEL 1.80 / SEN 3.22 team total, over 120' AET)",
@@ -29,7 +29,11 @@
   "Opta Analyst (theanalyst.com) argentina-vs-egypt-stats + switzerland-vs-colombia-stats (ARG 2.90/0.97 cross-check; SUI-COL 90' xG 0.3-0.4 = lowest of WC; Messi 2-missed-pens fact; shootout sequence)",
   "ESPN lineups 760509/760508 (both XIs + all sub minutes: J.Alvarez started/Lautaro 66' on; Zico started/Marmoush 80' on; Ashour off HT; Manzambi+Aebischer unused; R.Vargas on 90+2; James off 66')",
   "beIN Sports + NPR + AlJazeera liveblog + Yahoo + FIFA match pages Jul-7 (scorers/assists: Ibrahim 15' [Attia], Zico 67', Romero 79' [Messi], Messi 83', Enzo 90+2' [Lautaro]; pens 4-3: R.Vargas winner, Kobel save on Cucho)",
-  "data/raw/2026-07-09/r16_final_results.md (this run's raw cache)"
+  "data/raw/2026-07-09/r16_final_results.md (this run's raw cache)",
+  "Jul 9-10 QF REAL xG/shots: ESPN matchstats per-shot logs (gameId 760510 FRA-MAR - 27 shots itemised w/ xG+xGOT, per-shot sum = FRA team 3.69 exactly; 760511 ESP-BEL - ESP 1.96 / BEL 0.34; GK lines Simon 0.34 xGC, Courtois 1.20 xGC pre-71'-exit)",
+  "FOX Sports WC2026 player + team stats refetched 2026-07-11 (cumulative REAL Opta xG through M98: Mbappe 5.07 8G/3A 30sh/20SOG, Messi 4.82, Haaland 3.76, Kane 3.22, Oyarzabal 2.81, De Ketelaere 1.71, Yamal 1.53 23sh/10SOG, De Bruyne 1.46, Olise 1.41; team xG FRA 11.7 / ESP 10.4 / BEL 10.3 / MAR 7.1)",
+  "data/raw/2026-07-11/results_jul9-10_QF.md (M97/M98 scores/scorers/cards/XIs, multi-source-verified: ESPN/FOX/Sky/AlJazeera/NBC/Opta) + data/raw/2026-07-11/form_squads_jul11.md (this run's raw cache)",
+  "L'Equipe via Yahoo Sports (Jul 10): Mbappe (minor ankle knock M97) AND Tchouameni both FIT for SF M101 vs Spain; Tchouameni could return to the XI"
  ],
  "players": {
   "Argentina": [
@@ -145,58 +149,58 @@
   "France": [
    {
     "name": "Kylian Mbappe",
-    "wc_minutes": 450,
-    "wc_goals": 7,
-    "wc_assists": 2,
-    "wc_xg": 3.86,
-    "wc_xa": 0.75,
-    "wc_shots": 26,
-    "wc_sot": 17,
+    "wc_minutes": 527,
+    "wc_goals": 8,
+    "wc_assists": 3,
+    "wc_xg": 5.07,
+    "wc_xa": 0.9,
+    "wc_shots": 30,
+    "wc_sot": 20,
     "role_change": "captain, on penalties",
-    "notes": "brace M17 + brace M42 + BRACE M77 R32 (45' + 74' vs Sweden 3-0); 19 career WC goals; joint Golden Boot lead (7) w/ Messi + Haaland; xg 3.86 REAL cum (FOX Jul-7 pull, GP5 - replaces the Jul-5 ESPN-sum 4.04); xa est",
+    "notes": "brace M17 + brace M42 + BRACE M77 R32 (45' + 74' vs Sweden 3-0); 19 career WC goals; joint Golden Boot lead (7) w/ Messi + Haaland; xg 3.86 REAL cum (FOX Jul-7 pull, GP5 - replaces the Jul-5 ESPN-sum 4.04); xa est; M97 QF vs Morocco: GOAL 60' (curler, 0.05 xg/0.61 xGOT) + ASSIST (Dembele 66') but his 25' PENALTY was SAVED by Bounou (0.79 xg) - match xg 1.34 REAL over 4 attempts (ESPN shot log; FOX box credits Doue on the 60' - assist-credit disagreement, ESPN commentary = solo curler), off ~77' (Mateta) with a MINOR ANKLE KNOCK (non-contact, iced, 'completely fine'; L'Equipe Jul 10: FIT for the SF, project full minutes); 8G+3A = Golden Boot co-lead w/ Messi; xg 5.07 REAL cum + shots/sot 30/20 (FOX Jul-11 pull); xa est",
     "note_jul4": "M89: 70' pen (won by Doue); denied twice late by Gill; >=team-high xG"
    },
    {
     "name": "Ousmane Dembele",
-    "wc_minutes": 389,
-    "wc_goals": 4,
+    "wc_minutes": 479,
+    "wc_goals": 5,
     "wc_assists": 1,
-    "wc_xg": 1.15,
+    "wc_xg": 1.4,
     "wc_xa": 0.65,
-    "wc_shots": 12,
-    "wc_sot": 4,
+    "wc_shots": 16,
+    "wc_sot": 6,
     "role_change": "nailed France RW",
-    "notes": "goal+assist M42 + HAT-TRICK M61 (vs Norway); M77 R32: no G/A, 0.24 xg REAL (ESPN), off 75'; 4 goals on 1.05 xG = still MASSIVE finishing over-perf -> regress hard; xg REAL; xa est",
+    "notes": "goal+assist M42 + HAT-TRICK M61 (vs Norway); M77 R32: no G/A, 0.24 xg REAL (ESPN), off 75'; 4 goals on 1.05 xG = still MASSIVE finishing over-perf -> regress hard; xg REAL; xa est; M97 QF: GOAL 66' (assist Mbappe; 0.12 xg/0.53 xGOT, low shot Bounou should have saved) - 4 shots / 2 SOT / 0.25 xg REAL (ESPN shot log; the leaders panel's '7 attempts' not in the log - log canonical), full 90+7; 5 WC goals on 1.40 xG = finishing over-perf persists, keep regressing",
     "note_jul4": "M89: quiet, off 84' (Cherki)"
    },
    {
     "name": "Michael Olise",
-    "wc_minutes": 405,
+    "wc_minutes": 495,
     "wc_goals": 0,
     "wc_assists": 5,
-    "wc_xg": 1.27,
+    "wc_xg": 1.41,
     "wc_xa": 1.7,
-    "wc_shots": 15,
-    "wc_sot": 2,
+    "wc_shots": 17,
+    "wc_sot": 5,
     "role_change": "dual-position (MID/FWD); chief creator",
-    "notes": "WC assist LEADER (5): 3 group + 2 M77 R32 (Barcola + Mbappe's 2nd, FOX box score); 0.55 R32 xg REAL incl a post; off ~84'; xg 1.22 REAL (FOX group + ESPN R32); xa est (top creator)",
+    "notes": "WC assist LEADER (5): 3 group + 2 M77 R32 (Barcola + Mbappe's 2nd, FOX box score); 0.55 R32 xg REAL incl a post; off ~84'; xg 1.22 REAL (FOX group + ESPN R32); xa est (top creator); M97 QF: full 90+7, 0G/0A - 3 shots / 1 SOT / 0.17 xg REAL (ESPN log), quiet by his standards but still WC assist LEADER (5); his one-booking SF-ban risk CLEARED (all single yellows wiped after the QFs); xg 1.41 + shots/sot 17/5 = FOX Jul-11 cum",
     "note_jul4": "M89: 1 key pass, yellow 90+7 (wiped at QF)"
    },
    {
     "name": "Bradley Barcola",
-    "wc_minutes": 251,
+    "wc_minutes": 271,
     "wc_goals": 2,
     "wc_assists": 1,
-    "wc_xg": 1.12,
+    "wc_xg": 1.17,
     "wc_xa": 0.6,
-    "wc_shots": 6,
+    "wc_shots": 7,
     "wc_sot": 3,
-    "notes": "goal M17 (Senegal) + goal 53' M77 R32 off the bench (0.62 xg REAL); rotation winger but delivering; minutes est; xg 1.07 REAL (ESPN sum); xa est",
+    "notes": "goal M17 (Senegal) + goal 53' M77 R32 off the bench (0.62 xg REAL); rotation winger but delivering; minutes est; xg 1.07 REAL (ESPN sum); xa est; M97 QF: LW start went to DOUE - Barcola on ~77' (for Doue), 1 shot 87' (0.05 xg); impact-sub role in the KOs now, minutes est",
     "note_jul4": "M89: off 61' (Doue won the pen); 2 chances created, 0.08 xGI"
    },
    {
     "name": "Mike Maignan",
-    "wc_minutes": 450,
+    "wc_minutes": 540,
     "wc_goals": 0,
     "wc_assists": 0,
     "wc_xg": 0.0,
@@ -204,7 +208,7 @@
     "wc_shots": 0,
     "wc_sot": 0,
     "role_change": "nailed No.1 GK",
-    "notes": "CS M42 (3-0 Iraq) + CS M77 R32 (3-0 Sweden) = 2 CS; conceded M61 (no CS) but banked saves; owned",
+    "notes": "CS M42 (3-0 Iraq) + CS M77 R32 (3-0 Sweden) = 2 CS; conceded M61 (no CS) but banked saves; owned; M97 QF: CLEAN SHEET (3rd CS), 1 save (Morocco 0.14 xG / 1 SOT), full 90+7",
     "note_jul4": "M89: CS, 1 save (PAR 0.13 xG)"
    },
    {
@@ -217,31 +221,31 @@
     "wc_shots": 1,
     "wc_sot": 0,
     "role_change": "rotation LB - but Digne has taken the KO starts (M77 + M89)",
-    "notes": "owned; no CS in his starts (M17/M61); attacking LB"
+    "notes": "owned; no CS in his starts (M17/M61); attacking LB; M97 QF: UNUSED (Digne full match again - 4 France subs used elsewhere)"
    },
    {
     "name": "Lucas Digne",
-    "wc_minutes": 270,
+    "wc_minutes": 360,
     "wc_goals": 0,
     "wc_assists": 0,
-    "wc_xg": 0.1,
+    "wc_xg": 0.12,
     "wc_xa": 0.4,
-    "wc_shots": 1,
+    "wc_shots": 2,
     "wc_sot": 0,
     "role_change": "France's KO-stage LB of choice - started BOTH knockout games over Theo Hernandez",
-    "notes": "ADDED 2026-07-07 (back-fill): started M77 R32 (3-0 Sweden, CS) + M89 R16 (1-0 Paraguay, full match, CS + bonus, FFScout 9 pts); third start inferred M42 (3-0 Iraq, CS) with Theo taking M17/M61 -> ~3 CS in 3 starts, elite DEF value while France keep clean sheets; minutes/M42-leg + xg/xa EST (set-piece delivery LB)"
+    "notes": "ADDED 2026-07-07 (back-fill): started M77 R32 (3-0 Sweden, CS) + M89 R16 (1-0 Paraguay, full match, CS + bonus, FFScout 9 pts); third start inferred M42 (3-0 Iraq, CS) with Theo taking M17/M61 -> ~3 CS in 3 starts, elite DEF value while France keep clean sheets; minutes/M42-leg + xg/xa EST (set-piece delivery LB); M97 QF: FULL 90+7 + CLEAN SHEET - his 35-yard 45+2' swerver hit the CROSSBAR (0.02 xg); now every KO start + CS in all of them, France's undisputed KO LB"
    },
    {
     "name": "Adrien Rabiot",
-    "wc_minutes": 430,
+    "wc_minutes": 520,
     "wc_goals": 0,
     "wc_assists": 0,
-    "wc_xg": 0.4,
+    "wc_xg": 0.45,
     "wc_xa": 0.4,
-    "wc_shots": 4,
-    "wc_sot": 1,
+    "wc_shots": 5,
+    "wc_sot": 2,
     "role_change": "nailed pivot CM (partner of Tchouameni, or Kone when Tchouameni is out)",
-    "notes": "ADDED 2026-07-07 (back-fill): in every recorded France XI (group + M77 R32 + M89 R16 - full 90 M89, MID CS 1pt legs in M42/M77/M89); no tracked G/A this WC; minutes/xg/xa/shots EST (box-crashing header threat priced small); Tchouameni's adductor (missed M89) makes Rabiot even safer for the QF"
+    "notes": "ADDED 2026-07-07 (back-fill): in every recorded France XI (group + M77 R32 + M89 R16 - full 90 M89, MID CS 1pt legs in M42/M77/M89); no tracked G/A this WC; minutes/xg/xa/shots EST (box-crashing header threat priced small); Tchouameni's adductor (missed M89) makes Rabiot even safer for the QF; M97 QF: full 90, 1 shot saved 21' (0.05 xg REAL), MID CS leg; NB Tchouameni fit again for the SF (L'Equipe) - his return would displace KONE, not Rabiot"
    }
   ],
   "Norway": [
@@ -308,55 +312,55 @@
   "Spain": [
    {
     "name": "Mikel Oyarzabal",
-    "wc_minutes": 380,
+    "wc_minutes": 459,
     "wc_goals": 4,
     "wc_assists": 1,
-    "wc_xg": 2.75,
+    "wc_xg": 2.81,
     "wc_xa": 0.6,
-    "wc_shots": 17,
-    "wc_sot": 9,
+    "wc_shots": 18,
+    "wc_sot": 10,
     "role_change": "nailed #9 + Spain 1st-choice penalty taker; owned",
-    "notes": "brace+assist M37; 0-0 M13; off ~75' M64 | R32 M84: FULL 90 + BRACE (both Cucurella assists) | R16 M93 vs Portugal: 90+7', no goal but 0.61 xg REAL over 2 shots (8' big chance); still 4 WC goals; xg 2.75 REAL cum (FOX Jul-7); shots/sot FOX cum; xa est"
+    "notes": "brace+assist M37; 0-0 M13; off ~75' M64 | R32 M84: FULL 90 + BRACE (both Cucurella assists) | R16 M93 vs Portugal: 90+7', no goal but 0.61 xg REAL over 2 shots (8' big chance); still 4 WC goals; xg 2.75 REAL cum (FOX Jul-7); shots/sot FOX cum; xa est; M98 QF vs Belgium: blank - 1 shot (62', 0.07 xg / 0.34 xGOT, blocked), off 79' (N.Williams on); xg 2.81 REAL cum + shots/sot 18/10 (FOX Jul-11)"
    },
    {
     "name": "Lamine Yamal",
-    "wc_minutes": 375,
+    "wc_minutes": 465,
     "wc_goals": 1,
     "wc_assists": 1,
-    "wc_xg": 1.5,
+    "wc_xg": 1.53,
     "wc_xa": 1.5,
-    "wc_shots": 13,
-    "wc_sot": 5,
+    "wc_shots": 23,
+    "wc_sot": 10,
     "role_change": "nailed RW (hamstring cleared, minutes-managed)",
-    "notes": "goal+assist around M37; FK taker | R32 M84: off 85, no G/A | R16 M93: FULL 90, team-high 4 shots (2 SOT) but only 0.17 xg REAL - busy, no return in the KOs yet; xg/xa est+REAL mix (not in FOX top list)"
+    "notes": "goal+assist around M37; FK taker | R32 M84: off 85, no G/A | R16 M93: FULL 90, team-high 4 shots (2 SOT) but only 0.17 xg REAL - busy, no return in the KOs yet; xg/xa est+REAL mix (not in FOX top list); M98 QF: FULL 90, team-high 6 attempts / 2 SOT / 0.25 xg REAL (ESPN shot log) - busy again, still no KO return; xg 1.53 + shots/sot 23/10 NOW FOX Jul-11 cum (replaces the old 13-shot under-tracked est; FOX credits 0 A vs the 1 tracked in match notes - match-notes assist kept)"
    },
    {
     "name": "Nico Williams",
-    "wc_minutes": 220,
+    "wc_minutes": 231,
     "wc_goals": 0,
     "wc_assists": 1,
     "wc_xg": 0.6,
     "wc_xa": 0.6,
     "wc_shots": 5,
     "wc_sot": 2,
-    "role_change": "LW - INJURED (adductor), missed M93; one outlet says tournament-ending",
-    "notes": "OUT for R16 M93 (adductor; Yeremy Pino also out, shoulder); further rounds uncertain - do NOT project minutes until cleared; xg/xa est"
+    "role_change": "LW - RETURNED from the adductor injury as an M98 sub; sub-minutes only until fully fit (Baena keeps the start)",
+    "notes": "OUT for R16 M93 (adductor; Yeremy Pino also out, shoulder); further rounds uncertain - do NOT project minutes until cleared; xg/xa est; M98 QF: RETURNED - on 79' (for Oyarzabal), first minutes since the adductor injury, no return; 'geared up' for the SF but still building fitness - bench again likely, minutes est"
    },
    {
     "name": "Mikel Merino",
-    "wc_minutes": 130,
-    "wc_goals": 1,
+    "wc_minutes": 135,
+    "wc_goals": 2,
     "wc_assists": 0,
-    "wc_xg": 0.75,
+    "wc_xg": 1.44,
     "wc_xa": 0.3,
-    "wc_shots": 3,
-    "wc_sot": 2,
-    "role_change": "super-sub box-crasher - won the R16",
-    "notes": "ON 85' M93 R16 (for Olmo) and scored the 90+1 WINNER vs Portugal - 0.55 xg / 0.78 xGOT REAL (ESPN); group minutes/returns not separately tracked -> totals EST leaning on M93 (goal factual); a Qualification-Booster-style bench differential, not nailed"
+    "wc_shots": 4,
+    "wc_sot": 3,
+    "role_change": "super-sub box-crasher - won BOTH the R16 AND the QF off the bench",
+    "notes": "ON 85' M93 R16 (for Olmo) and scored the 90+1 WINNER vs Portugal - 0.55 xg / 0.78 xGOT REAL (ESPN); group minutes/returns not separately tracked -> totals EST leaning on M93 (goal factual); a Qualification-Booster-style bench differential, not nailed; M98 QF: ANOTHER sub winner - on 86' (for Olmo), GOAL 88' (0.69 xg / 0.96 xGOT REAL, 6-yd rebound after sub GK Lammens spilled Cubarsi's drive; no assist credited) = 2 KO winners in 2 rounds off the bench, 2:00 after entering; pushing hard for an SF start; minutes est"
    },
    {
     "name": "Ferran Torres",
-    "wc_minutes": 130,
+    "wc_minutes": 165,
     "wc_goals": 0,
     "wc_assists": 1,
     "wc_xg": 0.4,
@@ -364,35 +368,35 @@
     "wc_shots": 3,
     "wc_sot": 1,
     "role_change": "rotation forward/winger - first sub off the bench with Nico Williams out",
-    "notes": "ON 75' M93 R16 (for Baena), ASSIST on Merino's 90+1 winner + 1 shot blocked 77' + yellow 90+8 (wiped - KO yellows reset at QF... R16 slate anyway); group returns not separately tracked -> minutes/xg EST (assist factual); stock rises while Nico Williams is out"
+    "notes": "ON 75' M93 R16 (for Baena), ASSIST on Merino's 90+1 winner + 1 shot blocked 77' + yellow 90+8 (wiped - KO yellows reset at QF... R16 slate anyway); group returns not separately tracked -> minutes/xg EST (assist factual); stock rises while Nico Williams is out; M98 QF: on 55' (for Baena), no return tracked; his carried KO yellow WIPED after the QF round - Spain now a clean disciplinary slate; minutes est"
    },
    {
     "name": "Marc Cucurella",
-    "wc_minutes": 450,
+    "wc_minutes": 540,
     "wc_goals": 0,
     "wc_assists": 2,
-    "wc_xg": 0.25,
+    "wc_xg": 0.29,
     "wc_xa": 1.1,
-    "wc_shots": 2,
-    "wc_sot": 0,
+    "wc_shots": 3,
+    "wc_sot": 1,
     "role_change": "nailed LB; owned",
-    "notes": "full 90 + Spain CS M37, M13, M64 | R32 M84: 90 + TWO ASSISTS (both Oyarzabal goals) | R16 M93: full 90 + CS = 5 CS IN 5, Spain still 0 conceded all tournament; owned; xa est"
+    "notes": "full 90 + Spain CS M37, M13, M64 | R32 M84: 90 + TWO ASSISTS (both Oyarzabal goals) | R16 M93: full 90 + CS = 5 CS IN 5, Spain still 0 conceded all tournament; owned; xa est; M98 QF: full 90 but NO CS - De Ketelaere 41' ended Spain's all-tournament shutout; 1 shot saved 90+7 (0.04 xg); still 5 CS in 6; owned"
    },
    {
     "name": "Pau Cubarsi",
-    "wc_minutes": 450,
+    "wc_minutes": 540,
     "wc_goals": 0,
     "wc_assists": 0,
-    "wc_xg": 0.15,
+    "wc_xg": 0.18,
     "wc_xa": 0.15,
-    "wc_shots": 2,
-    "wc_sot": 0,
+    "wc_shots": 3,
+    "wc_sot": 1,
     "role_change": "nailed CB; owned",
-    "notes": "played EVERY minute (450'); 5 CS in 5 (M13, M37, M64, M84 R32, M93 R16 0-1 at Portugal); Spain 0 conceded ALL tournament (xGA 1.9 over 5) -> THE elite DEF CS source; xg/xa est (defender)"
+    "notes": "played EVERY minute (450'); 5 CS in 5 (M13, M37, M64, M84 R32, M93 R16 0-1 at Portugal); Spain 0 conceded ALL tournament (xGA 1.9 over 5) -> THE elite DEF CS source; xg/xa est (defender); M98 QF: full 90 (every minute of the WC, 540'), NO CS (CDK 41'); his 88' driven shot (0.03 xg / 0.10 xGOT) was SPILLED by Lammens -> Merino winner (no assist credited); yellow 43' (handball) WIPED after the QF round; 5 CS in 6"
    },
    {
     "name": "Unai Simon",
-    "wc_minutes": 450,
+    "wc_minutes": 540,
     "wc_goals": 0,
     "wc_assists": 0,
     "wc_xg": 0.0,
@@ -400,31 +404,55 @@
     "wc_shots": 0,
     "wc_sot": 0,
     "role_change": "nailed No.1 GK",
-    "notes": "5 CS in 5 - Spain 0 conceded all tournament (cumulative xGA 1.9, the meanest defence) -> repeat-CS engine for GK/DEF picks | R16 M93: CS, Portugal 2 SOT / 0.63 xG"
+    "notes": "5 CS in 5 - Spain 0 conceded all tournament (cumulative xGA 1.9, the meanest defence) -> repeat-CS engine for GK/DEF picks | R16 M93: CS, Portugal 2 SOT / 0.63 xG; M98 QF: conceded 1 (De Ketelaere 41' header - the FIRST goal Spain conceded all tournament, CS streak ends at 5), 2 saves; Spain xGA still elite (2.2 over 6) - keep as the top GK CS source"
    },
    {
     "name": "Pedri",
-    "wc_minutes": 335,
+    "wc_minutes": 370,
     "wc_goals": 0,
     "wc_assists": 0,
     "wc_xg": 0.35,
     "wc_xa": 1.1,
     "wc_shots": 5,
     "wc_sot": 1,
-    "role_change": "nailed CM8 alongside Rodri",
-    "notes": "started M84 (90+3) + started M93 R16 (off 85' for F.Ruiz; 1 shot blocked 61'); MID CS x2 in the KOs; group minutes ~160 EST (rotated M13), xg/xa est - REPLACE with real when fbref pulled"
+    "role_change": "CM8 - but BENCHED at kickoff M98 (Fabian Ruiz preferred); no longer automatic",
+    "notes": "started M84 (90+3) + started M93 R16 (off 85' for F.Ruiz; 1 shot blocked 61'); MID CS x2 in the KOs; group minutes ~160 EST (rotated M13), xg/xa est - REPLACE with real when fbref pulled; M98 QF: first KO benching (F.Ruiz started the pivot) - on 55' (for F.Ruiz), played the pass into the 88' winner build-up; SF role a live watch; minutes est"
    },
    {
     "name": "Pedro Porro",
-    "wc_minutes": 290,
+    "wc_minutes": 380,
     "wc_goals": 1,
     "wc_assists": 0,
-    "wc_xg": 0.9,
+    "wc_xg": 0.94,
+    "wc_xa": 0.3,
+    "wc_shots": 4,
+    "wc_sot": 1,
+    "role_change": "first-choice RB with Carvajal aging",
+    "notes": "R32 M84 header goal 66 (0.53 xg REAL) | R16 M93: full 90 + CS; group minutes EST ~110 (rotation with Llorente); group xg est; M98 QF: full 90, NO CS (first concession of Spain's WC), 1 shot blocked 45' (0.04 xg)"
+   },
+   {
+    "name": "Fabian Ruiz",
+    "wc_minutes": 150,
+    "wc_goals": 1,
+    "wc_assists": 0,
+    "wc_xg": 0.6,
     "wc_xa": 0.3,
     "wc_shots": 3,
     "wc_sot": 1,
-    "role_change": "first-choice RB with Carvajal aging",
-    "notes": "R32 M84 header goal 66 (0.53 xg REAL) | R16 M93: full 90 + CS; group minutes EST ~110 (rotation with Llorente); group xg est"
+    "role_change": "STARTED the QF pivot next to Rodri (Pedri benched at kickoff) and scored - SF start live",
+    "notes": "NEW entry 2026-07-11: GOAL 30' M98 QF vs Belgium (0.45 xg / 0.80 xGOT REAL ESPN - back-post rebound after Courtois saved Olmo's shot; no assist credited) + a 45+2' blocked shot (0.03 xg); started OVER Pedri, off 55' (Pedri on); earlier group/KO cameos NOT separately tracked (he subbed on 85' M93) -> minutes/xa/shot totals EST leaning on the M98 line (only M98 individually verified)"
+   },
+   {
+    "name": "Alex Baena",
+    "wc_minutes": 330,
+    "wc_goals": 0,
+    "wc_assists": 0,
+    "wc_xg": 0.4,
+    "wc_xa": 0.6,
+    "wc_shots": 4,
+    "wc_sot": 1,
+    "role_change": "LW starter while Nico Williams worked back from injury - every KO start (M84/M93/M98) but subbed ~55-75' each time",
+    "notes": "NEW entry 2026-07-11 (back-fill; owned): Spain's KO-era LW - started M84 R32 + M93 R16 (off 75') + M98 QF (off 55' for Ferran; 1 blocked shot 13', 0.10 xg REAL); no tracked G/A this WC; group splits + all totals EST (only the M98 line individually verified); Nico Williams' return (sub 79' M98) threatens the SF start - monitor the sheet"
    }
   ],
   "Brazil": [
@@ -774,31 +802,31 @@
   "Belgium": [
    {
     "name": "Kevin De Bruyne",
-    "wc_minutes": 250,
+    "wc_minutes": 340,
     "wc_goals": 1,
     "wc_assists": 0,
-    "wc_xg": 1.2,
+    "wc_xg": 1.46,
     "wc_xa": 1.3,
-    "wc_shots": 15,
-    "wc_sot": 4,
+    "wc_shots": 19,
+    "wc_sot": 5,
     "role_change": "captain/creative hub - but UNUSED SUB M94 R16 (fitness management, NOT injury); QF bench risk",
-    "notes": "goal+assist M66 (NZ); MID CS M38; DID NOT PLAY M94 vs USA despite being in every predicted XI (Athlon: load management) and Belgium won 4-1 without him - may be benched again vs Spain in the QF, do NOT project 90'; xg 1.20 REAL (FOX); xa est; owned"
+    "notes": "goal+assist M66 (NZ); MID CS M38; DID NOT PLAY M94 vs USA despite being in every predicted XI (Athlon: load management) and Belgium won 4-1 without him - may be benched again vs Spain in the QF, do NOT project 90'; xg 1.20 REAL (FOX); xa est; owned; M98 QF: RECALLED as the 10, started (min est ~90), 2 shots saved (62' + 84' 0.04 xg) + yellow 85'; xg 1.46 + shots/sot 19/5 = FOX Jul-11 cum; ELIMINATED - likely his last WC game"
    },
    {
     "name": "Charles De Ketelaere",
-    "wc_minutes": 320,
-    "wc_goals": 2,
-    "wc_assists": 0,
-    "wc_xg": 1.49,
+    "wc_minutes": 405,
+    "wc_goals": 3,
+    "wc_assists": 1,
+    "wc_xg": 1.71,
     "wc_xa": 0.6,
-    "wc_shots": 9,
-    "wc_sot": 4,
+    "wc_shots": 7,
+    "wc_sot": 5,
     "role_change": "started M94 R16 as the FALSE 9 (over Lukaku) and won the tie - QF start likely",
-    "notes": "BRACE 9'+33' M94 R16 vs USA, off 67' (Lukaku on); xg 1.49 REAL cum (FOX Jul-7); group G/A + minutes not separately tracked -> minutes/assists/shots EST leaning on M94 (brace factual); the FOX cum xG says he was creating chances all tournament"
+    "notes": "BRACE 9'+33' M94 R16 vs USA, off 67' (Lukaku on); xg 1.49 REAL cum (FOX Jul-7); group G/A + minutes not separately tracked -> minutes/assists/shots EST leaning on M94 (brace factual); the FOX cum xG says he was creating chances all tournament; M98 QF vs Spain: GOAL 41' header (assist Castagne cross, KDB started the move; 0.14 xg / 0.24 xGOT REAL) - the FIRST goal Spain conceded all tournament + a 15' shot off target (0.03); 3 WC goals; xg 1.71 + shots/sot 7/5 + 1 A now FOX Jul-11 cum (minutes est); ELIMINATED (1-2)"
    },
    {
     "name": "Hans Vanaken",
-    "wc_minutes": 280,
+    "wc_minutes": 370,
     "wc_goals": 1,
     "wc_assists": 0,
     "wc_xg": 0.7,
@@ -806,7 +834,7 @@
     "wc_shots": 5,
     "wc_sot": 2,
     "role_change": "pivot mid - ON 21' M94 for the INJURED Onana (knee, OUT of the QF) -> near-certain QF starter",
-    "notes": "GOAL 57' M94 R16 vs USA after coming on 21'; group starts in the Tielemans pivot per predicted XIs -> minutes/xg/shots EST (M94 goal + 69' factual); Onana's knee injury hands him the QF start vs Spain"
+    "notes": "GOAL 57' M94 R16 vs USA after coming on 21'; group starts in the Tielemans pivot per predicted XIs -> minutes/xg/shots EST (M94 goal + 69' factual); Onana's knee injury hands him the QF start vs Spain; M98 QF: started the pivot (Tielemans hurt in the WARM-UP), min est; no return; ELIMINATED"
    },
    {
     "name": "Leandro Trossard",
@@ -818,7 +846,7 @@
     "wc_shots": 15,
     "wc_sot": 3,
     "role_change": "nailed LW",
-    "notes": "brace M66 (NZ); tournament chances-created co-LEAD (16); M94 R16: started, 4 shots / 0.17 xg REAL, off 89'; xg 0.83 (FOX group + ESPN R16); xa est"
+    "notes": "brace M66 (NZ); tournament chances-created co-LEAD (16); M94 R16: started, 4 shots / 0.17 xg REAL, off 89'; xg 0.83 (FOX group + ESPN R16); xa est; M98 QF: participation not itemised in fetched logs (no shot recorded); ELIMINATED"
    },
    {
     "name": "Romelu Lukaku",
@@ -830,7 +858,7 @@
     "wc_shots": 7,
     "wc_sot": 3,
     "role_change": "super-sub #9 now (CDK false-9 started M94); scores every time he comes on",
-    "notes": "goal M66 + goal M82 R32 (86', sub) + GOAL 90+3 M94 R16 (on 67', 0.04 xg / 0.48 xGOT REAL) = 3 WC goals in ~240 minutes - elite per-90 but sub-role minutes risk; xg 1.07 (group REAL + KO REAL/est); xa est"
+    "notes": "goal M66 + goal M82 R32 (86', sub) + GOAL 90+3 M94 R16 (on 67', 0.04 xg / 0.48 xGOT REAL) = 3 WC goals in ~240 minutes - elite per-90 but sub-role minutes risk; xg 1.07 (group REAL + KO REAL/est); xa est; M98 QF: participation not itemised in fetched logs (no shot recorded); ELIMINATED"
    },
    {
     "name": "Youri Tielemans",
@@ -842,11 +870,11 @@
     "wc_shots": 13,
     "wc_sot": 3,
     "role_change": "captain, central mid, on penalties; nailed",
-    "notes": "BRACE M82 R32 vs Senegal (89' + 124:44, LATEST goal in men's WC history); M94 R16: full 90 in the 4-1, no G/A; wc_minutes = ~230 group + 120 R32 AET + 90 R16; xg mixed REAL+est; xa est"
+    "notes": "BRACE M82 R32 vs Senegal (89' + 124:44, LATEST goal in men's WC history); M94 R16: full 90 in the 4-1, no G/A; wc_minutes = ~230 group + 120 R32 AET + 90 R16; xg mixed REAL+est; xa est; M98 QF: INJURED IN THE WARM-UP - DID NOT PLAY (Vanaken a last-minute starter); Witsel featured (yellow 90+4); ELIMINATED"
    },
    {
     "name": "Jeremy Doku",
-    "wc_minutes": 113,
+    "wc_minutes": 118,
     "wc_goals": 0,
     "wc_assists": 0,
     "wc_xg": 0.4,
@@ -854,7 +882,7 @@
     "wc_shots": 3,
     "wc_sot": 1,
     "role_change": "RW when fit - but only a 67' sub M94 (Lukebakio started); owned",
-    "notes": "missed M38 (illness, locked 0); ON 67' M94 R16, blank; start no longer nailed (Lukebakio got the M94 start); owned; xg/xa est"
+    "notes": "missed M38 (illness, locked 0); ON 67' M94 R16, blank; start no longer nailed (Lukebakio got the M94 start); owned; xg/xa est; M98 QF: late sub cameo (fouled by Laporte on the 90+2 counter), min est; ELIMINATED"
    }
   ],
   "Morocco": [
@@ -868,38 +896,38 @@
     "wc_shots": 10,
     "wc_sot": 4,
     "role_change": "breakout #8/#10, scoring from midfield",
-    "notes": "goal M30 + goal M52; 3 WC goals; M75 R32 vs Netherlands: scoreless in 120' but SCORED THE SHOOTOUT WINNER (pens count for nothing in fantasy/90' games); minutes est; xg 1.44 REAL (FOX group); xa est",
+    "notes": "goal M30 + goal M52; 3 WC goals; M75 R32 vs Netherlands: scoreless in 120' but SCORED THE SHOOTOUT WINNER (pens count for nothing in fantasy/90' games); minutes est; xg 1.44 REAL (FOX group); xa est; M97 QF: DNP (hamstring - ruled out pre-match); ELIMINATED",
     "note_jul4": "M90: OFF 22' right-thigh strain; QF doubtful, scans pending"
    },
    {
     "name": "Achraf Hakimi",
-    "wc_minutes": 480,
+    "wc_minutes": 570,
     "wc_goals": 1,
     "wc_assists": 2,
-    "wc_xg": 0.75,
+    "wc_xg": 0.79,
     "wc_xa": 1.75,
-    "wc_shots": 7,
+    "wc_shots": 8,
     "wc_sot": 3,
     "role_change": "attacking RB/RWB, set-pieces; elite creator",
-    "notes": "goal M52 (Haiti) + 1 assist; tournament chances-created #2; M75 R32: full 120', 0.23 xg REAL (ESPN), MISSED his shootout pen (post) but Morocco through; xg 0.5 group EST + 0.23 REAL; xa est (high creator)",
+    "notes": "goal M52 (Haiti) + 1 assist; tournament chances-created #2; M75 R32: full 120', 0.23 xg REAL (ESPN), MISSED his shootout pen (post) but Morocco through; xg 0.5 group EST + 0.23 REAL; xa est (high creator); M97 QF vs France: full 90 est, 1 blocked shot 45+5' (0.04 xg REAL) in a 0.14-xG team display; his single yellow wiped after the QFs (moot); ELIMINATED (0-2)",
     "note_jul4": "M90: FK assist for Ounahi 50'; yellow 40' (wiped at QF)"
    },
    {
     "name": "Brahim Diaz",
-    "wc_minutes": 320,
+    "wc_minutes": 410,
     "wc_goals": 0,
     "wc_assists": 4,
-    "wc_xg": 0.51,
+    "wc_xg": 0.55,
     "wc_xa": 1.55,
-    "wc_shots": 6,
-    "wc_sot": 1,
+    "wc_shots": 7,
+    "wc_sot": 2,
     "role_change": "nailed #10 creator",
-    "notes": "2 WC assists; xg 0.46 REAL (FOX); xa est",
+    "notes": "2 WC assists; xg 0.46 REAL (FOX); xa est; M97 QF: 1 shot saved 48' (0.04 xg REAL), min est; ends the WC as Africa's record 4-assist man; ELIMINATED",
     "note_jul4": "M90: 2 assists (82', 90+8') - African-record 4 WC assists"
    },
    {
     "name": "Soufiane Rahimi",
-    "wc_minutes": 248,
+    "wc_minutes": 338,
     "wc_goals": 2,
     "wc_assists": 0,
     "wc_xg": 1.55,
@@ -907,7 +935,7 @@
     "wc_shots": 5,
     "wc_sot": 3,
     "role_change": "rotation forward",
-    "notes": "goal M52 (Haiti 78'); M75 R32: big ET chance = 0.74 xg REAL (97', ESPN), scored his shootout pen; minutes est; xg mixed est+REAL; xa est",
+    "notes": "goal M52 (Haiti 78'); M75 R32: big ET chance = 0.74 xg REAL (97', ESPN), scored his shootout pen; minutes est; xg mixed est+REAL; xa est; M97 QF: started CF (Saibari out) per the sheet, no shot in the ESPN log, min est; ELIMINATED",
     "note_jul4": "M90: on 22' for the injured Saibari, scored 90+8'; starts QF if Saibari out"
    },
    {
@@ -920,19 +948,20 @@
     "wc_shots": 5,
     "wc_sot": 3,
     "role_change": "creative mid",
-    "notes": "xg 0.42 REAL (FOX); xa est"
+    "notes": "xg 0.42 REAL (FOX); xa est; M97 QF: participation not itemised in fetched logs; ELIMINATED"
    },
    {
     "name": "Azzedine Ounahi",
-    "wc_minutes": 353,
+    "wc_minutes": 443,
     "wc_goals": 2,
     "wc_assists": 0,
-    "wc_xg": 0.75,
+    "wc_xg": 0.77,
     "wc_xa": 0.4,
-    "wc_shots": 6,
+    "wc_shots": 7,
     "wc_sot": 3,
     "role_change": "box-crashing 8 - both goals vs Canada (50' header, 82')",
-    "note_jul4": "ADDED post-M90 brace; minutes = est 4 prior apps + 90 (verify vs FIFA); xG est from shot maps."
+    "note_jul4": "ADDED post-M90 brace; minutes = est 4 prior apps + 90 (verify vs FIFA); xG est from shot maps.",
+    "notes": "M97 QF vs France: 1 shot off target 83' (0.02 xg REAL) + match-high 61 accurate passes, min est; ELIMINATED (0-2)"
    }
   ],
   "Colombia": [
@@ -1511,30 +1540,32 @@
  "teams": {
   "_note": "U2 opponent-adjusted team form: per nation {wc_xg_for, wc_xg_against, matches, opponents} = REAL FOX/Opta tournament TOTALS across the FULL 3-game group stage (not per-game). FOX rounds team xGA to integers and displays sub-0.5 as 0; those (Spain/Mexico/Argentina/Czechia/SouthKorea) are stored here as small positives to stay goal-difference/process-consistent. The model credits xG-difference vs the strength of opponents faced (beating Curacao != beating France), shrunk by matches, as a SMALL post-calibration strength offset. Updated 2026-06-28: all 20 R32 priority sides now have their complete 3-game totals. Argentina's M72 was added by hand (FOX still showed 2 games at fetch). Updated 2026-07-04: R32 fully folded - every R16-alive side now carries FULL 4-game totals: xg_for = FOX cumulative REAL; xg_against = prior group value + R32 opponent per-match xG (ESPN/RealGM). Canada/Paraguay ADDED (see their _note for the EST xGA legs); United States upgraded to full-tournament. ET ties (M74/75/82/86/88) carry 120' totals, NOT prorated. FOX-vs-ESPN per-match sums can diverge up to ~0.8 (both Opta-fed; FOX cumulative kept canonical for xg_for). Updated 2026-07-07: M91-94 folded (M89/90 were folded 07-05) - all 8 participants at matches:5; xg_for re-trued to the fresh FOX pull (England 10.0 now leads); Brazil/Mexico/Portugal/USA ELIMINATED (kept for record, don't project).",
   "Spain": {
-   "wc_xg_for": 8.3,
-   "wc_xg_against": 1.9,
-   "matches": 5,
+   "wc_xg_for": 10.4,
+   "wc_xg_against": 2.2,
+   "matches": 6,
    "opponents": [
     "Cape Verde",
     "Saudi Arabia",
     "Uruguay",
     "Austria",
-    "Portugal"
+    "Portugal",
+    "Belgium"
    ],
-   "_note": "M93 added: ESP 1.69 / POR 0.63 (ESPN). Won 0-1 (Merino 90+1). 5 CS in 5 - ZERO goals conceded all tournament, meanest defence left. xg_for 8.3 = fresh FOX cum (matches prior 6.6 + ESPN 1.69)."
+   "_note": "M98 QF added: ESP 1.96 / BEL 0.34 (ESPN). Won 2-1 (F.Ruiz 30', Merino 88'; De Ketelaere 41' = the FIRST goal conceded ALL tournament - the CS streak dies at 5, but xGA 2.2 over 6 is still the meanest defence alive). xg_for 10.4 = fresh FOX Jul-11 cum. SF M101 vs France Jul 14 Arlington."
   },
   "France": {
-   "wc_xg_for": 8.8,
-   "wc_xg_against": 2.8,
-   "matches": 5,
+   "wc_xg_for": 11.7,
+   "wc_xg_against": 2.9,
+   "matches": 6,
    "opponents": [
     "Senegal",
     "Iraq",
     "Norway",
     "Sweden",
-    "Paraguay"
+    "Paraguay",
+    "Morocco"
    ],
-   "_note": "M89 added: FRA 1.45 / PAR 0.13 (ESPN; FOX alt 1.29/0.17). Won 1-0 (Mbappe pen). xg_for trued to the fresh 07-07 FOX cum 8.8 (was 8.9 ESPN-sum)."
+   "_note": "M97 QF added: FRA 3.69 / MAR 0.14 (ESPN - per-shot log sum reproduces 3.69 exactly; one ESPN panel showed 3.04, log canonical). Won 2-0 (Mbappe 60' + Dembele 66'; Mbappe pen SAVED 25'). 3rd CS - 16 scored / 2 conceded in 6. xg_for 11.7 = fresh FOX Jul-11 cum (ESPN-sum alt 12.5 - divergence above the usual ~0.8 band, FOX kept canonical per convention). SF M101 vs Spain Jul 14 Arlington. Prior M89 note: FRA 1.45 / PAR 0.13."
   },
   "Argentina": {
    "wc_xg_for": 9.5,
@@ -1621,17 +1652,18 @@
    "_note": "ELIMINATED by Norway at the R16 (1-2 despite BRA 2.61 / NOR 1.05 xG - missed pen + Haaland; earliest Brazil exit since 1990). M91 xG ESPN. xg_for 9.1 = fresh FOX cum."
   },
   "Belgium": {
-   "wc_xg_for": 9.7,
-   "wc_xg_against": 5.8,
-   "matches": 5,
+   "wc_xg_for": 10.3,
+   "wc_xg_against": 7.8,
+   "matches": 6,
    "opponents": [
     "Egypt",
     "Iran",
     "New Zealand",
     "Senegal",
-    "United States"
+    "United States",
+    "Spain"
    ],
-   "_note": "M94 added: BEL 2.01 / USA 0.63 (ESPN). Won 1-4 WITHOUT De Bruyne (unused sub, fitness management) - De Ketelaere false-9 brace + Vanaken + Lukaku. Onana (knee) OUT of the QF vs Spain. xg_for 9.7 = fresh FOX cum."
+   "_note": "ELIMINATED by Spain at the QF (1-2; BEL 0.34 / ESP 1.96 ESPN - De Ketelaere 41' the only goal Spain have conceded all WC; Courtois OFF 71' quadriceps, sub Lammens' 88' spill decided it; Tielemans hurt in the warm-up, DNP). Kept for record, don't project. xg_for 10.3 = fresh FOX Jul-11 cum. Prior M94 note: BEL 2.01 / USA 0.63."
   },
   "Mexico": {
    "wc_xg_for": 8.0,
@@ -1647,17 +1679,18 @@
    "_note": "ELIMINATED by England at the R16 (2-3; MEX 1.88 / ENG 1.61 ESPN - out-xG'd the 10-man winners). The 4-game 0-conceded run ended with 3 in one night. xg_for 8.0 = fresh FOX cum (ESPN-sum alt 7.1 - large M92 divergence, eliminated so not re-verified); xGA 1.3 + ENG 1.61 = 2.9."
   },
   "Morocco": {
-   "wc_xg_for": 6.8,
-   "wc_xg_against": 4.0,
-   "matches": 5,
+   "wc_xg_for": 7.1,
+   "wc_xg_against": 7.7,
+   "matches": 6,
    "opponents": [
     "Brazil",
     "Scotland",
     "Haiti",
     "Netherlands",
-    "Canada"
+    "Canada",
+    "France"
    ],
-   "_note": "M90 added: MAR 0.82 / CAN 0.84 (ESPN; FOX 0.90/0.84, NBC CAN 0.79). Won 0-3 with 5 total shots (fewest by a KO winner since 1966, Opta) - heavy over-performance vs xG, don't inflate lambda. M75 note retained: 1-1 AET vs NED, MAR 1.38/0.24."
+   "_note": "ELIMINATED by France at the QF (0-2; MAR 0.14 xG vs FRA 3.69 - Bounou's 6-8 saves incl the 25' Mbappe pen kept it 0-0 to the hour). Kept for record, don't project. xg_for 7.1 = fresh FOX Jul-11 cum. Prior notes retained: M90 MAR 0.82 / CAN 0.84; M75 1-1 AET vs NED, MAR 1.38/0.24."
   },
   "Switzerland": {
    "wc_xg_for": 8.9,
