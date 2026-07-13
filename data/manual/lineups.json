@@ -1,6 +1,6 @@
 {
- "fetched_at": "2026-07-11",
- "note": "QF-day refresh 2026-07-11 (~afternoon CEST). Jul 9/10 QFs done: M97 FRA 2-0 MAR (Mbappe 60' after a missed pen, Dembele 66') and M98 ESP 2-1 BEL (Fabian Ruiz, CDK, Merino 88') -> SF M101 FRANCE-SPAIN Jul 14 21:00 CEST (Arlington); Morocco+Belgium REMOVED. Today: M99 NOR-ENG 23:00 CEST (Miami Gardens; official sheet ~22:00 CEST) and M100 ARG-SUI Sun 03:00 CEST (Kansas City). All four today's XIs PREDICTED (no official sheets yet); FRA/ESP entries = their actual QF XIs as the SF baseline. Suspension map: Quansah (ENG) ban is TWO matches (QF+SF). NO Swiss QF bans (checked - no accumulation); nobody was booked out of the SF on Jul 9/10 (FRA zero cards vs MAR, only Diop; ESP only Laporte 90+3 = his first). Singles wipe AFTER the QFs, so a booking TODAY still triggers an SF ban: NOR Nusa; ENG Bellingham/Rice/Guehi/O'Reilly; ARG Montiel; SUI Zakaria/Xhaka/Muheim. Headline knocks: Guehi (ENG, hamstring - trained Fri, Tuchel 'everyone available'; Burn ready), Manzambi (SUI, knee - Yakin CONFIRMED OUT), Julian Alvarez (ARG, minor ankle - Argentine press says he starts anyway), Tchouameni (FRA - bench-returned vs MAR, unused; pushing for an SF start). Raw quotes+URLs: data/raw/2026-07-11/lineups_jul11.md. Names aligned to squads.json spellings.",
+ "fetched_at": "2026-07-13",
+ "note": "SF-eve refresh 2026-07-13. QFs done Jul 11: M99 England 2-1 Norway AET (1-1 at 90'; Bellingham 45+2' & 93') and M100 Argentina 3-1 Switzerland AET (1-1 at 90'; Mac Allister 10', Ndoye 67', J.Alvarez 112', Lautaro 120+1'; Embolo 2nd-yellow red 73' via the mistaken-identity transfer of Paredes' card). SF: M101 FRANCE-SPAIN Tue Jul 14 21:00 CEST (Arlington), M102 ENGLAND-ARGENTINA Wed Jul 15 21:00 CEST (Atlanta). Norway + Switzerland ELIMINATED and removed (bronze M103 is for SF losers). All four XIs PREDICTED (official sheets ~1h pre-KO). SUSPENSIONS for the SFs: ONLY Quansah (ENG, match 2 of his 2-match red-card ban; back for a potential final). Nobody else - all single yellows were WIPED after the QF round (FIFA rule) and no SF team picked up a second-yellow in the QF (ENG zero cards vs NOR; ARG yellows Lautaro/Almada/J.M.Lopez all firsts, Montiel unbooked, Paredes' card rescinded). Headline fitness: Tchouameni (FRA) fit and expected to RECLAIM the pivot from Kone (L'Equipe/Degorre); Mbappe minor ankle sprain = fine; Rice (ENG) sickness-bug HT sub vs NOR = precautionary, expected to start; Romero+Paredes (ARG) QF cramps only, both available; Nico Gonzalez (ARG) FIT again (78' sub in the QF). Raw quotes+URLs: data/raw/2026-07-13/*.md. Names aligned to squads.json spellings.",
  "teams": {
   "France": {
    "confirmed": false,
@@ -10,7 +10,7 @@
     "Dayot Upamecano",
     "William Saliba",
     "Lucas Digne",
-    "Manu Kone",
+    "Aurelien Tchouameni",
     "Adrien Rabiot",
     "Ousmane Dembele",
     "Michael Olise",
@@ -18,7 +18,7 @@
     "Kylian Mbappe"
    ],
    "out": [],
-   "notes": "SF vs Spain Jul 14 21:00 CEST (Arlington). XI = the actual QF XI that beat Morocco 2-0 (4-2-3-1) - DOUE started over Barcola (the one change vs our prediction) and delivered; Mbappe 60' (20th WC-career goal) + Dembele 66' (5th of the tournament). TCHOUAMENI returned to the BENCH vs Morocco (unused, 'doing better') - genuine push to reclaim the pivot from Kone in the SF; treat as bench until Deschamps' Mon training news. NO SF suspension risk at all: zero France bookings vs Morocco and all single yellows wiped after the QFs (Olise/Kone/Barcola all clear - Olise's rejected appeal is moot). Digne still ahead of Theo Hernandez at LB. No new knocks from the QF."
+   "notes": "SF M101 vs Spain Jul 14 21:00 CEST (Arlington). 4-2-3-1. ONE change from the QF XI: TCHOUAMENI back for KONE - L'Equipe's Degorre: 'recovery satisfactory, appears fit to start' and he stays Deschamps' preferred pivot (~60-65% start; Sports Mole alone keeps Kone; decide off the sheet ~20:00 CEST). MBAPPE: minor ankle sprain vs Morocco (subbed 77'), avoided serious injury, expected to START - project full minutes. RABIOT: minor knee, 'indisputable starter'. DOUE keeps the slot over Barcola after the QF start; Thuram back in full training = bench option. NO suspensions (zero cards vs Morocco; post-QF wipe). Digne still ahead of Theo Hernandez."
   },
   "Spain": {
    "confirmed": false,
@@ -38,32 +38,14 @@
    "out": [
     "Yeremy Pino"
    ],
-   "notes": "SF vs France Jul 14 21:00 CEST. XI = the actual QF XI that beat Belgium 2-1 - FABIAN RUIZ started over PEDRI (technical call, NOT injury; de la Fuente reverted to his Euro-2024 Rodri-Fabian-Olmo trio; Pedri on 55', could be recalled). MERINO scored the late winner (88') off the bench for the 2nd straight KO game - keeps pushing but stays super-sub. NICO WILLIAMS working back (79' cameo vs BEL, adductor) - bench. Pino (collarbone) still out. NO suspensions: Laporte's 90+3 yellow was his first and singles wiped after the QFs; Ferran Torres was not booked. No new injuries - squad clean."
-  },
-  "Norway": {
-   "confirmed": false,
-   "xi": [
-    "GK Orjan Nyland",
-    "Julian Ryerson",
-    "Kristoffer Ajer",
-    "Torbjorn Heggem",
-    "David Moller Wolfe",
-    "Patrick Berg",
-    "Sander Berge",
-    "Oscar Bobb",
-    "Martin Odegaard",
-    "Andreas Schjelderup",
-    "Erling Haaland"
-   ],
-   "out": [],
-   "notes": "M99 tonight 23:00 CEST. Rotowire: 'Solbakken is working from a full squad' - no injury concerns; WOLFE 'has resumed full training and is not a concern whatsoever' (Sports Mole). The ONLY question is the wide pair and it is a genuine ~50/50 even in the Norwegian press (VG runs 'Schjelderup eller Nusa?' / 'Sorloth eller Bobb?'): Sports Mole starts BOBB+SCHJELDERUP (the HT subs who flipped the Brazil game - Schjelderup both Haaland assists); Rotowire+SI keep SORLOTH+NUSA (unchanged from the 2-1). We stay with the form read (Bobb+Schjelderup) at ~55/45 - check the sheet ~22:00 CEST. Nusa one yellow from an SF ban (a nudge toward Schjelderup). Haaland 7 goals, fit (39% shot conversion, best of anyone 15+ attempts)."
+   "notes": "SF M101 vs France Jul 14 21:00 CEST. XI = unchanged QF XI (Sports Mole's SF prediction). The one live area is midfield/left: FABIAN RUIZ ~55/45 to keep the pivot over PEDRI (started + scored vs Belgium; Standard/Yahoo predict Pedri restored); MERINO 'has a strong claim' after back-to-back KO winners off the bench (R16 + 88' QF) - if promoted it's likeliest for BAENA ('subdued' QF). NICO WILLIAMS still short of start fitness (79' QF cameo) - bench; Pino (collarbone) out; Victor Munoz (muscle) fringe doubt. Otherwise a clean bill of health; back four + Simon unchanged all tournament (1 goal conceded). NO suspensions (Laporte's yellow was a wiped single)."
   },
   "England": {
    "confirmed": false,
    "xi": [
     "GK Jordan Pickford",
-    "Djed Spence",
     "Ezri Konsa",
+    "John Stones",
     "Marc Guehi",
     "Nico O'Reilly",
     "Declan Rice",
@@ -77,7 +59,7 @@
     "Jarell Quansah",
     "Jordan Henderson"
    ],
-   "notes": "M99 tonight 23:00 CEST. QUANSAH's red-card ban is TWO MATCHES (ESPN) - he misses this QF AND a potential SF; KONSA steps in (lock). The live question is Konsa's partner: GUEHI (hamstring strain from the Mexico game) was a 'serious doubt' (Sky) and missed a session, but trained fully in Miami FRIDAY and Tuchel said 'we had everyone available in training - that's the best news' -> we start Guehi ~55/45. If he fails the late test: DAN BURN (Sky: pushing; 6 clearances off the bench at the Azteca; Sports Mole's pick) ahead of STONES (Rotowire's pick). RICE (illness this week + back) trained, expected to start. JAMES trained Fri = AVAILABLE again but bench, not risked from start (Spence keeps RB). Henderson (wrist surgery) out of the tournament. Booking tightrope tonight -> SF ban: Bellingham, Rice, Guehi, O'Reilly. Kane on 6 goals (pens), Pickford record 18th England WC cap."
+   "notes": "SF M102 vs Argentina Jul 15 21:00 CEST (Atlanta). Predicted = QF XI with SAKA back for MADUEKE (hooked at HT vs Norway; Saka+Eze flipped the game). Back four = the QF's Stones-Guehi-Konsa + O'Reilly (Stones started the QF at RB with Spence benched; Sports Mole's SF order puts Konsa RB / Stones CB - same four names either way). QUANSAH suspended (match 2 of 2, red vs Mexico; back for a potential final); HENDERSON out (wrist surgery, cast - SM preview rules him out). RICE: HT sub was precautionary (sickness bug, 3 days in bed + the ongoing neural-hamstring/lower-back issue) - expected 'in better condition by Wednesday', starts. KONSA: late hamstring CRAMP only, keeps his place. GUEHI fully fine (120' in the QF). James back available (71' cameo) but bench. NO accumulation bans - England weren't booked at all vs Norway and singles wiped post-QF, so the old Bellingham/Rice/Guehi/O'Reilly tightrope is dead. Kane record 121st outfield cap; Bellingham 6 goals, scored in the last two."
   },
   "Argentina": {
    "confirmed": false,
@@ -94,32 +76,8 @@
     "Lionel Messi",
     "Julian Alvarez"
    ],
-   "out": [
-    "Nico Gonzalez"
-   ],
-   "notes": "M100 Sun 03:00 CEST (KC). Infobae/442 (Jul 11, best-sourced): Scaloni set to REPEAT the Egypt XI unchanged - would be his first-ever repeated XI at a World Cup - with JULIAN ALVAREZ starting and Lautaro to the bench. CAUTION: the English previews (Sports Mole/SI/Rotowire, Jul 10) had all flipped to LAUTARO, citing a minor Julian ankle knock (SI: 'just isn't quite right') + Lautaro's bench impact vs Egypt - treat the CF as ~60/40 Julian on the fresher Argentine sourcing. TAGLIAFICO holds LB (SM+Rotowire; Medina now fit and pushing - SI's minority pick if 100%). Minor RB call: Molina over Montiel (Montiel one yellow from an SF ban). Messi (8 goals, pens/FKs), Romero, Lisandro, Dibu all fit - no new knocks, full squad bar Nico Gonzalez (ankle)."
-  },
-  "Switzerland": {
-   "confirmed": false,
-   "xi": [
-    "GK Gregor Kobel",
-    "Denis Zakaria",
-    "Nico Elvedi",
-    "Manuel Akanji",
-    "Ricardo Rodriguez",
-    "Granit Xhaka",
-    "Remo Freuler",
-    "Dan Ndoye",
-    "Fabian Rieder",
-    "Ruben Vargas",
-    "Breel Embolo"
-   ],
-   "out": [
-    "Johan Manzambi",
-    "Luca Jaquez",
-    "Michel Aebischer"
-   ],
-   "notes": "M100 Sun 03:00 CEST. MANZAMBI OUT - Yakin CONFIRMED it (ESPN Jul 10; knee, still not recovered; SUI avg 3.6 goals/90 with him, 1.4 xG/90 without). Jaquez + Aebischer also unavailable (Sports Mole). The 10 is the only open slot: RIEDER moves central (Rotowire's read - 'if Manzambi returns he replaces Rieder') vs JASHARI keeping it (Sports Mole; he was hooked at HT in the R16) vs SOW (his HT replacement) - Rieder the lead call ~50/30/20. VARGAS starts left after his R16 cameo + winning pen; Ndoye right; Embolo CF. NO Swiss suspensions for this QF (verified - no accumulation bans anywhere; only ban was Quansah); Zakaria/Xhaka/Muheim one yellow from an SF ban tonight. Fatigue flag: full 120' + pens Jul 7 in Vancouver, then the short turnaround to KC. Zakaria keeps RB (3rd straight KO start there); Muheim the LB alternative for Rodriguez (33)."
+   "out": [],
+   "notes": "SF M102 vs England Jul 15 21:00 CEST. Argentine press (Infobae/mdzol/Depor Jul 12-13): Scaloni sustains the BASE - the QF XI (itself the repeated Egypt XI) goes again in the 4-3-1-2, minor touches at most; XI confirmed only at the pre-match talk after Tuesday's Atlanta session. ROMERO (cramps, off 105') and PAREDES (exhaustion, off 110') both cleared - 'did not worsen, at Scaloni's disposal', expected to START (Sports Mole's Medina-for-Romero XI is the minority read; its Mac Allister-rest line is speculation the Argentine press contradicts). JULIAN ALVAREZ keeps CF ~70/30 over Lautaro (112' rocket vs the Swiss; Lautaro scored yet again as a sub 120+1'). Messi full 120', fine - 8 goals, Golden Boot leader. Tagliafico/Molina subs were fatigue management - both start. NICO GONZALEZ FIT AGAIN (78' QF sub, first minutes since the ankle sprain) - bench option, no longer out. NO suspensions: Paredes' QF yellow was RESCINDED (transferred to Embolo, mistaken-identity protocol), Montiel unbooked, and the Lautaro/Almada/J.M.Lopez yellows were wiped singles."
   }
  }
 }
