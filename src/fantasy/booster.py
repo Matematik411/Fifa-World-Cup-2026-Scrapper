@@ -59,6 +59,42 @@ def qb_ev_by_round(squad, advancement: dict, from_round: str) -> dict[str, float
             for r in KO_ORDER[KO_ORDER.index(from_round):] if r != "final"}
 
 
+def css_ev(squad, forecast) -> dict | None:
+    """U12 — Clean Sheet Shield EV on the current XI, played THIS round.
+
+    The shield keeps the clean-sheet bonus until the team concedes a SECOND goal, so its
+    value is exactly the CS points recovered in concede-EXACTLY-ONE matches:
+        Σ over GK/DEF/MID starters of CS_pts(pos) × P(team concedes exactly 1) × P(60′)
+    using each starter's next-match Dixon-Coles matrix (the shared model) and the same
+    played-60 proxy as the U7 sampler. 90′ matrix — for coin-flip KO ties the true number
+    is a shade lower (an ET goal conceded can break the shield too; fantasy scores ET).
+    Returns {"ev", "by_team": {nation: {players, p_c1, ev}}} or None without a squad."""
+    from .projections import CS_PTS
+    if squad is None or forecast is None:
+        return None
+    by_pid = squad.by_pid()
+    total = 0.0
+    by_team: dict[str, dict] = {}
+    for pid in squad.starters:
+        p = by_pid[pid]
+        pts = float(CS_PTS.get(p.position, 0))
+        if pts <= 0 or not getattr(p, "next_num", 0):
+            continue
+        mf = forecast.match_forecasts.get(p.next_num)
+        if mf is None or mf.P is None:
+            continue
+        p_c1 = float(mf.P[:, 1].sum() if p.next_is_home else mf.P[1, :].sum())
+        mins = p.next_minutes or p.minutes_prob
+        ev = pts * p_c1 * (mins * 0.92)
+        total += ev
+        t = by_team.setdefault(p.nation, {"players": [], "p_c1": round(p_c1, 3), "ev": 0.0})
+        t["players"].append(p.name)
+        t["ev"] = round(t["ev"] + ev, 2)
+    if not by_team:
+        return None
+    return {"ev": round(total, 1), "by_team": by_team}
+
+
 # round -> (reach-this-round key, reach-PREVIOUS-round key); prev None means R32 (=1.0, all in)
 _ROUND_REACH = {"R16": ("reach_R16", None), "QF": ("reach_QF", "reach_R16"),
                 "SF": ("reach_SF", "reach_QF"), "final": ("reach_final", "reach_SF")}
@@ -93,7 +129,7 @@ def wc_breakage_by_round(squad, advancement: dict, ft_by_round: dict, rounds) ->
 def chip_schedule(target_round: str, chips_remaining, qb_by_round: dict[str, float], *,
                   squad=None, advancement: dict | None = None, ft_by_round: dict | None = None,
                   mystery: dict | None = None, max_cap_ev: float | None = None,
-                  twelfth: dict | None = None) -> dict:
+                  twelfth: dict | None = None, css: dict | None = None) -> dict:
     """Forward chip plan across the remaining KO rounds (one chip per round).
 
     Returns {"this_round": {...} | None, "schedule": [{round, chip, ev, status, reason}],
@@ -170,9 +206,17 @@ def chip_schedule(target_round: str, chips_remaining, qb_by_round: dict[str, flo
             # GK/DEF/MID and ties tighten (1-goal games), so the one-goal buffer converts near-misses.
             cs_round = first_open([mystery.get("best_round", "SF"), "SF", "QF", "final", "R16"])
             if cs_round:
-                place(cs_round, "Mystery Booster", None,
+                ev = (css or {}).get("ev") if cs_round == target_round else None
+                ev_txt = ""
+                if ev is not None:
+                    stacks = " · ".join(f"{t} ×{len(d['players'])} (concede-exactly-1 "
+                                        f"{d['p_c1']*100:.0f}%)" for t, d in
+                                        sorted((css.get("by_team") or {}).items(),
+                                               key=lambda kv: -kv[1]["ev"]))
+                    ev_txt = f" On this XI it recovers ≈{ev:.1f} pts (U12: {stacks})."
+                place(cs_round, "Mystery Booster", ev,
                       f"{mystery.get('effect', 'One-goal clean-sheet buffer.')} Pairs with a defensive "
-                      f"stack — field several GK/DEF/MID from a mean defence in a tight tie.",
+                      f"stack — field several GK/DEF/MID from a mean defence in a tight tie.{ev_txt}",
                       display=mystery.get("name", "Clean Sheet Shield"))
         elif mystery and mystery.get("known"):
             ev = float(mystery.get("ev", 0.0))

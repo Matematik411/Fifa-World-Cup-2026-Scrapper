@@ -80,7 +80,7 @@ decisive and coherent.
 | **After MD2** (now; this is also "before MD3") | **U1** (backtest, FIRST) → **U6+U3** (per-match minutes incl. light dead-rubber detector) → **U5** (player form, manual WC xG) → **U8** (freshness tags) → **U2** (team form — mechanism + small weight) | R1, R2 |
 | **Before R32** (group stage finished, ties known) | **U4** (booster engine + R32-burner + lookahead), **U7** (correlation) | R1, R2, R3 |
 | **Before R16** | **U9** (GoPicks podium sim — user re-opened the prize-league question) + **U10** (KO extra-time fantasy adjustment) — both scoped & shipped 2026-07-04 | R1, R2, R3 |
-| **Before QF / SF / Final** | — | R1, R2, R3 |
+| **Before QF / SF / Final** | *(SF 2026-07-13: **U12** — transfer-planner package ILP incl. the static-bank fix, chips round-tagging + MaxCap-live rendering, CSS EV quantification)* | R1, R2, R3 |
 
 Rationale for the ordering (decided 2026-06-24 — so future sessions don't re-litigate it):
 - **U1 first** — the measuring stick for every model-affecting item, and it has a known target to diagnose
@@ -125,6 +125,7 @@ Rationale for the ordering (decided 2026-06-24 — so future sessions don't re-l
 | U9 | GoPicks podium simulator (rank-aware endgame) | Before R16 | REMOVED 2026-07-09 | — |
 | U10 | KO extra-time adjustment for fantasy projections | Before R16 | DONE | — |
 | U11 | Pick-of-record auto-freeze (drift-proof scoring) | Before QF | DONE | — |
+| U12 | CSS EV + chips round-tagging + package-aware transfer ILP | Before SF | DONE | — |
 
 Statuses: `TODO` · `IN-PROGRESS` (leave a resume note in §7) · `DONE` · `DEFERRED` (say why in §7).
 
@@ -349,6 +350,57 @@ contend with QB for the R32 slot — re-evaluate then.
 
 > Template: `### <date> — <stage> — <agent>` then bullets: items touched, status changes, **backtest delta**,
 > follow-ups / resume-notes.
+
+### 2026-07-13 — before SF (QF complete) — U12 shipped (3 parts), R1/R2/R3 run
+- **U12a — transfer-planner static-bank bug FIXED (the 2026-07-09 follow-up, with tests).**
+  `plan_transfers` candidate generation now filters against `bank + _max_freeable(...)` (package-
+  affordable) instead of the static bank, and the free package is chosen by a small **ILP**
+  (`_package_ilp`: maximize summed gain over ≤N non-conflicting swaps s.t. Σ price_delta ≤ bank +
+  nation caps; old greedy kept as solver-fallback). Hits/extras re-check running bank + caps + the
+  XI gate. ALSO `pipeline._recompute_bank`: `owned.bank` = budget − Σ owned prices, recomputed every
+  run (the stored 0.3-vs-real-1.4 staleness can't recur). `tests/test_transfers.py` (5 tests incl.
+  the Barcola→Yamal-shaped regression). **First live run promptly exercised it:** De Paul→Olmo
+  (+€1.8 > €1.2 bank alone) correctly packaged with freeing sales — the exact miss class of Jul-9.
+- **U12b — chips round-tagging + MaxCap-live rendering (the 2026-07-10 papercut).** `chips_used`
+  entries are now `{name, round}` (legacy strings still parse; `pipeline._chips_used_map`).
+  New `chips_live` + `maxcap_active` in the fantasy payload; fantasy.html suppresses the captaincy
+  relay under an ACTIVE Maximum Captain ("armband self-resolves — no relay"), the captain-ceiling
+  card says active/spent/parked correctly, and the Chips card shows "Live this round". RUNBOOK §3
+  documents the format. `tests/test_chips.py` (5 tests). state.json migrated.
+- **U12c — Clean Sheet Shield EV quantified** (`booster.css_ev`): Σ over GK/DEF/MID starters of
+  CS_pts × P(concede exactly 1, from the shared DC matrix) × P(60′) — the number the CSS@SF call was
+  missing. Wired into `chip_schedule` (reason shows per-team stacks) + report. 2 tests. **Tonight's
+  XI: CSS ≈ 7.5 pts** (ARG stack Emi+Lisandro+Tagliafico 4.5; concede-exactly-1 ≈35-37% all three ties).
+- **pytest 87 → 99 green.** No model-number changes (planner/report/bookkeeping only) → calibration
+  backtest is the same-model check below.
+- **R1 (re-backtest, all 100 results):** walk-forward realized **158 Nost / 250 GoPicks / 67 exact**
+  = state.cumulative EXACTLY (250/67 = Jul-11's 248/65 + M99 away-exact +1 + M100 home-exact +1;
+  Nost M97 exact 2-0 ×2 = 6, M98 outcome+home ×2 = 4, M99/M100 both 90'-draws vs our 0-2/2-0 = 0).
+  Calibration: RPS 0.146 → **0.1453**, log-loss 0.8215 → 0.8249, goals-MAE 0.883 → **0.8606**,
+  CS ratio 1.24× → 1.26× (66.7 exp vs 53) — flat-to-better on 4 new matches; KO scorelines are
+  market-priced → **no re-tune** (calibration-watch). NB 3 of the last 6 KO matches were 90'-draws.
+- **R2 (research, 3 parallel agents):** QF results in (M99 Norway 1-1 England 90' → ENG aet, M100
+  Argentina 1-1 Switzerland 90' → ARG aet; both were draws at 90' — GoPicks salvaged +1 each, Nost 0).
+  M102 filled England–Argentina. `wc_form.json` QF-complete (real ESPN xG; Bellingham 6 WC goals,
+  Mac Allister new entry, Kane blank, Messi 8G+2A). SF team news: **no card suspensions anywhere**
+  (yellows wiped after QF; Quansah red-ban M99 only — back for a potential final), Tchouaméni BACK
+  (~60-65% start), Mbappé minor ankle = fine, Rice illness cleared, Álvarez ~70/30 over Lautaro.
+  Stale-injury artifacts cleared: Tchouaméni, Guéhi, Reece James, Nico González. **Full Elo/title-odds
+  re-rate done** (the 21d-stale follow-up): Spain 2190 #1, Argentina 2177, France 2163, England 2097;
+  title France 2.5 / Spain 4.25 / England 4.25 / Argentina 5.5. Sharp Pinnacle SF lines: M101
+  France–Spain 2.38/3.25/3.28, M102 England–Argentina 2.69/2.92/3.13.
+- **R3 (chips + transfers, SF lock-eve):** QF round banked **66** (XI 53 + MaxCap auto-doubled
+  Mbappé 13 — top scorer, as designed; late-night GK rule resolved: Pickford 3 ≤ 3 → Emi in, who
+  also scored 3, neutral) → season 523 computed. SF plan (5 free, 4 used, 0 hits, +6.6 horizon):
+  **De Paul→Olmo, Cubarsí→Romero, Pickford→Maignan, Cucurella→Molina**; XI 3-5-2 E 34.5, captain
+  **Dembélé** (relay → Messi Jul-15 if ≤3). **CSS = PLAY @ SF** (EV 7.5); **Wildcard@final** stands.
+  SF picks frozen in state (beyond the auto-freeze cutoff, user enters tonight): Nost 2-0/2-0,
+  GoPicks 1-0/1-0.
+- **Follow-ups:** (a) after the SF locks, add `{"name": "Mystery Booster", "round": "SF"}` to
+  chips_used (canonical name — NOT "Clean Sheet Shield" — or chips_remaining breaks); (b) the
+  `_lineup_fixes`/`_freeroll` per-match-minutes wiring deferred AGAIN, same rationale (KO = one
+  match per round, global ≈ per-match); (c) `data/processed/"latest 2"` is a stale Jun-11 symlink
+  (host-side artifact) — harmless, user may delete.
 
 ### 2026-07-09 — before QF (R16 complete) — U9 REMOVED, U11 shipped, R1/R2/R3 run
 - **U9 (GoPicks podium simulator) REMOVED on user order** — GoPicks is pure best-EV permanently (his call:

@@ -131,3 +131,50 @@ def test_qb_ev_by_round_proxy_monotone_helper():
             return {}
     out = qb_ev_by_round(_Sq(), {}, "R32")
     assert set(out) == {"R32", "R16", "QF", "SF"}
+
+
+def test_css_ev_counts_concede_exactly_one(monkeypatch):
+    """U12 — CSS EV = CS_pts × P(concede exactly 1) × played-60, GK/DEF/MID only."""
+    import numpy as np
+    from types import SimpleNamespace
+    from src.fantasy.booster import css_ev
+    from src.fantasy.optimizer import Squad
+
+    # home team: P(concede exactly 1) = column-1 mass = 0.3
+    P = np.array([[0.2, 0.1, 0.0],
+                  [0.3, 0.1, 0.1],
+                  [0.1, 0.1, 0.0]])
+    players = [mk(1, "GK", "a", 5.0, 4.0), mk(2, "DEF", "a", 5.0, 4.0),
+               mk(3, "MID", "a", 6.0, 5.0), mk(4, "FWD", "a", 7.0, 5.0)]
+    for p in players:
+        p.next_num, p.next_is_home, p.next_minutes = 55, True, 1.0
+    sq = Squad(players=players, starters=[1, 2, 3, 4], captain=3, vice=4, bench=[],
+               formation="1-1-1", cost=0.0, bank=0.0, budget=105.0, xi_exp=0.0,
+               squad_horizon=0.0)
+    fc = SimpleNamespace(match_forecasts={55: SimpleNamespace(P=P)})
+    out = css_ev(sq, fc)
+    # P(exactly 1 conceded) = 0.1+0.1+0.1 (row of away=1... home perspective: P[:,1])
+    p_c1 = float(P[:, 1].sum())
+    want = (5 + 5 + 1) * p_c1 * 0.92          # GK5 + DEF5 + MID1; FWD contributes 0
+    assert abs(out["ev"] - round(want, 1)) < 0.06
+    assert list(out["by_team"]) == ["a"] and len(out["by_team"]["a"]["players"]) == 3
+
+
+def test_css_ev_feeds_chip_schedule_reason():
+    import numpy as np
+    from types import SimpleNamespace
+    from src.fantasy.booster import css_ev
+    from src.fantasy.optimizer import Squad
+    P = np.array([[0.4, 0.2], [0.2, 0.2]])
+    players = [mk(1, "GK", "a", 5.0, 4.0)]
+    players[0].next_num, players[0].next_is_home, players[0].next_minutes = 7, False, 1.0
+    sq = Squad(players=players, starters=[1], captain=1, vice=1, bench=[], formation="",
+               cost=0.0, bank=0.0, budget=105.0, xi_exp=0.0, squad_horizon=0.0)
+    fc = SimpleNamespace(match_forecasts={7: SimpleNamespace(P=P)})
+    css = css_ev(sq, fc)
+    sched = chip_schedule("SF", ["Mystery Booster"], {},
+                          mystery={"known": True, "clean_sheet": True,
+                                   "name": "Clean Sheet Shield", "best_round": "SF"},
+                          css=css)
+    entry = [e for e in sched["schedule"] if e["chip"] == "Clean Sheet Shield"][0]
+    assert entry["ev"] == css["ev"] and "U12" in entry["reason"]

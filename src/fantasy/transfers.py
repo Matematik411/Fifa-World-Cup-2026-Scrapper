@@ -9,6 +9,9 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+import pulp
+
+from .optimizer import _solver
 from .projections import PlayerProj
 
 
@@ -52,6 +55,83 @@ def _best_xi_exp(squad_projs) -> float:
     return best
 
 
+def _max_freeable(owned, projs, owned_ids) -> float:
+    """Upper bound on money the REST of a transfer package can free: for each owned
+    player, the drop to the cheapest viable same-position replacement. Generous by
+    construction — exact affordability is enforced by the packaging step; this only
+    prunes candidates no package could ever pay for."""
+    floor: dict[str, float] = {}
+    for c in projs:
+        if c.pid not in owned_ids and c.minutes_prob >= 0.4:
+            if c.position not in floor or c.price < floor[c.position]:
+                floor[c.position] = c.price
+    return sum(max(0.0, o.price - floor[o.position]) for o in owned if o.position in floor)
+
+
+def _package_ilp(candidates, by_pid, nation_count, nation_cap, bank, max_moves):
+    """Best free-transfer package: maximize total horizon gain over ≤max_moves
+    non-conflicting swaps whose SUMMED price delta fits the bank (so a swap that is
+    only affordable net of the package's freeing sales is found — the static-bank
+    greedy missed those). Returns None if no solver is available / solve fails."""
+    if not candidates or max_moves <= 0:
+        return []
+    prob = pulp.LpProblem("transfer_package", pulp.LpMaximize)
+    x = [pulp.LpVariable(f"m{i}", cat="Binary") for i in range(len(candidates))]
+    # tiny per-move cost: equal-gain packages prefer fewer moves (deterministic output)
+    prob += pulp.lpSum((c.gain - 1e-3) * x[i] for i, c in enumerate(candidates))
+    prob += pulp.lpSum(x) <= max_moves
+    prob += pulp.lpSum(c.price_delta * x[i] for i, c in enumerate(candidates)) <= bank + 1e-6
+    outs: dict[int, list] = {}
+    ins: dict[int, list] = {}
+    for i, c in enumerate(candidates):
+        outs.setdefault(c.out_pid, []).append(x[i])
+        ins.setdefault(c.in_pid, []).append(x[i])
+    for vs in outs.values():
+        prob += pulp.lpSum(vs) <= 1
+    for vs in ins.values():
+        prob += pulp.lpSum(vs) <= 1
+    nations = {by_pid[c.in_pid].nation for c in candidates} | {by_pid[c.out_pid].nation for c in candidates}
+    for n in nations:
+        delta = pulp.lpSum(
+            [x[i] for i, c in enumerate(candidates) if by_pid[c.in_pid].nation == n]
+            + [-x[i] for i, c in enumerate(candidates) if by_pid[c.out_pid].nation == n])
+        prob += nation_count.get(n, 0) + delta <= nation_cap
+    solver = _solver()
+    try:
+        prob.solve(solver) if solver else prob.solve()
+    except Exception:
+        return None
+    if pulp.LpStatus[prob.status] != "Optimal":
+        return None
+    chosen = [c for i, c in enumerate(candidates) if (x[i].value() or 0) > 0.5]
+    chosen.sort(key=lambda m: m.gain, reverse=True)
+    return chosen
+
+
+def _package_greedy(candidates, by_pid, nation_count, nation_cap, bank, max_moves):
+    """Sequential fallback (pre-2026-07-13 behaviour, capped at max_moves): pick
+    non-conflicting swaps by gain, respecting a running bank & the nation cap."""
+    picked: list[TransferMove] = []
+    used_out, used_in = set(), set()
+    run_bank = bank
+    nc = dict(nation_count)
+    for m in candidates:
+        if len(picked) >= max_moves:
+            break
+        if m.out_pid in used_out or m.in_pid in used_in:
+            continue
+        if m.price_delta > run_bank + 1e-9:
+            continue
+        if nc.get(by_pid[m.in_pid].nation, 0) + 1 > nation_cap:
+            continue
+        picked.append(m)
+        used_out.add(m.out_pid); used_in.add(m.in_pid)
+        run_bank -= m.price_delta
+        nc[by_pid[m.out_pid].nation] -= 1
+        nc[by_pid[m.in_pid].nation] = nc.get(by_pid[m.in_pid].nation, 0) + 1
+    return picked
+
+
 def plan_transfers(current_pids: list[int], projs: list[PlayerProj], budget: float,
                    nation_cap: int, free_transfers: int, bank: float,
                    extra_penalty: float = -3.0, hit_threshold: float = 4.0):
@@ -62,14 +142,17 @@ def plan_transfers(current_pids: list[int], projs: list[PlayerProj], budget: flo
     for p in owned:
         nation_count[p.nation] = nation_count.get(p.nation, 0) + 1
 
-    # candidate single swaps, by position
+    # candidate single swaps, by position. Affordability is judged against the bank
+    # PLUS what other sales could free (package-affordable), not the static bank —
+    # the packaging step below enforces the exact budget over the chosen set.
+    headroom = _max_freeable(owned, projs, owned_ids)
     candidates: list[TransferMove] = []
     for o in owned:
         for c in projs:
             if c.pid in owned_ids or c.position != o.position or c.minutes_prob < 0.4:
                 continue
             price_delta = c.price - o.price
-            if price_delta > bank + 1e-9:
+            if price_delta > bank + headroom + 1e-9:
                 continue
             # nation cap after swap
             nc = dict(nation_count)
@@ -83,25 +166,10 @@ def plan_transfers(current_pids: list[int], projs: list[PlayerProj], budget: flo
                                                round(gain, 2), round(price_delta, 1)))
     candidates.sort(key=lambda m: m.gain, reverse=True)
 
-    # greedily pick non-conflicting swaps (no player in/out twice), respecting running bank & nation cap
-    picked: list[TransferMove] = []
-    used_out, used_in = set(), set()
-    run_bank = bank
-    nc = dict(nation_count)
-    for m in candidates:
-        if m.out_pid in used_out or m.in_pid in used_in:
-            continue
-        if m.price_delta > run_bank + 1e-9:
-            continue
-        if nc.get(by_pid[m.in_pid].nation, 0) + 1 > nation_cap:
-            continue
-        picked.append(m)
-        used_out.add(m.out_pid); used_in.add(m.in_pid)
-        run_bank -= m.price_delta
-        nc[by_pid[m.out_pid].nation] -= 1
-        nc[by_pid[m.in_pid].nation] = nc.get(by_pid[m.in_pid].nation, 0) + 1
-
-    free_moves = picked[:free_transfers]
+    # best free package: joint ILP (running-bank-aware); greedy only as solver fallback
+    free_moves = _package_ilp(candidates, by_pid, nation_count, nation_cap, bank, free_transfers)
+    if free_moves is None:
+        free_moves = _package_greedy(candidates, by_pid, nation_count, nation_cap, bank, free_transfers)
     # Paid transfers (beyond the free allowance) each cost extra_penalty, so only take one
     # when it (a) clears the horizon threshold AND (b) actually improves the STARTING XI's
     # next-round EV. Swapping a player who'd sit on the bench for another bench player (e.g.
@@ -110,14 +178,31 @@ def plan_transfers(current_pids: list[int], projs: list[PlayerProj], budget: flo
     extra_moves: list[TransferMove] = []
     cur_ids = _apply(current_pids, free_moves)
     base_xi = _best_xi_exp([by_pid[p] for p in cur_ids if p in by_pid])
-    for m in picked[free_transfers:]:
+    used_out = {m.out_pid for m in free_moves}
+    used_in = {m.in_pid for m in free_moves}
+    run_bank = bank - sum(m.price_delta for m in free_moves)
+    nc = dict(nation_count)
+    for m in free_moves:
+        nc[by_pid[m.out_pid].nation] -= 1
+        nc[by_pid[m.in_pid].nation] = nc.get(by_pid[m.in_pid].nation, 0) + 1
+    for m in candidates:
         if m.gain < hit_threshold:
+            continue
+        if m.out_pid in used_out or m.in_pid in used_in:
+            continue
+        if m.price_delta > run_bank + 1e-9:
+            continue
+        if nc.get(by_pid[m.in_pid].nation, 0) + 1 > nation_cap:
             continue
         trial_ids = _apply(cur_ids, [m])
         trial_xi = _best_xi_exp([by_pid[p] for p in trial_ids if p in by_pid])
         if trial_xi > base_xi + 1e-6:
             extra_moves.append(m)
             cur_ids, base_xi = trial_ids, trial_xi
+            used_out.add(m.out_pid); used_in.add(m.in_pid)
+            run_bank -= m.price_delta
+            nc[by_pid[m.out_pid].nation] -= 1
+            nc[by_pid[m.in_pid].nation] = nc.get(by_pid[m.in_pid].nation, 0) + 1
     moves = free_moves + extra_moves
     n_hits = len(extra_moves)
     total_gain = sum(m.gain for m in moves)

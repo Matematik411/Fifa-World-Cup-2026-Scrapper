@@ -78,6 +78,10 @@ scorelines — unless they state a deviation this session.** So:
   `predictions_entered` to what they actually did *before* optimizing, run, and it
   re-plans from their real team (the end-of-run sync then realigns `owned` to the
   new recommendation).
+- **`chips_used` entries are `{"name": ..., "round": ...}`** (add the round a chip was
+  played in — the report uses it to tell a chip LIVE this round, e.g. Maximum Captain
+  suppressing the captaincy relay, from one spent earlier; legacy plain strings still
+  parse but lose that). Add a played chip in the SAME session it locks.
 - **Never ask about league standings (user said so, 2026-06-12):** he won't share his
   points/positions in any of the three leagues and wants pure best-EV recommendations,
   not rank-aware strategy (no differential/variance plays based on the leaderboard).

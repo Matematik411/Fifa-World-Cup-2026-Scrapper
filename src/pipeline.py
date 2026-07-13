@@ -396,6 +396,39 @@ def _decorate_prediction(p, forecast) -> dict:
     return rec
 
 
+def _chips_used_map(state) -> dict:
+    """chips_used normalized to {chip_name: round_played_or_None}. Entries may be
+    legacy plain strings (round unknown) or {"name": ..., "round": ...} dicts —
+    tagging the round lets the report tell a chip LIVE this round (e.g. Maximum
+    Captain auto-doubling the top scorer → no captaincy relay) from one spent in
+    a past round (papercut logged 2026-07-10)."""
+    out = {}
+    for c in state.get("chips_used") or []:
+        if isinstance(c, dict):
+            if c.get("name"):
+                out[str(c["name"])] = c.get("round")
+        elif c:
+            out[str(c)] = None
+    return out
+
+
+def _recompute_bank(state, owned, by_pid, budget, log) -> None:
+    """`owned.bank` = round budget − squad value, recomputed every run (prices are
+    fixed, so this is exact). The stored field went stale once (0.3 vs the real 1.4
+    at the QF, 2026-07-09) and a stale bank silently narrows the transfer search.
+    Falls back to the stored value only when a price is missing from the feed."""
+    o = state.get("owned") or {}
+    if not owned or any(pid not in by_pid for pid in owned):
+        return
+    bank = round(budget - sum(by_pid[pid].price for pid in owned), 1)
+    stored = o.get("bank")
+    if stored is None or abs(bank - float(stored)) > 0.05:
+        log(f"  owned.bank recomputed: {stored} -> {bank} (budget {budget} − squad value; "
+            f"stored field was stale)")
+    o["bank"] = bank
+    state["owned"] = o
+
+
 def _run_fantasy(cfg, bundle, forecast, advancement, stage, target_round, state, results, log,
                  stakes=None) -> dict:
     projs = build_projections(bundle.players, bundle.squads_map, forecast, advancement,
@@ -406,11 +439,13 @@ def _run_fantasy(cfg, bundle, forecast, advancement, stage, target_round, state,
     nation_cap = _nation_cap(cfg, target_round)
     owned = (state.get("owned") or {}).get("player_ids") or []
     by_pid = {p.pid: p for p in projs}
+    _recompute_bank(state, owned, by_pid, budget, log)
 
     # The unconstrained optimum — directly buildable pre-lock and in unlimited
     # windows; otherwise a reference for how far the owned squad has drifted.
     optimal = fopt.build_squad(projs, cfg, budget, nation_cap)
-    chips_remaining = [c for c in ALL_CHIPS if c not in (state.get("chips_used") or [])]
+    chips_used = _chips_used_map(state)
+    chips_remaining = [c for c in ALL_CHIPS if c not in chips_used]
     ft = _free_transfers(cfg, target_round)
     ko_ties_known = any(mf.round != "group" for mf in forecast.match_forecasts.values())
     plan = None
@@ -523,10 +558,19 @@ def _run_fantasy(cfg, bundle, forecast, advancement, stage, target_round, state,
     for r in ("R16", "QF", "SF", "final"):
         v = _free_transfers(cfg, r)
         ft_by_round[r] = 99 if v == "unlimited" else int(v)
+    css = fboost.css_ev(squad, forecast) if target_round in fboost.KO_ORDER else None
     chip_plan = fboost.chip_schedule(
         target_round, chips_remaining, qb_round_ev, squad=squad, advancement=advancement,
         ft_by_round=ft_by_round, mystery=cfg.get("fantasy.mystery_booster"),
-        max_cap_ev=(cap_ceiling or {}).get("max_cap_gain"), twelfth=twelfth_card)
+        max_cap_ev=(cap_ceiling or {}).get("max_cap_gain"), twelfth=twelfth_card, css=css)
+    # A chip is LIVE when it was played for the round currently scoring (stage) or the
+    # one locking next (played chips are tagged with their round), or when this run's
+    # own plan says to play it now. Maximum Captain live ⇒ the armband self-resolves
+    # to the XI's top scorer — the captaincy relay must not render (2026-07-10 papercut).
+    plan_chip = ((chip_plan or {}).get("this_round") or {}).get("chip")
+    chips_live = sorted({c for c, r in chips_used.items() if r in (stage, target_round)}
+                        | ({plan_chip} if plan_chip else set()))
+    maxcap_active = "Maximum Captain" in chips_live
 
     return {
         "squad": _serialize_squad(squad),
@@ -539,6 +583,9 @@ def _run_fantasy(cfg, bundle, forecast, advancement, stage, target_round, state,
         "build_compare": build_compare,
         "captain_ceiling": cap_ceiling,
         "chips_remaining": chips_remaining,
+        "chips_live": chips_live,
+        "maxcap_active": maxcap_active,
+        "css_ev": css,
         "nation_cap": nation_cap,
         "budget": budget,
         "target_round": target_round,

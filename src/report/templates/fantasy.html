@@ -91,6 +91,9 @@
   </div>
   <div class="card">
     <h3>Chips ({{ fantasy.chips_remaining|length }} remaining)</h3>
+    {% if fantasy.chips_live %}
+    <div class="note small"><b>Live this round:</b> {% for c in fantasy.chips_live %}<b>{{ c }}</b>{% if not loop.last %} + {% endif %}{% endfor %}{% if fantasy.maxcap_active %} — the armband self-resolves to your XI's top scorer; ignore relay advice{% endif %}.</div>
+    {% endif %}
     <table><thead><tr><th>Chip</th><th>Now</th><th>Why</th></tr></thead><tbody>
       {% for c in fantasy.chips %}
       <tr><td><b>{{ c.chip }}</b></td><td><span class="conf {{ 'High' if c.action=='PLAY' else ('Med' if c.action=='CONSIDER' else 'Low') }}">{{ c.action }}</span></td><td class="small">{{ c.reason }}</td></tr>
@@ -140,7 +143,7 @@
     <div class="kpi"><div class="num">{{ cc.captain.doubled_mean }}</div><div class="lbl">captain ×2 mean</div></div>
     <div class="kpi"><div class="num">+{{ cc.max_cap_gain }}</div><div class="lbl">Max-Captain edge</div></div>
   </div>
-  <p class="small">Captaining <b>{{ cc.captain.name }}</b> projects {{ cc.captain.doubled_mean }} pts (p90 {{ cc.captain.doubled_p90 }}). The <b>Maximum Captain</b> chip (auto-double the round's top scorer) is worth ≈<b>+{{ cc.max_cap_gain }}</b> pts over a fixed armband on this XI — its value rises with several explosive fixtures, which is why it's parked for a later round.</p>
+  <p class="small">Captaining <b>{{ cc.captain.name }}</b> projects {{ cc.captain.doubled_mean }} pts (p90 {{ cc.captain.doubled_p90 }}). The <b>Maximum Captain</b> chip (auto-double the round's top scorer) is worth ≈<b>+{{ cc.max_cap_gain }}</b> pts over a fixed armband on this XI{% if fantasy.maxcap_active %} — and it is <b>ACTIVE this round</b>: the top scorer is doubled automatically, the nominal armband doesn't matter{% elif 'Maximum Captain' not in fantasy.chips_remaining %} — the chip is already spent, so this is reference only{% else %} — its value rises with several explosive fixtures, which is why it's parked for a later round{% endif %}.</p>
   {% if cc.candidates %}
   <table><thead><tr><th>Captain candidate</th><th>Team</th><th class="num">mean</th><th class="num">ceiling (p90)</th></tr></thead><tbody>
     {% for c in cc.candidates %}<tr><td><b>{{ c.name }}</b>{% if c.is_captain %} <span class="conf High">C</span>{% endif %}</td><td class="small">{{ c.nation }}</td><td class="num">{{ c.mean }}</td><td class="num">{{ c.p90 }}</td></tr>{% endfor %}
@@ -182,6 +185,9 @@
   <p class="small muted">Don't forget the restore — a parked starter left benched past his own kickoff forfeits his points. (Any manual change also cancels this round's auto-subs.)</p>
   {% endif %}
   <h3>Captaincy relay</h3>
+  {% if fantasy.maxcap_active %}
+  <div class="note"><b>Maximum Captain is active this round</b> — the chip automatically doubles whoever ends the round as your XI's top scorer, so the armband <b>self-resolves</b>: there is <b>no relay to run</b> and nothing to gain from moving the nominal captain. Ignore the ladder logic this round.</div>
+  {% else %}
   {% if fantasy.playbook.live %}
   <div class="note small"><b>LIVE:</b> {{ sq.captain.name }}'s match has <b>ended</b> on <b>{{ fantasy.playbook.live.banked }} pts</b> —
     {% if fantasy.playbook.live.verdict == 'SWITCH' %}<b>SWITCH</b> the armband to <b>{{ fantasy.playbook.live.to }}</b> (E {{ fantasy.playbook.live.to_exp }}) before his kickoff.{% else %}<b>HOLD</b> the armband — his banked points beat the next rung's expectation.{% endif %}</div>
@@ -198,11 +204,14 @@
   {% else %}
   <div class="muted small">No later-playing premium in the XI this round — keep the armband on {{ sq.captain.name }}.</div>
   {% endif %}
+  {% endif %}
   {% if fantasy.playbook.xi_live %}
   <p class="small">Live feed: your XI has banked <b>{{ fantasy.playbook.xi_live.points }} pts</b> this round so far
   ({{ fantasy.playbook.xi_live.done }}/11 starters' matches finished{% if fantasy.playbook.xi_live.captain_doubled %}; captain double counted{% endif %}) — auto-read from the official feed each run.</p>
   {% endif %}
+  {% if not fantasy.maxcap_active %}
   <p class="small muted">How it works: the captain can be changed during a live round only if the old captain's match has <b>ended</b> and the new one's hasn't <b>started</b>. Switching forfeits the old captain's double (his points then count single) — hence the threshold is the next rung's expected points. <b>Any manual change cancels this round's auto-subs</b>, so only act when your remaining starters are confirmed in their line-ups.</p>
+  {% endif %}
   {% if fantasy.playbook.bench_first %}
   <h3>Blank rescue (after a match ends)</h3>
   <p class="small">Distinct from the pre-kickoff fixes above: once a starter's match has <b>ended</b> with him on a blank (≤1 pt, or a late did-not-play you couldn't pre-empt), you can still swap him for a bench player whose match hasn't kicked off — first bench option <b>{{ fantasy.playbook.bench_first.name }}</b> (E {{ fantasy.playbook.bench_first.exp|r(1) }}, plays {{ fantasy.playbook.bench_first.date }}). You then score only the incoming player, and the replacement must play <b>later</b> than the man coming out (a same-match team-mate is no use). <b>Any manual change — incl. moving the captain — cancels this round's auto-subs</b>, so once you're managing the XI, handle every did-not-play yourself rather than trusting the end-of-round auto-fill.</p>
