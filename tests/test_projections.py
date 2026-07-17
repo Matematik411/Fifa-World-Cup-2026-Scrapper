@@ -88,3 +88,36 @@ def test_next_minutes_reflects_rest_for_next_match():
                           played={1}, stakes=stakes)[0]
     # with match 1 played, the next match is the clinched dead rubber (2) -> next_minutes rested
     assert p.next_minutes < p.minutes_prob
+
+
+def test_name_matcher_rejects_surname_collision():
+    """'Theo Hernandez' in a researched XI must NOT match Lucas Hernández (and
+    vice versa) — a shared surname with a conflicting first name is a different
+    person. Bare surnames and initials keep matching (research shorthand)."""
+    from src.fantasy.projections import _NameMatcher
+    m = _NameMatcher.matches
+    assert not m(["Theo Hernandez"], "Lucas Hernández")
+    assert m(["Theo Hernandez"], "Théo Hernandez")
+    assert not m(["Jhon Arias"], "Santiago Arias")
+    assert m(["Romero"], "Cristian Romero")                 # bare surname
+    assert m(["E. Martinez"], "Emiliano Martínez")          # initial
+    assert not m(["GK Emiliano Martinez"], "Lisandro Martínez")
+    assert m(["GK Emiliano Martinez"], "Emiliano Martínez")  # position prefix
+    assert m(["Mac Allister"], "Alexis Mac Allister")        # containment
+    assert m(["Lamine Yamal"], "Lamine Yamal Nasraoui Ebana")
+
+
+def test_predicted_bench_demotes_rotation_victims():
+    """A full researched-but-unconfirmed XI demotes players left out of it to
+    0.40 — season-long 'nailed' flags must not survive match-specific rotation
+    research (the bronze-final Olise case). No XI researched -> unchanged."""
+    from src.fantasy.projections import LineupIndex, _minutes_prob
+    xi11 = [f"Player {i}" for i in range(10)] + ["Kylian Mbappe"]
+    idx = LineupIndex({"teams": {"France": {"confirmed": False, "xi": xi11, "out": []}}})
+    assert idx.status("France", "Kylian Mbappé") == "predicted_xi"
+    assert idx.status("France", "Michael Olise") == "predicted_bench"
+    p = {"position": "MID", "price": 9.5, "percentSelected": 40.0}
+    assert _minutes_prob(p, {"nailed": True}, "predicted_bench", None, False) == 0.40
+    assert _minutes_prob(p, {"nailed": True}, None, None, False) > 0.9
+    partial = LineupIndex({"teams": {"France": {"confirmed": False, "xi": xi11[:5], "out": []}}})
+    assert partial.status("France", "Michael Olise") is None

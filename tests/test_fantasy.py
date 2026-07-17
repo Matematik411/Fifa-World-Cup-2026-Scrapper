@@ -264,3 +264,22 @@ def test_lineup_fixes_skips_locked_and_unreplaceable():
     fwd_in = mk(5, "FWD", "d", 5.0, 15, exp_next=3.0, mins=0.90)
     squad2 = _mk_squad([def_out, fwd_in], starters=[3], bench=[5], captain=3)
     assert _lineup_fixes(squad2, banked_of=lambda p: None) == []
+
+
+def test_freeroll_gk_for_gk():
+    """A bench GK who plays the EARLIER day free-rolls the starting GK (who plays
+    later) — the shape check restricts a bench GK to the GK slot, never an
+    outfield one (Maignan-Sat vs Simón-Sun, final round 2026)."""
+    from src.pipeline import _freeroll
+    sat, sun = "2026-07-18", "2026-07-19"
+    gk_sun = mk(1, "GK", "a", 5.0, 23, exp_next=2.8, next_date=sun)
+    defs = [mk(i, "DEF", "d", 5, 15, exp_next=2.5, next_date=sun) for i in (2, 3, 4)]
+    mids = [mk(i, "MID", "m", 8, 20, exp_next=4.0, next_date=sat) for i in (5, 6, 7, 8, 9)]
+    fwds = [mk(10, "FWD", "f", 10, 30, exp_next=4.4, next_date=sat),
+            mk(11, "FWD", "g", 10, 30, exp_next=3.6, next_date=sun)]
+    gk_sat = mk(12, "GK", "b", 5.0, 26, exp_next=2.4, mins=0.9, next_date=sat)
+    squad = _mk_squad([gk_sun] + defs + mids + fwds + [gk_sat],
+                      starters=list(range(1, 12)), bench=[12], captain=5)
+    fr = _freeroll(squad, banked_of=lambda p: None, fixes=[])
+    assert {(f["in"], f["out"]) for f in fr} == {("P12", "P1")}       # GK for GK only
+    assert fr[0]["formation"] == "3-5-2"                              # shape unchanged

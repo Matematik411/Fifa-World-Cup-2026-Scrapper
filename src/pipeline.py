@@ -451,11 +451,15 @@ def _run_fantasy(cfg, bundle, forecast, advancement, stage, target_round, state,
     plan = None
     build_compare = None
 
+    # The Final is the Wildcard's last usable round (unused chips expire with the
+    # tournament) — playing it there strictly dominates the capped free-transfer
+    # plan, so the recommendation becomes an unlimited no-hit rebuild.
+    wc_final = bool(owned) and "Wildcard" in chips_remaining and target_round == "final"
     if not owned or stage == "pre":
         squad = rec_squad = optimal
         transfer_block = {"mode": "initial", "free_transfers": "unlimited",
                           "note": "Squad is freely editable until the first kickoff — set this exact 15."}
-    elif ft == "unlimited" and (target_round != "R32" or ko_ties_known):
+    elif (ft == "unlimited" or wc_final) and (target_round != "R32" or ko_ties_known):
         # unlimited window (before the R32/R16…): full rebuild, no hits. At R32, if the
         # Wildcard is still in hand (reserved for R16), build a 'burner' — maximize the
         # R32 starting XI's points + Qualification-Booster advancement instead of squad
@@ -489,7 +493,12 @@ def _run_fantasy(cfg, bundle, forecast, advancement, stage, target_round, state,
                     "chosen": build_mode, "margin": margin,
                 }
         rec_squad = squad
-        if build_mode == "burner":
+        if wc_final and ft != "unlimited":
+            note = (f"PLAY THE WILDCARD and rebuild to this exact 15 at no cost — the Final is its last "
+                    f"usable round (an unused chip expires with the tournament), so unlimited moves beat "
+                    f"the {ft}-free-transfer cap. Confirm the rebuild shortly before the round lock "
+                    f"(a confirmed transfer is irreversible).")
+        elif build_mode == "burner":
             note = (f"Transfers before the {STAGE_LABEL[target_round]} are unlimited — rebuild to this "
                     f"exact 15 at no cost. Built as an R32 BURNER: it clears the durable optimum on R32 "
                     f"points + Qualification Booster, and the R16 Wildcard rebuilds the durable core anyway.")
@@ -504,7 +513,8 @@ def _run_fantasy(cfg, bundle, forecast, advancement, stage, target_round, state,
             note = (f"Transfers before the {STAGE_LABEL[target_round]} are unlimited — rebuild to this "
                     f"exact 15 at no cost.")
         transfer_block = {"mode": "rebuild", "free_transfers": "unlimited", "build": build_mode,
-                          "moves": _rebuild_moves(owned, squad, by_pid), "note": note}
+                          "moves": _rebuild_moves(owned, squad, by_pid), "note": note,
+                          **({"chip": "Wildcard"} if wc_final and ft != "unlimited" else {})}
     elif ft == "unlimited":
         # unlimited window already, but R32 ties unknown — hold the moves until they are
         squad = rec_squad = _owned_squad(projs, owned, budget, optimal, log,
@@ -742,9 +752,13 @@ def _freeroll(squad, banked_of, fixes) -> list[dict]:
         return (c["DEF"], c["MID"], c["FWD"])
 
     xi = [by_pid[pid] for pid in squad.starters]
+    # GK bench players are eligible too: the shape check only passes a GK-for-GK
+    # pairing (removing an outfielder for a GK breaks the DEF/MID/FWD counts), so
+    # a bench keeper who plays the earlier day can free-roll the starting keeper
+    # exactly like an outfielder (Maignan-Sat vs Simón-Sun, 2026-07-17).
     cands = sorted(
         [by_pid[pid] for pid in squad.bench
-         if by_pid[pid].position != "GK" and banked_of(by_pid[pid]) is None
+         if banked_of(by_pid[pid]) is None
          and by_pid[pid].next_date and by_pid[pid].minutes_prob >= 0.5
          and by_pid[pid].exp_next >= 2.0 and by_pid[pid].name not in fix_in],
         key=lambda b: (b.next_date, -b.exp_next))

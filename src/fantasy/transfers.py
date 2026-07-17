@@ -261,6 +261,11 @@ def chip_advice(stage: str, target_round: str, chips_remaining: list[str], squad
             out.append({"chip": "Wildcard", "action": "HOLD",
                         "reason": "Not usable in the Round of 32 — and unnecessary: transfers before the "
                                   "R32 are unlimited anyway. Save it for R16 or later."})
+        elif target_round == "final":
+            out.append({"chip": "Wildcard", "action": "PLAY",
+                        "reason": "Last usable round — an unused Wildcard expires with the tournament, and "
+                                  "unlimited moves dominate the capped free-transfer allowance. Play it and "
+                                  "build the unconstrained optimal 15 for the bronze final + final."})
         elif n_moves >= 4 or (optimal_gap or 0) >= 15:
             gap_txt = f" The unconstrained optimal squad is {optimal_gap:+.0f} horizon pts away." if optimal_gap else ""
             out.append({"chip": "Wildcard", "action": "CONSIDER",

@@ -42,3 +42,20 @@ def test_live_chip_detection_semantics():
 def test_empty_and_malformed_entries_ignored():
     state = {"chips_used": [None, {}, {"round": "QF"}, "12th Man"]}
     assert _chips_used_map(state) == {"12th Man": None}
+
+
+def test_wildcard_final_round_is_play():
+    """The Final is the Wildcard's last usable round — chip_advice must say PLAY
+    (an unused chip expires with the tournament) even with zero planned moves."""
+    from src.fantasy.transfers import chip_advice
+    out = chip_advice("final", "final", ["Wildcard"], squad=None, transfer_plan=None)
+    wc = [c for c in out if c["chip"] == "Wildcard"][0]
+    assert wc["action"] == "PLAY"
+
+
+def test_wildcard_final_not_forced_earlier():
+    """Before the Final the zero-moves default (HOLD) still stands."""
+    from src.fantasy.transfers import chip_advice
+    out = chip_advice("QF", "QF", ["Wildcard"], squad=None, transfer_plan=None)
+    wc = [c for c in out if c["chip"] == "Wildcard"][0]
+    assert wc["action"] == "HOLD"

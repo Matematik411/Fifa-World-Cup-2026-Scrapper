@@ -138,19 +138,38 @@ def _expected_extra_conceded(goal_marg: np.ndarray) -> float:
     return float((np.maximum(c - 1, 0) * goal_marg).sum())
 
 
+_POS_PREFIXES = {"gk", "def", "mid", "fwd"}
+
+
 class _NameMatcher:
-    """Match a research/stat name onto a feed player's display name."""
+    """Match a research/stat name onto a feed player's display name.
+
+    Surname-only candidates ("Romero") match any player carrying that surname —
+    research shorthand depends on it. But when BOTH sides carry a first name, it
+    must agree (prefix-tolerant, so "E. Martinez"/"Emi Martinez" still hit
+    Emiliano): a bare surname coincidence ("Theo Hernandez" vs Lucas Hernández,
+    "Jhon Arias" vs Santiago Arias) is a different person, not a match."""
     @staticmethod
     def matches(cand, player_name: str) -> bool:
         pn = _norm(player_name)
+        pn_tokens = pn.split()
         if isinstance(cand, str):
             cand = [cand]
         for nm in cand or []:
             tok = _norm(nm).split("(")[0].strip()
-            if not tok:
+            words = [w for w in tok.split() if w]
+            while words and words[0] in _POS_PREFIXES:
+                words = words[1:]
+            if not words:
                 continue
-            if tok in pn or tok.split()[-1] in pn.split():
+            if " ".join(words) in pn:
                 return True
+            if words[-1] in pn_tokens:
+                if len(words) == 1 or len(pn_tokens) == 1:
+                    return True
+                a, b = words[0].rstrip("."), pn_tokens[0].rstrip(".")
+                if a and b and (a.startswith(b) or b.startswith(a)):
+                    return True
         return False
 
 
@@ -229,6 +248,13 @@ class LineupIndex:
             return "confirmed_xi" if info.get("confirmed") else "predicted_xi"
         if info.get("confirmed"):
             return "confirmed_bench"
+        if len(info.get("xi") or []) >= 10:
+            # A full predicted XI was researched and this player is not in it:
+            # demote him below the season-long nailed/in-xi flags (which know
+            # nothing about THIS match's rotation) but keep real alternate odds —
+            # predicted line-ups are wrong often enough that 0.02-style certainty
+            # would be as bad as the 0.93 it replaces.
+            return "predicted_bench"
         return None
 
 
@@ -246,6 +272,8 @@ def _minutes_prob(p: dict, rs: dict, lineup_status: str | None, stat: dict | Non
         return 0.10
     if lineup_status == "predicted_xi":
         return 0.90
+    if lineup_status == "predicted_bench":
+        return 0.40
     # 2) injuries / suspensions
     if rs.get("injury_text"):
         t = rs["injury_text"].lower()
