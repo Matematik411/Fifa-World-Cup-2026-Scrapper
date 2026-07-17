@@ -1,5 +1,5 @@
 {
- "fetched_at": "2026-07-13",
+ "fetched_at": "2026-07-17",
  "power_ranking_update_2026-06-18": "POST-MD1 refresh. title_odds_decimal moved to the BetMGM 2026-06-17 board (cross-checked vs DraftKings + FanDuel Jun-17, all agree): FRANCE is now the clear SOLE favourite (5.5->4.5) after 3-1 v Senegal; SPAIN drifted off co-favouritism (5.5->6.0) after a flat 0-0 v Cape Verde; PORTUGAL shortened to 9.0 (jumps England) despite a 1-1, ENGLAND drifted to 8.0; GERMANY shortened (15->13, 7-1 rout); BRAZIL drifted (9->10, 1-1 Morocco); BELGIUM/COLOMBIA out to 41; USA (34) + MOROCCO (34) shortened. Long-tail teams held. Opta supercomputer has NOT republished post-MD1 (model_probs below remain the Jun-1 pre-tournament 10k-sim board) - left as-is and down-weighted implicitly by being stale. Per-match MD2 odds were re-checked: the existing Pinnacle board in odds_extra.json (all 72 group games) still matches the fresh Jun-17 DraftKings lines (e.g. Brazil-Haiti 1.10, Spain-Saudi 1.10, France-Iraq 1.08), so NO per-match odds change was needed.",
  "sources": [
   "https://www.eloratings.net/ (World Football Elo Ratings; data files World.tsv, 2026.tsv, en.teams.tsv)",
@@ -123,9 +123,9 @@
  "fifa_rank_points_note": "Top-18 official 1 Apr 2026 (Wikipedia); rest projected (football-ranking.com / search). Official June update NOT yet published as of 2026-06-07 — FIFA.com states 'Last update 01 Apr 2026, Next update 11 Jun 2026'. Re-pull once it drops.",
  "title_odds_decimal": {
   "France": 2.5,
-  "Spain": 4.25,
+  "Spain": 1.64,
   "England": 4.25,
-  "Argentina": 5.5,
+  "Argentina": 2.36,
   "Brazil": 10.0,
   "Portugal": 9.0,
   "Germany": 13.0,
@@ -171,8 +171,8 @@
   "Curacao": 2501.0,
   "Haiti": 2501.0
  },
- "title_odds_book": "Pinnacle live outright (4 semifinalists, 2026-07-13); all other teams ELIMINATED - stale BetMGM 2026-06-17 values kept record-only",
- "title_odds_date": "2026-07-13",
+ "title_odds_book": "FanDuel 'to lift the trophy' 2-way for the two finalists Spain 1.64 (-156) / Argentina 2.36 (+136), upd. 2026-07-16/17 (BetMGM 1.57/2.25 + Kalshi 58/42 cross-check; Pinnacle outright 1619791352 CLOSED at SF2 cutoff Jul-15). France/England lost the SFs (bronze M103) - their 2026-07-13 Pinnacle prices and all other eliminated-team values kept record-only",
+ "title_odds_date": "2026-07-17",
  "title_odds_alt": {
   "FanDuel_2026-06-02": {
    "Spain": 5.75,

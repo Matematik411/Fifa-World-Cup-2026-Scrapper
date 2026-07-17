@@ -1,24 +1,27 @@
 {
- "fetched_at": "2026-07-15",
- "note": "M102-day refresh 2026-07-15. M101 PLAYED: France 0-2 Spain (Oyarzabal pen 22', Porro 58'); Spain to the FINAL M104, France to bronze M103 - their XIs here are now last-match snapshots, refresh before Jul 18/19. TONIGHT M102 England-Argentina 21:00 CEST Atlanta, both XIs PREDICTED (consensus RotoWire/Yahoo/SI Jul-15; official sheets ~1h pre-KO): England 4-2-3-1 unchanged from QF plan (Konsa RB with Quansah serving match 2/2, O'Reilly LB, Rice fit again, Saka back in). Argentina 4-4-2 with TAGLIAFICO LB and MOLINA RB both starting + De Paul in the four (Sportsgambler/Squawka's 3-5-2 with Otamendi+Nico Gonzalez is the minority read - SI/RotoWire/Yahoo all keep the QF back four). ROMERO exhaustion (HT-of-ET sub in QF) 'to be assessed pre-KO' - expected to start, Medina the cover; no minutes reduction applied. Prior note: SF-eve refresh 2026-07-13. QFs done Jul 11: M99 England 2-1 Norway AET (1-1 at 90'; Bellingham 45+2' & 93') and M100 Argentina 3-1 Switzerland AET (1-1 at 90'; Mac Allister 10', Ndoye 67', J.Alvarez 112', Lautaro 120+1'; Embolo 2nd-yellow red 73' via the mistaken-identity transfer of Paredes' card). SF: M101 FRANCE-SPAIN Tue Jul 14 21:00 CEST (Arlington), M102 ENGLAND-ARGENTINA Wed Jul 15 21:00 CE",
+ "fetched_at": "2026-07-17",
+ "note": "Final-weekend refresh 2026-07-17. SFs done: M101 France 0-2 Spain (Jul 14: Oyarzabal pen 22' - conceded by Digne, Porro 58'; SALIBA off 30', back). M102 England 1-2 Argentina (Jul 15: Gordon 55'; Enzo 85' + Lautaro 90+1', both from Messi crosses; Scaloni's surprise = GIULIANO SIMEONE started over De Paul; England's actual XI: Pickford; James, Stones, Guehi, Spence; Rice, Anderson; Rogers, Bellingham, Gordon; Kane - Saka an unused sub). M103 THIRD PLACE France-England Sat Jul 18 17:00 ET Miami (23:00 CEST): HEAVY ROTATION both sides - Deschamps ~7 changes (French press: only Maignan+Mbappe survive; Deschamps' final match: 'It is not a friendly... we have the duty'), Tuchel rests the walking wounded (Saka/Rice/James out) but Kane+Pickford start ('nobody wants to play this match... we will do it professionally'). M104 FINAL Spain-Argentina Sun Jul 19 15:00 ET MetLife (21:00 CEST): Spain UNCHANGED (unanimous), Argentina two live doubts (De Paul/Simeone, Molina/Montiel - we carry De Paul + Molina ~55/45). NO suspensions for either remaining match (SM Jul 16 lists both 'no players banned'; every yellow since the post-QF wipe is a single - SF yellows: Anderson / Romero, L.Martinez, De Paul). Golden Boot: Messi 8, Mbappe 8, Kane 6, Bellingham 6. Both XIs here PREDICTED (official sheets ~1h pre-KO). Sources: data/raw/2026-07-17/m103_m104_teamnews.md",
  "teams": {
   "France": {
    "confirmed": false,
    "xi": [
     "GK Mike Maignan",
     "Jules Kounde",
-    "Dayot Upamecano",
-    "William Saliba",
-    "Lucas Digne",
-    "Aurelien Tchouameni",
-    "Adrien Rabiot",
+    "Ibrahima Konate",
+    "Maxence Lacroix",
+    "Theo Hernandez",
+    "Manu Kone",
+    "Warren Zaire-Emery",
     "Ousmane Dembele",
-    "Michael Olise",
+    "Rayan Cherki",
     "Desire Doue",
     "Kylian Mbappe"
    ],
-   "out": [],
-   "notes": "SF M101 vs Spain Jul 14 21:00 CEST (Arlington). 4-2-3-1. ONE change from the QF XI: TCHOUAMENI back for KONE - L'Equipe's Degorre: 'recovery satisfactory, appears fit to start' and he stays Deschamps' preferred pivot (~60-65% start; Sports Mole alone keeps Kone; decide off the sheet ~20:00 CEST). MBAPPE: minor ankle sprain vs Morocco (subbed 77'), avoided serious injury, expected to START - project full minutes. RABIOT: minor knee, 'indisputable starter'. DOUE keeps the slot over Barcola after the QF start; Thuram back in full training = bench option. NO suspensions (zero cards vs Morocco; post-QF wipe). Digne still ahead of Theo Hernandez."
+   "out": [
+    "William Saliba",
+    "Brice Samba"
+   ],
+   "notes": "M103 third place vs England Sat Jul 18 23:00 CEST (Hard Rock Stadium Miami). 4-2-3-1, HEAVY ROTATION: Maxifoot/BeIN expect ~7 changes - only MAIGNAN + MBAPPE kept from the SF XI; Deschamps' 187th and FINAL match ('It is not a friendly... the duty to reach this last objective'). LOCKS: MBAPPE ('no chance of wanting respite - he's got a Golden Boot to win', SI; level with Messi on 8), MAIGNAN (back-up SAMBA calf-injured in training - kills SI's Samba-starts read), CHERKI at 10 (every predicted XI). SALIBA OUT: back gave way vs Spain (off 30'), surgery touted. Konate+Lacroix the consensus CBs (Upamecano rested; bet365 alone keeps him); THEO HERNANDEZ in for Digne after the 'fatal error' pen concession; Kounde ~55/45 over Gusto at RB (SM/SI/bet365 vs RotoWire/Maxifoot). Pivot Kone + Zaire-Emery (Tchouameni/Rabiot rested; KANTE is in the squad and in several French compos - live option). Wings genuinely SPLIT: Dembele + Doue the plurality (3 sources each); Olise ~40% (SM/SI) and Barcola ~35% (RotoWire/Maxifoot) the alternates - decide off the sheet ~22:00 CEST."
   },
   "Spain": {
    "confirmed": false,
@@ -38,28 +41,30 @@
    "out": [
     "Yeremy Pino"
    ],
-   "notes": "SF M101 vs France Jul 14 21:00 CEST. XI = unchanged QF XI (Sports Mole's SF prediction). The one live area is midfield/left: FABIAN RUIZ ~55/45 to keep the pivot over PEDRI (started + scored vs Belgium; Standard/Yahoo predict Pedri restored); MERINO 'has a strong claim' after back-to-back KO winners off the bench (R16 + 88' QF) - if promoted it's likeliest for BAENA ('subdued' QF). NICO WILLIAMS still short of start fitness (79' QF cameo) - bench; Pino (collarbone) out; Victor Munoz (muscle) fringe doubt. Otherwise a clean bill of health; back four + Simon unchanged all tournament (1 goal conceded). NO suspensions (Laporte's yellow was a wiped single)."
+   "notes": "M104 FINAL vs Argentina Sun Jul 19 21:00 CEST (MetLife). UNCHANGED XI unanimous (SM/CBS/Forbes) - de la Fuente has 'the luxury of naming an unchanged XI': Fabian Ruiz keeps the pivot over PEDRI (bench again), Baena holds LW. Fitness: YAMAL limped briefly at the end of the SF - 'no major fears', starts; PORRO the one marginal doubt (muscular problem from the France win, rested in training as a PRECAUTION, 'anticipated to recover in time') - Llorente the cover, check the sheet. NICO WILLIAMS (63 tournament minutes) = late-legs sub; Merino the other bench weapon; Ferran the late Oyarzabal swap. NO suspensions ('Spain have no players banned for the World Cup final' - SM Jul 16); Pino (shoulder) the only absentee. 1 goal conceded in 7; Oyarzabal 5 goals incl. the SF pen; de la Fuente: 'unbeatable'."
   },
   "England": {
    "confirmed": false,
    "xi": [
     "GK Jordan Pickford",
+    "Djed Spence",
     "Ezri Konsa",
-    "John Stones",
     "Marc Guehi",
     "Nico O'Reilly",
-    "Declan Rice",
     "Elliot Anderson",
-    "Bukayo Saka",
-    "Jude Bellingham",
-    "Anthony Gordon",
+    "Kobbie Mainoo",
+    "Noni Madueke",
+    "Morgan Rogers",
+    "Marcus Rashford",
     "Harry Kane"
    ],
    "out": [
-    "Jarell Quansah",
+    "Bukayo Saka",
+    "Declan Rice",
+    "Reece James",
     "Jordan Henderson"
    ],
-   "notes": "SF M102 vs Argentina Jul 15 21:00 CEST (Atlanta). Predicted = QF XI with SAKA back for MADUEKE (hooked at HT vs Norway; Saka+Eze flipped the game). Back four = the QF's Stones-Guehi-Konsa + O'Reilly (Stones started the QF at RB with Spence benched; Sports Mole's SF order puts Konsa RB / Stones CB - same four names either way). QUANSAH suspended (match 2 of 2, red vs Mexico; back for a potential final); HENDERSON out (wrist surgery, cast - SM preview rules him out). RICE: HT sub was precautionary (sickness bug, 3 days in bed + the ongoing neural-hamstring/lower-back issue) - expected 'in better condition by Wednesday', starts. KONSA: late hamstring CRAMP only, keeps his place. GUEHI fully fine (120' in the QF). James back available (71' cameo) but bench. NO accumulation bans - England weren't booked at all vs Norway and singles wiped post-QF, so the old Bellingham/Rice/Guehi/O'Reilly tightrope is dead. Kane record 121st outfield cap; Bellingham 6 goals, scored in the last two."
+   "notes": "M103 third place vs France Sat Jul 18 23:00 CEST (Miami). 4-2-3-1, rotation but NOT a reserve side - Tuchel: 'nobody wants to play this match... we have a day less to recover, but we will do it professionally.' KANE STARTS (4/5 predicted XIs - SI/RotoWire/Standard/HITC; bet365 alone starts Watkins) - Golden Boot on 6; PICKFORD keeps goal (5/5; Standard's Dean Henderson/Trafford rest-float is the minority). OUT: SAKA (Achilles managed all tournament, unused sub vs ARG - 'won't be risked', football365), RICE ('playing through the pain barrier', unlikely to feature - Mainoo in line for his first WC minutes), REECE JAMES (muscular, forced off 82' in the SF), HENDERSON (wrist). QUANSAH AVAILABLE again (2-match ban served) - alt RB (Standard/HITC start him). BELLINGHAM 50/50: Standard/HITC start him deeper (Golden Boot 6 too), SI/RotoWire/bet365 rest him - first alternative to Mainoo/Rogers. GORDON likely bench after the SF goal (HITC alone starts him); STONES (32) rested; Eze (2/5 at 10) and Watkins/Toney push for minutes. Back four consensus: Spence, Konsa, Guehi, O'Reilly."
   },
   "Argentina": {
    "confirmed": false,
@@ -71,13 +76,13 @@
     "Nicolas Tagliafico",
     "Rodrigo De Paul",
     "Leandro Paredes",
-    "Alexis Mac Allister",
     "Enzo Fernandez",
+    "Alexis Mac Allister",
     "Lionel Messi",
     "Julian Alvarez"
    ],
    "out": [],
-   "notes": "SF M102 vs England Jul 15 21:00 CEST. Argentine press (Infobae/mdzol/Depor Jul 12-13): Scaloni sustains the BASE - the QF XI (itself the repeated Egypt XI) goes again in the 4-3-1-2, minor touches at most; XI confirmed only at the pre-match talk after Tuesday's Atlanta session. ROMERO (cramps, off 105') and PAREDES (exhaustion, off 110') both cleared - 'did not worsen, at Scaloni's disposal', expected to START (Sports Mole's Medina-for-Romero XI is the minority read; its Mac Allister-rest line is speculation the Argentine press contradicts). JULIAN ALVAREZ keeps CF ~70/30 over Lautaro (112' rocket vs the Swiss; Lautaro scored yet again as a sub 120+1'). Messi full 120', fine - 8 goals, Golden Boot leader. Tagliafico/Molina subs were fatigue management - both start. NICO GONZALEZ FIT AGAIN (78' QF sub, first minutes since the ankle sprain) - bench option, no longer out. NO suspensions: Paredes' QF yellow was RESCINDED (transferred to Embolo, mistaken-identity protocol), Montiel unbooked, and the Lautaro/Almada/J.M.Lopez yellows were wiped singles."
+   "notes": "M104 FINAL vs Spain Sun Jul 19 21:00 CEST (MetLife). 4-4-2. Scaloni has TWO live doubts (Cadena3 'las dudas de Scaloni' + Ambito 'up to three changes', Jul 16-17): (1) DE PAUL vs GIULIANO SIMEONE wide-right - Simeone started the SF (Scaloni's surprise; first start since Jordan) and CBS/Yahoo keep him, but SM + the Argentine-press tactical read lean DE PAUL RETURNS for possession-heavy Spain ('Simeone excelled against England's direct approach; Spain's style favours De Paul's balance') - we carry De Paul ~55/45, decide off the sheet; (2) MOLINA vs MONTIEL at RB - Molina the 'habitual titular' but struggled vs Spence/Gordon and Montiel 'left a very good image' as the 72' sub - Molina ~55/45. JULIAN ALVAREZ + MESSI up front everywhere; LAUTARO stays the supersub (SF winner 90+1' off the bench - a goal in every KO round as a sub). Fully-fit 26 (Romero played the full SF after the QF cramps; Paredes' 64' hook = management, 'no concerns'). NO suspensions ('Argentina have no players banned' - SM Jul 16; SF yellows Romero/L.Martinez/De Paul all post-wipe singles). Messi 8 goals + 2 SF assists = Golden Boot leader."
   }
  }
 }

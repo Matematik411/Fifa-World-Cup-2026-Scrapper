@@ -189,9 +189,25 @@ artifacts.
 
 ## 6.5 One-time TODOs (do during the named run, then delete the line)
 
-(none right now — both 2026-06-12 TODOs done: `results.json` exists, GoPicks rules
-verified on-site by the user, and the feed's live per-round points are wired into
-the playbook — see §2 fantasy_feed row.)
+- **Sat Jul 18 (~22:00 CEST run, pre-bronze):** confirmed France/England sheets land
+  ~22:00 → set `lineups.json` `confirmed:true` for both, re-run, and brief the (free)
+  Wildcard amendments — the round hard-locks 23:00 CEST and NO transfers exist after
+  it, ever. Settle the captain (Dembélé if on the sheet, else Mbappé; relay rung 2 =
+  Yamal). User enters M103 picks after this run: Nostradamus **France 2-0**, GoPicks
+  **France 2-1** (home goals first). The run auto-freezes them.
+- **After the Sat 23:00 lock (Sun run at the latest):** append
+  `{"name": "Wildcard", "round": "final"}` to `state.chips_used` (lowercase round).
+- **Sun Jul 19 (LATE-MORNING run — the user is unavailable all afternoon, final KO
+  21:00 CEST):** everything must ship as standalone decision cards he can execute
+  alone: (1) fantasy restores from REAL Sat banked points (Messi in for the lower of
+  Mbappé/Madueke; Simón vs Maignan — GK saves score, compare actual banked; captain
+  relay verdict; optional Romero blank-rescue) + at most 1-2 if-then rules for the
+  ~20:00 ESP/ARG sheets (e.g. Porro fatigue-doubt → Romero); (2) the **Nostradamus
+  M104 lookup card** by post-Saturday gap (3-way race for 1st, was −5/−2; both
+  matches doubled 6/4/2/0; trailing ≥3 → contrarian **1-1**, ahead/within ~1 →
+  best-EV **Spain 2-0**; a +5 catch only ties — prefer +6 lines); (3) GoPicks M104
+  **Spain 1-0** (pure EV, home first). See memory `wc2026-final-weekend-plan` and
+  `state.json` `owned.note`.
 
 ## 7. Troubleshooting
 
