@@ -189,25 +189,24 @@ artifacts.
 
 ## 6.5 One-time TODOs (do during the named run, then delete the line)
 
-- **Sat Jul 18 (~22:00 CEST run, pre-bronze):** confirmed France/England sheets land
-  ~22:00 → set `lineups.json` `confirmed:true` for both, re-run, and brief the (free)
-  Wildcard amendments — the round hard-locks 23:00 CEST and NO transfers exist after
-  it, ever. Settle the captain (Dembélé if on the sheet, else Mbappé; relay rung 2 =
-  Yamal). User enters M103 picks after this run: Nostradamus **France 2-0**, GoPicks
-  **France 2-1** (home goals first). The run auto-freezes them.
 - **After the Sat 23:00 lock (Sun run at the latest):** append
   `{"name": "Wildcard", "round": "final"}` to `state.chips_used` (lowercase round).
-- **Sun Jul 19 (LATE-MORNING run — the user is unavailable all afternoon, final KO
-  21:00 CEST):** everything must ship as standalone decision cards he can execute
-  alone: (1) fantasy restores from REAL Sat banked points (Messi in for the lower of
-  Mbappé/Madueke; Simón vs Maignan — GK saves score, compare actual banked; captain
-  relay verdict; optional Romero blank-rescue) + at most 1-2 if-then rules for the
-  ~20:00 ESP/ARG sheets (e.g. Porro fatigue-doubt → Romero); (2) the **Nostradamus
-  M104 lookup card** by post-Saturday gap (3-way race for 1st, was −5/−2; both
-  matches doubled 6/4/2/0; trailing ≥3 → contrarian **1-1**, ahead/within ~1 →
-  best-EV **Spain 2-0**; a +5 catch only ties — prefer +6 lines); (3) GoPicks M104
-  **Spain 1-0** (pure EV, home first). See memory `wc2026-final-weekend-plan` and
-  `state.json` `owned.note`.
+- **Sun Jul 19 (LATE-MORNING run — the user leaves ~14:00, final KO 21:00 CEST, but he
+  CAN enter picks/edits from his phone pre-KO):** Saturday locked as: 10-Sat XI
+  (Maignan; Theo, Lacroix, Gusto; Rashford, Cherki, Doué, Olise, Yamal; Mbappé(C),
+  Toney), bench Henderson/Porro/Cucurella/Messi — details in `owned.note`. Ship
+  standalone decision cards: (1) fantasy restores from REAL Sat banked points — sub
+  Messi + Porro + Cucurella in for the 3 LOWEST-banked Sat outfielders (formation:
+  drop max 2 of the 3 Sat DEFs; ≥3 DEF, ≤3 FWD); captain relay verdict numeric
+  (Mbappé banked ≤4 → Yamal); Porro if-then for the ~20:00 ESP sheet; (2) the
+  **Nostradamus M104 BEST-RESPONSE card** — user watches the final WITH both rivals
+  and may see their picks pre-KO: rows = post-Sat gap (doubled 6/4/2/0; was P3,
+  −5/−2), columns = rival pick if learned (Spain-decisive / ARG-decisive / draw /
+  unknown). Blind default: trailing ≥3 → contrarian **1-1** (P=14.7%, P(draw)=31.6%),
+  ahead/within ~1 → best-EV **Spain 2-0**; a +5 catch only ties — prefer +6 lines;
+  if P1's pick is KNOWN, counter-pick explicitly (1-1 only beats a decisive P1).
+  (3) GoPicks M104 **Spain 1-0** (pure EV, home first). See memory
+  `wc2026-final-weekend-plan` and `state.json` `owned.note`.
 
 ## 7. Troubleshooting
 
