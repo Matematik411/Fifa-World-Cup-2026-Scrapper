@@ -56,7 +56,9 @@ def main() -> None:
         budget = pipeline._budget(cfg, target_round)
         squad = fopt.squad_from_pids(projs, pids, budget, lineup=lineup)
         fout["squad"] = fout["recommended"] = pipeline._serialize_squad(squad)
-        fout["playbook"] = pipeline._playbook(squad)
+        fout["playbook"] = pipeline._playbook(
+            squad, pipeline._active_round_id(bundle.fantasy_rounds, stage),
+            pipeline._stage_matches_done(bundle.fixtures, results, stage))
         fout["captain_ceiling"] = pipeline.fcorr.captain_ceiling(squad, forecast, cfg) \
             if target_round in pipeline.fboost.KO_ORDER else fout.get("captain_ceiling")
         fout["optimal_gap"] = 0.0
